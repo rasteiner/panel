@@ -1,0 +1,11 @@
+title: Dropdown
+variants: 
+  - 
+    name: with-icons
+    label: Dropdown with icons
+  - 
+    name: dark
+    label: Dark Dropdown
+  - 
+    name: dark-with-icons
+    label: Dark Dropdown with icons

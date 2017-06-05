@@ -1,0 +1,95 @@
+<template>
+  <li class="panel-breadcrumb-item">
+    <router-link v-if="link" :to="link">
+      <slot />
+    </router-link>
+    <span v-else><slot /></span>
+  </li>
+</template>
+
+<script>
+
+export default {
+  props: ['link']
+}
+
+</script>
+
+<style>
+
+.panel-breadcrumb-item {
+  position: relative;
+  list-style: none;
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 4rem;
+  flex-shrink: 0;
+}
+.panel-breadcrumb-item a,
+.panel-breadcrumb-item span {
+  display: block;
+  padding: 1rem 1.25rem 1rem .5rem;
+  text-decoration: none;
+  transition: color .3s;
+}
+
+/* Shim */
+.panel-breadcrumb-item a:hover {
+  color: #999;
+}
+.panel-breadcrumb-item:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 3rem;
+  background: -webkit-linear-gradient(left, transparent, #fff 75%, #fff);
+  pointer-events: none;
+}
+
+/* Arrows */
+.panel-breadcrumb-item a:after,
+.panel-breadcrumb-item span:after,
+.panel-breadcrumb-item a:before,
+.panel-breadcrumb-item span:before {
+  position: absolute;
+  content: "";
+  width: 1px;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.panel-breadcrumb-item a:before,
+.panel-breadcrumb-item span:before {
+  top: 0;
+  bottom: 0;
+  transform: rotate(-30deg);
+  background: -webkit-linear-gradient(top, transparent, #ddd 25%, #ddd);
+}
+.panel-breadcrumb-item a:after,
+.panel-breadcrumb-item span:after {
+  bottom: 0;
+  top: 0;
+  transform: rotate(30deg);
+  background: -webkit-linear-gradient(bottom, transparent, #ddd 25%, #ddd);
+}
+
+/* Media Queries */
+@media screen and (min-width: 30em) {
+  .panel-breadcrumb-item {
+    display: block;
+    min-width: auto;
+    flex-basis: auto;
+  }
+  .panel-breadcrumb-item:after {
+    width: 1.5rem;
+  }
+  .panel-breadcrumb-item a {
+    display: block;
+    padding: 1rem 1.25rem 1rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+</style>

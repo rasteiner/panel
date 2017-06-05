@@ -1,0 +1,12 @@
+<panel-button shape="round" @click="$refs.dialog.open()">Open Dialog</panel-button>
+
+<panel-dialog ref="dialog">
+  <h1 slot="header">Some dialog action</h1>
+  <panel-txt slot="body">
+    Do you really want to delete the user:<br> <strong>bastian? </strong>
+  </panel-txt>
+  <panel-buttons slot="footer">
+    <panel-button @click="$refs.dialog.close()">Cancel</panel-button>
+    <panel-button @click="$refs.dialog.close()" type="negative">Delete</panel-button>
+  </panel-buttons>
+</panel-dialog>
