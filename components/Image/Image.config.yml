@@ -1,0 +1,20 @@
+title: Image
+variants: 
+  - 
+    name: 1-1-contain
+    label: 1:1 / contain
+  - 
+    name: 1-1-cover
+    label: 1:1 / cover
+  - 
+    name: 3-2-contain
+    label: 3:2 / contain
+  - 
+    name: 3-2-cover
+    label: 3:2 / cover
+  - 
+    name: back-pattern
+    label: "Background: pattern"
+  - 
+    name: back-black
+    label: "Background: black"
