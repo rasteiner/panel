@@ -30,3 +30,14 @@ To work on components, start webpack with `npm run dev`. Fractal will automatica
 ## Adding Components
 
 When you add new components in Fractal, you also have to import them in the main.js and register them in Vue's components array.
+
+## License 
+
+<http://www.opensource.org/licenses/mit-license.php>
+
+## Author
+
+Bastian Allgeier
+<bastian@getkirby.com>  
+<http://getkirby.com>  
+<http://twitter.com/getkirby>
