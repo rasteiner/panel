@@ -15,6 +15,7 @@ import Dialog from './components/Dialog/Dialog.vue'
 import Txt from './components/Txt/Txt.vue'
 import Bar from './components/Bar/Bar.vue'
 import ActionBar from './components/ActionBar/ActionBar.vue'
+import TopBar from './components/TopBar/TopBar.vue'
 import Grid from './components/Grid/Grid.vue'
 import Column from './components/Grid/Column.vue'
 
@@ -42,6 +43,7 @@ new Vue({
     'panel-txt': Txt,
     'panel-bar': Bar,
     'panel-action-bar': ActionBar,
+    'panel-top-bar': TopBar,
     'panel-grid': Grid,
     'panel-column': Column,
   }
