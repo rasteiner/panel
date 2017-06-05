@@ -18,6 +18,8 @@ import ActionBar from './components/ActionBar/ActionBar.vue'
 import TopBar from './components/TopBar/TopBar.vue'
 import Grid from './components/Grid/Grid.vue'
 import Column from './components/Grid/Column.vue'
+import Calendar from './components/Calendar/Calendar.vue'
+import Select from './components/Select/Select.vue'
 
 Vue.use(VueRouter);
 
@@ -46,5 +48,7 @@ new Vue({
     'panel-top-bar': TopBar,
     'panel-grid': Grid,
     'panel-column': Column,
+    'panel-calendar': Calendar,
+    'panel-select': Select
   }
 });
