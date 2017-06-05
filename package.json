@@ -1,6 +1,6 @@
 {
-  "name": "kirby-panel",
-  "description": "Kirby Panel",
+  "name": "Kirby UI",
+  "description": "Kirby Next: UI Kit",
   "version": "1.0.0",
   "author": "Bastian Allgeier <mail@bastianallgeier.com>",
   "private": true,
