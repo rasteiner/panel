@@ -21,8 +21,12 @@ npm run build
 
 ## Fractal
 
-We use Clearleft's Fractal to develop and preview our UI components. After running `fractal start --sync` components can be viewed in your browser at: `http://localhost:3000/`
+We use [Clearleft's Fractal](http://fractal.build/) to develop and preview our UI components. After running `fractal start --sync` components can be viewed in your browser at: `http://localhost:3000/`
 
 ## Development
 
 To work on components, start webpack with `npm run dev`. Fractal will automatically watch for changes as well as webpack, so your component previews should automatically update. 
+
+## Adding Components
+
+When you add new components in Fractal, you also have to import them in the main.js and register them in Vue's components array.
