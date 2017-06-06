@@ -15,9 +15,11 @@ import Dialog from './components/Dialogs/Dialog/Dialog.vue'
 
 /** Forms **/
 import Calendar from './components/Forms/Calendar/Calendar.vue'
-import Select from './components/Forms/Select/Select.vue'
 import Field from './components/Forms/Field/Field.vue'
-import Input from './components/Forms/Input/Input.vue'
+
+/** Forms/Inputs **/
+import InputContainer from './components/Forms/Inputs/InputContainer/InputContainer.vue'
+import Select from './components/Forms/Inputs/Select/Select.vue'
 
 /** Images **/
 import Icon from './components/Images/Icon/Icon.vue'
@@ -67,7 +69,9 @@ new Vue({
     /** Forms **/
     'kirby-calendar': Calendar,
     'kirby-field': Field,
-    'kirby-input': Input,
+
+    /** Form/Inputs */
+    'kirby-input-container': InputContainer,
     'kirby-select': Select,
 
     /** Images **/

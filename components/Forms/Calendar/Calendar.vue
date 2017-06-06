@@ -37,7 +37,7 @@
 <script>
 
 import Button from '../../Buttons/Button/Button.vue';
-import Select from '../Select/Select.vue';
+import Select from '../Inputs/Select/Select.vue';
 
 export default {
   props: ['month', 'year'],

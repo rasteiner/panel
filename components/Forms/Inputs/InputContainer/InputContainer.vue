@@ -1,12 +1,12 @@
 <template>
-  <div class="kirby-input" :data-focus="isFocused" :data-error="error">
-    <span v-if="$slots.prefix" class="kirby-input-prefix">
+  <div class="kirby-input-container" :data-focus="isFocused" :data-error="error">
+    <span v-if="$slots.prefix" class="kirby-input-container-prefix">
       <slot name="prefix" />
     </span>
-    <span class="kirby-input-element">
+    <span class="kirby-input-container-content">
       <slot name="input" />
     </span>
-    <span v-if="$slots.icon" @click="focus" class="kirby-input-icon">
+    <span v-if="$slots.icon" @click="focus" class="kirby-input-container-icon">
       <slot name="icon" />
     </span>
   </div>
@@ -48,31 +48,31 @@ export default {
 
 <style>
 
-.kirby-input {
+.kirby-input-container {
   display: flex;
   align-items: stretch;
   border: 2px solid #ddd;
   background: #fff;
 }
-.kirby-input[data-focus] {
+.kirby-input-container[data-focus] {
   border-color: #8dae28;
 }
-.kirby-input[data-error] {
+.kirby-input-container[data-error] {
   border-color: #b3000a;
 }
-.kirby-input[data-error][data-focus] {
+.kirby-input-container[data-error][data-focus] {
   border-color: #000;
 }
-.kirby-input-prefix {
+.kirby-input-container-prefix {
   width: 2.5rem;
   margin-right: .5rem;
 }
-.kirby-input-element {
+.kirby-input-container-content {
   flex-grow: 1;  
   min-height: 2.5rem;
 }
-.kirby-input-element > input,
-.kirby-input-element > textarea {
+.kirby-input-container-content > input,
+.kirby-input-container-content > textarea {
   border: 0;
   font: inherit;
   line-height: 1.5em;
@@ -81,11 +81,11 @@ export default {
   resize: none;
   background: none;
 }
-.kirby-input-element > input:focus,
-.kirby-input-element > textarea:focus {
+.kirby-input-container-content > input:focus,
+.kirby-input-container-content > textarea:focus {
   outline: 0;
 }
-.kirby-input-icon {
+.kirby-input-container-icon {
   width: 3rem;
   border-left: 1px dashed #ddd;
   display: flex;
