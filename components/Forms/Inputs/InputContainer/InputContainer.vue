@@ -64,8 +64,13 @@ export default {
   border-color: #000;
 }
 .kirby-input-container-prefix {
-  width: 2.5rem;
-  margin-right: .5rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: .8em;
+  color: #777;
 }
 .kirby-input-container-content {
   flex-grow: 1;  
