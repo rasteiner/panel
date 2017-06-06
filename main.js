@@ -21,6 +21,9 @@ import Column from './components/Grid/Column.vue'
 import Calendar from './components/Calendar/Calendar.vue'
 import Select from './components/Select/Select.vue'
 import Card from './components/Card/Card.vue'
+import Box from './components/Box/Box.vue'
+import Field from './components/Field/Field.vue'
+import Input from './components/Input/Input.vue'
 
 Vue.use(VueRouter);
 
@@ -51,6 +54,9 @@ new Vue({
     'kirby-column': Column,
     'kirby-calendar': Calendar,
     'kirby-select': Select,
-    'kirby-card': Card
+    'kirby-card': Card,
+    'kirby-box': Box,
+    'kirby-field': Field,
+    'kirby-input': Input
   }
 });

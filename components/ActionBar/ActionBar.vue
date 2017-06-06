@@ -42,7 +42,6 @@ import DropdownItem from '../Dropdown/DropdownItem.vue'
 import Languages from '../Languages/Languages.vue'
 
 export default {
-  name: 'action-bar',
   components: {
     'kirby-bar': Bar,
     'kirby-breadcrumb': Breadcrumb,
