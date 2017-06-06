@@ -10,7 +10,7 @@
       </kirby-breadcrumb>
     </template>
     <template slot="right">
-      <kirby-buttons>
+      <kirby-button-group>
         <kirby-dropdown v-for="(action, actionIndex) in actions" :key="actionIndex">
           <kirby-button :icon="action.icon" @click="actionClick(action)" :upload="action.upload">{{ action.text }}</kirby-button>
           <kirby-dropdown-content v-if="action.dropdown" align="right" :dark="true" :ref="action.icon">
@@ -24,7 +24,7 @@
           </kirby-dropdown-content>
         </kirby-dropdown>
         <kirby-languages v-if="languages"></kirby-languages>
-      </kirby-buttons>
+      </kirby-button-group>
     </template>
   </kirby-bar>
 </template>
@@ -32,22 +32,22 @@
 <script>
 
 import Bar from '../Bar/Bar.vue'
-import Breadcrumb from '../Breadcrumb/Breadcrumb.vue'
-import BreadcrumbItem from '../Breadcrumb/BreadcrumbItem.vue'
-import Btns from '../Buttons/Buttons.vue'
-import Btn from '../Button/Button.vue'
-import Dropdown from '../Dropdown/Dropdown.vue'
-import DropdownContent from '../Dropdown/DropdownContent.vue'
-import DropdownItem from '../Dropdown/DropdownItem.vue'
-import Languages from '../Languages/Languages.vue'
+import Breadcrumb from '../../Navigation/Breadcrumb/Breadcrumb.vue'
+import BreadcrumbItem from '../../Navigation/Breadcrumb/BreadcrumbItem.vue'
+import ButtonGroup from '../../Buttons/ButtonGroup/ButtonGroup.vue'
+import Button from '../../Buttons/Button/Button.vue'
+import Dropdown from '../../Navigation/Dropdown/Dropdown.vue'
+import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue'
+import DropdownItem from '../../Navigation/Dropdown/DropdownItem.vue'
+import Languages from '../../Navigation/Languages/Languages.vue'
 
 export default {
   components: {
     'kirby-bar': Bar,
     'kirby-breadcrumb': Breadcrumb,
     'kirby-breadcrumb-item': BreadcrumbItem,
-    'kirby-buttons': Btns,
-    'kirby-button': Btn,
+    'kirby-button-group': ButtonGroup,
+    'kirby-button': Button,
     'kirby-dropdown': Dropdown,
     'kirby-dropdown-content': DropdownContent,
     'kirby-dropdown-item': DropdownItem,

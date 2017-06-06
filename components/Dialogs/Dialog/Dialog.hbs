@@ -5,8 +5,8 @@
   <kirby-txt slot="body">
     Do you really want to delete the user:<br> <strong>bastian? </strong>
   </kirby-txt>
-  <kirby-buttons slot="footer">
+  <kirby-button-group slot="footer">
     <kirby-button @click="$refs.dialog.close()">Cancel</kirby-button>
     <kirby-button @click="$refs.dialog.close()" state="negative">Delete</kirby-button>
-  </kirby-buttons>
+  </kirby-button-group>
 </kirby-dialog>

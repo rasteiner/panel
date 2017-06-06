@@ -31,10 +31,10 @@
 
 <script>
 
-import Button from '../Button/Button.vue';
-import Image from '../Image/Image.vue';
-import Dropdown from '../Dropdown/Dropdown.vue';
-import DropdownContent from '../Dropdown/DropdownContent.vue';
+import Button from '../../Buttons/Button/Button.vue';
+import Image from '../../Images/Image/Image.vue';
+import Dropdown from '../../Navigation/Dropdown/Dropdown.vue';
+import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue';
 
 export default {
   components: {

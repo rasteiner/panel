@@ -9,7 +9,7 @@
 
 <script>
 
-import Button from '../Button/Button.vue'
+import Button from '../../Buttons/Button/Button.vue'
 import Dropdown from '../Dropdown/Dropdown.vue'
 import DropdownContent from '../Dropdown/DropdownContent.vue'
 import DropdownItem from '../Dropdown/DropdownItem.vue'

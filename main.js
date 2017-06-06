@@ -1,29 +1,45 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Icon from './components/Icon/Icon.vue'
-import Image from './components/Image/Image.vue'
-import Button from './components/Button/Button.vue'
-import Dropdown from './components/Dropdown/Dropdown.vue'
-import DropdownContent from './components/Dropdown/DropdownContent.vue'
-import DropdownItem from './components/Dropdown/DropdownItem.vue'
-import Breadcrumb from './components/Breadcrumb/Breadcrumb.vue'
-import BreadcrumbItem from './components/Breadcrumb/BreadcrumbItem.vue'
-import Languages from './components/Languages/Languages.vue'
-import Buttons from './components/Buttons/Buttons.vue'
-import Dialog from './components/Dialog/Dialog.vue'
-import Txt from './components/Txt/Txt.vue'
-import Bar from './components/Bar/Bar.vue'
-import ActionBar from './components/ActionBar/ActionBar.vue'
-import TopBar from './components/TopBar/TopBar.vue'
-import Grid from './components/Grid/Grid.vue'
-import Column from './components/Grid/Column.vue'
-import Calendar from './components/Calendar/Calendar.vue'
-import Select from './components/Select/Select.vue'
-import Card from './components/Card/Card.vue'
-import Box from './components/Box/Box.vue'
-import Field from './components/Field/Field.vue'
-import Input from './components/Input/Input.vue'
+/** Bars **/
+import Bar from './components/Bars/Bar/Bar.vue'
+import TopBar from './components/Bars/TopBar/TopBar.vue'
+import ActionBar from './components/Bars/ActionBar/ActionBar.vue'
+
+/** Buttons **/
+import Button from './components/Buttons/Button/Button.vue'
+import ButtonGroup from './components/Buttons/ButtonGroup/ButtonGroup.vue'
+
+/** Dialogs **/
+import Dialog from './components/Dialogs/Dialog/Dialog.vue'
+
+/** Forms **/
+import Calendar from './components/Forms/Calendar/Calendar.vue'
+import Select from './components/Forms/Select/Select.vue'
+import Field from './components/Forms/Field/Field.vue'
+import Input from './components/Forms/Input/Input.vue'
+
+/** Images **/
+import Icon from './components/Images/Icon/Icon.vue'
+import Image from './components/Images/Image/Image.vue'
+
+/** Navigation **/
+import Breadcrumb from './components/Navigation/Breadcrumb/Breadcrumb.vue'
+import BreadcrumbItem from './components/Navigation/Breadcrumb/BreadcrumbItem.vue'
+import Dropdown from './components/Navigation/Dropdown/Dropdown.vue'
+import DropdownContent from './components/Navigation/Dropdown/DropdownContent.vue'
+import DropdownItem from './components/Navigation/Dropdown/DropdownItem.vue'
+import Languages from './components/Navigation/Languages/Languages.vue'
+
+/** Layout **/
+import Box from './components/Layout/Box/Box.vue'
+import Card from './components/Layout/Card/Card.vue'
+import Grid from './components/Layout/Grid/Grid.vue'
+import Column from './components/Layout/Grid/Column.vue'
+
+/** Text **/
+import Headline from './components/Text/Headline/Headline.vue'
+import Txt from './components/Text/Txt/Txt.vue'
 
 Vue.use(VueRouter);
 
@@ -35,28 +51,46 @@ new Vue({
   el: 'main',
   router,
   components: {
+
+    /** Bars **/
+    'kirby-bar': Bar,
+    'kirby-top-bar': TopBar,
+    'kirby-action-bar': ActionBar,
+
+    /** Buttons **/
+    'kirby-button': Button,
+    'kirby-button-group': ButtonGroup,
+
+    /** Dialogs **/
+    'kirby-dialog': Dialog,
+
+    /** Forms **/
+    'kirby-calendar': Calendar,
+    'kirby-field': Field,
+    'kirby-input': Input,
+    'kirby-select': Select,
+
+    /** Images **/
     'kirby-icon': Icon,
     'kirby-image': Image,
-    'kirby-button': Button,
-    'kirby-buttons': Buttons,
+
+    /** Layout **/
+    'kirby-card': Card,
+    'kirby-box': Box,
+    'kirby-grid': Grid,
+    'kirby-column': Column,
+    
+    /** Navigation **/
+    'kirby-breadcrumb': Breadcrumb,
+    'kirby-breadcrumb-item': BreadcrumbItem,
     'kirby-dropdown': Dropdown,
     'kirby-dropdown-content': DropdownContent,
     'kirby-dropdown-item': DropdownItem,
-    'kirby-breadcrumb': Breadcrumb,
-    'kirby-breadcrumb-item': BreadcrumbItem,
     'kirby-languages': Languages,
-    'kirby-dialog': Dialog,
+
+    /** Text **/
+    'kirby-headline': Headline,
     'kirby-txt': Txt,
-    'kirby-bar': Bar,
-    'kirby-action-bar': ActionBar,
-    'kirby-top-bar': TopBar,
-    'kirby-grid': Grid,
-    'kirby-column': Column,
-    'kirby-calendar': Calendar,
-    'kirby-select': Select,
-    'kirby-card': Card,
-    'kirby-box': Box,
-    'kirby-field': Field,
-    'kirby-input': Input
+
   }
 });

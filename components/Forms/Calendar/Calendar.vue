@@ -36,7 +36,7 @@
 
 <script>
 
-import Button from '../Button/Button.vue';
+import Button from '../../Buttons/Button/Button.vue';
 import Select from '../Select/Select.vue';
 
 export default {
