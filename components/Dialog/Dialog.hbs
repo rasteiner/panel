@@ -1,12 +1,12 @@
-<panel-button shape="round" @click="$refs.dialog.open()">Open Dialog</panel-button>
+<kirby-button shape="round" @click="$refs.dialog.open()">Open Dialog</kirby-button>
 
-<panel-dialog ref="dialog">
+<kirby-dialog ref="dialog">
   <h1 slot="header">Some dialog action</h1>
-  <panel-txt slot="body">
+  <kirby-txt slot="body">
     Do you really want to delete the user:<br> <strong>bastian? </strong>
-  </panel-txt>
-  <panel-buttons slot="footer">
-    <panel-button @click="$refs.dialog.close()">Cancel</panel-button>
-    <panel-button @click="$refs.dialog.close()" type="negative">Delete</panel-button>
-  </panel-buttons>
-</panel-dialog>
+  </kirby-txt>
+  <kirby-buttons slot="footer">
+    <kirby-button @click="$refs.dialog.close()">Cancel</kirby-button>
+    <kirby-button @click="$refs.dialog.close()" type="negative">Delete</kirby-button>
+  </kirby-buttons>
+</kirby-dialog>

@@ -1,12 +1,12 @@
 <template>
-  <btn class="panel-dropdown-item"
+  <kirby-button class="panel-dropdown-item"
     :link="link" 
     :icon="icon" 
     :upload="upload" 
     :image="image" 
     @click="click">
     <slot />
-  </btn>
+  </kirby-button>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ import Button from '../Button/Button.vue'
 
 export default {
   components: {
-    'btn': Button
+    'kirby-button': Button
   },
   methods: {
     click: function () {

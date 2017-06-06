@@ -20,6 +20,7 @@ import Grid from './components/Grid/Grid.vue'
 import Column from './components/Grid/Column.vue'
 import Calendar from './components/Calendar/Calendar.vue'
 import Select from './components/Select/Select.vue'
+import Card from './components/Card/Card.vue'
 
 Vue.use(VueRouter);
 
@@ -31,24 +32,25 @@ new Vue({
   el: 'main',
   router,
   components: {
-    'panel-icon': Icon,
-    'panel-image': Image,
-    'panel-button': Button,
-    'panel-buttons': Buttons,
-    'panel-dropdown': Dropdown,
-    'panel-dropdown-content': DropdownContent,
-    'panel-dropdown-item': DropdownItem,
-    'panel-breadcrumb': Breadcrumb,
-    'panel-breadcrumb-item': BreadcrumbItem,
-    'panel-languages': Languages,
-    'panel-dialog': Dialog,
-    'panel-txt': Txt,
-    'panel-bar': Bar,
-    'panel-action-bar': ActionBar,
-    'panel-top-bar': TopBar,
-    'panel-grid': Grid,
-    'panel-column': Column,
-    'panel-calendar': Calendar,
-    'panel-select': Select
+    'kirby-icon': Icon,
+    'kirby-image': Image,
+    'kirby-button': Button,
+    'kirby-buttons': Buttons,
+    'kirby-dropdown': Dropdown,
+    'kirby-dropdown-content': DropdownContent,
+    'kirby-dropdown-item': DropdownItem,
+    'kirby-breadcrumb': Breadcrumb,
+    'kirby-breadcrumb-item': BreadcrumbItem,
+    'kirby-languages': Languages,
+    'kirby-dialog': Dialog,
+    'kirby-txt': Txt,
+    'kirby-bar': Bar,
+    'kirby-action-bar': ActionBar,
+    'kirby-top-bar': TopBar,
+    'kirby-grid': Grid,
+    'kirby-column': Column,
+    'kirby-calendar': Calendar,
+    'kirby-select': Select,
+    'kirby-card': Card
   }
 });

@@ -1,32 +1,32 @@
 <template>
-  <bar>
+  <kirby-bar>
     <template slot="left">
-      <breadcrumb>
-        <breadcrumb-item v-for="(item, index) in breadcrumb" 
+      <kirby-breadcrumb>
+        <kirby-breadcrumb-item v-for="(item, index) in breadcrumb" 
           :key="index"
           :link="item.link">
           {{ item.text }}
-        </breadcrumb-item>
-      </breadcrumb>
+        </kirby-breadcrumb-item>
+      </kirby-breadcrumb>
     </template>
     <template slot="right">
-      <btns>
-        <dropdown v-for="(action, actionIndex) in actions" :key="actionIndex">
-          <btn :icon="action.icon" @click="actionClick(action)" :upload="action.upload">{{ action.text }}</btn>
-          <dropdown-content v-if="action.dropdown" align="right" :dark="true" :ref="action.icon">
-            <dropdown-item v-for="(dropdownItem, dropdownIndex) in action.dropdown" 
+      <kirby-buttons>
+        <kirby-dropdown v-for="(action, actionIndex) in actions" :key="actionIndex">
+          <kirby-button :icon="action.icon" @click="actionClick(action)" :upload="action.upload">{{ action.text }}</kirby-button>
+          <kirby-dropdown-content v-if="action.dropdown" align="right" :dark="true" :ref="action.icon">
+            <kirby-dropdown-item v-for="(dropdownItem, dropdownIndex) in action.dropdown" 
               :key="dropdownIndex" 
               :upload="dropdownItem.upload" 
               :icon="dropdownItem.icon"
               @click="dropdownClick(dropdownItem)">
               {{ dropdownItem.text }}
-            </dropdown-item>
-          </dropdown-content>
-        </dropdown>
-        <languages v-if="languages"></languages>
-      </btns>
+            </kirby-dropdown-item>
+          </kirby-dropdown-content>
+        </kirby-dropdown>
+        <kirby-languages v-if="languages"></kirby-languages>
+      </kirby-buttons>
     </template>
-  </bar>
+  </kirby-bar>
 </template>
 
 <script>
@@ -44,15 +44,15 @@ import Languages from '../Languages/Languages.vue'
 export default {
   name: 'action-bar',
   components: {
-    'bar': Bar,
-    'breadcrumb': Breadcrumb,
-    'breadcrumb-item': BreadcrumbItem,
-    'btns': Btns,
-    'btn': Btn,
-    'dropdown': Dropdown,
-    'dropdown-content': DropdownContent,
-    'dropdown-item': DropdownItem,
-    'languages': Languages
+    'kirby-bar': Bar,
+    'kirby-breadcrumb': Breadcrumb,
+    'kirby-breadcrumb-item': BreadcrumbItem,
+    'kirby-buttons': Btns,
+    'kirby-button': Btn,
+    'kirby-dropdown': Dropdown,
+    'kirby-dropdown-content': DropdownContent,
+    'kirby-dropdown-item': DropdownItem,
+    'kirby-languages': Languages
   },
   props: [
     'breadcrumb',

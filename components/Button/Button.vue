@@ -1,6 +1,6 @@
 <template>
   <button type="button" @click="click" :class="selector">
-    <icon v-if="icon" :type="icon"></icon>
+    <kirby-icon v-if="icon" :type="icon"></kirby-icon>
     <img class="panel-button-image" v-else-if="image" :src="image">
     <span class="panel-button-text"><slot /></span>
     <input type="file" ref="input" v-if="upload" 
@@ -16,7 +16,7 @@ import Icon from '../Icon/Icon.vue'
 
 export default {
   components: {
-    'icon': Icon
+    'kirby-icon': Icon
   },
   props: [
     'icon',

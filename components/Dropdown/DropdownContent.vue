@@ -1,13 +1,13 @@
 <template>
   <div v-if="isOpen" :class="selector" :data-align="align">
     <span v-if="dropdownItems">
-      <dropdown-item v-for="(option, index) in dropdownItems" 
+      <kirby-dropdown-item v-for="(option, index) in dropdownItems" 
         :key="index"
         :icon="option.icon" 
         :upload="option.upload"
         @click="$emit('action', option.click)">
           {{ option.text }}
-      </dropdown-item>
+      </kirby-dropdown-item>
     </span>
     <slot v-else />
   </div>
@@ -31,7 +31,7 @@ const DropdownClickListener = function (e) {
 
 export default {
   components: {
-    'dropdown-item': DropdownItem
+    'kirby-dropdown-item': DropdownItem
   },
   props: [
     'dark',

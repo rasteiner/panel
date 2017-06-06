@@ -3,12 +3,12 @@
     <table class="panel-calendar-table">
       <caption>
         <span>
-          <panel-button @click="prev" icon="caret-left"></panel-button>
+          <kirby-button @click="prev" icon="caret-left"></kirby-button>
           <span class="panel-calendar-selects">
-            <panel-select v-model="date.month" :options="monthOptions"></panel-select>
-            <panel-select v-model="date.year" :options="yearOptions"></panel-select>
+            <kirby-select v-model="date.month" :options="monthOptions"></kirby-select>
+            <kirby-select v-model="date.year" :options="yearOptions"></kirby-select>
           </span>
-          <panel-button @click="next" icon="caret-right"></panel-button>
+          <kirby-button @click="next" icon="caret-right"></kirby-button>
         </span>
       </caption>
       <thead>
@@ -19,14 +19,14 @@
       <tbody>
         <tr v-for="week in numberOfWeeks">
           <td v-for="day in days(week)" :aria-current="isToday(day) ? 'date' : false" class="panel-calendar-day">
-            <panel-button @click="select(day)">{{ day }}</panel-button>
+            <kirby-button @click="select(day)">{{ day }}</kirby-button>
           </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="7">
-            <panel-button @click="go('today')">today</panel-button>
+            <kirby-button @click="go('today')">today</kirby-button>
           </td>
         </tr>
       </tfoot>
@@ -42,8 +42,8 @@ import Select from '../Select/Select.vue';
 export default {
   props: ['month', 'year'],
   components: {
-    'panel-button': Button,
-    'panel-select': Select
+    'kirby-button': Button,
+    'kirby-select': Select
   },
   data: function() {
 
