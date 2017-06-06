@@ -1,30 +1,12 @@
 <template>
-  <ul :class="selector">
+  <ul class="kirby-breadcrumb">
     <slot />
   </ul>
 </template>
 
-<script>
-
-export default {
-  computed: {
-    selector: function () {
-      var selector = 'panel-breadcrumb'
-
-      if (this.dark === true) {
-        selector += ' is-dark'
-      }
-
-      return selector
-    }
-  }
-}
-
-</script>
-
 <style>
 
-.panel-breadcrumb {
+.kirby-breadcrumb {
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -34,7 +16,7 @@ export default {
 }
 
 @media screen and (min-width: 30em) {
-  .panel-breadcrumb {
+  .kirby-breadcrumb {
     padding: 0 .5rem;
   }
 }

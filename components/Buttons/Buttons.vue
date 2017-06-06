@@ -1,5 +1,5 @@
 <template>
-  <div class="panel-buttons">
+  <div class="kirby-buttons">
     <slot />
   </div>
 </template>
@@ -13,21 +13,21 @@ export default {
 
 <style>
 
-.panel-buttons {  
+.kirby-buttons {  
   font-size: 0;
 }
-.panel-buttons > .panel-dropdown,
-.panel-buttons > .panel-button {
+.kirby-buttons > .kirby-dropdown,
+.kirby-buttons > .kirby-button {
   margin-left: .75rem;
   margin-right: .75rem;
   font-size: 1rem;
 }
-.panel-buttons > .panel-dropdown:first-child,
-.panel-buttons > .panel-button:first-child {
+.kirby-buttons > .kirby-dropdown:first-child,
+.kirby-buttons > .kirby-button:first-child {
   margin-left: 0;
 }
-.panel-buttons > .panel-dropdown:last-child,
-.panel-buttons > .panel-button:last-child {
+.kirby-buttons > .kirby-dropdown:last-child,
+.kirby-buttons > .kirby-button:last-child {
   margin-right: 0;
 }
 

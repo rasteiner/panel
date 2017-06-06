@@ -1,5 +1,5 @@
 <template>
-  <i :class="'panel-icon fa fa-' + type"></i>
+  <i :class="'kirby-icon fa fa-' + type"></i>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
 
 <style>
 
-.panel-icon {
+.kirby-icon {
   font-size: 16px;
 }
 

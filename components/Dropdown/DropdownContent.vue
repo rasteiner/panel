@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpen" :class="selector" :data-align="align">
+  <div v-if="isOpen" class="kirby-dropdown-content" :data-dark="dark" :data-align="align">
     <span v-if="dropdownItems">
       <kirby-dropdown-item v-for="(option, index) in dropdownItems" 
         :key="index"
@@ -52,17 +52,6 @@ export default {
     window.removeEventListener('keyup', DropdownEscapeListener, false)
     document.removeEventListener('click', DropdownClickListener, false)
   },
-  computed: {
-    selector: function () {
-      var selector = 'panel-dropdown-content'
-
-      if (this.dark === true) {
-        selector += ' is-dark'
-      }
-
-      return selector
-    }
-  },
   methods: {
     fetchOptions: function (callback) {
       if (this.options) {
@@ -105,7 +94,7 @@ export default {
 
 <style>
 
-.panel-dropdown-content {
+.kirby-dropdown-content {
   position: absolute;
   top: 100%;
   left: 0;
@@ -116,18 +105,18 @@ export default {
   box-shadow: rgba(0,0,0, .1) 0 5px 10px;
   border-radius: 3px;
 }
-.panel-dropdown-content[data-align="right"] {
+.kirby-dropdown-content[data-align="right"] {
   left: auto;
   right: 0;
 }
-.panel-dropdown-content.is-dark {
+.kirby-dropdown-content[data-dark] {
   background: #282c34;
   color: #fff;
 }
-.panel-dropdown-content.is-dark .panel-dropdown-item {
+.kirby-dropdown-content[data-dark] .kirby-dropdown-item {
   border-bottom: 1px solid rgba(255,255,255, .2);
 }
-.panel-dropdown-item:last-child {
+.kirby-dropdown-item:last-child {
   border-bottom: 0;
 }
 

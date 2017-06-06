@@ -1,5 +1,5 @@
 <template>
-  <span @click.stop class="panel-dropdown">
+  <span @click.stop class="kirby-dropdown">
     <slot />
   </span>
 </template>
@@ -13,7 +13,7 @@ export default {
 
 <style>
 
-.panel-dropdown {
+.kirby-dropdown {
   position: relative;
 }
 

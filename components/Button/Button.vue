@@ -1,8 +1,14 @@
 <template>
-  <button type="button" @click="click" :class="selector">
+  <button 
+    type="button" 
+    @click="click" 
+    class="kirby-button" 
+    :data-shape="shape" 
+    :data-state="state"
+    :data-has-image="image ? true : false">    
     <kirby-icon v-if="icon" :type="icon"></kirby-icon>
-    <img class="panel-button-image" v-else-if="image" :src="image">
-    <span class="panel-button-text"><slot /></span>
+    <img class="kirby-button-image" v-else-if="image" :src="image">
+    <span class="kirby-button-text"><slot /></span>
     <input type="file" ref="input" v-if="upload" 
       :multiple="upload.multiple || false" 
       :accept="upload.accept || '*'" 
@@ -21,25 +27,12 @@ export default {
   props: [
     'icon',
     'image',
-    'type',
+    'state',
     'shape',
     'upload',
     'link'
   ],
   computed: {
-    selector: function () {
-      var selector = 'panel-button'
-
-      if (this.type) {
-        selector += ' is-' + this.type
-      }
-
-      if (this.shape) {
-        selector += ' is-' + this.shape
-      }
-
-      return selector
-    },
     component: function () {
       return this.link ? 'router-link' : 'button'
     }
@@ -65,7 +58,7 @@ export default {
 
 <style>
 
-.panel-button {
+.kirby-button {
   position: relative;
   background: none;
   font: inherit;
@@ -74,55 +67,56 @@ export default {
   cursor: pointer;
   color: inherit;
 }
-.panel-button:focus {
+.kirby-button:focus {
   outline: 0;
 }
-.panel-button.is-positive {
+.kirby-button[data-state="positive"] {
   color: #8dae28;
 }
-.panel-button.is-negative {
+.kirby-button[data-state="negative"] {
   color: #b3000a;  
 }
-.panel-button.is-round {
+.kirby-button[data-shape="round"] {
   border: 2px solid #282c34;
   color: #282c34;
   border-radius: 3rem;
   padding: .2rem 1rem;
   font-weight: 500;
 }
-.panel-button.is-round:hover,
-.panel-button.is-round:focus {
+.kirby-button[data-shape="round"]:hover,
+.kirby-button[data-shape="round"]:focus {
   background-color: #282c34;
   color: #fff;
 }
-.panel-button.is-round.is-positive {
+.kirby-button[data-shape="round"][data-state="positive"] {
   border-color: #8dae28;  
   color: #8dae28;
 }
-.panel-button.is-round.is-positive:hover,
-.panel-button.is-round.is-positive:focus {
+.kirby-button[data-shape="round"][data-state="positive"]:hover,
+.kirby-button[data-shape="round"][data-state="positive"]:focus {
   background-color: #8dae28;
   color: #fff;
 }
-.panel-button.is-round.is-negative {
+.kirby-button[data-shape="round"][data-state="negative"] {
   border-color: #b3000a;  
   color: #b3000a;
 }
-.panel-button.is-round.is-negative:hover,
-.panel-button.is-round.is-negative:focus {
+.kirby-button[data-shape="round"][data-state="negative"]:hover,
+.kirby-button[data-shape="round"][data-state="negative"]:focus {
   background-color: #b3000a;
   color: #fff;
 }
-.panel-button .panel-icon ~ .panel-button-text:not(:empty) {
+.kirby-button .kirby-icon ~ .kirby-button-text:not(:empty) {
   padding-left: .5rem;
 }
-.panel-button.is-image {
+.kirby-button[data-has-image] {
   width: 100%;
+  text-align: left;
 }
-.panel-button.is-image .panel-button-text {
+.kirby-button[data-has-image] .kirby-button-text {
   padding: 0;  
 }
-.panel-button input[type="file"] {
+.kirby-button input[type="file"] {
   position: absolute;
   top: 0;
   left: -5000px;
@@ -131,7 +125,7 @@ export default {
   opacity: 0;
 }
 
-.panel-button-image {
+.kirby-button-image {
   width: 1.5rem;
   height: 1.5rem;
   margin: -.5rem 1rem -.5rem 0;

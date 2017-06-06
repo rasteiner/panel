@@ -1,5 +1,5 @@
 <template>
-  <div v-if="options.length" class="panel-select">
+  <div v-if="options.length" class="kirby-select">
     <select ref="select" :id="id" :required="required" :value="value" @input="input($event.target.value)" @focus="$emit('focus')" @blur="$emit('blur')" :autofocus="autofocus">
       <option v-for="option in options" :value="option.value" :disabled="option.disabled">{{ option.text }}</option>
     </select>
@@ -65,11 +65,11 @@ export default {
 
 <style>
 
-.panel-select {
+.kirby-select {
   position: relative;
   cursor: pointer;
 }
-.panel-select select {
+.kirby-select select {
   position: absolute;
   top: 0;
   right: 0;
@@ -80,10 +80,10 @@ export default {
   font: inherit;
   cursor: pointer;
 }
-.panel-select label {
+.kirby-select label {
   cursor: pointer;
 }
-.panel-select select:focus + label {
+.kirby-select select:focus + label {
   color: #8dae28;
 }
 

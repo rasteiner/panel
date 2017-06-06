@@ -1,5 +1,5 @@
 <template>
-  <div class="panel-txt">
+  <div class="kirby-txt">
     <slot />
   </div>
 </template>
@@ -13,14 +13,14 @@ export default {
 
 <style>
 
-.panel-txt {
+.kirby-txt {
   line-height: 1.5em;
 }
-.panel-txt p {
+.kirby-txt p {
   margin-bottom: 1.5em;
 }
-.panel-txt strong, 
-.panel-txt b {
+.kirby-txt strong, 
+.kirby-txt b {
   font-weight: 500;
 }
 

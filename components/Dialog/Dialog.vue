@@ -1,13 +1,13 @@
 <template>
-  <div v-if="isOpen" @click="close" class="panel-dialog">
-    <div @click.stop class="panel-dialog-box" :data-size="size">
-      <header class="panel-dialog-header">
+  <div v-if="isOpen" @click="close" class="kirby-dialog">
+    <div @click.stop class="kirby-dialog-box" :data-size="size">
+      <header class="kirby-dialog-header">
         <slot name="header" />
       </header>
-      <div class="panel-dialog-body">
+      <div class="kirby-dialog-body">
         <slot name="body" />
       </div>
-      <footer class="panel-dialog-footer">
+      <footer class="kirby-dialog-footer">
         <slot name="footer" />
       </footer>
     </div>
@@ -61,7 +61,7 @@ export default {
 
 <style>
 
-.panel-dialog {
+.kirby-dialog {
   position: fixed;
   top: 0;
   right: 0;
@@ -76,43 +76,43 @@ export default {
   justify-content: center;
   z-index: 2000;
 }
-.panel-dialog-box {
+.kirby-dialog-box {
   background: #fff;
   width: 22rem;
   box-shadow: rgba(0,0,0, .2) 0 2px 10px;
   border-radius: 3px;
   line-height: 1;
 }
-.panel-dialog-box[data-size="small"] {
+.kirby-dialog-box[data-size="small"] {
   width: 20rem;
 }
-.panel-dialog-box[data-size="medium"] {
+.kirby-dialog-box[data-size="medium"] {
   width: 30rem;
 }
-.panel-dialog-box[data-size="large"] {
+.kirby-dialog-box[data-size="large"] {
   width: 40rem;
 }
-.panel-dialog-header {
+.kirby-dialog-header {
   padding: 1rem 1.5rem;
   background: #282c34;
   color: #fff;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
-.panel-dialog-header h1 {
+.kirby-dialog-header h1 {
   font-size: 1rem;
   font-weight: 400;
 }
-.panel-dialog-body {
+.kirby-dialog-body {
   padding: 1rem 1.5rem;
   background: #efefef;
 }
-.panel-dialog-footer {
+.kirby-dialog-footer {
 }
-.panel-dialog-footer .panel-buttons {
+.kirby-dialog-footer .kirby-buttons {
   display: flex;
 }
-.panel-dialog-footer .panel-button {
+.kirby-dialog-footer .kirby-button {
   flex-shrink: 0;
   flex-grow: 1;
   margin: 0 !important;
@@ -122,7 +122,7 @@ export default {
   font-weight: 500;
   height: 3rem;
 }
-.panel-dialog-footer .panel-button:first-child {
+.kirby-dialog-footer .kirby-button:first-child {
   border-left: 0;
 } 
 

@@ -1,5 +1,5 @@
 <template>
-  <li class="panel-breadcrumb-item">
+  <li class="kirby-breadcrumb-item">
     <router-link v-if="link" :to="link">
       <slot />
     </router-link>
@@ -17,7 +17,7 @@ export default {
 
 <style>
 
-.panel-breadcrumb-item {
+.kirby-breadcrumb-item {
   position: relative;
   list-style: none;
   white-space: nowrap;
@@ -25,8 +25,8 @@ export default {
   min-width: 4rem;
   flex-shrink: 0;
 }
-.panel-breadcrumb-item a,
-.panel-breadcrumb-item span {
+.kirby-breadcrumb-item a,
+.kirby-breadcrumb-item span {
   display: block;
   padding: 1rem 1.25rem 1rem .5rem;
   text-decoration: none;
@@ -34,10 +34,10 @@ export default {
 }
 
 /* Shim */
-.panel-breadcrumb-item a:hover {
+.kirby-breadcrumb-item a:hover {
   color: #999;
 }
-.panel-breadcrumb-item:after {
+.kirby-breadcrumb-item:after {
   position: absolute;
   content: "";
   top: 0;
@@ -49,10 +49,10 @@ export default {
 }
 
 /* Arrows */
-.panel-breadcrumb-item a:after,
-.panel-breadcrumb-item span:after,
-.panel-breadcrumb-item a:before,
-.panel-breadcrumb-item span:before {
+.kirby-breadcrumb-item a:after,
+.kirby-breadcrumb-item span:after,
+.kirby-breadcrumb-item a:before,
+.kirby-breadcrumb-item span:before {
   position: absolute;
   content: "";
   width: 1px;
@@ -60,15 +60,15 @@ export default {
   z-index: 1;
   pointer-events: none;
 }
-.panel-breadcrumb-item a:before,
-.panel-breadcrumb-item span:before {
+.kirby-breadcrumb-item a:before,
+.kirby-breadcrumb-item span:before {
   top: 0;
   bottom: 0;
   transform: rotate(-30deg);
   background: -webkit-linear-gradient(top, transparent, #ddd 25%, #ddd);
 }
-.panel-breadcrumb-item a:after,
-.panel-breadcrumb-item span:after {
+.kirby-breadcrumb-item a:after,
+.kirby-breadcrumb-item span:after {
   bottom: 0;
   top: 0;
   transform: rotate(30deg);
@@ -77,15 +77,15 @@ export default {
 
 /* Media Queries */
 @media screen and (min-width: 30em) {
-  .panel-breadcrumb-item {
+  .kirby-breadcrumb-item {
     display: block;
     min-width: auto;
     flex-basis: auto;
   }
-  .panel-breadcrumb-item:after {
+  .kirby-breadcrumb-item:after {
     width: 1.5rem;
   }
-  .panel-breadcrumb-item a {
+  .kirby-breadcrumb-item a {
     display: block;
     padding: 1rem 1.25rem 1rem 1rem;
     font-size: 1rem;

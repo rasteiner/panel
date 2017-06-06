@@ -1,10 +1,10 @@
 <template>
-  <div class="panel-calendar">
-    <table class="panel-calendar-table">
+  <div class="kirby-calendar">
+    <table class="kirby-calendar-table">
       <caption>
         <span>
           <kirby-button @click="prev" icon="caret-left"></kirby-button>
-          <span class="panel-calendar-selects">
+          <span class="kirby-calendar-selects">
             <kirby-select v-model="date.month" :options="monthOptions"></kirby-select>
             <kirby-select v-model="date.year" :options="yearOptions"></kirby-select>
           </span>
@@ -18,7 +18,7 @@
       </thead>
       <tbody>
         <tr v-for="week in numberOfWeeks">
-          <td v-for="day in days(week)" :aria-current="isToday(day) ? 'date' : false" class="panel-calendar-day">
+          <td v-for="day in days(week)" :aria-current="isToday(day) ? 'date' : false" class="kirby-calendar-day">
             <kirby-button @click="select(day)">{{ day }}</kirby-button>
           </td>
         </tr>
@@ -217,47 +217,47 @@ export default {
 
 <style>
 
-.panel-calendar {
+.kirby-calendar {
   background: #000;
   color: #fff;
   border-radius: 3px;
   display: inline-block;
 }
-.panel-calendar-table {
+.kirby-calendar-table {
   table-layout: fixed;
   padding: 1rem;
 }
-.panel-calendar caption > span {
+.kirby-calendar caption > span {
   display: flex;
 }
-.panel-calendar caption .panel-button {
+.kirby-calendar caption .kirby-button {
   padding: .5rem;
 }
-.panel-calendar-selects {
+.kirby-calendar-selects {
   flex-grow: 1;
   display: flex;
   justify-content: center;
 }
-.panel-calendar-selects .panel-select {
+.kirby-calendar-selects .kirby-select {
   padding: .5rem;
   font-weight: 500;
 }
-.panel-calendar th {
+.kirby-calendar th {
   font-weight: 400;
   color: #999;
   padding: .25rem;
 }
-.panel-calendar td,
-.panel-calendar th {
+.kirby-calendar td,
+.kirby-calendar th {
   text-align: right;
 }
-.panel-calendar-day .panel-button {
+.kirby-calendar-day .kirby-button {
   padding: .25rem;
 }
-.panel-calendar-day[aria-current="date"] {
+.kirby-calendar-day[aria-current="date"] {
   color: #8dae28;
 }
-.panel-calendar tfoot td {
+.kirby-calendar tfoot td {
   text-align: center;
   padding: 2rem 0 0;
 }
