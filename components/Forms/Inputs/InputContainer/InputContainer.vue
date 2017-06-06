@@ -77,7 +77,8 @@ export default {
   min-height: 2.5rem;
 }
 .kirby-input-container-content > input,
-.kirby-input-container-content > textarea {
+.kirby-input-container-content > textarea,
+.kirby-input-container-content > .kirby-select {
   border: 0;
   font: inherit;
   line-height: 1.5em;

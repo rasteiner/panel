@@ -20,6 +20,7 @@ import Field from './components/Forms/Field/Field.vue'
 /** Forms/Inputs **/
 import InputContainer from './components/Forms/Inputs/InputContainer/InputContainer.vue'
 import Select from './components/Forms/Inputs/Select/Select.vue'
+import Textarea from './components/Forms/Inputs/Textarea/Textarea.vue'
 
 /** Images **/
 import Icon from './components/Images/Icon/Icon.vue'
@@ -73,6 +74,7 @@ new Vue({
     /** Form/Inputs */
     'kirby-input-container': InputContainer,
     'kirby-select': Select,
+    'kirby-textarea': Textarea,
 
     /** Images **/
     'kirby-icon': Icon,
