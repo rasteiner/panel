@@ -94,7 +94,7 @@ export default {
 }
 .kirby-dialog-header {
   padding: 1rem 1.5rem;
-  background: #282c34;
+  background: $color-dark;
   color: #fff;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;

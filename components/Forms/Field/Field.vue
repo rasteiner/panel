@@ -32,15 +32,15 @@ export default {
   line-height: 1.5em;
 }
 .kirby-field[data-error] .kirby-field-header label {
-  color: #b3000a;
+  color: $color-negative;
 }
 .kirby-field[data-required] .kirby-field-header label:after {
   content: "*";
-  color: #8dae28;
+  color: $color-positive;
   padding-left: .35rem;
 }
 .kirby-field[data-required][data-error] .kirby-field-header label:after {
-  color: #b3000a;
+  color: $color-negative;
 }
 
 .kirby-field-help {
@@ -49,7 +49,7 @@ export default {
   color: #777;
 }
 .kirby-field[data-error] .kirby-field-help {
-  color: #b3000a;
+  color: $color-negative;
 }
 
 </style>

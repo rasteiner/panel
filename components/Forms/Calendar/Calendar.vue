@@ -255,7 +255,7 @@ export default {
   padding: .25rem;
 }
 .kirby-calendar-day[aria-current="date"] {
-  color: #8dae28;
+  color: $color-positive;
 }
 .kirby-calendar tfoot td {
   text-align: center;
