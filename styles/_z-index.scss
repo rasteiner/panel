@@ -1,0 +1,10 @@
+$layers: (
+  modal:         500,
+  navigation:    400,
+  content:       100,
+  background:     50
+);
+
+@function z-index($key, $add: 0) {
+  @return map-get($layers, $key) + $add;
+}
