@@ -4,7 +4,7 @@
   </ul>
 </template>
 
-<style>
+<style lang="scss">
 
 .kirby-breadcrumb {
   display: flex;

@@ -92,7 +92,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-dropdown-content {
   position: absolute;

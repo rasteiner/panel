@@ -15,7 +15,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-breadcrumb-item {
   position: relative;

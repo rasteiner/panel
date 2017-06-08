@@ -33,7 +33,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-dropdown-item {
   white-space: nowrap;

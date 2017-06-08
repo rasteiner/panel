@@ -17,7 +17,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-image span {
   position: relative;

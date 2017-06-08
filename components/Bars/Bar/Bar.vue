@@ -14,7 +14,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-bar {
   height: 3rem;
@@ -26,7 +26,7 @@ export default {
 }
 .kirby-bar[data-dark] {
   color: #fff;
-  background: #282c34;
+  background: $color-dark;
 }
 .kirby-bar-slot {
   flex-grow: 1;

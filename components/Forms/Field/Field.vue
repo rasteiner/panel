@@ -19,7 +19,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-field-header {
   display: flex;

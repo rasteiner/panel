@@ -2,7 +2,7 @@
   <h2 class="kirby-headline"><slot /></h2>
 </template>
 
-<style>
+<style lang="scss">
 
 .kirby-headline {
   font-size: 1rem;

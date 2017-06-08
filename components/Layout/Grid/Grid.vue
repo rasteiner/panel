@@ -12,7 +12,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-grid {
   display: flex;

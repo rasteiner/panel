@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 
 .kirby-box {
   background: rgba(0,0,0, .075);

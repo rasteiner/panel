@@ -10,7 +10,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-icon {
   font-size: 16px;
