@@ -1,0 +1,15 @@
+/**
+ * Shared SCSS variables, mixins etc.
+ *
+ * NOTE:
+ * avoid css output at all costs, because it would be repeated everytime this
+ * file is imported. Use only for mixins, variables and functions.
+ */
+
+@import 'styles/z-index.scss';
+
+// Variables
+$color-black: #000;
+$color-dark: #282c34;
+$color-positive: #8dae28;
+$color-negative: #b3000a;
