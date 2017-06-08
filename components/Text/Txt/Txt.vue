@@ -11,7 +11,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-txt {
   line-height: 1.5em;

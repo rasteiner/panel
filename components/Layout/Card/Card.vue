@@ -53,7 +53,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-card {
   position: relative;

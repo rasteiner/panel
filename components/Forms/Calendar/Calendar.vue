@@ -215,7 +215,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-calendar {
   background: #000;

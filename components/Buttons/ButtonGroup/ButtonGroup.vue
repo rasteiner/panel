@@ -11,7 +11,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-button-group {  
   font-size: 0;

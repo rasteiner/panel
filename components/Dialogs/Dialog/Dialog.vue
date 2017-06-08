@@ -59,7 +59,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-dialog {
   position: fixed;

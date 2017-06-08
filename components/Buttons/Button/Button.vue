@@ -56,7 +56,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-button {
   position: relative;

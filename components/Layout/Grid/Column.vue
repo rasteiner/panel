@@ -14,7 +14,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-column {
   flex-grow: 1;
