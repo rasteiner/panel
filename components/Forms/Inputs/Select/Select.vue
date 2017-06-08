@@ -84,7 +84,7 @@ export default {
   cursor: pointer;
 }
 .kirby-select select:focus + label {
-  color: #8dae28;
+  color: $color-positive;
 }
 
 </style>

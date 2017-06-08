@@ -55,10 +55,10 @@ export default {
   background: #fff;
 }
 .kirby-input-container[data-focus] {
-  border-color: #8dae28;
+  border-color: $color-positive;
 }
 .kirby-input-container[data-error] {
-  border-color: #b3000a;
+  border-color: $color-negative;
 }
 .kirby-input-container[data-error][data-focus] {
   border-color: #000;

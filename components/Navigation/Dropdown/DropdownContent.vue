@@ -101,7 +101,7 @@ export default {
   background: #fff;
   z-index: 1000;
   text-align: left;
-  color: #282c34;
+  color: $color-dark;
   box-shadow: rgba(0,0,0, .1) 0 5px 10px;
   border-radius: 3px;
 }
@@ -110,7 +110,7 @@ export default {
   right: 0;
 }
 .kirby-dropdown-content[data-dark] {
-  background: #282c34;
+  background: $color-dark;
   color: #fff;
 }
 .kirby-dropdown-content[data-dark] .kirby-dropdown-item {

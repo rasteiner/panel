@@ -48,7 +48,7 @@ export default {
 }
 
 .kirby-image[data-back="black"] span {
-  background: #282c34;
+  background: $color-dark;
 }
 .kirby-image[data-back="white"] span {
   background: #fff;
