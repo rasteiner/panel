@@ -9,7 +9,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "fractal": "fractal start --sync",
     "test": "karma start karma.conf.js --single-run",
-    "test:watch": "karma start karma.conf.js"
+    "test:watch": "karma start karma.conf.js",
     "start": "npm run dev & npm run fractal"
   },
   "dependencies": {
