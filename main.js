@@ -19,6 +19,7 @@ import Calendar from './components/Forms/Calendar/Calendar.vue'
 import Field from './components/Forms/Field/Field.vue'
 
 /** Forms/Inputs **/
+import Date from './components/Forms/Inputs/Date/Date.vue'
 import InputContainer from './components/Forms/Inputs/InputContainer/InputContainer.vue'
 import Select from './components/Forms/Inputs/Select/Select.vue'
 import Textarea from './components/Forms/Inputs/Textarea/Textarea.vue'
@@ -79,6 +80,7 @@ new Vue({
     'kirby-field': Field,
 
     /** Form/Inputs */
+    'kirby-date': Date,
     'kirby-input-container': InputContainer,
     'kirby-select': Select,
     'kirby-textarea': Textarea,
