@@ -28,6 +28,20 @@ To work on components, start webpack with `npm run dev`. Fractal will automatica
 
 When you add new components in Fractal, you also have to import them in the main.js and register them in Vue's components array.
 
+## Testing
+
+[Karma](http://karma-runner.github.io/1.0/index.html), [PhantomJS](http://phantomjs.org/) are used as the test environment. The tests themselves are written with [Jasmine](https://jasmine.github.io/).
+
+The watcher will look for files ending with `.spec.js` inside of `./components/`.
+
+``` bash
+# to run the tests once
+npm test
+
+# to run the tests and watch the files
+npm run test:watch
+```
+
 ## License
 
 <http://www.opensource.org/licenses/mit-license.php>
