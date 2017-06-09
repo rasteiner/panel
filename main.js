@@ -9,6 +9,7 @@ import ActionBar from './components/Bars/ActionBar/ActionBar.vue'
 /** Buttons **/
 import Button from './components/Buttons/Button/Button.vue'
 import ButtonGroup from './components/Buttons/ButtonGroup/ButtonGroup.vue'
+import Tag from './components/Buttons/Tag/Tag.vue'
 
 /** Dialogs **/
 import Dialog from './components/Dialogs/Dialog/Dialog.vue'
@@ -21,6 +22,7 @@ import Field from './components/Forms/Field/Field.vue'
 import InputContainer from './components/Forms/Inputs/InputContainer/InputContainer.vue'
 import Select from './components/Forms/Inputs/Select/Select.vue'
 import Textarea from './components/Forms/Inputs/Textarea/Textarea.vue'
+import Tags from './components/Forms/Inputs/Tags/Tags.vue'
 
 /** Images **/
 import Icon from './components/Images/Icon/Icon.vue'
@@ -44,6 +46,10 @@ import Column from './components/Layout/Grid/Column.vue'
 import Headline from './components/Text/Headline/Headline.vue'
 import Txt from './components/Text/Txt/Txt.vue'
 
+/** Sandbox **/
+import Sandbox from './components/Sandbox/Sandbox.vue'
+
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -63,6 +69,7 @@ new Vue({
     /** Buttons **/
     'kirby-button': Button,
     'kirby-button-group': ButtonGroup,
+    'kirby-tag': Tag,
 
     /** Dialogs **/
     'kirby-dialog': Dialog,
@@ -75,6 +82,7 @@ new Vue({
     'kirby-input-container': InputContainer,
     'kirby-select': Select,
     'kirby-textarea': Textarea,
+    'kirby-tags': Tags,
 
     /** Images **/
     'kirby-icon': Icon,
@@ -97,6 +105,9 @@ new Vue({
     /** Text **/
     'kirby-headline': Headline,
     'kirby-txt': Txt,
+
+    /** Sandbox **/
+    'kirby-sandbox': Sandbox
 
   }
 });
