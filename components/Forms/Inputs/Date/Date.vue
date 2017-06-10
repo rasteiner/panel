@@ -126,8 +126,9 @@ export default {
   flex-grow: 1;
 }
 .kirby-date-selects .kirby-select {
-  padding: .5rem 1rem;
+  padding: .65rem 1rem;
   border-left: 1px dashed #ddd;
+  min-height: 2.5rem;
 }
 .kirby-date-selects .kirby-select:first-child {
   border-left: 0;
