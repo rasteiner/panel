@@ -45,6 +45,14 @@ import Card from './components/Layout/Card/Card.vue'
 import Grid from './components/Layout/Grid/Grid.vue'
 import Column from './components/Layout/Grid/Column.vue'
 
+/** Table **/
+import Table from './components/Layout/Table/Table.vue';
+import TableRow from './components/Layout/Table/TableRow.vue';
+import TableCell from './components/Layout/Table/TableCell.vue';
+import TableHeader from './components/Layout/Table/TableHeader.vue';
+import TableHeaderCell from './components/Layout/Table/TableHeaderCell.vue';
+import TableBody from './components/Layout/Table/TableBody.vue';
+
 /** Text **/
 import Headline from './components/Text/Headline/Headline.vue'
 import Txt from './components/Text/Txt/Txt.vue'
@@ -99,6 +107,14 @@ new Vue({
     'kirby-grid': Grid,
     'kirby-column': Column,
     
+    /** Table **/
+    'kirby-table': Table,
+    'kirby-table-row': TableRow,
+    'kirby-table-cell': TableCell,
+    'kirby-table-header': TableHeader,
+    'kirby-table-header-cell': TableHeaderCell,
+    'kirby-table-body': TableBody,
+     
     /** Navigation **/
     'kirby-breadcrumb': Breadcrumb,
     'kirby-breadcrumb-item': BreadcrumbItem,
