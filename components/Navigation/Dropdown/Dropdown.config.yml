@@ -4,8 +4,14 @@ variants:
     name: with-icons
     label: Dropdown with icons
   - 
+    name: with-images
+    label: Dropdown with images
+  - 
     name: dark
     label: Dark Dropdown
   - 
     name: dark-with-icons
     label: Dark Dropdown with icons
+  - 
+    name: dark-with-images
+    label: Dark Dropdown with images

@@ -128,7 +128,7 @@ export default {
 .kirby-button-image {
   width: 1.5rem;
   height: 1.5rem;
-  margin: -.5rem 1rem -.5rem 0;
+  margin: -.5rem .75rem -.5rem 0;
   border-radius: 50%;
   background: $color-dark;
   object-fit: cover;
