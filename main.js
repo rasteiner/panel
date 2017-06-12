@@ -15,6 +15,7 @@ import Tag from './components/Buttons/Tag/Tag.vue'
 import Dialog from './components/Dialogs/Dialog/Dialog.vue'
 
 /** Forms **/
+import Autocomplete from './components/Forms/Autocomplete/Autocomplete.vue'
 import Calendar from './components/Forms/Calendar/Calendar.vue'
 import Field from './components/Forms/Field/Field.vue'
 
@@ -51,7 +52,6 @@ import Txt from './components/Text/Txt/Txt.vue'
 /** Sandbox **/
 import Sandbox from './components/Sandbox/Sandbox.vue'
 
-
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -77,6 +77,7 @@ new Vue({
     'kirby-dialog': Dialog,
 
     /** Forms **/
+    'kirby-autocomplete': Autocomplete,
     'kirby-calendar': Calendar,
     'kirby-field': Field,
 

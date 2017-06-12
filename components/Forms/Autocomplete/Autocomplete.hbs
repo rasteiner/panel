@@ -1,0 +1,8 @@
+<kirby-autocomplete 
+  url="/data/countries.json" 
+  :map="{value: 'name', text: 'name'}" 
+  :limit="5" icon="globe" 
+  @select="function(value) { $refs.console.innerHTML = 'Result: ' + value.text }">
+</kirby-autocomplete>
+
+<div ref="console"></div>

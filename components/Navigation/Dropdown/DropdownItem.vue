@@ -1,5 +1,5 @@
 <template>
-  <kirby-button class="kirby-dropdown-item"
+  <kirby-button class="kirby-dropdown-item" 
     :link="link" 
     :icon="icon" 
     :upload="upload" 
