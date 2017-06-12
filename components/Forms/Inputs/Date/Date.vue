@@ -118,7 +118,7 @@ export default {
 
 .kirby-date {
   position: relative;
-  background: #fff;
+  background: $color-white;
   display: flex;
 }
 .kirby-date-selects {
@@ -127,7 +127,7 @@ export default {
 }
 .kirby-date-selects .kirby-select {
   padding: .65rem 1rem;
-  border-left: 1px dashed #ddd;
+  border-left: 1px dashed $color-border;
   min-height: 2.5rem;
 }
 .kirby-date-selects .kirby-select:first-child {

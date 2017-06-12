@@ -35,7 +35,7 @@ export default {
 
 /* Shim */
 .kirby-breadcrumb-item a:hover {
-  color: #999;
+  color: $color-dark-grey;
 }
 .kirby-breadcrumb-item:after {
   position: absolute;
@@ -44,7 +44,7 @@ export default {
   right: 0;
   bottom: 0;
   width: 3rem;
-  background: -webkit-linear-gradient(left, transparent, #fff 75%, #fff);
+  background: -webkit-linear-gradient(left, transparent, $color-white 75%, $color-white);
   pointer-events: none;
 }
 
@@ -65,14 +65,14 @@ export default {
   top: 0;
   bottom: 0;
   transform: rotate(-30deg);
-  background: -webkit-linear-gradient(top, transparent, #ddd 25%, #ddd);
+  background: -webkit-linear-gradient(top, transparent, $color-border 25%, $color-border);
 }
 .kirby-breadcrumb-item a:after,
 .kirby-breadcrumb-item span:after {
   bottom: 0;
   top: 0;
   transform: rotate(30deg);
-  background: -webkit-linear-gradient(bottom, transparent, #ddd 25%, #ddd);
+  background: -webkit-linear-gradient(bottom, transparent, $color-border 25%, $color-border);
 }
 
 /* Media Queries */

@@ -13,7 +13,7 @@ export default {
 <style lang="scss">
 
 .kirby-icon {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 </style>

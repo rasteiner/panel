@@ -1,8 +1,9 @@
 $layers: (
-  modal:         500,
-  navigation:    400,
-  content:       100,
-  background:     50
+  dialog:        500,
+  dropdown:      400,
+  navigation:    300,
+  content:       200,
+  background:    100
 );
 
 @function z-index($key, $add: 0) {

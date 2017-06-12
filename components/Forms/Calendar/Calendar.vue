@@ -218,9 +218,9 @@ export default {
 <style lang="scss">
 
 .kirby-calendar {
-  background: #000;
-  color: #fff;
-  border-radius: 3px;
+  background: $color-dark;
+  color: $color-light;
+  border-radius: $border-radius;
   display: inline-block;
 }
 .kirby-calendar-table {
@@ -244,7 +244,7 @@ export default {
 }
 .kirby-calendar th {
   font-weight: 400;
-  color: #999;
+  color: $color-light-grey;
   padding: .25rem;
 }
 .kirby-calendar td,

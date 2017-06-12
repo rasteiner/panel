@@ -18,14 +18,14 @@ export default {
 
 .kirby-bar {
   height: 3rem;
-  background: #fff;
+  background: $color-white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   line-height: 1;
 }
 .kirby-bar[data-dark] {
-  color: #fff;
+  color: $color-light;
   background: $color-dark;
 }
 .kirby-bar-slot {

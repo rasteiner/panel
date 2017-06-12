@@ -118,14 +118,14 @@ export default {
 }
 .kirby-number .kirby-button {
   width: 3rem;
-  background: #fff;
-  border-left: 1px dashed #ddd;
+  background: $color-white;
+  border-left: 1px dashed $color-border;
 }
 .kirby-number .kirby-button:focus {
   position: relative;
-  background: #8dae28;
-  color: #fff;  
-  border-left: 1px solid #8dae28;
+  background: $color-positive;
+  color: $color-light;  
+  border-left: 1px solid $color-positive;
   right: -1px;
 }
 

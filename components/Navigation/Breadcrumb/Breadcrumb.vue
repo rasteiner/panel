@@ -12,7 +12,7 @@
   overflow: hidden;
   height: 3rem;
   padding: 0 1rem;
-  background: #fff;
+  background: $color-white;
 }
 
 @media screen and (min-width: 30em) {

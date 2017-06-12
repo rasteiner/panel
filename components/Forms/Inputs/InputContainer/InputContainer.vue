@@ -51,8 +51,8 @@ export default {
 .kirby-input-container {
   display: flex;
   align-items: stretch;
-  border: 2px solid #ddd;
-  background: #fff;
+  border: 2px solid $color-border;
+  background: $color-white;
 }
 .kirby-input-container[data-focus] {
   border-color: $color-positive;
@@ -61,7 +61,7 @@ export default {
   border-color: $color-negative;
 }
 .kirby-input-container[data-error][data-focus] {
-  border-color: #000;
+  border-color: $color-dark;
 }
 .kirby-input-container-prefix {
   width: 2rem;
@@ -70,7 +70,7 @@ export default {
   justify-content: center;
   line-height: 1;
   font-size: .8em;
-  color: #777;
+  color: $color-dark-grey;
 }
 .kirby-input-container-content {
   flex-grow: 1;  
@@ -93,11 +93,11 @@ export default {
 }
 .kirby-input-container-icon {
   width: 3rem;
-  border-left: 1px dashed #ddd;
+  border-left: 1px dashed $color-border;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #777;
+  color: $color-dark;
 }
 
 </style>

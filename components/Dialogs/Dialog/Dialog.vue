@@ -70,17 +70,17 @@ export default {
   border: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0, .6);
+  background: $color-backdrop;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: z-index(dialog);
 }
 .kirby-dialog-box {
-  background: #fff;
+  background: $color-white;
   width: 22rem;
-  box-shadow: rgba(0,0,0, .2) 0 2px 10px;
-  border-radius: 3px;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
   line-height: 1;
 }
 .kirby-dialog-box[data-size="small"] {
@@ -95,9 +95,9 @@ export default {
 .kirby-dialog-header {
   padding: 1rem 1.5rem;
   background: $color-dark;
-  color: #fff;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  color: $color-light;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
 }
 .kirby-dialog-header h1 {
   font-size: 1rem;
@@ -105,7 +105,7 @@ export default {
 }
 .kirby-dialog-body {
   padding: 1rem 1.5rem;
-  background: #efefef;
+  background: $color-light;
 }
 .kirby-dialog-footer {
 }
@@ -117,7 +117,7 @@ export default {
   flex-grow: 1;
   margin: 0 !important;
   width: 50%;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid $color-border;
   padding: 1rem;
   font-weight: 500;
   height: 3rem;

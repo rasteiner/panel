@@ -25,7 +25,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-tag {
   position: relative;
@@ -34,14 +34,14 @@ export default {
   border: 0;
   cursor: pointer;
   color: inherit;
-  background-color: #282c34;
-  color: #fff;
-  border-radius: 3px;
+  background-color: $color-dark;
+  color: $color-light;
+  border-radius: $border-radius;
 }
 .kirby-tag:focus {
   outline: 0;
-  background-color: #8dae28;
-  border-color: #8dae28;
+  background-color: $color-positive;
+  border-color: $color-positive;
 }
 .kirby-tag[data-size="small"] .kirby-tag-text {
   font-size: .8em;

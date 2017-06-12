@@ -57,12 +57,18 @@ export default {
 
 .kirby-card {
   position: relative;
-  border-radius: 3px;
 }
 .kirby-card-content {
   background: #fff;
   padding: 1rem;
   line-height: 1.5em;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+}
+.kirby-card .kirby-image {
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  overflow: hidden;
 }
 .kirby-card-text {
   font-weight: 400;
@@ -71,7 +77,7 @@ export default {
   text-overflow: ellipsis;
 }
 .kirby-card-info {
-  color: #777;
+  color: $color-dark-grey;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

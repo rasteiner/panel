@@ -46,7 +46,7 @@ export default {
 .kirby-field-help {
   padding: .5rem 0;
   font-size: .9em;
-  color: #777;
+  color: $color-dark-grey;
 }
 .kirby-field[data-error] .kirby-field-help {
   color: $color-negative;

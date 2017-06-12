@@ -51,7 +51,7 @@ export default {
   background: $color-dark;
 }
 .kirby-image[data-back="white"] span {
-  background: #fff;
+  background: $color-white;
 }
 .kirby-image[data-back="pattern"] span {
   background: url(/images/pattern.png);

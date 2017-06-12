@@ -8,7 +8,7 @@
 
 .kirby-box {
   background: rgba(0,0,0, .075);
-  border-radius: 3px;
+  border-radius: $border-radius;
   padding: .75rem 1rem;
 }
 .kirby-box .kirby-button {

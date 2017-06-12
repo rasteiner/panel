@@ -39,7 +39,7 @@ export default {
   white-space: nowrap;
   padding: 1rem 2rem 1rem 1rem;
   line-height: 1;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid $color-background;
   color: inherit;
   display: flex;
   width: 100%;
@@ -47,7 +47,6 @@ export default {
 }
 .kirby-dropdown-item .kirby-icon {
   width: 1.5rem;
-  margin-right: .5rem;
   text-align: center;
 }
 

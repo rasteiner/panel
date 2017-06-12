@@ -8,8 +8,23 @@
 
 @import 'styles/z-index.scss';
 
-// Variables
+/**
+ * Colors
+ */
 $color-black: #000;
+$color-white: #fff;
 $color-dark: #282c34;
+$color-dark-grey: #777;
+$color-light: #efefef;
+$color-light-grey: #999;
+$color-background: $color-light;
 $color-positive: #8dae28;
 $color-negative: #b3000a;
+$color-border: #dedede;
+$color-backdrop: rgba(0,0,0, .6);
+
+/**
+ * Misc
+ */
+$border-radius: 3px;
+$box-shadow: rgba(0,0,0, .2) 0 2px 10px;

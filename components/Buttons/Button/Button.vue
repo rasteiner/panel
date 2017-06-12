@@ -71,40 +71,40 @@ export default {
   outline: 0;
 }
 .kirby-button[data-state="positive"] {
-  color: #8dae28;
+  color: $color-positive;
 }
 .kirby-button[data-state="negative"] {
-  color: #b3000a;  
+  color: $color-negative;  
 }
 .kirby-button[data-shape="round"] {
-  border: 2px solid #282c34;
-  color: #282c34;
+  border: 2px solid $color-dark;
+  color: $color-dark;
   border-radius: 3rem;
   padding: .2rem 1rem;
   font-weight: 500;
 }
 .kirby-button[data-shape="round"]:hover,
 .kirby-button[data-shape="round"]:focus {
-  background-color: #282c34;
-  color: #fff;
+  background-color: $color-dark;
+  color: $color-light;
 }
 .kirby-button[data-shape="round"][data-state="positive"] {
-  border-color: #8dae28;  
-  color: #8dae28;
+  border-color: $color-positive;  
+  color: $color-positive;
 }
 .kirby-button[data-shape="round"][data-state="positive"]:hover,
 .kirby-button[data-shape="round"][data-state="positive"]:focus {
-  background-color: #8dae28;
-  color: #fff;
+  background-color: $color-positive;
+  color: $color-light;
 }
 .kirby-button[data-shape="round"][data-state="negative"] {
-  border-color: #b3000a;  
-  color: #b3000a;
+  border-color: $color-negative;  
+  color: $color-negative;
 }
 .kirby-button[data-shape="round"][data-state="negative"]:hover,
 .kirby-button[data-shape="round"][data-state="negative"]:focus {
-  background-color: #b3000a;
-  color: #fff;
+  background-color: $color-negative;
+  color: $color-light;
 }
 .kirby-button .kirby-icon ~ .kirby-button-text:not(:empty) {
   padding-left: .5rem;
@@ -130,7 +130,7 @@ export default {
   height: 1.5rem;
   margin: -.5rem 1rem -.5rem 0;
   border-radius: 50%;
-  background: #282c34;
+  background: $color-dark;
   object-fit: cover;
 }
 
