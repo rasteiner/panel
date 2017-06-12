@@ -33,10 +33,12 @@
 
 <script>
 
+import Autocomplete from '../../Autocomplete/Autocomplete.vue';
 import Tag from '../../../Buttons/Tag/Tag.vue';
 
 export default {
   components: {
+    'kirby-autocomplete': Autocomplete,
     'kirby-tag': Tag
   },
   props: ['id', 'value', 'required', 'autofocus', 'autocomplete'],
