@@ -18,19 +18,19 @@
 
     <kirby-grid gutter="large">
       <kirby-column width="1/5">
-        <kirby-card :image="{url: 'https://unsplash.it/200/300'}" text="Project A" info="projects/project-a"></kirby-card>
+        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
       </kirby-column>
       <kirby-column width="1/5">
-        <kirby-card :image="{url: 'https://unsplash.it/200/300'}" text="Project A" info="projects/project-a"></kirby-card>
+        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
       </kirby-column>
       <kirby-column width="1/5">
-        <kirby-card :image="{url: 'https://unsplash.it/200/300'}" text="Project A" info="projects/project-a"></kirby-card>
+        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
       </kirby-column>
       <kirby-column width="1/5">
-        <kirby-card :image="{url: 'https://unsplash.it/200/300'}" text="Project A" info="projects/project-a"></kirby-card>
+        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
       </kirby-column>
       <kirby-column width="1/5">
-        <kirby-card :image="{url: 'https://unsplash.it/200/300'}" text="Project A" info="projects/project-a"></kirby-card>
+        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
       </kirby-column>
     </kirby-grid>
 
