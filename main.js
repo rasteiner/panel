@@ -24,6 +24,7 @@ import InputContainer from './components/Forms/Inputs/InputContainer/InputContai
 import Select from './components/Forms/Inputs/Select/Select.vue'
 import Textarea from './components/Forms/Inputs/Textarea/Textarea.vue'
 import Tags from './components/Forms/Inputs/Tags/Tags.vue'
+import Number from './components/Forms/Inputs/Number/Number.vue'
 
 /** Images **/
 import Icon from './components/Images/Icon/Icon.vue'
@@ -85,6 +86,7 @@ new Vue({
     'kirby-select': Select,
     'kirby-textarea': Textarea,
     'kirby-tags': Tags,
+    'kirby-number': Number,
 
     /** Images **/
     'kirby-icon': Icon,
