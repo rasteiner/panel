@@ -1,0 +1,20 @@
+[
+  {
+    "icon": "play-circle", 
+    "text": "Show/download file", 
+    "link": false,
+    "click": "show"
+  },
+  {
+    "icon": "pencil", 
+    "text": "Edit", 
+    "link": false,
+    "click": "edit"
+  },
+  {
+    "icon": "trash-o", 
+    "text": "Delete", 
+    "link": false,
+    "click": "remove"
+  }
+]

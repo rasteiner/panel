@@ -15,7 +15,7 @@
     <kirby-dropdown v-if="options">
       <kirby-button 
         class="kirby-card-options-button" 
-        icon="caret-down" 
+        icon="angle-down" 
         @click="$refs.dropdown.toggle()">
       </kirby-button>
       <kirby-dropdown-content 

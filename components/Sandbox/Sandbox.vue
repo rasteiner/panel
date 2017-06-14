@@ -1,39 +1,6 @@
 <template>
   <div class="kirby-sandbox">
-    <header>
-
-      <ul class="breadcrumb">
-        <li>About <kirby-icon type="angle-right"></kirby-icon></li>
-        <li>Blog <kirby-icon type="angle-right"></kirby-icon></li>
-      </ul>
-
-      <kirby-headline>Case Study: Git Tower</kirby-headline>
-      <kirby-button-group>
-        <kirby-button icon="play-circle">Preview</kirby-button>
-        <kirby-button icon="toggle-on">Status: visible</kirby-button>
-        <kirby-button icon="chain">Change URL</kirby-button>
-        <kirby-button icon="trash">Delete</kirby-button>
-      </kirby-button-group>
-    </header>
-
-    <kirby-grid gutter="large">
-      <kirby-column width="1/5">
-        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
-      </kirby-column>
-      <kirby-column width="1/5">
-        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
-      </kirby-column>
-      <kirby-column width="1/5">
-        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
-      </kirby-column>
-      <kirby-column width="1/5">
-        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
-      </kirby-column>
-      <kirby-column width="1/5">
-        <kirby-card :image="{url: '/mock/images/project-a/closeup.jpg'}" text="Project A" info="projects/project-a"></kirby-card>
-      </kirby-column>
-    </kirby-grid>
-
+    <slot />
   </div>
 </template>
 
@@ -78,11 +45,11 @@ export default {
   padding-bottom: 1.5rem;
   margin-bottom: 3rem;
 }
-.kirby-sandbox .kirby-button-group .kirby-button {
+.kirby-sandbox .kirby-page-option {
   color: #777;
-  font-size: .9rem;
+  font-size: .9rem !important;
 }
-.kirby-sandbox .kirby-button-group .kirby-icon {
+.kirby-sandbox .kirby-page-option > .kirby-icon {
   color: #000;
   font-size: 14px;
 }

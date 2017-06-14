@@ -1,0 +1,26 @@
+[
+  {
+    "icon": "play-circle", 
+    "text": "Open preview", 
+    "link": "#",
+    "click": "preview"
+  },
+  {
+    "icon": "toggle-on", 
+    "text": "Status: visible", 
+    "link": "#",
+    "click": "toggle"
+  },
+  {
+    "icon": "chain", 
+    "text": "Change URL", 
+    "link": "#",
+    "click": "url"
+  },
+  {
+    "icon": "trash-o", 
+    "text": "Delete this page", 
+    "link": "#",
+    "click": "remove"
+  }
+]

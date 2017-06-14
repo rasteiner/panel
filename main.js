@@ -11,6 +11,10 @@ import Button from './components/Buttons/Button/Button.vue'
 import ButtonGroup from './components/Buttons/ButtonGroup/ButtonGroup.vue'
 import Tag from './components/Buttons/Tag/Tag.vue'
 
+/** Data */
+import Pages from './components/Data/Pages/Pages.vue';
+import Files from './components/Data/Files/Files.vue';
+
 /** Dialogs **/
 import Dialog from './components/Dialogs/Dialog/Dialog.vue'
 
@@ -42,6 +46,7 @@ import Languages from './components/Navigation/Languages/Languages.vue'
 /** Layout **/
 import Box from './components/Layout/Box/Box.vue'
 import Card from './components/Layout/Card/Card.vue'
+import Cards from './components/Layout/Cards/Cards.vue'
 import Grid from './components/Layout/Grid/Grid.vue'
 import Column from './components/Layout/Grid/Column.vue'
 
@@ -81,6 +86,10 @@ new Vue({
     'kirby-button-group': ButtonGroup,
     'kirby-tag': Tag,
 
+    /** Data **/
+    'kirby-pages': Pages,
+    'kirby-files': Files,
+
     /** Dialogs **/
     'kirby-dialog': Dialog,
 
@@ -103,6 +112,7 @@ new Vue({
 
     /** Layout **/
     'kirby-card': Card,
+    'kirby-cards': Cards,
     'kirby-box': Box,
     'kirby-grid': Grid,
     'kirby-column': Column,

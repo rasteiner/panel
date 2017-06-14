@@ -1,2 +1,28 @@
-<kirby-sandbox></kirby-sandbox>
+<kirby-sandbox>
+
+  <header>
+
+    <ul class="breadcrumb">
+      <li>About <kirby-icon type="angle-right"></kirby-icon></li>
+      <li>Blog <kirby-icon type="angle-right"></kirby-icon></li>
+    </ul>
+
+    <kirby-headline>Case Study: Git Tower</kirby-headline>
+    <kirby-button-group>
+      <kirby-button class="kirby-page-option" icon="play-circle">Preview</kirby-button>
+      <kirby-button class="kirby-page-option" icon="toggle-on">Status: Draft</kirby-button>
+      <kirby-dropdown>
+        <kirby-button class="kirby-page-option" @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
+        <kirby-dropdown-content :dark="true" ref="settings">
+          <kirby-dropdown-item icon="clipboard">Copy</kirby-dropdown-item>
+          <kirby-dropdown-item icon="chain">Change URL</kirby-dropdown-item>
+          <kirby-dropdown-item icon="trash">Delete</kirby-dropdown-item>
+        </kirby-dropdown-content>
+      </kirby-dropdown>
+    </kirby-button-group>
+  </header>
+
+  {{render '@pages'}}
+
+</kirby-sandbox>
 
