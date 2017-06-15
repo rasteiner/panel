@@ -2,15 +2,24 @@
 
   <header>
 
-    <ul class="breadcrumb">
-      <li>About <kirby-icon type="angle-right"></kirby-icon></li>
-      <li>Blog <kirby-icon type="angle-right"></kirby-icon></li>
-    </ul>
+    <kirby-bar class="breadcrumb-bar">
+      <ul class="breadcrumb" slot="left">
+        <li><a href=""><kirby-icon type="bars"></kirby-icon></a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">Blog</a></li>
+      </ul>
+
+      <kirby-button-group slot="right">
+        <kirby-button class="kirby-page-option" icon="angle-left"></kirby-button>
+        <kirby-button class="kirby-page-option" icon="angle-right"></kirby-button>
+      </kirby-button-group>
+    </kirby-bar>
 
     <kirby-headline>Case Study: Git Tower</kirby-headline>
-    <kirby-button-group>
+
+    <kirby-button-group slot="left">
       <kirby-button class="kirby-page-option" icon="play-circle">Preview</kirby-button>
-      <kirby-button class="kirby-page-option" icon="toggle-on">Status: Draft</kirby-button>
+      <kirby-button class="kirby-page-option" icon="toggle-on">Draft</kirby-button>
       <kirby-dropdown>
         <kirby-button class="kirby-page-option" @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
         <kirby-dropdown-content :dark="true" ref="settings">
@@ -20,9 +29,31 @@
         </kirby-dropdown-content>
       </kirby-dropdown>
     </kirby-button-group>
+
   </header>
 
-  {{render '@pages'}}
+  <kirby-grid gutter="large">
+    <kirby-column width="1/2">      
+      <kirby-headline>
+        Drafts 
+        <kirby-dropdown>
+          <kirby-button 
+            style="margin-left: .5rem; color: #777" 
+            icon="search"
+            @click="$refs.filter.toggle(); $nextTick(function() { $refs.search.focus() }) ">
+          </kirby-button>
+          <kirby-dropdown-content class="kirby-search-dropdown" :dark="true" ref="filter">
+            <input ref="search" type="text" placeholder="Search…">
+          </kirby-dropdown-content>
+        </kirby-dropdown>
+      </kirby-headline>
+      {{render '@pages'}}
+    </kirby-column>
+    <kirby-column width="1/2">
+      <kirby-headline>Public Projects <kirby-button style="margin-left: .5rem; color: #777" icon="search"></kirby-button></kirby-headline>
+      {{render '@pages'}}
+    </kirby-column>
+  </kirby-grid>
 
 </kirby-sandbox>
 

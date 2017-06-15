@@ -32,12 +32,21 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-sandbox {
   padding: 3rem;
 }
-.kirby-sandbox .kirby-headline {
+
+.kirby-sandbox .kirby-bar {
+  height: auto;
+  background: none;
+
+  .kirby-bar-slot {
+    padding: 0;
+  }
+}
+.kirby-sandbox header .kirby-headline {
   font-size: 1.75rem;
 }
 .kirby-sandbox header {
@@ -54,20 +63,42 @@ export default {
   font-size: 14px;
 }
 
-.kirby-sandbox .breadcrumb {
-  overflow: hidden;
+.kirby-sandbox .breadcrumb-bar {
   margin-bottom: 1.5rem;
 }
-.kirby-sandbox .breadcrumb li {
-  float: left;
+.kirby-sandbox .breadcrumb > li {
+  display: inline-block;
   font-size: .9rem;
   color: #777;
-  margin-right: .5rem;
+  margin-right: .25rem;
+
+  &:after {
+    content: "/";
+    margin-left: .6rem;
+  }
 }
-.kirby-sandbox .breadcrumb .kirby-icon {
+.kirby-sandbox .breadcrumb > li > .kirby-icon {
   margin-left: .25rem;
   vertical-align: baseline;
   font-size: .8rem;
+}
+
+.kirby-sandbox .kirby-search-dropdown {
+
+  input {
+    border: 0;
+    font: inherit;
+    font-weight: 400;
+    background: none;
+    padding: .5rem 1rem;
+    color: #fff;
+    width: 15rem;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
 }
 
 </style>
