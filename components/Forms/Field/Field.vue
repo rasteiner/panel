@@ -1,20 +1,44 @@
 <template>
   <div class="kirby-field" :data-required="required" :data-error="error">
-    <div v-if="$slots['label'] || $slots['options']" class="kirby-field-header">
-      <slot name="label"></slot>
+
+    <div v-if="$slots.label || $slots.options || label" class="kirby-field-header">
+      <slot name="label">
+        <label :for="name">{{ label }}</label>
+      </slot>
       <slot name="options"></slot>
     </div>
-    <slot name="content"></slot>
-    <div v-if="$slots['help']" class="kirby-field-help">
-      <slot name="help"></slot>
+
+    <slot v-if="$slots.content" name="content"></slot>
+    <kirby-input v-else :icon="icon" :prefix="prefix">
+      <slot></slot>
+    </kirby-input>
+
+    <div v-if="$slots.help || help" class="kirby-field-help">
+      <slot name="help">
+        <p>{{ help }}</p>
+      </slot>
     </div>
+
   </div>
 </template>
 
 <script>
 
+import Input from '../Input/Input.vue';
+
 export default {
-  props: ['required', 'error']  
+  components: {
+    'kirby-input': Input
+  },
+  props: [
+    'required', 
+    'error', 
+    'label', 
+    'help', 
+    'name',
+    'prefix',
+    'icon'
+  ]  
 }
 
 </script>

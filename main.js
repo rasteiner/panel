@@ -22,14 +22,24 @@ import Dialog from './components/Dialogs/Dialog/Dialog.vue'
 import Autocomplete from './components/Forms/Autocomplete/Autocomplete.vue'
 import Calendar from './components/Forms/Calendar/Calendar.vue'
 import Field from './components/Forms/Field/Field.vue'
+import Input from './components/Forms/Input/Input.vue'
 
 /** Forms/Inputs **/
 import Date from './components/Forms/Inputs/Date/Date.vue'
-import InputContainer from './components/Forms/Inputs/InputContainer/InputContainer.vue'
 import Select from './components/Forms/Inputs/Select/Select.vue'
 import Textarea from './components/Forms/Inputs/Textarea/Textarea.vue'
 import Tags from './components/Forms/Inputs/Tags/Tags.vue'
 import Number from './components/Forms/Inputs/Number/Number.vue'
+
+/** Forms/Fields **/
+import DateField from './components/Forms/Fields/Date/Date.vue'
+import TextField from './components/Forms/Fields/Text/Text.vue'
+import TextareaField from './components/Forms/Fields/Textarea/Textarea.vue'
+import TagsField from './components/Forms/Fields/Tags/Tags.vue'
+import EmailField from './components/Forms/Fields/Email/Email.vue'
+import UrlField from './components/Forms/Fields/Url/Url.vue'
+import TelField from './components/Forms/Fields/Tel/Tel.vue'
+import SelectField from './components/Forms/Fields/Select/Select.vue'
 
 /** Images **/
 import Icon from './components/Images/Icon/Icon.vue'
@@ -97,14 +107,24 @@ new Vue({
     'kirby-autocomplete': Autocomplete,
     'kirby-calendar': Calendar,
     'kirby-field': Field,
+    'kirby-input': Input,
 
     /** Form/Inputs */
     'kirby-date': Date,
-    'kirby-input-container': InputContainer,
     'kirby-select': Select,
     'kirby-textarea': Textarea,
     'kirby-tags': Tags,
     'kirby-number': Number,
+
+    /** Form/Fields */
+    'kirby-date-field': DateField,
+    'kirby-tags-field': TagsField,
+    'kirby-text-field': TextField,
+    'kirby-textarea-field': TextareaField,
+    'kirby-email-field': EmailField,
+    'kirby-url-field': UrlField,
+    'kirby-tel-field': TelField,
+    'kirby-select-field': SelectField,
 
     /** Images **/
     'kirby-icon': Icon,

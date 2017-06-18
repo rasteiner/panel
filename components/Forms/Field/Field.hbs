@@ -1,14 +1,3 @@
-<kirby-field>
-  <template slot="label">
-    <label>Title</label>
-  </template>
-  <template slot="options">
-    {{render '@buttongroup'}}
-  </template>
-  <template slot="content">
-    {{render '@inputcontainer'}}
-  </template>
-  <template slot="help">
-    <p>This is the help text for the title field</p>
-  </template>
+<kirby-field name="title" label="Title" help="This is the help text for the title field">
+  <input type="text" id="title">
 </kirby-field>

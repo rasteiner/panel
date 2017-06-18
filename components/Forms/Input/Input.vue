@@ -1,20 +1,28 @@
 <template>
-  <div class="kirby-input-container" :data-focus="isFocused" :data-error="error">
-    <span v-if="$slots.prefix" class="kirby-input-container-prefix">
-      <slot name="prefix" />
+  <div class="kirby-input" :data-focus="isFocused" :data-error="error">
+    <span v-if="$slots.prefix || prefix" class="kirby-input-prefix">
+      <slot name="prefix">{{ prefix }}</slot>
     </span>
-    <span class="kirby-input-container-content">
-      <slot name="input" />
+    <span class="kirby-input-content">
+      <slot></slot>
     </span>
-    <span v-if="$slots.icon" @click="focus" class="kirby-input-container-icon">
-      <slot name="icon" />
+    <span v-if="$slots.icon || icon" @click="focus" class="kirby-input-icon">
+      <slot name="icon">
+        <kirby-icon :type="icon"></kirby-icon>
+      </slot>
     </span>
   </div>
 </template>
 
 <script>
 
+import Icon from '../../Images/Icon/Icon.vue';
+
 export default {
+  components: {
+    'kirby-icon': Icon
+  },
+  props: ['error', 'prefix', 'icon'],
   data: function() {
     return {
       isFocused: false
@@ -48,22 +56,22 @@ export default {
 
 <style lang="scss">
 
-.kirby-input-container {
+.kirby-input {
   display: flex;
   align-items: stretch;
   border: 2px solid $color-border;
   background: $color-white;
 }
-.kirby-input-container[data-focus] {
+.kirby-input[data-focus] {
   border-color: $color-positive;
 }
-.kirby-input-container[data-error] {
+.kirby-input[data-error] {
   border-color: $color-negative;
 }
-.kirby-input-container[data-error][data-focus] {
+.kirby-input[data-error][data-focus] {
   border-color: $color-dark;
 }
-.kirby-input-container-prefix {
+.kirby-input-prefix {
   width: 2rem;
   display: flex;
   align-items: center;
@@ -72,13 +80,13 @@ export default {
   font-size: .8em;
   color: $color-dark-grey;
 }
-.kirby-input-container-content {
+.kirby-input-content {
   flex-grow: 1;  
   min-height: 2.5rem;
 }
-.kirby-input-container-content > input,
-.kirby-input-container-content > textarea,
-.kirby-input-container-content > .kirby-select {
+.kirby-input-content > input,
+.kirby-input-content > textarea,
+.kirby-input-content > .kirby-select {
   border: 0;
   font: inherit;
   line-height: 1.5em;
@@ -87,11 +95,11 @@ export default {
   resize: none;
   background: none;
 }
-.kirby-input-container-content > input:focus,
-.kirby-input-container-content > textarea:focus {
+.kirby-input-content > input:focus,
+.kirby-input-content > textarea:focus {
   outline: 0;
 }
-.kirby-input-container-icon {
+.kirby-input-icon {
   width: 3rem;
   border-left: 1px dashed $color-border;
   display: flex;
