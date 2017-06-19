@@ -5,8 +5,8 @@
         <span>
           <kirby-button @click="prev" icon="caret-left"></kirby-button>
           <span class="kirby-calendar-selects">
-            <kirby-select v-model="date.month" :options="monthOptions"></kirby-select>
-            <kirby-select v-model="date.year" :options="yearOptions"></kirby-select>
+            <kirby-select-input v-model="date.month" :options="monthOptions"></kirby-select-input>
+            <kirby-select-input v-model="date.year" :options="yearOptions"></kirby-select-input>
           </span>
           <kirby-button @click="next" icon="caret-right"></kirby-button>
         </span>
@@ -37,13 +37,13 @@
 <script>
 
 import Button from '../../Buttons/Button/Button.vue';
-import Select from '../Inputs/Select/Select.vue';
+import SelectInput from '../Inputs/SelectInput/SelectInput.vue';
 
 export default {
   props: ['month', 'year'],
   components: {
     'kirby-button': Button,
-    'kirby-select': Select
+    'kirby-select-input': SelectInput
   },
   data: function() {
 

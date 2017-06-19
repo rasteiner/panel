@@ -86,7 +86,7 @@ export default {
 }
 .kirby-input-content > input,
 .kirby-input-content > textarea,
-.kirby-input-content > .kirby-select {
+.kirby-input-content > .kirby-select-input {
   border: 0;
   font: inherit;
   line-height: 1.5em;

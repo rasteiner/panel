@@ -13,15 +13,15 @@ import Grid from '../../Layout/Grid/Grid.vue';
 import Column from '../../Layout/Grid/Column.vue';
 
 /** Fields **/
-import DateField from '../Fields/Date/Date.vue'
-import TextField from '../Fields/Text/Text.vue'
-import TextareaField from '../Fields/Textarea/Textarea.vue'
-import TagsField from '../Fields/Tags/Tags.vue'
-import EmailField from '../Fields/Email/Email.vue'
-import NumberField from '../Fields/Number/Number.vue'
-import UrlField from '../Fields/Url/Url.vue'
-import TelField from '../Fields/Tel/Tel.vue'
-import SelectField from '../Fields/Select/Select.vue'
+import DateField from '../Fields/DateField/DateField.vue'
+import TextField from '../Fields/TextField/TextField.vue'
+import TextareaField from '../Fields/TextareaField/TextareaField.vue'
+import TagsField from '../Fields/TagsField/TagsField.vue'
+import EmailField from '../Fields/EmailField/EmailField.vue'
+import NumberField from '../Fields/NumberField/NumberField.vue'
+import UrlField from '../Fields/UrlField/UrlField.vue'
+import TelField from '../Fields/TelField/TelField.vue'
+import SelectField from '../Fields/SelectField/SelectField.vue'
 
 export default {
   components: {

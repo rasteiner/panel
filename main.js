@@ -26,22 +26,22 @@ import Fieldset from './components/Forms/Fieldset/Fieldset.vue'
 import Input from './components/Forms/Input/Input.vue'
 
 /** Forms/Inputs **/
-import Date from './components/Forms/Inputs/Date/Date.vue'
-import Select from './components/Forms/Inputs/Select/Select.vue'
-import Textarea from './components/Forms/Inputs/Textarea/Textarea.vue'
-import Tags from './components/Forms/Inputs/Tags/Tags.vue'
-import Number from './components/Forms/Inputs/Number/Number.vue'
+import DateInput from './components/Forms/Inputs/DateInput/DateInput.vue'
+import SelectInput from './components/Forms/Inputs/SelectInput/SelectInput.vue'
+import TextareaInput from './components/Forms/Inputs/TextareaInput/TextareaInput.vue'
+import TagsInput from './components/Forms/Inputs/TagsInput/TagsInput.vue'
+import NumberInput from './components/Forms/Inputs/NumberInput/NumberInput.vue'
 
 /** Forms/Fields **/
-import DateField from './components/Forms/Fields/Date/Date.vue'
-import TextField from './components/Forms/Fields/Text/Text.vue'
-import TextareaField from './components/Forms/Fields/Textarea/Textarea.vue'
-import TagsField from './components/Forms/Fields/Tags/Tags.vue'
-import EmailField from './components/Forms/Fields/Email/Email.vue'
-import NumberField from './components/Forms/Fields/Number/Number.vue'
-import UrlField from './components/Forms/Fields/Url/Url.vue'
-import TelField from './components/Forms/Fields/Tel/Tel.vue'
-import SelectField from './components/Forms/Fields/Select/Select.vue'
+import DateField from './components/Forms/Fields/DateField/DateField.vue'
+import TextField from './components/Forms/Fields/TextField/TextField.vue'
+import TextareaField from './components/Forms/Fields/TextareaField/TextareaField.vue'
+import TagsField from './components/Forms/Fields/TagsField/TagsField.vue'
+import EmailField from './components/Forms/Fields/EmailField/EmailField.vue'
+import NumberField from './components/Forms/Fields/NumberField/NumberField.vue'
+import UrlField from './components/Forms/Fields/UrlField/UrlField.vue'
+import TelField from './components/Forms/Fields/TelField/TelField.vue'
+import SelectField from './components/Forms/Fields/SelectField/SelectField.vue'
 
 /** Images **/
 import Icon from './components/Images/Icon/Icon.vue'
@@ -113,11 +113,11 @@ new Vue({
     'kirby-input': Input,
 
     /** Form/Inputs */
-    'kirby-date': Date,
-    'kirby-select': Select,
-    'kirby-textarea': Textarea,
-    'kirby-tags': Tags,
-    'kirby-number': Number,
+    'kirby-date-input': DateInput,
+    'kirby-select-input': SelectInput,
+    'kirby-textarea-input': TextareaInput,
+    'kirby-tags-input': TagsInput,
+    'kirby-number-input': NumberInput,
 
     /** Form/Fields */
     'kirby-date-field': DateField,
