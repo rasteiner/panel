@@ -17,8 +17,6 @@ export default {
 <style lang="scss">
 
 .kirby-bar {
-  height: 3rem;
-  background: $color-white;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,16 +28,12 @@ export default {
 }
 .kirby-bar-slot {
   flex-grow: 1;
-  padding: 1rem 3rem;
 }
 .kirby-bar-slot[data-position="center"] {
   text-align: center;
 }
 .kirby-bar-slot[data-position="right"] {
   text-align: right;
-}
-.kirby-bar-slot[data-position="left"] .kirby-breadcrumb {
-  margin-left: -1.5rem;
 }
 
 </style>

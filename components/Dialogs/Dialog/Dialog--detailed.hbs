@@ -1,0 +1,31 @@
+<kirby-button shape="round" @click="$refs.dialog.open()">Open Dialog</kirby-button>
+
+<kirby-dialog ref="dialog">
+  <template slot="headline">
+    <kirby-headline>Some dialog action</kirby-headline>
+  </template>
+
+  <template slot="options">
+    <kirby-dropdown>
+      <kirby-button @click="$refs.options.toggle()" icon="cog"></kirby-button>
+      <kirby-dropdown-content ref="options" align="right">
+        <kirby-dropdown-item icon="pencil">Option A</kirby-dropdown-item>
+        <kirby-dropdown-item icon="pencil">Option B</kirby-dropdown-item>
+        <kirby-dropdown-item icon="pencil">Option C</kirby-dropdown-item>
+      </kirby-dropdown-content>
+    </kirby-dropdown>
+  </template>
+  
+  <template>
+    <kirby-txt>
+      Do you really want to delete the user:<br> <strong>bastian? </strong>
+    </kirby-txt>
+  </template>
+  
+  <template slot="footer">
+    <kirby-button-group>
+      <kirby-button @click="$refs.dialog.close()">Cancel</kirby-button>
+      <kirby-button @click="$refs.dialog.close()" state="negative">Delete</kirby-button>
+    </kirby-button-group>
+  </template
+</kirby-dialog>

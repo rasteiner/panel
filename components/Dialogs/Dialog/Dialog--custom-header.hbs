@@ -1,0 +1,12 @@
+<kirby-button shape="round" @click="$refs.dialog.open()">Open Dialog</kirby-button>
+
+<kirby-dialog ref="dialog">
+  <template slot="header">
+    <header class="kirby-dialog-header">
+      <kirby-headline slot="left">Completely custom header</kirby-headline>
+    </header>
+  </template>
+  <template>
+    <kirby-txt>Some custom text goes here</kirby-txt>
+  </template>
+</kirby-dialog>

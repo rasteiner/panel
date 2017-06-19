@@ -1,7 +1,7 @@
 <template>
   <kirby-grid class="kirby-fieldset" gutter="large">
     <kirby-column v-for="(field, index) in fields" :key="index" :width="field.width || '1/1'">
-      <component :is="'kirby-' + field.type + '-field'" v-bind="field" />
+      <component :is="'kirby-' + field.type + '-field'" v-bind="field" :value="values[field.name]" />
     </kirby-column>
   </kirby-grid>
 </template>
@@ -40,7 +40,20 @@ export default {
     'kirby-tel-field': TelField,
     'kirby-select-field': SelectField,
   },
-  props: ['fields']
+  props: {
+    fields: {
+      type: Array,
+      default() {
+        return [];
+      }
+    }, 
+    values: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  }
 }
 
 </script>

@@ -1,12 +1,7 @@
 <kirby-button shape="round" @click="$refs.dialog.open()">Open Dialog</kirby-button>
 
-<kirby-dialog ref="dialog">
-  <h1 slot="header">Some dialog action</h1>
-  <kirby-txt slot="body">
+<kirby-dialog ref="dialog" headline="Some dialog action" button="Delete" state="negative">
+  <kirby-txt>
     Do you really want to delete the user:<br> <strong>bastian? </strong>
   </kirby-txt>
-  <kirby-button-group slot="footer">
-    <kirby-button @click="$refs.dialog.close()">Cancel</kirby-button>
-    <kirby-button @click="$refs.dialog.close()" state="negative">Delete</kirby-button>
-  </kirby-button-group>
 </kirby-dialog>

@@ -1,20 +1,39 @@
 <template>
   <div v-if="isOpen" @click="close" class="kirby-dialog">
     <div @click.stop class="kirby-dialog-box" :data-size="size">
-      <header class="kirby-dialog-header">
-        <slot name="header" />
-      </header>
+      <slot name="header">
+        <kirby-bar class="kirby-dialog-header">
+          <template slot="left">
+            <slot name="headline">
+              <kirby-headline>{{ headline }}</kirby-headline>
+            </slot>
+          </template>
+          <template slot="right">
+            <slot name="options"></slot>
+          </template>
+        </kirby-bar>
+      </slot>
       <div class="kirby-dialog-body">
-        <slot name="body" />
+        <slot />
       </div>
       <footer class="kirby-dialog-footer">
-        <slot name="footer" />
+        <slot name="footer">
+          <kirby-button-group>
+            <kirby-button @click="cancel">Cancel</kirby-button>
+            <kirby-button @click="submit" :state="state">{{ button }}</kirby-button>
+          </kirby-button-group>
+        </slot>
       </footer>
     </div>
   </div>
 </template>
 
 <script>
+
+import Bar from '../../Bars/Bar/Bar.vue';
+import Button from '../../Buttons/Button/Button.vue';
+import ButtonGroup from '../../Buttons/ButtonGroup/ButtonGroup.vue';
+import Headline from '../../Text/Headline/Headline.vue';
 
 const PanelDialogEscapeListener = function (e) {
   if (e.code === 'Escape') {
@@ -23,10 +42,21 @@ const PanelDialogEscapeListener = function (e) {
 }
 
 export default {
-  props: [
-    'size',
-    'sticky'
-  ],
+  components: {
+    'kirby-bar': Bar,
+    'kirby-button-group': ButtonGroup,
+    'kirby-button': Button,
+    'kirby-headline': Headline
+  },
+  props: {
+    'headline': {},
+    'size': {},
+    'sticky': {},
+    'state': {},
+    'button': {
+      default: 'Ok'
+    } 
+  },
   data: function () {
     return {
       isOpen: this.sticky === true
@@ -47,6 +77,14 @@ export default {
       if (this.sticky !== true) {
         this.isOpen = false
       }
+    },
+    cancel: function() {
+      this.$emit('cancel');
+      this.close();
+    },
+    submit: function() {
+      this.$emit('submit');
+      this.close();
     }
   },
   created: function () {
@@ -93,15 +131,15 @@ export default {
   width: 40rem;
 }
 .kirby-dialog-header {
-  padding: 1rem 1.5rem;
   background: $color-dark;
   color: $color-light;
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
+  padding: 1rem 1.5rem;
 }
-.kirby-dialog-header h1 {
-  font-size: 1rem;
-  font-weight: 400;
+.kirby-dialog-header .kirby-headline {
+  margin: 0;
+  line-height: 1;
 }
 .kirby-dialog-body {
   padding: 1rem 1.5rem;
@@ -109,7 +147,7 @@ export default {
 }
 .kirby-dialog-footer {
 }
-.kirby-dialog-footer .kirby-buttons {
+.kirby-dialog-footer .kirby-button-group {
   display: flex;
 }
 .kirby-dialog-footer .kirby-button {

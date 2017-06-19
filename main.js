@@ -42,6 +42,7 @@ import NumberField from './components/Forms/Fields/NumberField/NumberField.vue'
 import UrlField from './components/Forms/Fields/UrlField/UrlField.vue'
 import TelField from './components/Forms/Fields/TelField/TelField.vue'
 import SelectField from './components/Forms/Fields/SelectField/SelectField.vue'
+import TableField from './components/Forms/Fields/TableField/TableField.vue'
 
 /** Images **/
 import Icon from './components/Images/Icon/Icon.vue'
@@ -129,6 +130,7 @@ new Vue({
     'kirby-url-field': UrlField,
     'kirby-tel-field': TelField,
     'kirby-select-field': SelectField,
+    'kirby-table-field': TableField,
 
     /** Images **/
     'kirby-icon': Icon,

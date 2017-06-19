@@ -4,6 +4,7 @@
       :id="name" 
       :name="name" 
       :type="type"
+      :value="value"
       :placeholder="placeholder"
       :required="required"
       :readonly="readonly"
