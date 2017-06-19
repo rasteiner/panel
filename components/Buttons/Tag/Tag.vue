@@ -29,7 +29,8 @@ export default {
 
 .kirby-tag {
   position: relative;
-  font: inherit;
+  font-family: $font-family-mono;
+  font-size: $font-size-small;
   line-height: inherit;
   border: 0;
   cursor: pointer;

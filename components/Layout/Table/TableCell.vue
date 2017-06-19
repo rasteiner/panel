@@ -20,6 +20,8 @@ export default {
   background: $color-white;
   border-bottom: 2px solid $color-background;  
   border-left: 1px dashed $color-border;
+  font-family: $font-family-mono;
+  font-size: $font-size-small;
 }
 
 .kirby-table-cell > .link {

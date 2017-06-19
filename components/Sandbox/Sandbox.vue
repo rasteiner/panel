@@ -38,29 +38,13 @@ export default {
   padding: 3rem;
 }
 
-.kirby-sandbox .kirby-bar {
-  height: auto;
-  background: none;
-
-  .kirby-bar-slot {
-    padding: 0;
-  }
-}
 .kirby-sandbox header .kirby-headline {
   font-size: 1.75rem;
+  margin-bottom: 0;
 }
 .kirby-sandbox header {
   border-bottom: 1px solid #ddd;
-  padding-bottom: 1.5rem;
   margin-bottom: 3rem;
-}
-.kirby-sandbox .kirby-page-option {
-  color: #777;
-  font-size: .9rem !important;
-}
-.kirby-sandbox .kirby-page-option > .kirby-icon {
-  color: #000;
-  font-size: 14px;
 }
 
 .kirby-sandbox .breadcrumb-bar {

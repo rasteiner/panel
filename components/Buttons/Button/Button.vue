@@ -3,7 +3,6 @@
     type="button" 
     @click="click" 
     class="kirby-button" 
-    :data-shape="shape" 
     :data-state="state"
     :data-has-image="image ? true : false">    
     <kirby-icon v-if="icon" :type="icon"></kirby-icon>
@@ -28,7 +27,6 @@ export default {
     'icon',
     'image',
     'state',
-    'shape',
     'upload',
     'link'
   ],
@@ -61,61 +59,71 @@ export default {
 .kirby-button {
   position: relative;
   background: none;
-  font: inherit;
+  font-size: $font-size-small;
+  font-family: $font-family-mono;
   line-height: inherit;
   border: 0;
   cursor: pointer;
-  color: inherit;
+  color: $color-dark-grey;
+  transition: color .3s;
+
+  &:focus,
+  &:hover {
+    outline: 0;
+    color: $color-dark;
+  }
+
+  * {
+    vertical-align: middle;
+  }
+
+  .kirby-icon {
+    position: relative;
+    color: $color-dark;
+  }
+
+  .kirby-icon ~ .kirby-button-text:not(:empty) {
+    padding-left: .25rem;
+  }  
+  
 }
-.kirby-button:focus {
-  outline: 0;
-}
+
 .kirby-button[data-state="positive"] {
   color: $color-positive;
+
+  &:hover {
+    color: $color-dark;
+  }
+
+  .kirby-icon {
+    color: $color-positive;
+  }
+
 }
+
 .kirby-button[data-state="negative"] {
   color: $color-negative;  
+
+  &:hover {
+    color: $color-dark;
+  }
+
+  .kirby-icon {
+    color: $color-negative;
+  }
+
 }
-.kirby-button[data-shape="round"] {
-  border: 2px solid $color-dark;
-  color: $color-dark;
-  border-radius: 3rem;
-  padding: .2rem 1rem;
-  font-weight: 500;
-}
-.kirby-button[data-shape="round"]:hover,
-.kirby-button[data-shape="round"]:focus {
-  background-color: $color-dark;
-  color: $color-light;
-}
-.kirby-button[data-shape="round"][data-state="positive"] {
-  border-color: $color-positive;  
-  color: $color-positive;
-}
-.kirby-button[data-shape="round"][data-state="positive"]:hover,
-.kirby-button[data-shape="round"][data-state="positive"]:focus {
-  background-color: $color-positive;
-  color: $color-light;
-}
-.kirby-button[data-shape="round"][data-state="negative"] {
-  border-color: $color-negative;  
-  color: $color-negative;
-}
-.kirby-button[data-shape="round"][data-state="negative"]:hover,
-.kirby-button[data-shape="round"][data-state="negative"]:focus {
-  background-color: $color-negative;
-  color: $color-light;
-}
-.kirby-button .kirby-icon ~ .kirby-button-text:not(:empty) {
-  padding-left: .5rem;
-}
+
 .kirby-button[data-has-image] {
   width: 100%;
   text-align: left;
+
+  .kirby-button-text {
+    padding: 0;  
+  }
+
 }
-.kirby-button[data-has-image] .kirby-button-text {
-  padding: 0;  
-}
+
 .kirby-button input[type="file"] {
   position: absolute;
   top: 0;
@@ -128,7 +136,7 @@ export default {
 .kirby-button-image {
   width: 1.5rem;
   height: 1.5rem;
-  margin: -.5rem .75rem -.5rem 0;
+  margin: -.5rem .25rem -.5rem 0;
   border-radius: 50%;
   background: $color-dark;
   object-fit: cover;

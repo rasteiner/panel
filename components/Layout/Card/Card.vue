@@ -81,6 +81,8 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: $font-size-small;
+  font-family: $font-family-mono;
 } 
 .kirby-card .kirby-dropdown {
   position: absolute;

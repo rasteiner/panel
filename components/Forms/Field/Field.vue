@@ -55,6 +55,10 @@ export default {
   flex-grow: 1;
   line-height: 1.5em;
 }
+.kirby-field-header .kirby-button-group .kirby-button {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .kirby-field[data-error] .kirby-field-header label {
   color: $color-negative;
 }
@@ -69,7 +73,8 @@ export default {
 
 .kirby-field-help {
   padding: .5rem 0;
-  font-size: .9em;
+  font-size: $font-size-small;
+  font-family: $font-family-mono;
   color: $color-dark-grey;
 }
 .kirby-field[data-error] .kirby-field-help {

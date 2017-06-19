@@ -24,8 +24,8 @@
   
   <template slot="footer">
     <kirby-button-group>
-      <kirby-button @click="$refs.dialog.close()">Cancel</kirby-button>
-      <kirby-button @click="$refs.dialog.close()" state="negative">Delete</kirby-button>
+      <kirby-button @click="$refs.dialog.close()" icon="times">Cancel</kirby-button>
+      <kirby-button @click="$refs.dialog.close()" icon="trash-o" state="negative">Delete</kirby-button>
     </kirby-button-group>
   </template
 </kirby-dialog>

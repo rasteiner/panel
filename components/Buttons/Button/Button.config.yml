@@ -4,11 +4,5 @@ variants:
     name: with-icon
     label: Button with icon
   - 
-    name: round
-    label: Round Button
-  - 
-    name: round-with-icon
-    label: Round Button with icon
-  - 
     name: with-image
     label: Image Button

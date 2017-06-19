@@ -166,15 +166,25 @@ export default {
     margin-bottom: -3rem;
   }
 
+  .kirby-dialog-header .kirby-icon {
+    color: #fff;
+  }
+  
+  .kirby-dialog-header .kirby-button-group .kirby-button:last-child {
+    padding-right: 1.5rem;
+  }
+
 }
 
 .kirby-table-field {
 
+  .kirby-table-cell {
+    vertical-align: top;
+  }
+  
   .kirby-table-header {
 
     .kirby-table-header-cell {
-      font-weight: 400;
-      font-style: italic;
       color: $color-dark-grey;
       border-bottom: 2px solid $color-background;
       border-left: 1px dashed $color-border;

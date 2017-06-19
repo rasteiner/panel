@@ -44,10 +44,9 @@ export default {
   display: flex;
   width: 100%;
   align-items: center;
-  font-size: 1rem;
 }
 .kirby-dropdown-item .kirby-icon {
-  width: 1.5rem;
+  width: 2rem;
   text-align: center;
 }
 

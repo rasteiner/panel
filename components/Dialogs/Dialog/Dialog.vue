@@ -19,8 +19,8 @@
       <footer class="kirby-dialog-footer">
         <slot name="footer">
           <kirby-button-group>
-            <kirby-button @click="cancel">Cancel</kirby-button>
-            <kirby-button @click="submit" :state="state">{{ button }}</kirby-button>
+            <kirby-button @click="cancel" icon="times">Cancel</kirby-button>
+            <kirby-button @click="submit" :icon="icon" :state="state">{{ button }}</kirby-button>
           </kirby-button-group>
         </slot>
       </footer>
@@ -55,7 +55,10 @@ export default {
     'state': {},
     'button': {
       default: 'Ok'
-    } 
+    },
+    'icon': {
+      default: 'check'
+    }
   },
   data: function () {
     return {
@@ -135,33 +138,27 @@ export default {
   color: $color-light;
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
-  padding: 1rem 1.5rem;
 }
 .kirby-dialog-header .kirby-headline {
   margin: 0;
   line-height: 1;
+  font-family: $font-family-mono;
+  color: $color-light-grey;
+  font-size: $font-size-small;
+  padding: 1rem 1.5rem;
 }
 .kirby-dialog-body {
   padding: 1rem 1.5rem;
   background: $color-light;
 }
 .kirby-dialog-footer {
+  background: $color-light;
+  padding: .5rem 1.5rem;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
 }
 .kirby-dialog-footer .kirby-button-group {
-  display: flex;
+  text-align: right;
 }
-.kirby-dialog-footer .kirby-button {
-  flex-shrink: 0;
-  flex-grow: 1;
-  margin: 0 !important;
-  width: 50%;
-  border-left: 1px solid $color-border;
-  padding: 1rem;
-  font-weight: 500;
-  height: 3rem;
-}
-.kirby-dialog-footer .kirby-button:first-child {
-  border-left: 0;
-} 
 
 </style>

@@ -105,17 +105,31 @@ export default {
   box-shadow: $box-shadow;
   border-radius: $border-radius;
 }
+
 .kirby-dropdown-content[data-align="right"] {
   left: auto;
   right: 0;
 }
+
 .kirby-dropdown-content[data-dark] {
   background: $color-dark;
   color: $color-light;
+
+  .kirby-dropdown-item {
+    border-bottom: 1px solid rgba(255,255,255, .2);
+    color: lighten($color-light-grey, 10%);
+  }
+
+  .kirby-button:hover {
+    color: #fff;
+  }
+
+  .kirby-button .kirby-icon {
+    color: #fff;
+  }
+
 }
-.kirby-dropdown-content[data-dark] .kirby-dropdown-item {
-  border-bottom: 1px solid rgba(255,255,255, .2);
-}
+
 .kirby-dropdown-item:last-child {
   border-bottom: 0;
 }
