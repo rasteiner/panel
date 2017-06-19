@@ -238,7 +238,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-.kirby-calendar-selects .kirby-select {
+.kirby-calendar-selects .kirby-select-input {
   padding: .5rem;
   font-weight: 500;
 }
