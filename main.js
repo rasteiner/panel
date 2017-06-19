@@ -22,6 +22,7 @@ import Dialog from './components/Dialogs/Dialog/Dialog.vue'
 import Autocomplete from './components/Forms/Autocomplete/Autocomplete.vue'
 import Calendar from './components/Forms/Calendar/Calendar.vue'
 import Field from './components/Forms/Field/Field.vue'
+import Fieldset from './components/Forms/Fieldset/Fieldset.vue'
 import Input from './components/Forms/Input/Input.vue'
 
 /** Forms/Inputs **/
@@ -37,6 +38,7 @@ import TextField from './components/Forms/Fields/Text/Text.vue'
 import TextareaField from './components/Forms/Fields/Textarea/Textarea.vue'
 import TagsField from './components/Forms/Fields/Tags/Tags.vue'
 import EmailField from './components/Forms/Fields/Email/Email.vue'
+import NumberField from './components/Forms/Fields/Number/Number.vue'
 import UrlField from './components/Forms/Fields/Url/Url.vue'
 import TelField from './components/Forms/Fields/Tel/Tel.vue'
 import SelectField from './components/Forms/Fields/Select/Select.vue'
@@ -107,6 +109,7 @@ new Vue({
     'kirby-autocomplete': Autocomplete,
     'kirby-calendar': Calendar,
     'kirby-field': Field,
+    'kirby-fieldset': Fieldset,
     'kirby-input': Input,
 
     /** Form/Inputs */
@@ -122,6 +125,7 @@ new Vue({
     'kirby-text-field': TextField,
     'kirby-textarea-field': TextareaField,
     'kirby-email-field': EmailField,
+    'kirby-number-field': NumberField,
     'kirby-url-field': UrlField,
     'kirby-tel-field': TelField,
     'kirby-select-field': SelectField,
