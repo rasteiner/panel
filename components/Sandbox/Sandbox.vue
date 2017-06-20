@@ -75,9 +75,16 @@ export default {
   }
 }
 
-.kirby-sandbox header .kirby-headline {
-  font-size: 1.75rem;
+.kirby-sandbox .kirby-section-headline {
+
+  .kirby-icon {
+    color: $color-dark-grey;
+    margin-left: .5rem;
+    bottom: 1px;
+  }
+
 }
+
 .kirby-sandbox header {
   border-bottom: 1px solid #ddd;
   margin-bottom: 3rem;
@@ -120,5 +127,6 @@ export default {
   }
 
 }
+
 
 </style>

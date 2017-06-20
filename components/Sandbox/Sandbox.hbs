@@ -4,51 +4,53 @@
 
     <kirby-bar class="breadcrumb-bar">
       <kirby-breadcrumb slot="left">
-        <kirby-breadcrumb-item link="/"><kirby-icon type="bars" /></kirby-breadcrumb-item>
+        <kirby-breadcrumb-item link="/"><kirby-icon type="chain" /></kirby-breadcrumb-item>
         <kirby-breadcrumb-item link="/about">About</kirby-breadcrumb-item>
         <kirby-breadcrumb-item link="/about/blog">Blog</kirby-breadcrumb-item>
       </kirby-breadcrumb>
 
       <kirby-button-group slot="right">
-        <kirby-button class="kirby-page-option" icon="angle-left"></kirby-button>
-        <kirby-button class="kirby-page-option" icon="angle-right"></kirby-button>
+        <kirby-button icon="angle-left"></kirby-button>
+        <kirby-button icon="angle-right"></kirby-button>
       </kirby-button-group>
     </kirby-bar>
 
-    <kirby-headline>Case Study: Git Tower</kirby-headline>
+    <kirby-headline size="large">Case Study: Git Tower</kirby-headline>
 
-    <kirby-button-group slot="left">
-      <kirby-button class="kirby-page-option" icon="play-circle">Preview</kirby-button>
-      <kirby-button class="kirby-page-option" icon="toggle-on">Draft</kirby-button>
-      <kirby-dropdown>
-        <kirby-button class="kirby-page-option" @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
-        <kirby-dropdown-content :dark="true" ref="settings">
-          <kirby-dropdown-item icon="clipboard">Copy</kirby-dropdown-item>
-          <kirby-dropdown-item icon="chain" @click="$refs.url.open()">Change URL</kirby-dropdown-item>
-          <kirby-dropdown-item icon="trash" @click="$refs.remove.open()">Delete</kirby-dropdown-item>
-        </kirby-dropdown-content>
-      </kirby-dropdown>
-      <kirby-dropdown>
-        <kirby-button class="kirby-page-option" @click="$refs.languages.toggle()" icon="globe">EN</kirby-button>
-        <kirby-dropdown-content :dark="true" ref="languages">
-          <kirby-dropdown-item icon="globe">English</kirby-dropdown-item>
-          <kirby-dropdown-item icon="globe">Deutsch</kirby-dropdown-item>
-        </kirby-dropdown-content>
-      </kirby-dropdown>
-    </kirby-button-group>
+    <kirby-bar>
+      <kirby-button-group slot="left">
+        <kirby-button class="kirby-page-option" icon="play-circle">Preview</kirby-button>
+        <kirby-button class="kirby-page-option" icon="toggle-on">Draft</kirby-button>
+        <kirby-dropdown>
+          <kirby-button class="kirby-page-option" @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
+          <kirby-dropdown-content :dark="true" ref="settings">
+            <kirby-dropdown-item icon="clipboard">Copy</kirby-dropdown-item>
+            <kirby-dropdown-item icon="google">SEO</kirby-dropdown-item>
+            <kirby-dropdown-item icon="chain" @click="$refs.url.open()">Change URL</kirby-dropdown-item>
+            <kirby-dropdown-item icon="trash" @click="$refs.remove.open()">Delete</kirby-dropdown-item>
+          </kirby-dropdown-content>
+        </kirby-dropdown>
+      </kirby-button-group>
+
+      <kirby-button-group slot="right">
+        <kirby-dropdown>
+          <kirby-button class="kirby-page-option" @click="$refs.languages.toggle()" icon="globe">EN</kirby-button>
+          <kirby-dropdown-content :dark="true" ref="languages" align="right">
+            <kirby-dropdown-item icon="globe">[EN] English</kirby-dropdown-item>
+            <kirby-dropdown-item icon="globe">[DE] Deutsch</kirby-dropdown-item>
+          </kirby-dropdown-content>
+        </kirby-dropdown>
+      </kirby-button-group>
+    </kirby-bar>
 
   </header>
 
   <kirby-grid gutter="large">
     <kirby-column width="1/2">      
-      <kirby-headline>
+      <kirby-headline class="kirby-section-headline">
         Drafts 
         <kirby-dropdown>
-          <kirby-button 
-            style="margin-left: .5rem; color: #777" 
-            icon="search"
-            @click="$refs.filter.toggle(); $nextTick(function() { $refs.search.focus() }) ">
-          </kirby-button>
+          <kirby-button icon="search"  @click="$refs.filter.toggle(); $nextTick(function() { $refs.search.focus() }) "></kirby-button>
           <kirby-dropdown-content class="kirby-search-dropdown" :dark="true" ref="filter">
             <input ref="search" type="text" placeholder="Search…">
           </kirby-dropdown-content>
@@ -57,7 +59,10 @@
       {{render '@pages'}}
     </kirby-column>
     <kirby-column width="1/2">
-      <kirby-headline>Public Projects <kirby-button style="margin-left: .5rem; color: #777" icon="search"></kirby-button></kirby-headline>
+      <kirby-headline class="kirby-section-headline">
+        Public Projects 
+        <kirby-button style="margin-left: .5rem; color: #777" icon="search"></kirby-button>
+      </kirby-headline>
       {{render '@pages'}}
     </kirby-column>
   </kirby-grid>
