@@ -1,6 +1,14 @@
 <template>
   <div class="kirby-sandbox">
-    <slot />
+    <div class="menu">      
+      <kirby-button icon="tachometer">Dashboard</kirby-button>
+      <kirby-button icon="file-o">Pages</kirby-button>
+      <kirby-button icon="user">Users</kirby-button>
+      <kirby-button icon="power-off">Logout</kirby-button>
+    </div>
+    <div class="app">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -36,11 +44,39 @@ export default {
 
 .kirby-sandbox {
   padding: 3rem;
+
+  .menu {
+    position: fixed;
+    display: none;
+    width: 15rem;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: $color-dark;
+    padding: 3.25rem 0;
+
+    .kirby-button {
+      display: block;
+      padding: .5rem 1rem;
+      line-height: 1;
+      font-size: 1rem;
+      color: $color-light-grey;
+    }
+
+    .kirby-icon {
+      width: 2rem;
+      text-align: center;
+      color: #fff;
+    }
+
+  }
+  .app {
+    margin-left: 0;
+  }
 }
 
 .kirby-sandbox header .kirby-headline {
   font-size: 1.75rem;
-  margin-bottom: 0;
 }
 .kirby-sandbox header {
   border-bottom: 1px solid #ddd;

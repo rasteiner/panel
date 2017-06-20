@@ -14,8 +14,8 @@
         
         <kirby-table>
           <kirby-table-header>
-            <kirby-table-header-cell v-for="field in fields" :key="field.name" v-if="field.hidden !== true">
-              {{ field.label }}
+            <kirby-table-header-cell v-for="column in columns" :key="column.name">
+              {{ column.label }}
             </kirby-table-header-cell>
             <kirby-table-header-cell type="button"></kirby-table-header-cell>
             <kirby-table-header-cell type="button"></kirby-table-header-cell>
@@ -23,8 +23,8 @@
 
           <kirby-table-body>
             <kirby-table-row v-for="(row, index) in value" :key="index">
-              <kirby-table-cell v-for="field in fields" :key="field.name" v-if="field.hidden !== true">
-                {{ row[field.name] }}
+              <kirby-table-cell v-for="column in columns" :key="column.name">
+                {{ row[column.name] }}
               </kirby-table-cell>
               <kirby-table-cell type="button">
                 <kirby-button icon="pencil" @click="edit(row)" />
@@ -111,8 +111,24 @@ export default {
       type: Boolean,
       default: false
     },
-    fields: {},
-    value: {}
+    columns: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    fields: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    value: {
+      type: Array,
+      default() {
+        return [];
+      }      
+    }
   },
   methods: {
     prev() {
@@ -161,10 +177,6 @@ export default {
 <style lang="scss">
 
 .kirby-dialog {
-
-  .kirby-fieldset {
-    margin-bottom: -3rem;
-  }
 
   .kirby-dialog-header .kirby-icon {
     color: #fff;

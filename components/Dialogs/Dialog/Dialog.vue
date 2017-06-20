@@ -118,11 +118,14 @@ export default {
   z-index: z-index(dialog);
 }
 .kirby-dialog-box {
+  position: relative;
   background: $color-white;
   width: 22rem;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
   line-height: 1;
+  max-height: calc(100vh - 3rem);
+  margin: 1.5rem;
 }
 .kirby-dialog-box[data-size="small"] {
   width: 20rem;
@@ -150,15 +153,33 @@ export default {
 .kirby-dialog-body {
   padding: 1rem 1.5rem;
   background: $color-light;
+  max-height: calc(100vh - 9rem);
+  overflow: auto;
 }
 .kirby-dialog-footer {
-  background: $color-light;
-  padding: .5rem 1.5rem;
+  background: rgba($color-background, .5);
+  padding: 0 1.5rem;
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
+  height: 3rem;
+  line-height: 1;
 }
 .kirby-dialog-footer .kirby-button-group {
-  text-align: right;
+  display: flex;
+
+  .kirby-button {
+    flex-grow: 1;
+  }
+
+  .kirby-button:first-child {
+    text-align: left;
+  }
+  .kirby-button:last-child {
+    text-align: right;
+  }
+
 }
+
+
 
 </style>

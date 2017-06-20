@@ -1,4 +1,18 @@
 <kirby-table-field 
+  :columns="[
+    {
+      name: 'title',
+      label: 'Title'
+    },
+    {
+      name: 'icon',
+      label: 'Icon'
+    },
+    {
+      name: 'text',
+      label: 'Text'
+    }
+  ]"
   :fields="[
     {
       name: 'title',
@@ -24,14 +38,12 @@
     {
       name: 'link',
       label: 'URL',
-      type: 'url',
-      hidden: true
+      type: 'url'
     },
     {
       name: 'link-text',
       label: 'Link Text',
-      type: 'text',
-      hidden: true
+      type: 'text'
     }
   ]" 
   :value="[
