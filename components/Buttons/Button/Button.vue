@@ -4,6 +4,7 @@
     @click="click" 
     class="kirby-button" 
     :data-state="state"
+    :disabled="disabled"
     :data-has-image="image ? true : false">    
     <kirby-icon v-if="icon" :type="icon"></kirby-icon>
     <img class="kirby-button-image" v-else-if="image" :src="image">
@@ -28,7 +29,8 @@ export default {
     'image',
     'state',
     'upload',
-    'link'
+    'link',
+    'disabled'
   ],
   computed: {
     component: function () {
@@ -86,6 +88,11 @@ export default {
     padding-left: .25rem;
   }  
   
+}
+
+.kirby-button[disabled] {
+  pointer-events: none;
+  opacity: .25;
 }
 
 .kirby-button[data-state="positive"] {

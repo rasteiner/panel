@@ -53,6 +53,7 @@ import Dropdown from './components/Navigation/Dropdown/Dropdown.vue'
 import DropdownContent from './components/Navigation/Dropdown/DropdownContent.vue'
 import DropdownItem from './components/Navigation/Dropdown/DropdownItem.vue'
 import Languages from './components/Navigation/Languages/Languages.vue'
+import Pagination from './components/Navigation/Pagination/Pagination.vue'
 
 /** Layout **/
 import Box from './components/Layout/Box/Box.vue'
@@ -154,6 +155,7 @@ new Vue({
     'kirby-dropdown-content': DropdownContent,
     'kirby-dropdown-item': DropdownItem,
     'kirby-languages': Languages,
+    'kirby-pagination': Pagination,
 
     /** Text **/
     'kirby-headline': Headline,

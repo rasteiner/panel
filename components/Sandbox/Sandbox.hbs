@@ -9,10 +9,7 @@
         <kirby-breadcrumb-item link="/about/blog">Blog</kirby-breadcrumb-item>
       </kirby-breadcrumb>
 
-      <kirby-button-group slot="right">
-        <kirby-button icon="angle-left"></kirby-button>
-        <kirby-button icon="angle-right"></kirby-button>
-      </kirby-button-group>
+      <kirby-pagination slot="right" :page="1" :limit="1" :total="5" />
     </kirby-bar>
 
     <kirby-headline size="large">Case Study: Git Tower</kirby-headline>
@@ -33,13 +30,7 @@
       </kirby-button-group>
 
       <kirby-button-group slot="right">
-        <kirby-dropdown>
-          <kirby-button class="kirby-page-option" @click="$refs.languages.toggle()" icon="globe">EN</kirby-button>
-          <kirby-dropdown-content :dark="true" ref="languages" align="right">
-            <kirby-dropdown-item icon="globe">[EN] English</kirby-dropdown-item>
-            <kirby-dropdown-item icon="globe">[DE] Deutsch</kirby-dropdown-item>
-          </kirby-dropdown-content>
-        </kirby-dropdown>
+        <kirby-languages></kirby-languages>
       </kirby-button-group>
     </kirby-bar>
 
@@ -47,23 +38,41 @@
 
   <kirby-grid gutter="large">
     <kirby-column width="1/2">      
-      <kirby-headline class="kirby-section-headline">
-        Drafts 
-        <kirby-dropdown>
-          <kirby-button icon="search"  @click="$refs.filter.toggle(); $nextTick(function() { $refs.search.focus() }) "></kirby-button>
-          <kirby-dropdown-content class="kirby-search-dropdown" :dark="true" ref="filter">
-            <input ref="search" type="text" placeholder="Search…">
-          </kirby-dropdown-content>
-        </kirby-dropdown>
-      </kirby-headline>
+      
+        <kirby-headline class="kirby-section-headline">
+          Drafts 
+          <kirby-dropdown>
+            <kirby-button icon="search"  @click="$refs.filter.toggle(); $nextTick(function() { $refs.search.focus() }) "></kirby-button>
+            <kirby-dropdown-content class="kirby-search-dropdown" :dark="true" ref="filter">
+              <input ref="search" type="text" placeholder="Search…">
+            </kirby-dropdown-content>
+          </kirby-dropdown>
+        </kirby-headline>
+      </kirby-bar>
+
       {{render '@pages'}}
+
+      <kirby-pagination class="kirby-table-pagination" 
+        :page="1" 
+        :limit="5" 
+        :total="5" 
+        :details="true" />
+
     </kirby-column>
     <kirby-column width="1/2">
       <kirby-headline class="kirby-section-headline">
         Public Projects 
         <kirby-button style="margin-left: .5rem; color: #777" icon="search"></kirby-button>
       </kirby-headline>
+
       {{render '@pages'}}
+
+      <kirby-pagination class="kirby-table-pagination" 
+        :page="4" 
+        :limit="5" 
+        :total="24" 
+        :details="true" />
+
     </kirby-column>
   </kirby-grid>
 
