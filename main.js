@@ -3,8 +3,6 @@ import VueRouter from 'vue-router'
 
 /** Bars **/
 import Bar from './components/Bars/Bar/Bar.vue'
-import TopBar from './components/Bars/TopBar/TopBar.vue'
-import ActionBar from './components/Bars/ActionBar/ActionBar.vue'
 
 /** Buttons **/
 import Button from './components/Buttons/Button/Button.vue'
@@ -91,8 +89,6 @@ new Vue({
 
     /** Bars **/
     'kirby-bar': Bar,
-    'kirby-top-bar': TopBar,
-    'kirby-action-bar': ActionBar,
 
     /** Buttons **/
     'kirby-button': Button,
