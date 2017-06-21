@@ -96,8 +96,8 @@ export default {
         page = 1;
       }
       
-      if (page > this.total) {
-        page = this.total;
+      if (page > this.pages) {
+        page = this.pages;
       }
 
       this.currentPage = page;
