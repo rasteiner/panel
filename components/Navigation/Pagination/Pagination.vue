@@ -1,8 +1,18 @@
 <template>
-  <kirby-button-group>
-    <kirby-button :disabled="!hasPrev" icon="angle-left"></kirby-button>
-    <kirby-button :disabled="!hasPages" v-if="details">{{ start }}-{{ end }} / {{ total }}</kirby-button>
-    <kirby-button :disabled="!hasNext" icon="angle-right"></kirby-button>
+  <kirby-button-group class="kirby-pagination" v-if="total > 1" :data-align="align">
+    <kirby-button :disabled="!hasPrev" @click="prev" icon="angle-left"></kirby-button>
+    <kirby-dropdown v-if="details">
+      <kirby-button @click="$refs.dropdown.toggle()" :disabled="!hasPages">
+        <template v-if="total > 1">{{ start }}-{{ end }} /</template> {{ total }}
+      </kirby-button>
+      <kirby-dropdown-content class="kirby-pagination-selector" :dark="true" ref="dropdown">
+        <div>
+          <label for="page">Page</label>
+          <input id="page" type="number" :value="currentPage" @input="goTo($event.target.value)" :min="1" :max="pages">
+        </div>
+      </kirby-dropdown-content>
+    </kirby-dropdown>
+    <kirby-button :disabled="!hasNext" @click="next" icon="angle-right"></kirby-button>
   </kirby-button-group>
 </template>
 
@@ -10,15 +20,23 @@
 
 import Button from '../../Buttons/Button/Button.vue'
 import ButtonGroup from '../../Buttons/ButtonGroup/ButtonGroup.vue'
+import Dropdown from '../../Navigation/Dropdown/Dropdown.vue'
+import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue'
+import DropdownItem from '../../Navigation/Dropdown/DropdownItem.vue'
+import NumberInput from '../../Forms/Inputs/NumberInput/NumberInput.vue'
 
 export default {
   components: {
     'kirby-button': Button,
-    'kirby-button-group': ButtonGroup
+    'kirby-button-group': ButtonGroup,
+    'kirby-dropdown': Dropdown,
+    'kirby-dropdown-content': DropdownContent,
+    'kirby-dropdown-item': DropdownItem,
+    'kirby-number-input': NumberInput
   },
   computed: {
     start() {
-      return (this.page - 1) * this.limit + 1;
+      return (this.currentPage - 1) * this.limit + 1;
     },
     end() {
       
@@ -31,6 +49,9 @@ export default {
       }
 
     },
+    pages() {
+      return Math.ceil(this.total / this.limit);
+    },
     hasPrev() {
       return this.start > 1;
     },
@@ -42,6 +63,10 @@ export default {
     }
   },
   props: {
+    align: {
+      type: String,
+      default: 'left'
+    },
     details: {
       type: Boolean,
       default: false
@@ -58,7 +83,74 @@ export default {
       type: Number,
       default: 10
     }
+  },
+  data() {
+    return {
+      currentPage: this.page
+    }
+  },
+  methods: {
+    goTo(page) {
+
+      if (page < 1) {
+        page = 1;
+      }
+      
+      if (page > this.total) {
+        page = this.total;
+      }
+
+      this.currentPage = page;
+
+    },
+    prev() {
+      this.goTo(this.currentPage - 1);
+    },
+    next() {
+      this.goTo(this.currentPage + 1);
+    }
   }
 }
 
 </script>
+
+<style lang="scss">
+
+.kirby-pagination .kirby-button {
+  padding: 1rem !important;
+}
+.kirby-pagination[data-align="center"] {
+  text-align: center;
+}
+.kirby-pagination[data-align="right"] {
+  text-align: right;
+}
+
+.kirby-pagination-selector {
+  width: 100%;
+}
+.kirby-pagination-selector > div {
+  font-size: 14px;
+  display: flex;
+  font-family: $font-family-mono;
+}
+.kirby-pagination-selector > div > label {
+  padding: .5rem 1rem;  
+  border-right: 1px solid rgba(#fff, .1);
+}
+.kirby-pagination-selector > div > input {
+  flex-grow: 1;
+  font: inherit;
+  border: 0;
+  background: 0;
+  color: inherit;
+  padding: .5rem 1rem;
+}
+.kirby-pagination-selector > div > input:focus {
+  outline: 0;
+  background: $color-positive;
+  color: $color-dark;
+}
+
+</style>
+

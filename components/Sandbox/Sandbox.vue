@@ -130,15 +130,14 @@ export default {
 
 .kirby-table-pagination {
   margin-top: -.5rem;
-  text-align: center;
-
-  .kirby-button {
-    padding: 1rem !important;
-  }
 }
 
 .kirby-section-headline {
   position: relative;
+}
+
+.kirby-page-skipper {
+  margin-right: -1rem;
 }
 
 </style>

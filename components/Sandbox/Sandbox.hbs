@@ -9,7 +9,11 @@
         <kirby-breadcrumb-item link="/about/blog">Blog</kirby-breadcrumb-item>
       </kirby-breadcrumb>
 
-      <kirby-pagination slot="right" :page="1" :limit="1" :total="5" />
+      <kirby-pagination class="kirby-page-skipper"
+        slot="right" 
+        :page="1" 
+        :limit="1" 
+        :total="5" />
     </kirby-bar>
 
     <kirby-headline size="large">Case Study: Git Tower</kirby-headline>
@@ -53,6 +57,7 @@
       {{render '@pages'}}
 
       <kirby-pagination class="kirby-table-pagination" 
+        align="center"
         :page="1" 
         :limit="5" 
         :total="5" 
@@ -68,6 +73,7 @@
       {{render '@pages'}}
 
       <kirby-pagination class="kirby-table-pagination" 
+        align="center"
         :page="4" 
         :limit="5" 
         :total="24" 
