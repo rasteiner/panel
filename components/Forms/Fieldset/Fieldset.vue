@@ -1,5 +1,5 @@
 <template>
-  <kirby-grid class="kirby-fieldset" gutter="large">
+  <kirby-grid class="kirby-fieldset" gutter="medium">
     <kirby-column v-for="(field, index) in fields" :key="index" :width="field.width || '1/1'">
       <component :is="'kirby-' + field.type + '-field'" v-bind="field" :value="values[field.name]" />
     </kirby-column>

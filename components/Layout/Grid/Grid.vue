@@ -28,27 +28,27 @@ export default {
 }
 
 .kirby-grid[data-gutter="small"] {
-  margin-left: -.5rem;
+  margin-left: 1rem;
 }
 .kirby-grid[data-gutter="small"] > .kirby-column {
-  padding-left: .5rem;
-  padding-bottom: .5rem;
-}
-
-.kirby-grid[data-gutter="medium"] {
-  margin-left: -1rem;
-}
-.kirby-grid[data-gutter="medium"] > .kirby-column {
   padding-left: 1rem;
   padding-bottom: 1rem;
 }
 
-.kirby-grid[data-gutter="large"] {
+.kirby-grid[data-gutter="medium"] {
   margin-left: -1.5rem;
 }
-.kirby-grid[data-gutter="large"] > .kirby-column {
+.kirby-grid[data-gutter="medium"] > .kirby-column {
   padding-left: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.kirby-grid[data-gutter="large"] {
+  margin-left: -3rem;
+}
+.kirby-grid[data-gutter="large"] > .kirby-column {
+  padding-left: 3rem;
+  padding-bottom: 3rem;
 }
 
 </style>

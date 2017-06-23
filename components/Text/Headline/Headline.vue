@@ -1,10 +1,24 @@
 <template>
-  <h2 class="kirby-headline" :data-size="size"><slot /></h2>
+  
+  <kirby-bar v-if="$slots.options">
+    <h2 slot="left" class="kirby-headline" :data-size="size"><slot /></h2>    
+    <template slot="right">
+      <slot name="options"></slot>
+    </template>
+  </kirby-bar>
+
+  <h2 v-else class="kirby-headline" :data-size="size"><slot /></h2>
+
 </template>
 
 <script>
 
+import Bar from '../../Bars/Bar/Bar.vue';
+
 export default {
+  components: {
+    'kirby-bar': Bar
+  },
   props: ['size']
 }
 

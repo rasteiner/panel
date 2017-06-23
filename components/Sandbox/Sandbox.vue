@@ -75,16 +75,6 @@ export default {
   }
 }
 
-.kirby-sandbox .kirby-section-headline {
-
-  .kirby-icon {
-    color: $color-dark-grey;
-    margin-left: .5rem;
-    bottom: 1px;
-  }
-
-}
-
 .kirby-sandbox header {
   border-bottom: 1px solid #ddd;
   margin-bottom: 3rem;
@@ -92,22 +82,6 @@ export default {
 
 .kirby-sandbox .breadcrumb-bar {
   margin-bottom: 1.5rem;
-}
-.kirby-sandbox .breadcrumb > li {
-  display: inline-block;
-  font-size: .9rem;
-  color: #777;
-  margin-right: .25rem;
-
-  &:after {
-    content: "/";
-    margin-left: .6rem;
-  }
-}
-.kirby-sandbox .breadcrumb > li > .kirby-icon {
-  margin-left: .25rem;
-  vertical-align: baseline;
-  font-size: .8rem;
 }
 
 .kirby-sandbox .kirby-search-dropdown {
@@ -126,6 +100,12 @@ export default {
     }
   }
 
+}
+
+.kirby-table-headline {
+  .kirby-headline {
+    margin-bottom: 0;
+  }
 }
 
 .kirby-table-pagination {

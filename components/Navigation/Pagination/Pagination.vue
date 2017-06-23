@@ -5,10 +5,10 @@
       <kirby-button @click="$refs.dropdown.toggle()" :disabled="!hasPages">
         <template v-if="total > 1">{{ start }}-{{ end }} /</template> {{ total }}
       </kirby-button>
-      <kirby-dropdown-content class="kirby-pagination-selector" :dark="true" ref="dropdown">
+      <kirby-dropdown-content @open="$refs.page.focus()" class="kirby-pagination-selector" :dark="true" ref="dropdown">
         <div>
           <label for="page">Page</label>
-          <input id="page" type="number" :value="currentPage" @input="goTo($event.target.value)" :min="1" :max="pages">
+          <input id="page" ref="page" type="number" :value="currentPage" @input="goTo($event.target.value)" :min="1" :max="pages">
         </div>
       </kirby-dropdown-content>
     </kirby-dropdown>
@@ -22,7 +22,6 @@ import Button from '../../Buttons/Button/Button.vue'
 import ButtonGroup from '../../Buttons/ButtonGroup/ButtonGroup.vue'
 import Dropdown from '../../Navigation/Dropdown/Dropdown.vue'
 import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue'
-import DropdownItem from '../../Navigation/Dropdown/DropdownItem.vue'
 import NumberInput from '../../Forms/Inputs/NumberInput/NumberInput.vue'
 
 export default {
@@ -31,7 +30,6 @@ export default {
     'kirby-button-group': ButtonGroup,
     'kirby-dropdown': Dropdown,
     'kirby-dropdown-content': DropdownContent,
-    'kirby-dropdown-item': DropdownItem,
     'kirby-number-input': NumberInput
   },
   computed: {

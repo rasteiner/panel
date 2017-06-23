@@ -78,11 +78,13 @@ export default {
 
       this.fetchOptions(function () {
         this.isOpen = true
+        this.$emit('open');
         OpenDropdown = this
       }.bind(this))
     },
     close: function () {
       this.isOpen = OpenDropdown = false
+      this.$emit('close');
     },
     toggle: function () {
       this.isOpen ? this.close() : this.open()

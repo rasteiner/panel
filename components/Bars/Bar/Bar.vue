@@ -1,8 +1,8 @@
 <template>
   <div class="kirby-bar" :data-dark="dark">
-    <div class="kirby-bar-slot" data-position="left"><slot name="left" /></div>
-    <div class="kirby-bar-slot" data-position="center"><slot name="center" /></div>
-    <div class="kirby-bar-slot" data-position="right"><slot name="right" /></div>
+    <div v-if="$slots.left" class="kirby-bar-slot" data-position="left"><slot name="left" /></div>
+    <div v-if="$slots.center" class="kirby-bar-slot" data-position="center"><slot name="center" /></div>
+    <div v-if="$slots.right" class="kirby-bar-slot" data-position="right"><slot name="right" /></div>
   </div>
 </template>
 

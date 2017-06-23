@@ -20,10 +20,10 @@
 
     <kirby-bar>
       <kirby-button-group slot="left">
-        <kirby-button class="kirby-page-option" icon="play-circle">Preview</kirby-button>
-        <kirby-button class="kirby-page-option" icon="toggle-on">Draft</kirby-button>
+        <kirby-button icon="play-circle">Preview</kirby-button>
+        <kirby-button icon="toggle-on">Draft</kirby-button>
         <kirby-dropdown>
-          <kirby-button class="kirby-page-option" @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
+          <kirby-button @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
           <kirby-dropdown-content :dark="true" ref="settings">
             <kirby-dropdown-item icon="clipboard">Copy</kirby-dropdown-item>
             <kirby-dropdown-item icon="google">SEO</kirby-dropdown-item>
@@ -42,17 +42,26 @@
 
   <kirby-grid gutter="large">
     <kirby-column width="1/2">      
-      
-        <kirby-headline class="kirby-section-headline">
-          Drafts 
+
+      <kirby-headline class="kirby-table-headline">
+
+        Drafts 
+
+        <kirby-button-group slot="options">
+          <kirby-button icon="plus" @click="$refs.create.open()">Add</kirby-button>
+
+          <!--
           <kirby-dropdown>
-            <kirby-button icon="search"  @click="$refs.filter.toggle(); $nextTick(function() { $refs.search.focus() }) "></kirby-button>
+            <kirby-button icon="search" @click="$refs.filter.toggle(); $nextTick(function() { $refs.search.focus() }) ">Search</kirby-button>
             <kirby-dropdown-content class="kirby-search-dropdown" :dark="true" ref="filter">
               <input ref="search" type="text" placeholder="Search…">
             </kirby-dropdown-content>
           </kirby-dropdown>
-        </kirby-headline>
-      </kirby-bar>
+          -->
+
+        </kirby-button-group>
+
+      </kirby-headline>
 
       {{render '@pages'}}
 
@@ -65,9 +74,19 @@
 
     </kirby-column>
     <kirby-column width="1/2">
-      <kirby-headline class="kirby-section-headline">
+
+      <kirby-headline class="kirby-table-headline">
+
         Public Projects 
-        <kirby-button style="margin-left: .5rem; color: #777" icon="search"></kirby-button>
+
+        <kirby-button-group slot="options">
+          <kirby-button icon="plus" @click="$refs.create.open()">Add</kirby-button>
+          
+          <!--
+          <kirby-button icon="search">Search</kirby-button>
+          -->
+        </kirby-button-group>
+
       </kirby-headline>
 
       {{render '@pages'}}
@@ -82,21 +101,9 @@
     </kirby-column>
   </kirby-grid>
 
-  <kirby-dialog ref="remove" headline="Delete a page" state="negative" button="Delete">
-    <kirby-txt>Do you really want to delete this page?</kirby-txt>
-  </kirby-dialog>
-
-  <kirby-dialog ref="url" size="medium" headline="Change the URL" state="positive" button="Change">
-    <kirby-fieldset :fields="[
-      {
-        name: 'url',
-        label: 'URL appendix',
-        type: 'text',
-        help: '/about/blog/',
-        icon: 'chain'
-      }
-    ]">
-  </kirby-dialog>
-
+  <kirby-page-create-dialog ref="create"></kirby-page-create-dialog>
+  <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
+  <kirby-page-remove-dialog ref="remove"></kirby-page-remove-dialog>
+  
 </kirby-sandbox>
 

@@ -15,6 +15,9 @@ import Files from './components/Data/Files/Files.vue';
 
 /** Dialogs **/
 import Dialog from './components/Dialogs/Dialog/Dialog.vue'
+import PageCreateDialog from './components/Dialogs/Page/PageCreateDialog/PageCreateDialog.vue'
+import PageRemoveDialog from './components/Dialogs/Page/PageRemoveDialog/PageRemoveDialog.vue'
+import PageUrlDialog from './components/Dialogs/Page/PageUrlDialog/PageUrlDialog.vue'
 
 /** Forms **/
 import Autocomplete from './components/Forms/Autocomplete/Autocomplete.vue'
@@ -102,6 +105,9 @@ new Vue({
 
     /** Dialogs **/
     'kirby-dialog': Dialog,
+    'kirby-page-create-dialog': PageCreateDialog,
+    'kirby-page-url-dialog': PageUrlDialog,
+    'kirby-page-remove-dialog': PageRemoveDialog,
 
     /** Forms **/
     'kirby-autocomplete': Autocomplete,
