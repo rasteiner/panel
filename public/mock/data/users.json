@@ -1,0 +1,34 @@
+[
+  {
+    "username": "bastian",
+    "email": "bastian@getkirby.com",
+    "role": "admin",
+    "image": {
+      "url": "/mock/images/users/bastian.jpg"
+    }
+  },
+  {
+    "username": "lukas",
+    "email": "lukas@getkirby.com",
+    "role": "admin",
+    "image": {
+      "url": "/mock/images/users/lukas.jpg"
+    }
+  },
+  {
+    "username": "sonja",
+    "email": "sonja@getkirby.com",
+    "role": "editor",
+    "image": {
+      "url": "/mock/images/users/sonja.jpg"
+    }
+  },
+  {
+    "username": "fabian",
+    "email": "fabian@getkirby.com",
+    "role": "editor",
+    "image": {
+      "url": "/mock/images/users/fabian.jpg"
+    }
+  }
+]

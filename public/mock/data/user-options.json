@@ -1,0 +1,14 @@
+[
+  {
+    "icon": "pencil", 
+    "text": "Edit", 
+    "link": "#",
+    "click": "edit"
+  },
+  {
+    "icon": "trash-o", 
+    "text": "Delete", 
+    "link": "#",
+    "click": "remove"
+  }
+]

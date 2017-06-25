@@ -14,27 +14,11 @@
 
 <script>
 
-import Breadcrumb from '../Navigation/Breadcrumb/Breadcrumb.vue';
-import BreadcrumbItem from '../Navigation/Breadcrumb/BreadcrumbItem.vue';
 import Button from '../Buttons/Button/Button.vue';
-import ButtonGroup from '../Buttons/ButtonGroup/ButtonGroup.vue';
-import Headline from '../Text/Headline/Headline.vue';
-import Icon from '../Images/Icon/Icon.vue';
-import Grid from '../Layout/Grid/Grid.vue';
-import Column from '../Layout/Grid/Column.vue';
-import Card from '../Layout/Card/Card.vue';
 
 export default {
   components: {
-    'kirby-breadcrumb': Breadcrumb,
-    'kirby-breadcrumb-item': BreadcrumbItem,
-    'kirby-button-group': ButtonGroup,
-    'kirby-button': Button,
-    'kirby-headline': Headline,
-    'kirby-icon': Icon,
-    'kirby-grid': Grid,
-    'kirby-column': Column,
-    'kirby-card': Card
+    'kirby-button': Button
   }
 }
 
@@ -43,7 +27,6 @@ export default {
 <style lang="scss">
 
 .kirby-sandbox {
-  padding: 3rem;
 
   .menu {
     position: fixed;
@@ -73,11 +56,6 @@ export default {
   .app {
     margin-left: 0;
   }
-}
-
-.kirby-sandbox header {
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 3rem;
 }
 
 .kirby-sandbox .breadcrumb-bar {

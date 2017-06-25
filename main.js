@@ -12,12 +12,15 @@ import Tag from './components/Buttons/Tag/Tag.vue'
 /** Data */
 import Pages from './components/Data/Pages/Pages.vue';
 import Files from './components/Data/Files/Files.vue';
+import Users from './components/Data/Users/Users.vue';
 
 /** Dialogs **/
 import Dialog from './components/Dialogs/Dialog/Dialog.vue'
 import PageCreateDialog from './components/Dialogs/Page/PageCreateDialog/PageCreateDialog.vue'
 import PageRemoveDialog from './components/Dialogs/Page/PageRemoveDialog/PageRemoveDialog.vue'
 import PageUrlDialog from './components/Dialogs/Page/PageUrlDialog/PageUrlDialog.vue'
+import UserCreateDialog from './components/Dialogs/User/UserCreateDialog/UserCreateDialog.vue'
+import UserRemoveDialog from './components/Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue'
 
 /** Forms **/
 import Autocomplete from './components/Forms/Autocomplete/Autocomplete.vue'
@@ -63,7 +66,9 @@ import Box from './components/Layout/Box/Box.vue'
 import Card from './components/Layout/Card/Card.vue'
 import Cards from './components/Layout/Cards/Cards.vue'
 import Grid from './components/Layout/Grid/Grid.vue'
+import Header from './components/Layout/Header/Header.vue'
 import Column from './components/Layout/Grid/Column.vue'
+import View from './components/Layout/View/View.vue'
 
 /** Table **/
 import Table from './components/Layout/Table/Table.vue';
@@ -76,6 +81,10 @@ import TableBody from './components/Layout/Table/TableBody.vue';
 /** Text **/
 import Headline from './components/Text/Headline/Headline.vue'
 import Txt from './components/Text/Txt/Txt.vue'
+
+/** Views **/
+import UsersView from './components/Views/Users/UsersView.vue';
+
 
 /** Sandbox **/
 import Sandbox from './components/Sandbox/Sandbox.vue'
@@ -102,12 +111,15 @@ new Vue({
     /** Data **/
     'kirby-pages': Pages,
     'kirby-files': Files,
+    'kirby-users': Users,
 
     /** Dialogs **/
     'kirby-dialog': Dialog,
     'kirby-page-create-dialog': PageCreateDialog,
     'kirby-page-url-dialog': PageUrlDialog,
     'kirby-page-remove-dialog': PageRemoveDialog,
+    'kirby-user-create-dialog': UserCreateDialog,
+    'kirby-user-remove-dialog': UserRemoveDialog,
 
     /** Forms **/
     'kirby-autocomplete': Autocomplete,
@@ -144,7 +156,9 @@ new Vue({
     'kirby-cards': Cards,
     'kirby-box': Box,
     'kirby-grid': Grid,
+    'kirby-header': Header,
     'kirby-column': Column,
+    'kirby-view': View,
     
     /** Table **/
     'kirby-table': Table,
@@ -166,6 +180,9 @@ new Vue({
     /** Text **/
     'kirby-headline': Headline,
     'kirby-txt': Txt,
+
+    /** Views */
+    'kirby-users-view': UsersView,
 
     /** Sandbox **/
     'kirby-sandbox': Sandbox
