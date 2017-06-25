@@ -58,10 +58,6 @@ export default {
   }
 }
 
-.kirby-sandbox .breadcrumb-bar {
-  margin-bottom: 1.5rem;
-}
-
 .kirby-sandbox .kirby-search-dropdown {
 
   input {
@@ -92,10 +88,6 @@ export default {
 
 .kirby-section-headline {
   position: relative;
-}
-
-.kirby-page-skipper {
-  margin-right: -1rem;
 }
 
 </style>

@@ -30,6 +30,7 @@ export default {
 
 .kirby-breadcrumb-item a,
 .kirby-breadcrumb-item span {
+  padding: 1rem 0;
   display: block;
   text-decoration: none;
   transition: color .3s;

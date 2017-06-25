@@ -84,7 +84,7 @@ import Txt from './components/Text/Txt/Txt.vue'
 
 /** Views **/
 import UsersView from './components/Views/Users/UsersView.vue';
-
+import UserView from './components/Views/User/UserView.vue';
 
 /** Sandbox **/
 import Sandbox from './components/Sandbox/Sandbox.vue'
@@ -183,6 +183,7 @@ new Vue({
 
     /** Views */
     'kirby-users-view': UsersView,
+    'kirby-user-view': UserView,
 
     /** Sandbox **/
     'kirby-sandbox': Sandbox

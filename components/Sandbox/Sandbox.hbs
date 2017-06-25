@@ -2,47 +2,49 @@
 
   <kirby-view>
 
-    <header>
+    <kirby-header 
+      :breadcrumb="[
+        {
+          link: '/',
+          label: 'Pages'
+        },
+        {
+          link: '/about',
+          label: 'About'
+        },
+        {
+          link: '/about/blog',
+          label: 'Blog'
+        }
+      ]"
+      :pagination="{
+        page: 1,
+        limit: 1,
+        total: 5
+      }">
 
-      <kirby-bar class="breadcrumb-bar">
-        <kirby-breadcrumb slot="left">
-          <kirby-breadcrumb-item link="/"><kirby-icon type="chain" /></kirby-breadcrumb-item>
-          <kirby-breadcrumb-item link="/about">About</kirby-breadcrumb-item>
-          <kirby-breadcrumb-item link="/about/blog">Blog</kirby-breadcrumb-item>
-        </kirby-breadcrumb>
+      Case Study: Git Tower
 
-        <kirby-pagination class="kirby-page-skipper"
-          slot="right" 
-          :page="1" 
-          :limit="1" 
-          :total="5" />
-      </kirby-bar>
+      <template slot="buttons-left">
+        <kirby-button icon="play-circle">Preview</kirby-button>
+        <kirby-button icon="toggle-on">Draft</kirby-button>
+        <kirby-dropdown>
+          <kirby-button @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
+          <kirby-dropdown-content :dark="true" ref="settings">
+            <kirby-dropdown-item icon="clipboard">Copy</kirby-dropdown-item>
+            <kirby-dropdown-item icon="google">SEO</kirby-dropdown-item>
+            <kirby-dropdown-item icon="code">Change Template</kirby-dropdown-item>
+            <kirby-dropdown-item icon="chain" @click="$refs.url.open()">Change URL</kirby-dropdown-item>
+            <kirby-dropdown-item icon="trash" @click="$refs.remove.open()">Delete</kirby-dropdown-item>
+          </kirby-dropdown-content>
+        </kirby-dropdown>
+      </template>
 
-      <kirby-header>
-        Case Study: Git Tower
+      <template slot="buttons-right">
+        <kirby-languages></kirby-languages>
+      </template>
 
-        <template slot="buttons-left">
-          <kirby-button icon="play-circle">Preview</kirby-button>
-          <kirby-button icon="toggle-on">Draft</kirby-button>
-          <kirby-dropdown>
-            <kirby-button @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
-            <kirby-dropdown-content :dark="true" ref="settings">
-              <kirby-dropdown-item icon="clipboard">Copy</kirby-dropdown-item>
-              <kirby-dropdown-item icon="google">SEO</kirby-dropdown-item>
-              <kirby-dropdown-item icon="code">Change Template</kirby-dropdown-item>
-              <kirby-dropdown-item icon="chain" @click="$refs.url.open()">Change URL</kirby-dropdown-item>
-              <kirby-dropdown-item icon="trash" @click="$refs.remove.open()">Delete</kirby-dropdown-item>
-            </kirby-dropdown-content>
-          </kirby-dropdown>
-        </template>
-
-        <template slot="buttons-right">
-          <kirby-languages></kirby-languages>
-        </template>
-
-      </kirby-header>
-
-    </header>
+    </kirby-header>
 
     <kirby-grid gutter="large">
       <kirby-column width="1/2">      
