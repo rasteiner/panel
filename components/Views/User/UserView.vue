@@ -19,7 +19,13 @@
       <kirby-image class="kirby-user-view-image" ratio="1/1" :src="user.image.url" />
     
       <template slot="buttons-left">
-        <kirby-button icon="file-image-o">Picture</kirby-button>
+        <kirby-dropdown>
+          <kirby-button @click="$refs.picture.toggle()" icon="file-image-o">Picture</kirby-button>
+          <kirby-dropdown-content ref="picture" :dark="true">
+            <kirby-dropdown-item icon="cloud-upload" :upload="true">Change</kirby-dropdown-item>
+            <kirby-dropdown-item icon="trash-o">Delete</kirby-dropdown-item>
+          </kirby-dropdown-content>
+        </kirby-dropdown>
         <kirby-button icon="bolt">Role</kirby-button>
         <kirby-button icon="key">Password</kirby-button>
         <kirby-button icon="trash-o" @click="$refs.remove.open(user.username)">Delete</kirby-button>
@@ -68,6 +74,9 @@ import Bar from '../../Bars/Bar/Bar.vue';
 import Button from '../../Buttons/Button/Button.vue';
 import Breadcrumb from '../../Navigation/Breadcrumb/Breadcrumb.vue';
 import BreadcrumbItem from '../../Navigation/Breadcrumb/BreadcrumbItem.vue';
+import Dropdown from '../../Navigation/Dropdown/Dropdown.vue';
+import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue';
+import DropdownItem from '../../Navigation/Dropdown/DropdownItem.vue';
 import Image from '../../Images/Image/Image.vue';
 import Icon from '../../Images/Icon/Icon.vue';
 import Header from '../../Layout/Header/Header.vue';
@@ -86,6 +95,9 @@ export default {
     'kirby-bar': Bar,
     'kirby-breadcrumb': Breadcrumb,
     'kirby-breadcrumb-item': BreadcrumbItem,
+    'kirby-dropdown': Dropdown,
+    'kirby-dropdown-content': DropdownContent,
+    'kirby-dropdown-item': DropdownItem,
     'kirby-user-remove-dialog': UserRemoveDialog
   },
   props: ['username'],
