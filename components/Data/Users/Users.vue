@@ -32,10 +32,10 @@
     </kirby-table>
   
     <kirby-pagination align="center"
+      @paginate="paginate"
       :details="true" 
-      :page="1"
-      :total="12"
-      :limit="10"
+      :total="total"
+      :limit="limit"
       :keys="keys" />
   
     <kirby-user-remove-dialog ref="remove" />
@@ -74,26 +74,53 @@ export default {
     'kirby-table-cell': TableCell,
     'kirby-user-remove-dialog': UserRemoveDialog
   },
-  props: ['keys'],
+  props: {
+    keys: {
+      type: Boolean,
+      default: false
+    },
+    role: {
+      type: String,
+      default: null
+    },
+    limit: {
+      type: Number,
+      default: 10
+    }
+  },
   data() {
     return {
-      users: []
+      users: [],
+      total: 0
     }
   },
   methods: {
     action(action, user) {
-
       switch(action) {
         case 'remove': 
           this.$refs.remove.open(user.username);
       }
+    },
+    fetch(offset) {
+      UsersQuery({
+        role: this.role
+      }).then(function(users) {
 
+        this.users = users;
+        this.total = this.users.length;
+
+        if(this.limit) {
+          this.users = this.users.slice(offset, offset + this.limit);
+        }
+
+      }.bind(this));
+    },
+    paginate(info) {
+      this.fetch(info.offset);
     }
   },
   created() {
-    UsersQuery().then(function(users) {
-      this.users = users;
-    }.bind(this));
+    this.fetch(0);
   }
 }
 

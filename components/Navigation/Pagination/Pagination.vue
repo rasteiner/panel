@@ -97,6 +97,9 @@ export default {
     },
     hasPages() {
       return this.total > this.limit;
+    },
+    offset() {
+      return (this.start - 1);
     }
   },
   data() {
@@ -116,6 +119,14 @@ export default {
       }
 
       this.currentPage = page;
+
+      this.$emit('paginate', {
+        page: this.currentPage,
+        start: this.start,
+        end: this.end,
+        limit: this.limit,
+        offset: this.offset
+      });
 
     },
     prev() {
