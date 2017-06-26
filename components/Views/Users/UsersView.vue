@@ -2,14 +2,7 @@
 
   <kirby-view class="kirby-users-view">
 
-    <kirby-header 
-      :breadcrumb="[
-        {
-          icon: 'user',
-          link: '/users',
-          label: 'Users'
-        }
-      ]">
+    <kirby-header icon="user" link="/">
 
       All Users
 

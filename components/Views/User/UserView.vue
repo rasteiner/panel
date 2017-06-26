@@ -2,16 +2,11 @@
 
   <kirby-view class="kirby-user-view">
 
-    <kirby-header 
+    <kirby-header icon="user" link="/"
       :breadcrumb="[
         {
-          icon: 'user',
-          link: '/users',
-          label: 'Users'
-        },
-        {
           link: '/users/admin',
-          label: 'Admin'
+          label: 'Admins'
         },
       ]"
       :pagination="{
@@ -28,18 +23,15 @@
       </kirby-bar>
 
       <template slot="buttons-left">
-        <kirby-button icon="file-image-o">Profile image</kirby-button>
-        <kirby-button icon="trash-o" @click="$refs.remove.open()">Delete user</kirby-button>
+        <kirby-button icon="file-image-o">Picture</kirby-button>
+        <kirby-button icon="bolt">Role</kirby-button>
+        <kirby-button icon="key">Password</kirby-button>
+        <kirby-button icon="trash-o" @click="$refs.remove.open()">Delete</kirby-button>
       </template>
 
     </kirby-header>    
 
     <kirby-fieldset :fields="[
-      {
-        name: 'username',
-        label: 'Username',
-        type: 'text'
-      },
       {
         name: 'firstName',
         label: 'First Name',

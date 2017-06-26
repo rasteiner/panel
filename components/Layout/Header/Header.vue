@@ -2,7 +2,8 @@
   <header class="kirby-header">
 
     <kirby-bar class="kirby-header-breadcrumb-bar">
-      <kirby-breadcrumb slot="left" v-if="breadcrumb">
+      <kirby-breadcrumb slot="left">
+        <kirby-breadcrumb-item :link="link"><kirby-icon :type="icon" /></kirby-breadcrumb-item>
         <kirby-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" :link="item.link">{{ item.label }}</kirby-breadcrumb-item>
       </kirby-breadcrumb>
       <kirby-pagination slot="right" v-if="pagination" v-bind="pagination" />
@@ -28,6 +29,7 @@ import BreadcrumbItem from '../../Navigation/Breadcrumb/BreadcrumbItem.vue';
 import ButtonGroup from '../../Buttons/ButtonGroup/ButtonGroup.vue';
 import Pagination from '../../Navigation/Pagination/Pagination.vue';
 import Headline from '../../Text/Headline/Headline.vue';
+import Icon from '../../Images/Icon/Icon.vue';
 
 export default {
   components: {
@@ -36,9 +38,16 @@ export default {
     'kirby-breadcrumb-item': BreadcrumbItem,
     'kirby-button-group': ButtonGroup,
     'kirby-pagination': Pagination,
-    'kirby-headline': Headline
+    'kirby-headline': Headline,
+    'kirby-icon': Icon
   },
-  props: ['breadcrumb', 'pagination']
+  props: [
+    'icon',
+    'link',
+    'label',
+    'breadcrumb', 
+    'pagination'
+  ]
 }
 
 </script>
