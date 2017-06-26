@@ -24,6 +24,19 @@ import Dropdown from '../../Navigation/Dropdown/Dropdown.vue'
 import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue'
 import NumberInput from '../../Forms/Inputs/NumberInput/NumberInput.vue'
 
+const PaginationKeysListener = function (e) {
+
+  switch (e.code) {
+    case 'ArrowLeft':
+      this.prev();
+      break;
+    case 'ArrowRight':
+      this.next();
+      break;
+  }
+  
+}
+
 export default {
   components: {
     'kirby-button': Button,
@@ -31,6 +44,32 @@ export default {
     'kirby-dropdown': Dropdown,
     'kirby-dropdown-content': DropdownContent,
     'kirby-number-input': NumberInput
+  },
+  props: {
+    align: {
+      type: String,
+      default: 'left'
+    },
+    details: {
+      type: Boolean,
+      default: false
+    },
+    page: {
+      type: Number,
+      default: 1
+    },
+    total: {
+      type: Number,
+      default: 0
+    },
+    limit: {
+      type: Number,
+      default: 10
+    },
+    keys: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     start() {
@@ -60,28 +99,6 @@ export default {
       return this.total > this.limit;
     }
   },
-  props: {
-    align: {
-      type: String,
-      default: 'left'
-    },
-    details: {
-      type: Boolean,
-      default: false
-    },
-    page: {
-      type: Number,
-      default: 1
-    },
-    total: {
-      type: Number,
-      default: 0
-    },
-    limit: {
-      type: Number,
-      default: 10
-    }
-  },
   data() {
     return {
       currentPage: this.page
@@ -107,6 +124,14 @@ export default {
     next() {
       this.goTo(this.currentPage + 1);
     }
+  },
+  created() {
+    if (this.keys === true) {
+      window.addEventListener('keydown', PaginationKeysListener.bind(this), false)      
+    }
+  },
+  destroyed() {
+    window.removeEventListener('keydown', PaginationKeysListener, false)
   }
 }
 

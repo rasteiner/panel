@@ -16,7 +16,7 @@
 
     </kirby-header>    
 
-    <kirby-users />
+    <kirby-users :keys="true" />
 
     <kirby-user-create-dialog ref="create" />
 

@@ -14,14 +14,10 @@
         limit: 1, 
         total: 5
       }">
-    
-      <kirby-bar>
-        <template slot="left">bastian</template>
-        <template slot="right">
-          <kirby-image class="kirby-user-view-image" ratio="1/1" src="/mock/images/users/bastian.jpg" />
-        </template>
-      </kirby-bar>
 
+      bastian
+      <kirby-image class="kirby-user-view-image" ratio="1/1" src="/mock/images/users/bastian.jpg" />
+    
       <template slot="buttons-left">
         <kirby-button icon="file-image-o">Picture</kirby-button>
         <kirby-button icon="bolt">Role</kirby-button>
@@ -48,13 +44,18 @@
         name: 'email',
         label: 'Email',
         type: 'email'
+      },
+      {
+        name: 'website',
+        label: 'Website',
+        type: 'url'
       }
-
     ]" :values="{
       'username': 'bastian',
       'firstName': 'Bastian',
       'lastName': 'Allgeier',
-      'email': 'mail@bastianallgeier.com'
+      'email': 'mail@bastianallgeier.com',
+      'website': 'https://bastianallgeier.com'
     }" />
 
     <kirby-user-remove-dialog ref="remove" />
@@ -96,8 +97,16 @@ export default {
 
 <style lang="scss">
 
+.kirby-headline {
+  position: relative;
+}
+
 .kirby-user-view-image {
+  position: absolute;
   width: 3rem;
+  right: 0;
+  top: 50%;
+  margin-top: -1.5rem;
   display: inline-block;
   border-radius: 50%;
   overflow: hidden;

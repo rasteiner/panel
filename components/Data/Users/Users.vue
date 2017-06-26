@@ -31,6 +31,13 @@
       </kirby-table-body>
     </kirby-table>
   
+    <kirby-pagination align="center"
+      :details="true" 
+      :page="1"
+      :total="12"
+      :limit="10"
+      :keys="keys" />
+  
     <kirby-user-remove-dialog ref="remove" />
 
   </div>
@@ -48,6 +55,7 @@ import TableBody from '../../Layout/Table/TableBody.vue';
 import TableRow from '../../Layout/Table/TableRow.vue';
 import TableCell from '../../Layout/Table/TableCell.vue';
 import UserRemoveDialog from '../../Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue';
+import Pagination from '../../Navigation/Pagination/Pagination.vue';
 
 export default {
   components: {
@@ -55,12 +63,14 @@ export default {
     'kirby-dropdown': Dropdown,
     'kirby-dropdown-content': DropdownContent,
     'kirby-image': Image,
+    'kirby-pagination': Pagination,
     'kirby-table': Table,
     'kirby-table-body': TableBody,
     'kirby-table-row': TableRow,
     'kirby-table-cell': TableCell,
     'kirby-user-remove-dialog': UserRemoveDialog
   },
+  props: ['keys'],
   data() {
     return {
       users: []
