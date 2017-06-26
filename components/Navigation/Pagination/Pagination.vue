@@ -150,6 +150,9 @@ export default {
 
 <style lang="scss">
 
+.kirby-pagination {
+  user-select: none;
+}
 .kirby-pagination .kirby-button {
   padding: 1rem !important;
 }
