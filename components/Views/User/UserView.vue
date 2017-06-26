@@ -22,7 +22,7 @@
         <kirby-button icon="file-image-o">Picture</kirby-button>
         <kirby-button icon="bolt">Role</kirby-button>
         <kirby-button icon="key">Password</kirby-button>
-        <kirby-button icon="trash-o" @click="$refs.remove.open()">Delete</kirby-button>
+        <kirby-button icon="trash-o" @click="$refs.remove.open(user.username)">Delete</kirby-button>
       </template>
 
     </kirby-header>    
@@ -60,6 +60,10 @@
 
 <script>
 
+// api
+import UserQuery from '../../../api/User.js';
+
+// components
 import Bar from '../../Bars/Bar/Bar.vue';
 import Button from '../../Buttons/Button/Button.vue';
 import Breadcrumb from '../../Navigation/Breadcrumb/Breadcrumb.vue';
@@ -98,18 +102,9 @@ export default {
     }
   },
   created () {
-
-    // TODO: replace with GraphQL API
-    fetch('/mock/data/users.json').then(function (response) {
-      return response.json()
-    }).then(function (json) {
-      json.forEach(function(user) {
-        if(user.username === this.username) {
-          this.user = user;
-        }
-      }.bind(this)); 
-    }.bind(this))
-
+    UserQuery(this.username).then(function(user) {
+      this.user = user;
+    }.bind(this));
   }
 }
 

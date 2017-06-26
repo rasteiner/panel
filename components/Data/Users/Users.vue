@@ -18,7 +18,7 @@
                 @click="$refs['dropdown-' + index][0].toggle()">
               </kirby-button>
               <kirby-dropdown-content 
-                @action="action" 
+                @action="action($event, user)" 
                 align="right"
                 :ref="'dropdown-' + index" 
                 options="/mock/data/user-options.json" 
@@ -46,6 +46,10 @@
 
 <script>
 
+// API
+import UsersQuery from '../../../api/Users.js';
+
+// Components
 import Button from '../../Buttons/Button/Button.vue';
 import Dropdown from '../../Navigation/Dropdown/Dropdown.vue';
 import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue';
@@ -77,23 +81,19 @@ export default {
     }
   },
   methods: {
-    action(action) {
+    action(action, user) {
 
       switch(action) {
         case 'remove': 
-          this.$refs.remove.open();              
+          this.$refs.remove.open(user.username);
       }
 
     }
   },
   created() {
-
-    fetch('/mock/data/users.json').then(function (response) {
-      return response.json()
-    }).then(function (json) {
-      this.users = json
-    }.bind(this))
-
+    UsersQuery().then(function(users) {
+      this.users = users;
+    }.bind(this));
   }
 }
 
