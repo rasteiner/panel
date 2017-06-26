@@ -2,18 +2,7 @@
 
   <kirby-view class="kirby-user-view">
 
-    <kirby-header icon="user" link="/"
-      :breadcrumb="[
-        {
-          link: '/users/' + user.role,
-          label: user.role + 's'
-        },
-      ]"
-      :pagination="{
-        page: 1, 
-        limit: 1, 
-        total: 5
-      }">
+    <kirby-header icon="user" link="/" :breadcrumb="breadcrumb" :pagination="pagination">
 
       {{ user.username }}
       <kirby-image class="kirby-user-view-image" ratio="1/1" :src="user.image.url" />
@@ -33,30 +22,7 @@
 
     </kirby-header>    
 
-    <kirby-fieldset :fields="[
-      {
-        name: 'firstName',
-        label: 'First Name',
-        type: 'text',
-        width: '1/2'
-      },
-      {
-        name: 'lastName',
-        label: 'Last Name',
-        type: 'text',
-        width: '1/2'
-      },
-      {
-        name: 'email',
-        label: 'Email',
-        type: 'email'
-      },
-      {
-        name: 'website',
-        label: 'Website',
-        type: 'url'
-      }
-    ]" :values="user" />
+    <kirby-fieldset :fields="fields" :values="user" />
 
     <kirby-user-remove-dialog ref="remove" />
 
@@ -107,10 +73,52 @@ export default {
         username: '',
         email: '',
         website: '',
+        role: '',
         image: {
           url: ''
         }
-      }
+      },
+      fields: [
+        {
+          name: 'firstName',
+          label: 'First Name',
+          type: 'text',
+          width: '1/2'
+        },
+        {
+          name: 'lastName',
+          label: 'Last Name',
+          type: 'text',
+          width: '1/2'
+        },
+        {
+          name: 'email',
+          label: 'Email',
+          type: 'email'
+        },
+        {
+          name: 'website',
+          label: 'Website',
+          type: 'url'
+        }
+      ]
+    }
+  },
+  computed: {
+    breadcrumb() {
+      return [
+        {
+          link: '/users/' + this.user.role,
+          label: this.user.role + 's'
+        }
+      ];
+    },
+    pagination() {
+      return {
+        page: 1, 
+        limit: 1, 
+        total: 5
+      };
     }
   },
   created () {
