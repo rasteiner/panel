@@ -30,5 +30,21 @@
     "image": {
       "url": "/mock/images/users/fabian.jpg"
     }
+  },
+  {
+    "username": "nils",
+    "email": "nils@getkirby.com",
+    "role": "editor",
+    "image": {
+      "url": "/mock/images/users/nils.jpg"
+    }
+  },
+  {
+    "username": "nico",
+    "email": "nico@getkirby.com",
+    "role": "editor",
+    "image": {
+      "url": "/mock/images/users/nico.jpg"
+    }
   }
 ]
