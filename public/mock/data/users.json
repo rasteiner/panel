@@ -1,7 +1,10 @@
 [
   {
     "username": "bastian",
+    "firstName": "Bastian",
+    "lastName": "Allgeier",    
     "email": "bastian@getkirby.com",
+    "website": "https://bastianallgeier.com",
     "role": "admin",
     "image": {
       "url": "/mock/images/users/bastian.jpg"
@@ -9,7 +12,10 @@
   },
   {
     "username": "lukas",
+    "firstName": "Lukas",
+    "lastName": "Bestle",    
     "email": "lukas@getkirby.com",
+    "website": "",
     "role": "admin",
     "image": {
       "url": "/mock/images/users/lukas.jpg"
@@ -17,7 +23,10 @@
   },
   {
     "username": "sonja",
+    "firstName": "Sonja",
+    "lastName": "Broda",    
     "email": "sonja@getkirby.com",
+    "website": "",
     "role": "editor",
     "image": {
       "url": "/mock/images/users/sonja.jpg"
@@ -25,7 +34,10 @@
   },
   {
     "username": "fabian",
+    "firstName": "Fabian",
+    "lastName": "Michael",    
     "email": "fabian@getkirby.com",
+    "website": "",
     "role": "editor",
     "image": {
       "url": "/mock/images/users/fabian.jpg"
@@ -33,7 +45,10 @@
   },
   {
     "username": "nils",
+    "firstName": "Nils",
+    "lastName": "Riedemann",    
     "email": "nils@getkirby.com",
+    "website": "",
     "role": "editor",
     "image": {
       "url": "/mock/images/users/nils.jpg"
@@ -41,7 +56,10 @@
   },
   {
     "username": "nico",
+    "firstName": "Nico",
+    "lastName": "Hoffmann",    
     "email": "nico@getkirby.com",
+    "website": "",
     "role": "editor",
     "image": {
       "url": "/mock/images/users/nico.jpg"

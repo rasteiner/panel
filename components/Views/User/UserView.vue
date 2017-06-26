@@ -15,8 +15,8 @@
         total: 5
       }">
 
-      bastian
-      <kirby-image class="kirby-user-view-image" ratio="1/1" src="/mock/images/users/bastian.jpg" />
+      {{ user.username }}
+      <kirby-image class="kirby-user-view-image" ratio="1/1" :src="user.image.url" />
     
       <template slot="buttons-left">
         <kirby-button icon="file-image-o">Picture</kirby-button>
@@ -50,13 +50,7 @@
         label: 'Website',
         type: 'url'
       }
-    ]" :values="{
-      'username': 'bastian',
-      'firstName': 'Bastian',
-      'lastName': 'Allgeier',
-      'email': 'mail@bastianallgeier.com',
-      'website': 'https://bastianallgeier.com'
-    }" />
+    ]" :values="user" />
 
     <kirby-user-remove-dialog ref="remove" />
 
@@ -90,7 +84,33 @@ export default {
     'kirby-breadcrumb-item': BreadcrumbItem,
     'kirby-user-remove-dialog': UserRemoveDialog
   },
-  props: []
+  props: ['username'],
+  data () {
+    return {
+      user: {
+        username: '',
+        email: '',
+        website: '',
+        image: {
+          url: ''
+        }
+      }
+    }
+  },
+  created () {
+
+    // TODO: replace with GraphQL API
+    fetch('/mock/data/users.json').then(function (response) {
+      return response.json()
+    }).then(function (json) {
+      json.forEach(function(user) {
+        if(user.username === this.username) {
+          this.user = user;
+        }
+      }.bind(this)); 
+    }.bind(this))
+
+  }
 }
 
 </script>
