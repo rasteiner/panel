@@ -5,8 +5,8 @@
     <kirby-header icon="user" link="/"
       :breadcrumb="[
         {
-          link: '/users/admin',
-          label: 'Admins'
+          link: '/users/' + user.role,
+          label: user.role + 's'
         },
       ]"
       :pagination="{

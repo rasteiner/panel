@@ -5,7 +5,7 @@
     "lastName": "Allgeier",    
     "email": "bastian@getkirby.com",
     "website": "https://bastianallgeier.com",
-    "role": "admin",
+    "role": "Admin",
     "image": {
       "url": "/mock/images/users/bastian.jpg"
     }
@@ -16,7 +16,7 @@
     "lastName": "Bestle",    
     "email": "lukas@getkirby.com",
     "website": "",
-    "role": "admin",
+    "role": "Admin",
     "image": {
       "url": "/mock/images/users/lukas.jpg"
     }
@@ -27,7 +27,7 @@
     "lastName": "Broda",    
     "email": "sonja@getkirby.com",
     "website": "",
-    "role": "editor",
+    "role": "Editor",
     "image": {
       "url": "/mock/images/users/sonja.jpg"
     }
@@ -38,7 +38,7 @@
     "lastName": "Michael",    
     "email": "fabian@getkirby.com",
     "website": "",
-    "role": "editor",
+    "role": "Editor",
     "image": {
       "url": "/mock/images/users/fabian.jpg"
     }
@@ -49,7 +49,7 @@
     "lastName": "Riedemann",    
     "email": "nils@getkirby.com",
     "website": "",
-    "role": "editor",
+    "role": "Editor",
     "image": {
       "url": "/mock/images/users/nils.jpg"
     }
@@ -60,7 +60,7 @@
     "lastName": "Hoffmann",    
     "email": "nico@getkirby.com",
     "website": "",
-    "role": "editor",
+    "role": "Editor",
     "image": {
       "url": "/mock/images/users/nico.jpg"
     }
