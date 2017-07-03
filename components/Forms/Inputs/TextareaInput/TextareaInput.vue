@@ -3,8 +3,12 @@
     ref="textarea" 
     spellcheck="false" 
     class="kirby-textarea-input" 
+    rows="1"
     @input="$emit('input', $event.target.value)" 
-    :value="value">  
+    @keydown.delete="remove($event)"
+    @keydown.enter="enter($event)"
+    :placeholder="placeholder"
+    :value="value">
   </textarea>
 </template>
 
@@ -18,11 +22,34 @@ export default {
     autosize: {
       type: Boolean,
       default: true
+    },
+    placeholder: String,
+    multiline: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
     focus: function() {
       this.$refs.textarea.focus();
+    },
+    enter: function(e) {
+
+      this.$emit('enter', e);
+
+      if (this.multiline === false) {
+        e.preventDefault();
+      }
+
+    },
+    remove: function(e) {
+
+      if (e.target.selectionStart === 0 && e.target.value.length === 0) {
+        this.$emit('empty');
+        e.preventDefault();
+      }
+
+      this.$emit('remove', e);
     }
   },
   mounted: function() {

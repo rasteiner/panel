@@ -28,6 +28,7 @@ import Calendar from './components/Forms/Calendar/Calendar.vue'
 import Field from './components/Forms/Field/Field.vue'
 import Fieldset from './components/Forms/Fieldset/Fieldset.vue'
 import Input from './components/Forms/Input/Input.vue'
+import Blocks from './components/Forms/Blocks/Blocks.vue'
 
 /** Forms/Inputs **/
 import DateInput from './components/Forms/Inputs/DateInput/DateInput.vue'
@@ -127,6 +128,7 @@ new Vue({
     'kirby-field': Field,
     'kirby-fieldset': Fieldset,
     'kirby-input': Input,
+    'kirby-blocks': Blocks,
 
     /** Form/Inputs */
     'kirby-date-input': DateInput,
