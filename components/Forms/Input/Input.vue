@@ -16,7 +16,7 @@
 
 <script>
 
-import Icon from '../../Images/Icon/Icon.vue';
+import Icon from 'Images/Icon/Icon.vue';
 
 export default {
   components: {

@@ -8,7 +8,7 @@
 
 <script>
 
-import Button from '../../../Buttons/Button/Button.vue'
+import Button from 'Buttons/Button/Button.vue'
 
 export default {
   components: {
@@ -46,11 +46,11 @@ export default {
   },
   computed: {
     number: function() {
-      
+
       if(!this.val && this.val !== 0) {
         return null;
       } else if(this.type === 'int') {
-        var number = parseInt(this.val);        
+        var number = parseInt(this.val);
       } else {
         var number = parseFloat(this.val);
       }
@@ -124,7 +124,7 @@ export default {
 .kirby-number-input .kirby-button:focus {
   position: relative;
   background: $color-positive;
-  color: $color-light;  
+  color: $color-light;
   border-left: 1px solid $color-positive;
   right: -1px;
 }

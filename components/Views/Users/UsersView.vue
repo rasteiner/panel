@@ -26,11 +26,11 @@
 
 <script>
 
-import Button from '../../Buttons/Button/Button.vue';
-import Header from '../../Layout/Header/Header.vue';
-import View from '../../Layout/View/View.vue';
-import Users from '../../Data/Users/Users.vue';
-import UserCreateDialog from '../../Dialogs/User/UserCreateDialog/UserCreateDialog.vue';
+import Button from 'Buttons/Button/Button.vue';
+import Header from 'Layout/Header/Header.vue';
+import View from 'Layout/View/View.vue';
+import Users from 'Data/Users/Users.vue';
+import UserCreateDialog from 'Dialogs/User/UserCreateDialog/UserCreateDialog.vue';
 
 export default {
   components: {

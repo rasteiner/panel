@@ -1,17 +1,17 @@
 <template>
-  <kirby-block class="kirby-ul-block" 
+  <kirby-block class="kirby-ul-block"
     @append="append"
     @remove="remove">
 
     <ul>
       <li v-for="(item, index) in items" :key="item._id">
-        <kirby-fancy-input 
+        <kirby-fancy-input
           ref="item"
           placeholder="Type something …"
-          @enter="enter(index)" 
-          @input="input(index)" 
-          @empty="empty(index)" 
-          :value="item.text" />        
+          @enter="enter(index)"
+          @input="input(index)"
+          @empty="empty(index)"
+          :value="item.text" />
       </li>
     </ul>
 
@@ -20,8 +20,8 @@
 
 <script>
 
-import FancyInput from '../../Inputs/FancyInput/FancyInput.vue';
-import Block from '../Block.vue';
+import FancyInput from 'Forms/Inputs/FancyInput/FancyInput.vue';
+import Block from 'Forms/Blocks/Block.vue';
 
 const guid = function() {
   return Math.random().toString(36).substr(2, 10);
@@ -68,7 +68,7 @@ export default {
     },
     select(index) {
       try {
-        this.$refs.item[index].focus();        
+        this.$refs.item[index].focus();
       } catch(e) {
 
       }
@@ -79,7 +79,7 @@ export default {
         this.items.splice(index, 1);
         this.$nextTick(function() {
           this.select(index - 1);
-        }.bind(this));        
+        }.bind(this));
       } else {
         this.remove();
       }
@@ -111,4 +111,4 @@ export default {
   list-style: disc;
 }
 
-</style>  
+</style>

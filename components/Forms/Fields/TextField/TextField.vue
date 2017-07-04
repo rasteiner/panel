@@ -1,8 +1,8 @@
 <template>
   <kirby-field v-bind="$props">
     <input
-      :id="name" 
-      :name="name" 
+      :id="name"
+      :name="name"
       :type="type"
       :value="value"
       :placeholder="placeholder"
@@ -10,12 +10,12 @@
       :readonly="readonly"
       :autocomplete="autocomplete"
       :autofocus="autofocus">
-  </kirby-field>  
+  </kirby-field>
 </template>
 
 <script>
 
-import Field from '../../Field/Field.vue';
+import Field from 'Forms/Field/Field.vue';
 import Props from './TextField.props.js';
 
 export default {

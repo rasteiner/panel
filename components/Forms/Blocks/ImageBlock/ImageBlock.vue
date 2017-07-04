@@ -1,16 +1,16 @@
 <template>
-  <kirby-block class="kirby-image-block" 
+  <kirby-block class="kirby-image-block"
     @append="append"
     @remove="remove">
 
     <figure v-if="value.src">
       <img :src="value.src">
       <figcaption>
-        <kirby-fancy-input 
+        <kirby-fancy-input
           ref="input"
-          @enter="enter" 
-          @input="caption" 
-          @empty="empty" 
+          @enter="enter"
+          @input="caption"
+          @empty="empty"
           :placeholder="placeholder"
           :multiline="false"
           :value="value.caption || ''" />
@@ -26,10 +26,10 @@
 
 <script>
 
-import FancyInput from '../../Inputs/FancyInput/FancyInput.vue';
-import Box from '../../../Layout/Box/Box.vue';
-import Button from '../../../Buttons/Button/Button.vue';
-import Block from '../Block.vue';
+import FancyInput from 'Forms/Inputs/FancyInput/FancyInput.vue';
+import Box from 'Layout/Box/Box.vue';
+import Button from 'Buttons/Button/Button.vue';
+import Block from 'Forms/Blocks/Block.vue';
 
 export default {
   components: {
@@ -57,7 +57,7 @@ export default {
     },
     enter() {
       if (this.multiline === false) {
-        this.$emit('append', 'text');        
+        this.$emit('append', 'text');
       }
     },
     append(type) {
@@ -86,4 +86,4 @@ export default {
   color: $color-dark-grey;
 }
 
-</style>  
+</style>

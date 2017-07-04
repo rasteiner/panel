@@ -15,7 +15,7 @@
 
 <script>
 
-import FancyInput from '../../Inputs/FancyInput/FancyInput.vue';
+import FancyInput from 'Forms/Inputs/FancyInput/FancyInput.vue';
 import Block from '../Block.vue';
 
 export default {

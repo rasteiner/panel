@@ -11,7 +11,7 @@
 
 <script>
 
-import Button from '../../Buttons/Button/Button.vue'
+import Button from 'Buttons/Button/Button.vue'
 
 export default {
   components: {

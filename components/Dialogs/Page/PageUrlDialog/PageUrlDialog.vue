@@ -15,7 +15,7 @@
 
 <script>
 
-import DialogMixin from '../../Dialog/Dialog.mixin.js';
+import DialogMixin from 'Dialogs/Dialog/Dialog.mixin.js';
 
 export default {
   mixins: [DialogMixin]

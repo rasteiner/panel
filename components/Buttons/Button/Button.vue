@@ -1,24 +1,24 @@
 <template>
-  <button 
-    type="button" 
-    @click="click" 
-    class="kirby-button" 
+  <button
+    type="button"
+    @click="click"
+    class="kirby-button"
     :data-state="state"
     :disabled="disabled"
-    :data-has-image="image ? true : false">    
+    :data-has-image="image ? true : false">
     <kirby-icon v-if="icon" :type="icon"></kirby-icon>
     <img class="kirby-button-image" v-else-if="image" :src="image">
     <span class="kirby-button-text"><slot /></span>
-    <input type="file" ref="input" v-if="upload" 
-      :multiple="upload.multiple || false" 
-      :accept="upload.accept || '*'" 
+    <input type="file" ref="input" v-if="upload"
+      :multiple="upload.multiple || false"
+      :accept="upload.accept || '*'"
       @change="change">
   </button>
 </template>
 
 <script>
 
-import Icon from '../../Images/Icon/Icon.vue'
+import Icon from 'Images/Icon/Icon.vue'
 
 export default {
   components: {
@@ -86,8 +86,8 @@ export default {
 
   .kirby-icon ~ .kirby-button-text:not(:empty) {
     padding-left: .25rem;
-  }  
-  
+  }
+
 }
 
 .kirby-button[disabled] {
@@ -109,7 +109,7 @@ export default {
 }
 
 .kirby-button[data-state="negative"] {
-  color: $color-negative;  
+  color: $color-negative;
 
   &:hover {
     color: $color-dark;
@@ -126,7 +126,7 @@ export default {
   text-align: left;
 
   .kirby-button-text {
-    padding: 0;  
+    padding: 0;
   }
 
 }
