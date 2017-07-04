@@ -2,17 +2,17 @@ export default {
 
   i18n: {
     months: [
-      'January', 
-      'February', 
-      'March', 
+      'January',
+      'February',
+      'March',
       'April',
-      'May', 
-      'June', 
-      'July', 
-      'August', 
+      'May',
+      'June',
+      'July',
+      'August',
       'September',
-      'October', 
-      'November', 
+      'October',
+      'November',
       'December'
     ],
     days: [
@@ -23,13 +23,13 @@ export default {
       'Friday',
       'Saturday',
       'Sunday'
-    ]      
+    ]
   },
 
   years: function(start, past, future) {
+    past   = past || 10;
+    future = future || 10;
 
-    var past   = past || 10;
-    var future = future || 10;
     var years  = [];
 
     for(var x = (start - past); x <= (start + future); x++) {
@@ -41,7 +41,7 @@ export default {
   },
 
   months: function(type) {
-  
+
     switch(type) {
       case 'count':
         return 12;
@@ -70,18 +70,17 @@ export default {
         var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
         // leap years
-        if(month === 2) { 
+        if(month === 2) {
           if((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
             return 29;
           }
         }
 
-        return days[month-1];      
+        return days[month-1];
 
       case 'numbers':
-
-        var days  = [];
         var count = this.days(year, month, 'count');
+        days  = [];
 
         for(var x = 1; x <= count; x++) {
           days.push(x);
@@ -96,7 +95,7 @@ export default {
   weeks: function(year, month) {
 
     var first = new Date(year, month, 1);
-    var last  = new Date(year, month, 0);      
+    var last  = new Date(year, month, 0);
     var used  = first.getDay() + 6 + last.getDate();
 
     return (Math.ceil(used / 7) - 1);
