@@ -1,3 +1,4 @@
+/* global define exports module */
 /*!
 	Autosize 3.0.20
 	license: MIT
