@@ -6,7 +6,7 @@
 
       {{ user.username }}
       <kirby-image class="kirby-user-view-image" ratio="1/1" :src="user.image.url" />
-    
+
       <template slot="buttons-left">
         <kirby-dropdown>
           <kirby-button @click="$refs.picture.toggle()" icon="file-image-o">Picture</kirby-button>
@@ -20,35 +20,35 @@
         <kirby-button icon="trash-o" @click="$refs.remove.open(user.username)">Delete</kirby-button>
       </template>
 
-    </kirby-header>    
+    </kirby-header>
 
     <kirby-fieldset :fields="fields" :values="user" />
 
     <kirby-user-remove-dialog ref="remove" />
 
   </kirby-view>
-    
+
 </template>
 
 <script>
 
 // api
-import UserQuery from '../../../api/User.js';
+import UserQuery from '@api/User.js';
 
 // components
-import Bar from '../../Bars/Bar/Bar.vue';
-import Button from '../../Buttons/Button/Button.vue';
-import Breadcrumb from '../../Navigation/Breadcrumb/Breadcrumb.vue';
-import BreadcrumbItem from '../../Navigation/Breadcrumb/BreadcrumbItem.vue';
-import Dropdown from '../../Navigation/Dropdown/Dropdown.vue';
-import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue';
-import DropdownItem from '../../Navigation/Dropdown/DropdownItem.vue';
-import Image from '../../Images/Image/Image.vue';
-import Icon from '../../Images/Icon/Icon.vue';
-import Header from '../../Layout/Header/Header.vue';
-import View from '../../Layout/View/View.vue';
-import Fieldset from '../../Forms/Fieldset/Fieldset.vue';
-import UserRemoveDialog from '../../Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue';
+import Bar from 'Bars/Bar/Bar.vue';
+import Button from 'Buttons/Button/Button.vue';
+import Breadcrumb from 'Navigation/Breadcrumb/Breadcrumb.vue';
+import BreadcrumbItem from 'Navigation/Breadcrumb/BreadcrumbItem.vue';
+import Dropdown from 'Navigation/Dropdown/Dropdown.vue';
+import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue';
+import DropdownItem from 'Navigation/Dropdown/DropdownItem.vue';
+import Image from 'Images/Image/Image.vue';
+import Icon from 'Images/Icon/Icon.vue';
+import Header from 'Layout/Header/Header.vue';
+import View from 'Layout/View/View.vue';
+import Fieldset from 'Forms/Fieldset/Fieldset.vue';
+import UserRemoveDialog from 'Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue';
 
 export default {
   components: {
@@ -115,8 +115,8 @@ export default {
     },
     pagination() {
       return {
-        page: 1, 
-        limit: 1, 
+        page: 1,
+        limit: 1,
         total: 5
       };
     }

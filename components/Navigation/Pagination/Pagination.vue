@@ -18,11 +18,11 @@
 
 <script>
 
-import Button from '../../Buttons/Button/Button.vue'
-import ButtonGroup from '../../Buttons/ButtonGroup/ButtonGroup.vue'
-import Dropdown from '../../Navigation/Dropdown/Dropdown.vue'
-import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue'
-import NumberInput from '../../Forms/Inputs/NumberInput/NumberInput.vue'
+import Button from 'Buttons/Button/Button.vue'
+import ButtonGroup from 'Buttons/ButtonGroup/ButtonGroup.vue'
+import Dropdown from 'Navigation/Dropdown/Dropdown.vue'
+import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue'
+import NumberInput from 'Forms/Inputs/NumberInput/NumberInput.vue'
 
 const PaginationKeysListener = function (e) {
 

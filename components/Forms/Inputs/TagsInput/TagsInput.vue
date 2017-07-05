@@ -1,40 +1,40 @@
 <template>
-  <div class="kirby-tags-input"> 
-    <kirby-tag v-for="tag in tags" 
+  <div class="kirby-tags-input">
+    <kirby-tag v-for="tag in tags"
       :ref="tag"
-      :key="tag" 
-      @blur.native="select(null)" 
-      @focus.native="select(tag)" 
-      @keydown.native.left="navigate('prev')" 
-      @keydown.native.right="navigate('next')" 
-      @remove="remove(tag)" 
-      :removable="true"> 
-        {{ tag }} 
-    </kirby-tag> 
-    <span class="kirby-tags-input-element"> 
-      <kirby-autocomplete v-if="autocomplete" 
-        ref="input" 
+      :key="tag"
+      @blur.native="select(null)"
+      @focus.native="select(tag)"
+      @keydown.native.left="navigate('prev')"
+      @keydown.native.right="navigate('next')"
+      @remove="remove(tag)"
+      :removable="true">
+        {{ tag }}
+    </kirby-tag>
+    <span class="kirby-tags-input-element">
+      <kirby-autocomplete v-if="autocomplete"
+        ref="input"
         :id="id"
-        :map="autocomplete.map" 
-        :url="autocomplete.url" 
-        :ignore="this.tags" 
-        @keydown.native.left="leaveInput" 
-        @keydown.native.delete="leaveInput" 
-        @enter="function(value) { add(value) }" 
+        :map="autocomplete.map"
+        :url="autocomplete.url"
+        :ignore="this.tags"
+        @keydown.native.left="leaveInput"
+        @keydown.native.delete="leaveInput"
+        @enter="function(value) { add(value) }"
         @select="function(item) { add(item.value) }">
-      </kirby-autocomplete> 
-      <input v-else :id="id" ref="input" 
-        @keydown.enter="add($event.target.value)" 
-        @keydown.left="leaveInput" 
-        @keydown.delete="leaveInput"> 
-    </span> 
+      </kirby-autocomplete>
+      <input v-else :id="id" ref="input"
+        @keydown.enter="add($event.target.value)"
+        @keydown.left="leaveInput"
+        @keydown.delete="leaveInput">
+    </span>
   </div>
 </template>
 
 <script>
 
-import Autocomplete from '../../Autocomplete/Autocomplete.vue';
-import Tag from '../../../Buttons/Tag/Tag.vue';
+import Autocomplete from 'Forms/Autocomplete/Autocomplete.vue';
+import Tag from 'Buttons/Tag/Tag.vue';
 
 export default {
   components: {
@@ -43,7 +43,7 @@ export default {
   },
   props: ['id', 'value', 'required', 'autofocus', 'autocomplete'],
   data: function() {
-    
+
     var tags = this.value || [];
 
     if(typeof tags === 'string') {
@@ -56,14 +56,14 @@ export default {
       selected: null,
       tags: tags
     }
-  
+
   },
   methods: {
     focus: function() {
       this.$refs.input.focus();
     },
     select: function(tag) {
-      this.selected = tag;          
+      this.selected = tag;
     },
     remove: function(tag) {
 
@@ -79,7 +79,7 @@ export default {
           var nextIndex  = this.tags.indexOf(next.tag);
           var nextResult = this.get(nextIndex);
           this.selected = nextResult.tag;
-          nextResult.ref.focus();                  
+          nextResult.ref.focus();
         }.bind(this));
       } else {
         this.$refs.input.focus();
@@ -89,7 +89,7 @@ export default {
     index: function(tag) {
       return this.tags.indexOf(tag);
     },
-    add: function(tag) {      
+    add: function(tag) {
 
       var tag = tag.trim();
 
@@ -98,14 +98,14 @@ export default {
       }
 
       if(this.index(tag) === -1) {
-        this.tags.push(tag);        
+        this.tags.push(tag);
       }
 
       if(this.autocomplete) {
         this.$refs.input.close();
         this.$refs.input.clear();
       } else {
-        this.$refs.input.value = '';        
+        this.$refs.input.value = '';
       }
 
     },
@@ -123,7 +123,7 @@ export default {
         case 'last':
           var nextIndex = (this.tags.length - 1);
           break;
-        default: 
+        default:
           var nextIndex = method;
       }
 

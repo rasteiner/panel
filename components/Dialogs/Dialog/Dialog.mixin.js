@@ -1,6 +1,6 @@
 import Dialog from './Dialog.vue';
-import Fieldset from '../../Forms/Fieldset/Fieldset.vue';
-import Txt from '../../Text/Txt/Txt.vue';
+import Fieldset from 'Forms/Fieldset/Fieldset.vue';
+import Txt from 'Text/Txt/Txt.vue';
 
 export default {
   components: {

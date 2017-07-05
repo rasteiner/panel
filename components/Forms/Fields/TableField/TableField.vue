@@ -11,7 +11,7 @@
     <template slot="content">
 
       <kirby-input>
-        
+
         <kirby-table>
           <kirby-table-header>
             <kirby-table-header-cell v-for="column in columns" :key="column.name">
@@ -49,9 +49,9 @@
         <form>
           <kirby-fieldset :fields="fields" :values="row" />
         </form>
-      
+
       </kirby-dialog>
-  
+
       <kirby-dialog ref="remove" headline="Delete table row" button="Delete" state="negative">
         <kirby-txt>
           Do you really want to remove this row?
@@ -60,25 +60,25 @@
 
     </template>
 
-  </kirby-field>  
+  </kirby-field>
 
 </template>
 
 <script>
 
-import Field from '../../Field/Field.vue';
-import Fieldset from '../../Fieldset/Fieldset.vue';
-import Input from '../../Input/Input.vue';
-import Button from '../../../Buttons/Button/Button.vue';
-import ButtonGroup from '../../../Buttons/ButtonGroup/ButtonGroup.vue';
-import Table from '../../../Layout/Table/Table.vue';
-import TableRow from '../../../Layout/Table/TableRow.vue';
-import TableBody from '../../../Layout/Table/TableBody.vue';
-import TableHeader from '../../../Layout/Table/TableHeader.vue';
-import TableHeaderCell from '../../../Layout/Table/TableHeaderCell.vue';
-import TableCell from '../../../Layout/Table/TableCell.vue';
-import Dialog from '../../../Dialogs/Dialog/Dialog.vue';
-import Txt from '../../../Text/Txt/Txt.vue';
+import Field from 'Forms/Field/Field.vue';
+import Fieldset from 'Forms/Fieldset/Fieldset.vue';
+import Input from 'Forms/Input/Input.vue';
+import Button from 'Buttons/Button/Button.vue';
+import ButtonGroup from 'Buttons/ButtonGroup/ButtonGroup.vue';
+import Table from 'Layout/Table/Table.vue';
+import TableRow from 'Layout/Table/TableRow.vue';
+import TableBody from 'Layout/Table/TableBody.vue';
+import TableHeader from 'Layout/Table/TableHeader.vue';
+import TableHeaderCell from 'Layout/Table/TableHeaderCell.vue';
+import TableCell from 'Layout/Table/TableCell.vue';
+import Dialog from 'Dialogs/Dialog/Dialog.vue';
+import Txt from 'Text/Txt/Txt.vue';
 
 export default {
   components: {
@@ -95,7 +95,7 @@ export default {
     'kirby-table-cell': TableCell,
     'kirby-dialog': Dialog,
     'kirby-txt': Txt
-  },  
+  },
   data() {
     return {
       row: {},
@@ -127,14 +127,14 @@ export default {
       type: Array,
       default() {
         return [];
-      }      
+      }
     }
   },
   methods: {
     prev() {
       let index = this.value.indexOf(this.row);
       if (index > 0) {
-        this.edit(this.value[index - 1]);        
+        this.edit(this.value[index - 1]);
       } else {
         this.edit(this.value[this.value.length - 1]);
       }
@@ -142,7 +142,7 @@ export default {
     next() {
       let index = this.value.indexOf(this.row);
       if (index < this.value.length - 1) {
-        this.edit(this.value[index + 1]);        
+        this.edit(this.value[index + 1]);
       } else {
         this.edit(this.value[0]);
       }
@@ -181,7 +181,7 @@ export default {
   .kirby-dialog-header .kirby-icon {
     color: #fff;
   }
-  
+
   .kirby-dialog-header .kirby-button-group .kirby-button:last-child {
     padding-right: 1.5rem;
   }
@@ -193,7 +193,7 @@ export default {
   .kirby-table-cell {
     vertical-align: top;
   }
-  
+
   .kirby-table-header {
 
     .kirby-table-header-cell {

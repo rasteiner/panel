@@ -23,13 +23,13 @@
 
 <script>
 
-import Bar from '../../Bars/Bar/Bar.vue';
-import Breadcrumb from '../../Navigation/Breadcrumb/Breadcrumb.vue';
-import BreadcrumbItem from '../../Navigation/Breadcrumb/BreadcrumbItem.vue';
-import ButtonGroup from '../../Buttons/ButtonGroup/ButtonGroup.vue';
-import Pagination from '../../Navigation/Pagination/Pagination.vue';
-import Headline from '../../Text/Headline/Headline.vue';
-import Icon from '../../Images/Icon/Icon.vue';
+import Bar from 'Bars/Bar/Bar.vue';
+import Breadcrumb from 'Navigation/Breadcrumb/Breadcrumb.vue';
+import BreadcrumbItem from 'Navigation/Breadcrumb/BreadcrumbItem.vue';
+import ButtonGroup from 'Buttons/ButtonGroup/ButtonGroup.vue';
+import Pagination from 'Navigation/Pagination/Pagination.vue';
+import Headline from 'Text/Headline/Headline.vue';
+import Icon from 'Images/Icon/Icon.vue';
 
 export default {
   components: {

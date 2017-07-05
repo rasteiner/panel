@@ -1,14 +1,14 @@
 <template>
   <kirby-field v-bind="$props">
     <kirby-select-input v-bind="$props" />
-  </kirby-field>  
+  </kirby-field>
 </template>
 
 <script>
 
-import Field from '../../Field/Field.vue';
-import SelectInput from '../../Inputs/SelectInput/SelectInput.vue';
-import Props from '../TextField/TextField.props.js';
+import Field from 'Forms/Field/Field.vue';
+import SelectInput from 'Forms/Inputs/SelectInput/SelectInput.vue';
+import Props from 'Forms/Fields/TextField/TextField.props.js';
 
 export default {
   mixins: [Props],

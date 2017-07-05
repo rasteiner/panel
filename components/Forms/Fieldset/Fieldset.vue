@@ -9,8 +9,8 @@
 <script>
 
 /** Layout **/
-import Grid from '../../Layout/Grid/Grid.vue';
-import Column from '../../Layout/Grid/Column.vue';
+import Grid from 'Layout/Grid/Grid.vue';
+import Column from 'Layout/Grid/Column.vue';
 
 /** Fields **/
 import DateField from '../Fields/DateField/DateField.vue'

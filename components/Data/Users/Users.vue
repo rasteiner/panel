@@ -13,16 +13,16 @@
           <kirby-table-cell type="button">
 
             <kirby-dropdown>
-              <kirby-button 
-                icon="angle-down" 
+              <kirby-button
+                icon="angle-down"
                 @click="$refs['dropdown-' + index][0].toggle()">
               </kirby-button>
-              <kirby-dropdown-content 
-                @action="action($event, user)" 
+              <kirby-dropdown-content
+                @action="action($event, user)"
                 align="right"
-                :ref="'dropdown-' + index" 
-                options="/mock/data/user-options.json" 
-                :dark="true">        
+                :ref="'dropdown-' + index"
+                options="/mock/data/user-options.json"
+                :dark="true">
               </kirby-dropdown-content>
             </kirby-dropdown>
 
@@ -30,14 +30,14 @@
         </kirby-table-row>
       </kirby-table-body>
     </kirby-table>
-  
+
     <kirby-pagination align="center"
       @paginate="paginate"
-      :details="true" 
+      :details="true"
       :total="total"
       :limit="limit"
       :keys="keys" />
-  
+
     <kirby-user-remove-dialog ref="remove" />
 
   </div>
@@ -47,19 +47,19 @@
 <script>
 
 // API
-import UsersQuery from '../../../api/Users.js';
+import UsersQuery from '@api/Users.js';
 
 // Components
-import Button from '../../Buttons/Button/Button.vue';
-import Dropdown from '../../Navigation/Dropdown/Dropdown.vue';
-import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue';
-import Image from '../../Images/Image/Image.vue';
-import Table from '../../Layout/Table/Table.vue';
-import TableBody from '../../Layout/Table/TableBody.vue';
-import TableRow from '../../Layout/Table/TableRow.vue';
-import TableCell from '../../Layout/Table/TableCell.vue';
-import UserRemoveDialog from '../../Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue';
-import Pagination from '../../Navigation/Pagination/Pagination.vue';
+import Button from 'Buttons/Button/Button.vue';
+import Dropdown from 'Navigation/Dropdown/Dropdown.vue';
+import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue';
+import Image from 'Images/Image/Image.vue';
+import Table from 'Layout/Table/Table.vue';
+import TableBody from 'Layout/Table/TableBody.vue';
+import TableRow from 'Layout/Table/TableRow.vue';
+import TableCell from 'Layout/Table/TableCell.vue';
+import UserRemoveDialog from 'Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue';
+import Pagination from 'Navigation/Pagination/Pagination.vue';
 
 export default {
   components: {
@@ -97,7 +97,7 @@ export default {
   methods: {
     action(action, user) {
       switch(action) {
-        case 'remove': 
+        case 'remove':
           this.$refs.remove.open(user.username);
       }
     },

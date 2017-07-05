@@ -16,9 +16,9 @@
 
 import Vue from 'vue';
 
-import Dropdown from '../../Navigation/Dropdown/Dropdown.vue';
-import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue';
-import DropdownItem from '../../Navigation/Dropdown/DropdownItem.vue';
+import Dropdown from 'Navigation/Dropdown/Dropdown.vue';
+import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue';
+import DropdownItem from 'Navigation/Dropdown/DropdownItem.vue';
 
 import HeadlineBlock from './HeadlineBlock/HeadlineBlock.vue';
 import SubheadlineBlock from './SubheadlineBlock/SubheadlineBlock.vue';

@@ -30,10 +30,10 @@
 
 <script>
 
-import Bar from '../../Bars/Bar/Bar.vue';
-import Button from '../../Buttons/Button/Button.vue';
-import ButtonGroup from '../../Buttons/ButtonGroup/ButtonGroup.vue';
-import Headline from '../../Text/Headline/Headline.vue';
+import Bar from 'Bars/Bar/Bar.vue';
+import Button from 'Buttons/Button/Button.vue';
+import ButtonGroup from 'Buttons/ButtonGroup/ButtonGroup.vue';
+import Headline from 'Text/Headline/Headline.vue';
 
 const PanelDialogEscapeListener = function (e) {
   if (e.code === 'Escape') {

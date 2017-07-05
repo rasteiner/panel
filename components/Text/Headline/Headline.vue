@@ -13,7 +13,7 @@
 
 <script>
 
-import Bar from '../../Bars/Bar/Bar.vue';
+import Bar from 'Bars/Bar/Bar.vue';
 
 export default {
   components: {

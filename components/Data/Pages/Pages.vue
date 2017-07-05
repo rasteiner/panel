@@ -51,18 +51,18 @@
 
 <script>
 
-import Button from '../../Buttons/Button/Button.vue';
-import Card from '../../Layout/Card/Card.vue';
-import Cards from '../../Layout/Cards/Cards.vue';
-import Dropdown from '../../Navigation/Dropdown/Dropdown.vue';
-import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue';
-import Image from '../../Images/Image/Image.vue';
-import Table from '../../Layout/Table/Table.vue';
-import TableBody from '../../Layout/Table/TableBody.vue';
-import TableRow from '../../Layout/Table/TableRow.vue';
-import TableCell from '../../Layout/Table/TableCell.vue';
-import PageUrlDialog from '../../Dialogs/Page/PageUrlDialog/PageUrlDialog.vue';
-import PageRemoveDialog from '../../Dialogs/Page/PageRemoveDialog/PageRemoveDialog.vue';
+import Button from 'Buttons/Button/Button.vue';
+import Card from 'Layout/Card/Card.vue';
+import Cards from 'Layout/Cards/Cards.vue';
+import Dropdown from 'Navigation/Dropdown/Dropdown.vue';
+import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue';
+import Image from 'Images/Image/Image.vue';
+import Table from 'Layout/Table/Table.vue';
+import TableBody from 'Layout/Table/TableBody.vue';
+import TableRow from 'Layout/Table/TableRow.vue';
+import TableCell from 'Layout/Table/TableCell.vue';
+import PageUrlDialog from 'Dialogs/Page/PageUrlDialog/PageUrlDialog.vue';
+import PageRemoveDialog from 'Dialogs/Page/PageRemoveDialog/PageRemoveDialog.vue';
 
 export default {
   components: {

@@ -22,16 +22,16 @@
         <kirby-table-cell type="button">
 
           <kirby-dropdown>
-            <kirby-button 
-              icon="angle-down" 
+            <kirby-button
+              icon="angle-down"
               @click="$refs['dropdown-' + index][0].toggle()">
             </kirby-button>
-            <kirby-dropdown-content 
-              @action="$emit('action', $event)" 
+            <kirby-dropdown-content
+              @action="$emit('action', $event)"
               align="right"
-              :ref="'dropdown-' + index" 
-              options="/mock/data/file-options.json" 
-              :dark="true">        
+              :ref="'dropdown-' + index"
+              options="/mock/data/file-options.json"
+              :dark="true">
             </kirby-dropdown-content>
           </kirby-dropdown>
 
@@ -39,21 +39,21 @@
       </kirby-table-row>
     </kirby-table-body>
   </kirby-table>
-  
+
 </template>
 
 <script>
 
-import Button from '../../Buttons/Button/Button.vue';
-import Card from '../../Layout/Card/Card.vue';
-import Cards from '../../Layout/Cards/Cards.vue';
-import Dropdown from '../../Navigation/Dropdown/Dropdown.vue';
-import DropdownContent from '../../Navigation/Dropdown/DropdownContent.vue';
-import Image from '../../Images/Image/Image.vue';
-import Table from '../../Layout/Table/Table.vue';
-import TableBody from '../../Layout/Table/TableBody.vue';
-import TableRow from '../../Layout/Table/TableRow.vue';
-import TableCell from '../../Layout/Table/TableCell.vue';
+import Button from 'Buttons/Button/Button.vue';
+import Card from 'Layout/Card/Card.vue';
+import Cards from 'Layout/Cards/Cards.vue';
+import Dropdown from 'Navigation/Dropdown/Dropdown.vue';
+import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue';
+import Image from 'Images/Image/Image.vue';
+import Table from 'Layout/Table/Table.vue';
+import TableBody from 'Layout/Table/TableBody.vue';
+import TableRow from 'Layout/Table/TableRow.vue';
+import TableCell from 'Layout/Table/TableCell.vue';
 
 export default {
   components: {
