@@ -1,12 +1,13 @@
 <template>
   <div class="kirby-blocks">
     <component v-for="(block, index) in blocks" 
+      v-bind="block.props || {}"
       :key="block.id"
       :ref="'block-' + index"
       :is="'kirby-' + block.type + '-block'" 
       :value="block.value" 
       @input="input(index, $event)"
-      @append="append(index, $event)"
+      @append="append(index, ...$event)"
       @remove="remove(index)" />  
   </div>
 </template>
@@ -25,7 +26,7 @@ import TextBlock from './TextBlock/TextBlock.vue';
 import QuoteBlock from './QuoteBlock/QuoteBlock.vue';
 import CodeBlock from './CodeBlock/CodeBlock.vue';
 import ImageBlock from './ImageBlock/ImageBlock.vue';
-import UlBlock from './UlBlock/UlBlock.vue';
+import ListBlock from './ListBlock/ListBlock.vue';
 
 const guid = function() {
   return Math.random().toString(36).substr(2, 10);
@@ -42,7 +43,7 @@ export default {
     'kirby-quote-block': QuoteBlock,
     'kirby-code-block': CodeBlock,
     'kirby-image-block': ImageBlock,
-    'kirby-ul-block': UlBlock
+    'kirby-list-block': ListBlock
   },
   props: [
     'value'
@@ -59,11 +60,14 @@ export default {
     input(index, value) {
       this.blocks[index].value = value;
     },
-    append(index, type) {
+    append(index, type, props) {
+
+      console.log(props);
 
       this.blocks.splice(index + 1, 0, {
         id: guid(),
         type: type,
+        props: props || {},
         value: ''
       });
 

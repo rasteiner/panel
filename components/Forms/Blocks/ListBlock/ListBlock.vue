@@ -1,9 +1,9 @@
 <template>
-  <kirby-block class="kirby-ul-block" 
+  <kirby-block class="kirby-list-block" 
     @append="append"
-    @remove="remove">
+    @remove="$emit('remove')">
 
-    <ul>
+    <component :is="tag">
       <li v-for="(item, index) in items" :key="item._id">
         <kirby-fancy-input 
           ref="item"
@@ -13,7 +13,7 @@
           @empty="empty(index)" 
           :value="item.text" />        
       </li>
-    </ul>
+    </component>
 
   </kirby-block>
 </template>
@@ -33,6 +33,10 @@ export default {
     'kirby-block': Block
   },
   props: {
+    tag: {
+      type: String,
+      default: 'ul'
+    },
     value: {
       type: [String,Array]
     }
@@ -85,14 +89,14 @@ export default {
       }
 
     },
+    append(type, props) {
+
+      console.log(props);
+
+      this.$emit('append', type, props);
+    },
     input() {
 
-    },
-    append(type) {
-      this.$emit('append', type);
-    },
-    remove() {
-      this.$emit('remove');
     }
   }
 }
@@ -101,14 +105,18 @@ export default {
 
 <style lang="scss">
 
-.kirby-ul-block {
+.kirby-list-block {
   margin-bottom: 1.5rem;
 }
-.kirby-ul-block ul {
+.kirby-list-block ul, 
+.kirby-list-block ol {
   margin-left: 1rem;
 }
-.kirby-ul-block li {
+.kirby-list-block ul li {
   list-style: disc;
+}
+.kirby-list-block ol li {
+  list-style: decimal;
 }
 
 </style>  

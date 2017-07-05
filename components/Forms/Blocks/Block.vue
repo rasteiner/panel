@@ -10,7 +10,8 @@
           <kirby-dropdown-item icon="font" @click="$emit('append', 'subheadline')">Subheadline</kirby-dropdown-item>
           <kirby-dropdown-item icon="align-left" @click="$emit('append', 'text')">Text</kirby-dropdown-item>
           <kirby-dropdown-item icon="file-image-o" @click="$emit('append', 'image')">Image</kirby-dropdown-item>
-          <kirby-dropdown-item icon="list" @click="$emit('append', 'ul')">Unordered list</kirby-dropdown-item>
+          <kirby-dropdown-item icon="list" @click="$emit('append', 'list', {tag: 'ul'})">Unordered list</kirby-dropdown-item>
+          <kirby-dropdown-item icon="list" @click="$emit('append', 'list', {tag: 'ol'})">Ordered list</kirby-dropdown-item>
           <kirby-dropdown-item icon="quote-left" @click="$emit('append', 'quote')">Quote</kirby-dropdown-item>
           <kirby-dropdown-item icon="code" @click="$emit('append', 'code')">Code</kirby-dropdown-item>
         </div>
