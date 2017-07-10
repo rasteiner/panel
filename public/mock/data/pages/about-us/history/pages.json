@@ -1,0 +1,17 @@
+[
+  {
+    "title": "The beginning",
+    "id": "about-us/history/the-beginning",
+    "children": false
+  },
+  {
+    "title": "The middle",
+    "id": "about-us/history/the-middle",
+    "children": false
+  },
+  {
+    "title": "The end",
+    "id": "about-us/history/the-end",
+    "children": false
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Project A",
+    "id": "projects/project-a",
+    "children": false
+  },
+  {
+    "title": "Project B",
+    "id": "projects/project-b",
+    "children": false
+  },
+  {
+    "title": "Project C",
+    "id": "projects/project-c",
+    "children": false
+  }
+]

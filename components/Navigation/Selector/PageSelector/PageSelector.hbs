@@ -1,0 +1,5 @@
+<kirby-page-selector ref="pageSelector" @select="function(id) { $refs.console.innerHTML = id}">
+  <kirby-box>
+    <kirby-button @click="$refs.pageSelector.open()">Selected page: <span ref="console"></span></kirby-button>
+  </kirby-box>
+</kirby-page-selector>

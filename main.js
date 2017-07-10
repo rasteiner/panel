@@ -2,93 +2,96 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 /** Bars **/
-import Bar from './components/Bars/Bar/Bar.vue'
+import Bar from 'Bars/Bar/Bar.vue'
 
 /** Buttons **/
-import Button from './components/Buttons/Button/Button.vue'
-import ButtonGroup from './components/Buttons/ButtonGroup/ButtonGroup.vue'
-import Tag from './components/Buttons/Tag/Tag.vue'
+import Button from 'Buttons/Button/Button.vue'
+import ButtonGroup from 'Buttons/ButtonGroup/ButtonGroup.vue'
+import Tag from 'Buttons/Tag/Tag.vue'
 
 /** Data */
-import Pages from './components/Data/Pages/Pages.vue';
-import Files from './components/Data/Files/Files.vue';
-import Users from './components/Data/Users/Users.vue';
+import Pages from 'Data/Pages/Pages.vue';
+import Files from 'Data/Files/Files.vue';
+import Users from 'Data/Users/Users.vue';
 
 /** Dialogs **/
-import Dialog from './components/Dialogs/Dialog/Dialog.vue'
-import PageCreateDialog from './components/Dialogs/Page/PageCreateDialog/PageCreateDialog.vue'
-import PageRemoveDialog from './components/Dialogs/Page/PageRemoveDialog/PageRemoveDialog.vue'
-import PageUrlDialog from './components/Dialogs/Page/PageUrlDialog/PageUrlDialog.vue'
-import UserCreateDialog from './components/Dialogs/User/UserCreateDialog/UserCreateDialog.vue'
-import UserRemoveDialog from './components/Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue'
+import Dialog from 'Dialogs/Dialog/Dialog.vue'
+import PageCreateDialog from 'Dialogs/Page/PageCreateDialog/PageCreateDialog.vue'
+import PageRemoveDialog from 'Dialogs/Page/PageRemoveDialog/PageRemoveDialog.vue'
+import PageUrlDialog from 'Dialogs/Page/PageUrlDialog/PageUrlDialog.vue'
+import UserCreateDialog from 'Dialogs/User/UserCreateDialog/UserCreateDialog.vue'
+import UserRemoveDialog from 'Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue'
 
 /** Forms **/
-import Autocomplete from './components/Forms/Autocomplete/Autocomplete.vue'
-import Calendar from './components/Forms/Calendar/Calendar.vue'
-import Field from './components/Forms/Field/Field.vue'
-import Fieldset from './components/Forms/Fieldset/Fieldset.vue'
-import Input from './components/Forms/Input/Input.vue'
-import Blocks from './components/Forms/Blocks/Blocks.vue'
+import Autocomplete from 'Forms/Autocomplete/Autocomplete.vue'
+import Calendar from 'Forms/Calendar/Calendar.vue'
+import Field from 'Forms/Field/Field.vue'
+import Fieldset from 'Forms/Fieldset/Fieldset.vue'
+import Input from 'Forms/Input/Input.vue'
+import Blocks from 'Forms/Blocks/Blocks.vue'
 
 /** Forms/Inputs **/
-import DateInput from './components/Forms/Inputs/DateInput/DateInput.vue'
-import SelectInput from './components/Forms/Inputs/SelectInput/SelectInput.vue'
-import TextareaInput from './components/Forms/Inputs/TextareaInput/TextareaInput.vue'
-import TagsInput from './components/Forms/Inputs/TagsInput/TagsInput.vue'
-import NumberInput from './components/Forms/Inputs/NumberInput/NumberInput.vue'
+import DateInput from 'Forms/Inputs/DateInput/DateInput.vue'
+import SelectInput from 'Forms/Inputs/SelectInput/SelectInput.vue'
+import TextareaInput from 'Forms/Inputs/TextareaInput/TextareaInput.vue'
+import TagsInput from 'Forms/Inputs/TagsInput/TagsInput.vue'
+import NumberInput from 'Forms/Inputs/NumberInput/NumberInput.vue'
 
 /** Forms/Fields **/
-import DateField from './components/Forms/Fields/DateField/DateField.vue'
-import TextField from './components/Forms/Fields/TextField/TextField.vue'
-import TextareaField from './components/Forms/Fields/TextareaField/TextareaField.vue'
-import TagsField from './components/Forms/Fields/TagsField/TagsField.vue'
-import EmailField from './components/Forms/Fields/EmailField/EmailField.vue'
-import NumberField from './components/Forms/Fields/NumberField/NumberField.vue'
-import UrlField from './components/Forms/Fields/UrlField/UrlField.vue'
-import TelField from './components/Forms/Fields/TelField/TelField.vue'
-import SelectField from './components/Forms/Fields/SelectField/SelectField.vue'
-import TableField from './components/Forms/Fields/TableField/TableField.vue'
+import DateField from 'Forms/Fields/DateField/DateField.vue'
+import TextField from 'Forms/Fields/TextField/TextField.vue'
+import TextareaField from 'Forms/Fields/TextareaField/TextareaField.vue'
+import TagsField from 'Forms/Fields/TagsField/TagsField.vue'
+import EmailField from 'Forms/Fields/EmailField/EmailField.vue'
+import NumberField from 'Forms/Fields/NumberField/NumberField.vue'
+import UrlField from 'Forms/Fields/UrlField/UrlField.vue'
+import TelField from 'Forms/Fields/TelField/TelField.vue'
+import SelectField from 'Forms/Fields/SelectField/SelectField.vue'
+import TableField from 'Forms/Fields/TableField/TableField.vue'
 
 /** Images **/
-import Icon from './components/Images/Icon/Icon.vue'
-import Image from './components/Images/Image/Image.vue'
+import Icon from 'Images/Icon/Icon.vue'
+import Image from 'Images/Image/Image.vue'
 
 /** Navigation **/
-import Breadcrumb from './components/Navigation/Breadcrumb/Breadcrumb.vue'
-import BreadcrumbItem from './components/Navigation/Breadcrumb/BreadcrumbItem.vue'
-import Dropdown from './components/Navigation/Dropdown/Dropdown.vue'
-import DropdownContent from './components/Navigation/Dropdown/DropdownContent.vue'
-import DropdownItem from './components/Navigation/Dropdown/DropdownItem.vue'
-import Languages from './components/Navigation/Languages/Languages.vue'
-import Pagination from './components/Navigation/Pagination/Pagination.vue'
+import Breadcrumb from 'Navigation/Breadcrumb/Breadcrumb.vue'
+import BreadcrumbItem from 'Navigation/Breadcrumb/BreadcrumbItem.vue'
+import Dropdown from 'Navigation/Dropdown/Dropdown.vue'
+import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue'
+import DropdownItem from 'Navigation/Dropdown/DropdownItem.vue'
+import Languages from 'Navigation/Languages/Languages.vue'
+import Pagination from 'Navigation/Pagination/Pagination.vue'
+
+/** Selectors */
+import PageSelector from 'Navigation/Selector/PageSelector/PageSelector.vue'
 
 /** Layout **/
-import Box from './components/Layout/Box/Box.vue'
-import Card from './components/Layout/Card/Card.vue'
-import Cards from './components/Layout/Cards/Cards.vue'
-import Grid from './components/Layout/Grid/Grid.vue'
-import Header from './components/Layout/Header/Header.vue'
-import Column from './components/Layout/Grid/Column.vue'
-import View from './components/Layout/View/View.vue'
+import Box from 'Layout/Box/Box.vue'
+import Card from 'Layout/Card/Card.vue'
+import Cards from 'Layout/Cards/Cards.vue'
+import Grid from 'Layout/Grid/Grid.vue'
+import Header from 'Layout/Header/Header.vue'
+import Column from 'Layout/Grid/Column.vue'
+import View from 'Layout/View/View.vue'
 
 /** Table **/
-import Table from './components/Layout/Table/Table.vue';
-import TableRow from './components/Layout/Table/TableRow.vue';
-import TableCell from './components/Layout/Table/TableCell.vue';
-import TableHeader from './components/Layout/Table/TableHeader.vue';
-import TableHeaderCell from './components/Layout/Table/TableHeaderCell.vue';
-import TableBody from './components/Layout/Table/TableBody.vue';
+import Table from 'Layout/Table/Table.vue';
+import TableRow from 'Layout/Table/TableRow.vue';
+import TableCell from 'Layout/Table/TableCell.vue';
+import TableHeader from 'Layout/Table/TableHeader.vue';
+import TableHeaderCell from 'Layout/Table/TableHeaderCell.vue';
+import TableBody from 'Layout/Table/TableBody.vue';
 
 /** Text **/
-import Headline from './components/Text/Headline/Headline.vue'
-import Txt from './components/Text/Txt/Txt.vue'
+import Headline from 'Text/Headline/Headline.vue'
+import Txt from 'Text/Txt/Txt.vue'
 
 /** Views **/
-import UsersView from './components/Views/Users/UsersView.vue';
-import UserView from './components/Views/User/UserView.vue';
+import UsersView from 'Views/Users/UsersView.vue';
+import UserView from 'Views/User/UserView.vue';
 
 /** Sandbox **/
-import Sandbox from './components/Sandbox/Sandbox.vue'
+import Sandbox from 'Sandbox/Sandbox.vue'
 
 Vue.use(VueRouter);
 
@@ -178,6 +181,9 @@ new Vue({
     'kirby-dropdown-item': DropdownItem,
     'kirby-languages': Languages,
     'kirby-pagination': Pagination,
+
+    /** Selector */
+    'kirby-page-selector': PageSelector,
 
     /** Text **/
     'kirby-headline': Headline,
