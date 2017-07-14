@@ -21,7 +21,6 @@ export default {
   padding: .5rem 1rem;
   line-height: 1.5em;
   background: $color-white;
-  border-bottom: 2px solid $color-background;  
   border-left: 1px dashed $color-border;
   font-family: $font-family-mono;
   font-size: $font-size-small;
@@ -51,11 +50,11 @@ export default {
 }
 
 .kirby-table-cell[data-type="link"] {
-  padding: 0;  
+  padding: 0;
 }
 
 .kirby-table-cell[data-type="link"] a {
-  padding: .5rem 1rem;  
+  padding: .5rem 1rem;
   display: block;
   white-space: nowrap;
   overflow: hidden;
