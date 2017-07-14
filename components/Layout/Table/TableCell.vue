@@ -1,6 +1,9 @@
 <template>
-  <td class="kirby-table-cell" :data-type="type" :data-width="width" :data-align="align">
-    <slot />       
+  <td class="kirby-table-cell"
+    :data-type="type"
+    :data-width="width"
+    :data-align="align">
+    <slot />
   </td>
 </template>
 

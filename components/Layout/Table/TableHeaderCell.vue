@@ -1,18 +1,17 @@
 <template>
-  <kirby-table-cell class="kirby-table-header-cell" :type="type" :width="width" :align="align">
+  <th class="kirby-table-cell kirby-table-header-cell"
+    :scope="scope === 'row' ? 'row' : 'col'"
+    :data-type="type"
+    :data-width="width"
+    :data-align="align">
     <slot />
-  </kirby-table-cell>
+  </th>
 </template>
 
 <script>
 
-import TableCell from './TableCell.vue';
-
 export default {
-  components: {
-    'kirby-table-cell': TableCell
-  },
-  props: ['type', 'width', 'align']
+  props: ['scope', 'type', 'width', 'align']
 }
 
 </script>
