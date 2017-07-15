@@ -1,15 +1,16 @@
 <template>
   <button
     type="button"
-    @click="click"
     class="kirby-button"
-    :data-state="state"
+    @click="click"
     :disabled="disabled"
+    :title="title"
+    :data-state="state"
     :data-has-image="image ? true : false">
-    <kirby-icon v-if="icon" :type="icon"></kirby-icon>
-    <img class="kirby-button-image" v-else-if="image" :src="image">
-    <span class="kirby-button-text"><slot /></span>
-    <input type="file" ref="input" v-if="upload"
+    <kirby-icon v-if="icon" :type="icon" :alt="alt"></kirby-icon>
+    <img v-else-if="image" class="kirby-button-image" :src="image" :alt="alt || ''">
+    <span v-if="$slots.default" class="kirby-button-text"><slot /></span>
+    <input v-if="upload" type="file" ref="input"
       :multiple="upload.multiple || false"
       :accept="upload.accept || '*'"
       @change="change">
@@ -25,6 +26,8 @@ export default {
     'kirby-icon': Icon
   },
   props: [
+    'title',
+    'alt',
     'icon',
     'image',
     'state',
@@ -84,7 +87,7 @@ export default {
     color: $color-dark;
   }
 
-  .kirby-icon ~ .kirby-button-text:not(:empty) {
+  .kirby-icon ~ .kirby-button-text {
     padding-left: .25rem;
   }
 

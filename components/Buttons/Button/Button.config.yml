@@ -2,7 +2,10 @@ title: Button
 variants: 
   - 
     name: with-icon
-    label: Button with icon
+    label: With icon and label
+  - 
+    name: icon-only
+    label: With icon and alt text
   - 
     name: with-image
     label: Image Button

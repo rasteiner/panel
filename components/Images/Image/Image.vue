@@ -1,6 +1,6 @@
 <template>
   <figure class="kirby-image" :data-ratio="ratio" :data-back="back" :data-cover="cover">
-    <span><img :src="src"></span>
+    <span><img :src="src" :alt="alt || ''"></span>
   </figure>
 </template>
 
@@ -9,6 +9,7 @@
 export default {
   props: [
     'src',
+    'alt',
     'ratio',
     'back',
     'cover'
