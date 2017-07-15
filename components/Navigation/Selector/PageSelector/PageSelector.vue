@@ -4,11 +4,13 @@
     <kirby-dropdown-content :dark="true" ref="dropdown">
       <ul>
         <li class="kirby-page-selector-item" v-if="path">
-          <kirby-button @click="back" icon="angle-left" />
+          <kirby-button @click="back" icon="angle-left" alt="Show Parent Pages" />
         </li>
         <li class="kirby-page-selector-item" v-for="page in pages" :key="page.id">
           <kirby-button @click="select(page.id)" icon="file-o">{{ page.title }}</kirby-button>
-          <kirby-button :disabled="!page.children" @click="fetch(page.id)" icon="angle-right" />
+          <kirby-button v-if="page.children" @click="fetch(page.id)"
+            icon="angle-right" alt="Show Child Pages" />
+          <kirby-button v-else disabled icon="angle-right" />
         </li>
       </ul>
     </kirby-dropdown-content>

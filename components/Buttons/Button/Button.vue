@@ -152,4 +152,8 @@ export default {
   object-fit: cover;
 }
 
+.kirby-button-text span {
+  vertical-align: baseline;
+}
+
 </style>
