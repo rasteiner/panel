@@ -5,16 +5,17 @@
     <kirby-table>
       <kirby-table-body>
         <kirby-table-row v-for="(user, index) in users" :key="user.id">
-          <kirby-table-cell type="image">
-            <a href=""><kirby-image :src="user.image.url" :cover="true"></kirby-image></a>
+          <kirby-table-cell type="image" aria-hidden="true">
+            <a href="" tabindex="-1"><kirby-image :src="user.image.url" :cover="true"></kirby-image></a>
           </kirby-table-cell>
-          <kirby-table-cell><a href="">{{ user.username }}</a></kirby-table-cell>
-          <kirby-table-cell><a href="">{{ user.email }}</a></kirby-table-cell>
+          <kirby-table-cell type="link"><a href="">{{ user.username }}</a></kirby-table-cell>
+          <kirby-table-cell type="link"><a href="" tabindex="-1">{{ user.email }}</a></kirby-table-cell>
           <kirby-table-cell type="button">
 
             <kirby-dropdown>
               <kirby-button
                 icon="angle-down"
+                alt="User Actions"
                 @click="$refs['dropdown-' + index][0].toggle()">
               </kirby-button>
               <kirby-dropdown-content

@@ -1,10 +1,10 @@
 <template>
   <div class="kirby-card">
     <component :is="wrapper" :to="link">
-      <kirby-image 
-        :src="image.url" 
-        :ratio="image.ratio || '3/2'" 
-        back="black" 
+      <kirby-image
+        :src="image.url"
+        :ratio="image.ratio || '3/2'"
+        back="black"
         :cover="true">
       </kirby-image>
       <div class="kirby-card-content">
@@ -14,16 +14,17 @@
     </component>
     <kirby-dropdown v-if="options">
       <kirby-button 
-        class="kirby-card-options-button" 
-        icon="angle-down" 
+        class="kirby-card-options-button"
+        icon="angle-down"
+        :alt="menuLabel"
         @click="$refs.dropdown.toggle()">
       </kirby-button>
-      <kirby-dropdown-content 
-        @action="$emit('action', $event)" 
+      <kirby-dropdown-content
+        @action="$emit('action', $event)"
         align="right"
-        ref="dropdown" 
-        :options="options" 
-        :dark="true">        
+        ref="dropdown"
+        :options="options"
+        :dark="true">
       </kirby-dropdown-content>
     </kirby-dropdown>
   </div>
@@ -43,7 +44,17 @@ export default {
     'kirby-dropdown': Dropdown,
     'kirby-dropdown-content': DropdownContent
   },
-  props: ['image', 'text', 'info', 'link', 'options'],
+  props: {
+    image: Object,
+    text: String,
+    info: String,
+    link: {},
+    options: {},
+    menuLabel: {
+      type: String,
+      default: 'Actions'
+    }
+  },
   computed: {
     wrapper: function() {
       return this.link ? 'router-link' : 'div';

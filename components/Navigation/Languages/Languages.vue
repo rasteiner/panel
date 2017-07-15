@@ -1,6 +1,6 @@
 <template>
   <kirby-dropdown>
-    <kirby-button icon="globe" @click="$refs.language.toggle()">EN</kirby-button>
+    <kirby-button icon="globe" alt="Switch Language" @click="$refs.language.toggle()">EN</kirby-button>
     <kirby-dropdown-content align="right" :dark="true" ref="language">
       <kirby-dropdown-item v-for="(language, index) in languages" :key="index" icon="globe">{{ language }}</kirby-dropdown-item>
     </kirby-dropdown-content>

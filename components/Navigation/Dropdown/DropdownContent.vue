@@ -122,7 +122,8 @@ export default {
     color: lighten($color-light-grey, 10%);
   }
 
-  .kirby-button:hover {
+  .kirby-button:hover,
+  .kirby-button:focus {
     color: #fff;
   }
 

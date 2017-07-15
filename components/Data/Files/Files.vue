@@ -7,6 +7,7 @@
       :text="file.filename"
       :info="file.niceSize"
       :link="file.link"
+      menu-label="File Actions"
       options="/mock/data/file-options.json"
       @action="$emit('action', $event, file)">
     </kirby-card>
@@ -15,15 +16,16 @@
   <kirby-table v-else>
     <kirby-table-body>
       <kirby-table-row v-for="(file, index) in files" :key="file.filename">
-        <kirby-table-cell type="image">
-          <a href=""><kirby-image :src="file.url" :cover="true"></kirby-image></a>
+        <kirby-table-cell type="image" aria-hidden="true">
+          <a href="" tabindex="-1"><kirby-image :src="file.url" :cover="true"></kirby-image></a>
         </kirby-table-cell>
-        <kirby-table-cell><a href="">{{ file.filename }}</a></kirby-table-cell>
+        <kirby-table-cell type="link"><a href="">{{ file.filename }}</a></kirby-table-cell>
         <kirby-table-cell type="button">
 
           <kirby-dropdown>
             <kirby-button
               icon="angle-down"
+              alt="File Actions"
               @click="$refs['dropdown-' + index][0].toggle()">
             </kirby-button>
             <kirby-dropdown-content

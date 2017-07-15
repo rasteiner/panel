@@ -9,6 +9,7 @@
         :text="page.title"
         :info="page.id"
         :link="page.link"
+        menu-label="Page Actions"
         options="/mock/data/page-options.json"
         @action="action">
       </kirby-card>
@@ -17,15 +18,16 @@
     <kirby-table v-else>
       <kirby-table-body>
         <kirby-table-row v-for="(page, index) in pages" :key="page.id">
-          <kirby-table-cell type="image">
-            <a href=""><kirby-image :src="page.image.url" :cover="true"></kirby-image></a>
+          <kirby-table-cell type="image" aria-hidden="true">
+            <a href="" tabindex="-1"><kirby-image :src="page.image.url" :cover="true"></kirby-image></a>
           </kirby-table-cell>
-          <kirby-table-cell><a href="">{{ page.title }}</a></kirby-table-cell>
+          <kirby-table-cell type="link"><a href="">{{ page.title }}</a></kirby-table-cell>
           <kirby-table-cell type="button">
 
             <kirby-dropdown>
               <kirby-button 
-                icon="angle-down" 
+                icon="angle-down"
+                alt="Page Actions"
                 @click="$refs['dropdown-' + index][0].toggle()">
               </kirby-button>
               <kirby-dropdown-content 
@@ -33,7 +35,7 @@
                 align="right"
                 :ref="'dropdown-' + index" 
                 options="/mock/data/page-options.json" 
-                :dark="true">        
+                :dark="true">
               </kirby-dropdown-content>
             </kirby-dropdown>
 
