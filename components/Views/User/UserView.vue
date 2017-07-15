@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-user-view">
 
-    <kirby-header icon="user" link="/" :breadcrumb="breadcrumb" :pagination="pagination">
+    <kirby-header icon="user" label="User List" link="/" :breadcrumb="breadcrumb" :pagination="pagination">
 
       {{ user.username }}
       <kirby-image class="kirby-user-view-image" ratio="1/1" :src="user.image.url" />
@@ -117,7 +117,10 @@ export default {
       return {
         page: 1,
         limit: 1,
-        total: 5
+        total: 5,
+        pageLabel: 'User',
+        prevLabel: 'Previous User',
+        nextLabel: 'Next User'
       };
     }
   },

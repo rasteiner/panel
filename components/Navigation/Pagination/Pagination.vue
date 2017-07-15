@@ -1,18 +1,18 @@
 <template>
   <kirby-button-group class="kirby-pagination" v-if="total > 1" :data-align="align">
-    <kirby-button :disabled="!hasPrev" @click="prev" icon="angle-left"></kirby-button>
+    <kirby-button :disabled="!hasPrev" @click="prev" icon="angle-left" :alt="prevLabel"></kirby-button>
     <kirby-dropdown v-if="details">
       <kirby-button @click="$refs.dropdown.toggle()" :disabled="!hasPages">
-        <template v-if="total > 1">{{ start }}-{{ end }} /</template> {{ total }}
+        <template v-if="total > 1">{{ start }}&ndash;{{ end }}&nbsp;/&nbsp;</template>{{ total }}
       </kirby-button>
       <kirby-dropdown-content @open="$nextTick(() => $refs.page.focus())" class="kirby-pagination-selector" :dark="true" ref="dropdown">
         <div>
-          <label for="page">Page</label>
-          <input id="page" ref="page" type="number" :value="currentPage" @input="goTo($event.target.value)" :min="1" :max="pages">
+          <label for="kirby-pagination-input">{{ pageLabel }}</label>
+          <input id="kirby-pagination-input" ref="page" type="number" :value="currentPage" @input="goTo($event.target.value)" :min="1" :max="pages">
         </div>
       </kirby-dropdown-content>
     </kirby-dropdown>
-    <kirby-button :disabled="!hasNext" @click="next" icon="angle-right"></kirby-button>
+    <kirby-button :disabled="!hasNext" @click="next" icon="angle-right" :alt="nextLabel"></kirby-button>
   </kirby-button-group>
 </template>
 
@@ -69,6 +69,18 @@ export default {
     keys: {
       type: Boolean,
       default: false
+    },
+    pageLabel: {
+      type: String,
+      default: 'Page'
+    },
+    prevLabel: {
+      type: String,
+      default: 'Previous'
+    },
+    nextLabel: {
+      type: String,
+      default: 'Next'
     }
   },
   computed: {

@@ -3,7 +3,7 @@
 
     <kirby-bar class="kirby-header-breadcrumb-bar">
       <kirby-breadcrumb slot="left">
-        <kirby-breadcrumb-item :link="link"><kirby-icon :type="icon" /></kirby-breadcrumb-item>
+        <kirby-breadcrumb-item :link="link" :title="label"><kirby-icon :type="icon" :alt="label" /></kirby-breadcrumb-item>
         <kirby-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" :link="item.link">{{ item.label }}</kirby-breadcrumb-item>
       </kirby-breadcrumb>
       <kirby-pagination slot="right" v-if="pagination" v-bind="pagination" />
