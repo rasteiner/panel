@@ -4,7 +4,6 @@
     class="kirby-button"
     @click="click"
     :disabled="disabled"
-    :title="title"
     :data-state="state"
     :data-has-image="image ? true : false">
     <kirby-icon v-if="icon" :type="icon" :alt="alt"></kirby-icon>
@@ -26,7 +25,6 @@ export default {
     'kirby-icon': Icon
   },
   props: [
-    'title',
     'alt',
     'icon',
     'image',
