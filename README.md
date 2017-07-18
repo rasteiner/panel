@@ -10,7 +10,7 @@ npm i -g @frctl/fractal
 npm install
 
 # run fractal and webpack
-npm start
+npm run start
 
 # build for production with minification
 npm run build
