@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-tags-input">
+  <draggable v-model="tags" :options="{disabled: !sortable}" class="kirby-tags-input">
     <kirby-tag v-for="tag in tags"
       :ref="tag"
       :key="tag"
@@ -11,7 +11,7 @@
       :removable="true">
         {{ tag }}
     </kirby-tag>
-    <span class="kirby-tags-input-element">
+    <span slot="footer" class="kirby-tags-input-element">
       <kirby-autocomplete v-if="autocomplete"
         ref="input"
         :id="id"
@@ -28,20 +28,31 @@
         @keydown.left="leaveInput"
         @keydown.delete="leaveInput">
     </span>
-  </div>
+  </draggable>
 </template>
 
 <script>
 
+import draggable from 'vuedraggable'
 import Autocomplete from 'Forms/Autocomplete/Autocomplete.vue';
 import Tag from 'Buttons/Tag/Tag.vue';
 
 export default {
   components: {
+    draggable,
     'kirby-autocomplete': Autocomplete,
     'kirby-tag': Tag
   },
-  props: ['id', 'value', 'required', 'autofocus', 'autocomplete'],
+  props: {
+    'id': {},
+    'value': {},
+    'required': {},
+    'autofocus': {},
+    'autocomplete': {},
+    'sortable': {
+      default: true
+    }
+  },
   data: function() {
 
     var tags = this.value || [];
@@ -180,6 +191,9 @@ export default {
 .kirby-tags-input .kirby-tag {
   margin-right: 4px;
   margin-bottom: 4px;
+}
+.kirby-tags-input .kirby-tag.sortable-ghost {
+  opacity: .2;
 }
 .kirby-tags-input-element input {
   display: inline-block;
