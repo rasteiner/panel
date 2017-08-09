@@ -8,7 +8,7 @@
         </li>
         <li class="kirby-page-selector-item" v-for="page in pages" :key="page.id">
           <kirby-button @click="select(page.id)" icon="file-o">{{ page.title }}</kirby-button>
-          <kirby-button v-if="page.children" @click="fetch(page.id)"
+          <kirby-button v-if="page.hasChildren" @click="fetch(page.id)"
             icon="angle-right" alt="Show Child Pages" />
           <kirby-button v-else disabled icon="angle-right" />
         </li>
@@ -24,6 +24,7 @@ import Dropdown from 'Navigation/Dropdown/Dropdown.vue'
 import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue'
 import DropdownItem from 'Navigation/Dropdown/DropdownItem.vue'
 import Icon from 'Images/Icon/Icon.vue'
+import Query from '@api/Query.js'
 
 export default {
   components: {
@@ -45,15 +46,25 @@ export default {
     this.fetch();
   },
   methods: {
-    fetch(id) {        
+    fetch(id) {
+
+      console.log(id);
+
+      let params = {
+        id: {
+          type: 'String',
+          value: id
+        }
+      };
+
+      let select = 'title, id, hasChildren';
+
+      Query('children', params, select).then(function (children) {
+        this.pages = children;
+      }.bind(this));
+
       this.path = id ? id + '/' : '';
-      fetch('/mock/data/pages/' + this.path + 'pages.json')
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (pages) {
-          this.pages = pages;
-        }.bind(this));
+
     },
     back() {
       this.fetch(this.path.split('/').slice(0, -2).join('/'));

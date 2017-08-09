@@ -66,6 +66,8 @@ import TableCell from 'Layout/Table/TableCell.vue';
 import PageUrlDialog from 'Dialogs/Page/PageUrlDialog/PageUrlDialog.vue';
 import PageRemoveDialog from 'Dialogs/Page/PageRemoveDialog/PageRemoveDialog.vue';
 
+import Query from '@api/Query.js';
+
 export default {
   components: {
     'kirby-button': Button,
@@ -81,7 +83,33 @@ export default {
     'kirby-page-remove-dialog': PageRemoveDialog,
     'kirby-page-url-dialog': PageUrlDialog,
   },
-  props: ['pages', 'layout'],
+  props: ['layout'],
+  data() {
+    return {
+      pages: []
+    }
+  },
+  created() {
+
+    let params = {
+      id: {
+        type: 'String',
+        value: 'projects'
+      }
+    };
+
+    let select = 'url, title';
+
+    Query('children', params, select).then(function (children) {
+      this.pages = children.map(function (child) {
+        child.image = {
+          url: '/'
+        };
+        return child;
+      });
+    }.bind(this));
+
+  },
   methods: {
     action(action) {
       switch(action) {
