@@ -3,14 +3,11 @@
 ## Build Setup
 
 ``` bash
-# install fractal globally
-npm i -g @frctl/fractal
-
 # install dependencies
 npm install
 
 # run fractal and webpack
-npm start
+npm run start
 
 # build for production with minification
 npm run build
