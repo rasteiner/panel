@@ -3,9 +3,6 @@
 ## Build Setup
 
 ``` bash
-# install fractal globally
-npm i -g @frctl/fractal
-
 # install dependencies
 npm install
 
