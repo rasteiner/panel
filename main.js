@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+/** Vendor **/
+import draggable from 'vuedraggable'
+
 /** Bars **/
 import Bar from 'Bars/Bar/Bar.vue'
 
@@ -164,7 +167,7 @@ new Vue({
     'kirby-header': Header,
     'kirby-column': Column,
     'kirby-view': View,
-    
+
     /** Table **/
     'kirby-table': Table,
     'kirby-table-row': TableRow,
@@ -172,7 +175,7 @@ new Vue({
     'kirby-table-header': TableHeader,
     'kirby-table-header-cell': TableHeaderCell,
     'kirby-table-body': TableBody,
-     
+
     /** Navigation **/
     'kirby-breadcrumb': Breadcrumb,
     'kirby-breadcrumb-item': BreadcrumbItem,

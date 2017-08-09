@@ -144,7 +144,7 @@ export default {
 
       this.val = value;
       this.$emit('input', value);      
-      this.$emit('select', this.items[this.selected]);
+      this.$emit('select', this.items.find(item => item.value === value));
 
       this.close();
 
