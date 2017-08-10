@@ -98,7 +98,13 @@ export default {
       }
     };
 
-    let select = 'url, title, image { url }';
+    let select = `
+      url,
+      title,
+      image {
+        url
+      }
+    `;
 
     Query('children', params, select).then(function (children) {
       this.pages = children;

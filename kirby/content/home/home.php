@@ -1,13 +1,14 @@
 <?php
 
+use Kirby\Data\Data;
+
+$id = 'home';
+
 return [
     'props' => [
-        'id'       => 'home',
-        'url'      => '/',
+        'id'       => $id,
+        'url'      => $url,
         'template' => 'home'
     ],
-    'data' => [
-        'title'    => 'Home',
-        'intro'    => 'Yay! If you are seeing this, the installation of <b>Kirby 3</b> worked. :-)'
-    ]
+    'data' => Data::read(__DIR__ . '/home.txt')
 ];
