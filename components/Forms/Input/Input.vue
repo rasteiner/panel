@@ -29,11 +29,11 @@ export default {
     }
   },
   mounted: function() {
-    
+
     this.$el.addEventListener('focus', function() {
       this.isFocused = true;
     }.bind(this), true);
-    
+
     this.$el.addEventListener('blur', function() {
       this.isFocused = false;
     }.bind(this), true);
@@ -43,7 +43,7 @@ export default {
     focus: function() {
 
       var input = this.$el.querySelector('input:first-child, textarea:first-child, select:first-child');
-      
+
       if(input) {
         input.focus();
       }
@@ -64,7 +64,7 @@ export default {
   border: 2px solid $color-border;
 }
 .kirby-input[data-focus] {
-  border-color: $color-positive;
+  border-color: $color-focus;
 }
 .kirby-input[data-error] {
   border-color: $color-negative;
@@ -82,7 +82,7 @@ export default {
   color: $color-dark-grey;
 }
 .kirby-input-content {
-  flex-grow: 1;  
+  flex-grow: 1;
   min-height: 2.5rem;
 }
 .kirby-input-content > input,

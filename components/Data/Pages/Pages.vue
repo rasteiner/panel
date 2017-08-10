@@ -25,16 +25,16 @@
           <kirby-table-cell type="button">
 
             <kirby-dropdown>
-              <kirby-button 
+              <kirby-button
                 icon="angle-down"
                 alt="Page Actions"
                 @click="$refs['dropdown-' + index][0].toggle()">
               </kirby-button>
-              <kirby-dropdown-content 
-                @action="action" 
+              <kirby-dropdown-content
+                @action="action"
                 align="right"
-                :ref="'dropdown-' + index" 
-                options="/mock/data/page-options.json" 
+                :ref="'dropdown-' + index"
+                options="/mock/data/page-options.json"
                 :dark="true">
               </kirby-dropdown-content>
             </kirby-dropdown>
@@ -46,9 +46,9 @@
 
     <kirby-page-url-dialog ref="url" />
     <kirby-page-remove-dialog ref="remove" />
-  
+
   </div>
-  
+
 </template>
 
 <script>
@@ -98,15 +98,10 @@ export default {
       }
     };
 
-    let select = 'url, title';
+    let select = 'url, title, image { url }';
 
     Query('children', params, select).then(function (children) {
-      this.pages = children.map(function (child) {
-        child.image = {
-          url: '/'
-        };
-        return child;
-      });
+      this.pages = children;
     }.bind(this));
 
   },

@@ -34,7 +34,7 @@ const PaginationKeysListener = function (e) {
       this.next();
       break;
   }
-  
+
 }
 
 export default {
@@ -88,7 +88,7 @@ export default {
       return (this.currentPage - 1) * this.limit + 1;
     },
     end() {
-      
+
       let value = (this.start - 1) + this.limit;
 
       if (value > this.total) {
@@ -125,7 +125,7 @@ export default {
       if (page < 1) {
         page = 1;
       }
-      
+
       if (page > this.pages) {
         page = this.pages;
       }
@@ -150,7 +150,7 @@ export default {
   },
   created() {
     if (this.keys === true) {
-      window.addEventListener('keydown', PaginationKeysListener.bind(this), false)      
+      window.addEventListener('keydown', PaginationKeysListener.bind(this), false)
     }
   },
   destroyed() {
@@ -184,7 +184,7 @@ export default {
   font-family: $font-family-mono;
 }
 .kirby-pagination-selector > div > label {
-  padding: .5rem 1rem;  
+  padding: .5rem 1rem;
   border-right: 1px solid rgba(#fff, .1);
 }
 .kirby-pagination-selector > div > input {
@@ -197,7 +197,7 @@ export default {
 }
 .kirby-pagination-selector > div > input:focus {
   outline: 0;
-  background: $color-positive;
+  background: $color-focus;
   color: $color-dark;
 }
 

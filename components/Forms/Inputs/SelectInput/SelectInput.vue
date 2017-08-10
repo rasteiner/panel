@@ -11,14 +11,14 @@
 
 export default {
   props: {
-    id: {}, 
-    required: {}, 
-    autofocus: {}, 
+    id: {},
+    required: {},
+    autofocus: {},
     options: {
       default: function() {
         return [];
       }
-    }, 
+    },
     value: {}
   },
   data: function() {
@@ -55,7 +55,7 @@ export default {
       }.bind(this));
       return text;
     },
-    input: function(value) {   
+    input: function(value) {
       this.$emit('input', value);
     }
   }
@@ -84,7 +84,7 @@ export default {
   cursor: pointer;
 }
 .kirby-select-input select:focus + label {
-  color: $color-positive;
+  color: $color-focus;
 }
 
 </style>

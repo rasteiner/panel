@@ -20,7 +20,7 @@ export default {
     focus: function() {
       this.$refs.button.focus();
     }
-  }  
+  }
 }
 
 </script>
@@ -41,15 +41,16 @@ export default {
 }
 .kirby-tag:focus {
   outline: 0;
-  background-color: $color-positive;
-  border-color: $color-positive;
+  background-color: $color-focus;
+  border-color: $color-focus;
+  color: $color-dark;
 }
 .kirby-tag[data-size="small"] .kirby-tag-text {
   font-size: .8em;
-  padding: 0rem .75rem;  
+  padding: 0rem .75rem;
 }
 .kirby-tag-body {
-  position: relative;  
+  position: relative;
   display: flex;
   align-items: stretch;
 }
@@ -61,6 +62,10 @@ export default {
   border-left: 1px solid rgba(255,255,255, .3);
   color: rgba(255,255,255, .7);
   width: 2rem;
+}
+.kirby-tag:focus .kirby-tag-toggle {
+  border-left: 1px solid rgba($color-dark, .3);
+  color: rgba($color-dark, .7);
 }
 .kirby-tag-toggle:hover {
   background: rgba(255,255,255, .2);

@@ -31,14 +31,14 @@ export default {
     'kirby-input': Input
   },
   props: [
-    'required', 
-    'error', 
-    'label', 
-    'help', 
+    'required',
+    'error',
+    'label',
+    'help',
     'name',
     'prefix',
     'icon'
-  ]  
+  ]
 }
 
 </script>
@@ -64,7 +64,7 @@ export default {
 }
 .kirby-field[data-required] .kirby-field-header label:after {
   content: "*";
-  color: $color-positive;
+  color: $color-focus;
   padding-left: .35rem;
 }
 .kirby-field[data-required][data-error] .kirby-field-header label:after {

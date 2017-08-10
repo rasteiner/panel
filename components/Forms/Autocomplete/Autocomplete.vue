@@ -1,23 +1,23 @@
 <template>
   <kirby-dropdown class="kirby-autocomplete">
-    <input 
-      type="text" 
-      ref="input" 
-      :id="id" 
-      @keydown.tab="keydown" 
-      @keydown.enter="keydown" 
-      @keydown.up.prevent="navigate(-1)" 
-      @keydown.down.prevent="navigate(1)" 
+    <input
+      type="text"
+      ref="input"
+      :id="id"
+      @keydown.tab="keydown"
+      @keydown.enter="keydown"
+      @keydown.up.prevent="navigate(-1)"
+      @keydown.down.prevent="navigate(1)"
       @input="search($event.target.value)" />
     <kirby-dropdown-content :dark="true" ref="items">
-      <kirby-dropdown-item v-for="(item, index) in items" 
-        tabindex="-1" 
+      <kirby-dropdown-item v-for="(item, index) in items"
+        tabindex="-1"
         :key="index"
-        :icon="item.icon" 
-        :image="item.image" 
-        :class="(selected === index) ? 'is-selected' : ''" 
+        :icon="item.icon"
+        :image="item.image"
+        :class="(selected === index) ? 'is-selected' : ''"
         @click="select(item.value)"> 
-          {{ item.text }} 
+          {{ item.text }}
       </kirby-dropdown-item>
     </kirby-dropdown-content>
   </kirby-dropdown>
@@ -53,7 +53,7 @@ export default {
           value: 'value',
           text: 'text',
           icon: false,
-          image: false          
+          image: false
         };
       }
     },
@@ -73,8 +73,8 @@ export default {
 
     fetch(this.url).then(function(response) {
       return response.json();
-    }).then(function(json) {        
-      
+    }).then(function(json) {
+
       json.forEach(function(item) {
 
         this.source.push({
@@ -102,7 +102,7 @@ export default {
       var regex = new RegExp('^' + value, 'i');
 
       this.items = this.source.filter(function(item) {
-        
+
         if(this.ignore.indexOf(item.text) !== -1) {
           return false;
         } else if(item.text.match(regex)) {
@@ -113,7 +113,7 @@ export default {
 
       }.bind(this));
 
-      this.items = this.items.slice(0, this.limit);      
+      this.items = this.items.slice(0, this.limit);
       this.$refs.items.open();
 
     },
@@ -143,7 +143,7 @@ export default {
       }
 
       this.val = value;
-      this.$emit('input', value);      
+      this.$emit('input', value);
       this.$emit('select', this.items.find(item => item.value === value));
 
       this.close();
@@ -162,10 +162,10 @@ export default {
     navigate: function(direction) {
 
       this.selected = this.selected + direction;
-    
+
       if(this.selected <= -1) {
-        return this.close();  
-      } 
+        return this.close();
+      }
 
       if(this.selected > (this.items.length - 1)) {
         this.selected = (this.items.length - 1);
@@ -180,7 +180,8 @@ export default {
 <style lang="scss">
 
 .kirby-dropdown-item.is-selected {
-  background: $color-positive;
+  background: $color-focus;
+  color: #fff !important;
 }
 
 </style>
