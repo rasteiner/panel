@@ -47,6 +47,9 @@ export default {
     'id': {},
     'value': {},
     'required': {},
+    'separator': {
+      default: ','
+    },
     'autofocus': {},
     'autocomplete': {},
     'sortable': {
@@ -58,7 +61,7 @@ export default {
     var tags = this.value || [];
 
     if(typeof tags === 'string') {
-      var tags = tags.split(',').map(function(tag) {
+      var tags = tags.split(this.separator).map(function(tag) {
         return tag.trim();
       });
     }
