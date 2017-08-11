@@ -57,6 +57,8 @@ import TableBody from 'Layout/Table/TableBody.vue';
 import TableRow from 'Layout/Table/TableRow.vue';
 import TableCell from 'Layout/Table/TableCell.vue';
 
+import Query from '@api/Query.js';
+
 export default {
   components: {
     'kirby-button': Button,
@@ -70,7 +72,39 @@ export default {
     'kirby-table-row': TableRow,
     'kirby-table-cell': TableCell
   },
-  props: ['files', 'layout']
+  props: [
+    'layout',
+    'page',
+    'limit',
+    'offset'
+  ],
+  data() {
+    return {
+      files: []
+    }
+  },
+  created() {
+
+    let params = {
+      id: {
+        type: 'String',
+        value: this.page
+      }
+    };
+
+    let select = `
+      files {
+        filename,
+        url,
+        niceSize
+      }
+    `;
+
+    Query('page', params, select).then(function (page) {
+      this.files = page.files.slice(this.offset, this.limit);
+    }.bind(this));
+
+  }
 }
 
 </script>

@@ -51,4 +51,12 @@ export default {
   padding-bottom: 3rem;
 }
 
+.kirby-grid[data-gutter="huge"] {
+  margin-left: -4.5rem;
+}
+.kirby-grid[data-gutter="huge"] > .kirby-column {
+  padding-left: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
 </style>

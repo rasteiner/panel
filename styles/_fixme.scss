@@ -1,0 +1,41 @@
+/* Blog View */
+.kirby-blog-view {
+
+  .kirby-table-headline {
+    .kirby-headline {
+      margin-bottom: 0;
+    }
+  }
+
+  .kirby-table-pagination {
+    margin-top: -.5rem;
+  }
+
+  .kirby-section-headline {
+    position: relative;
+  }
+
+}
+
+/* Article View */
+.kirby-article-view {
+  .kirby-textarea-input {
+    min-height: 30rem;
+  }
+}
+
+/* Project view */
+.kirby-project-view {
+  .kirby-column section {
+    margin-bottom: 1.5rem;
+
+    .kirby-headline {
+      padding: 1rem 0 .5rem;
+    }
+  }
+
+  #text .kirby-textarea-input {
+    min-height: 30rem;
+  }
+
+}

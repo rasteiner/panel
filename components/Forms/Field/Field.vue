@@ -47,13 +47,14 @@ export default {
 
 .kirby-field-header {
   display: flex;
-  padding-bottom: .5rem;
+  padding: 1rem 0 .5rem;
 }
 .kirby-field-header label {
   display: block;
   font-weight: 500;
   flex-grow: 1;
   line-height: 1.5em;
+  margin-bottom: -1px;
 }
 .kirby-field-header .kirby-button-group .kirby-button {
   padding-top: 0;

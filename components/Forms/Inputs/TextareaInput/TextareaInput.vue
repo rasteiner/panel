@@ -1,10 +1,9 @@
 <template>
-  <textarea 
-    ref="textarea" 
-    spellcheck="false" 
-    class="kirby-textarea-input" 
-    rows="1"
-    @input="$emit('input', $event.target.value)" 
+  <textarea
+    ref="textarea"
+    spellcheck="false"
+    class="kirby-textarea-input"
+    @input="$emit('input', $event.target.value)"
     @keydown.delete="remove($event)"
     @keydown.enter="enter($event)"
     :placeholder="placeholder"

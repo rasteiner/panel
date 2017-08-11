@@ -1,0 +1,106 @@
+<kirby-view class="kirby-blog-view">
+
+  <kirby-header icon="file-o" label="Page List" link="/"
+    :breadcrumb="[
+      {
+        link: '/about',
+        label: 'About'
+      }
+    ]"
+    :pagination="{
+      page: 1,
+      limit: 1,
+      total: 5,
+      prevLabel: 'Previous Page',
+      nextLabel: 'Next Page'
+    }">
+
+    Blog
+
+    <template slot="buttons-left">
+      <kirby-button icon="play-circle">Preview</kirby-button>
+      <kirby-button icon="toggle-on">Draft</kirby-button>
+      <kirby-dropdown>
+        <kirby-button @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
+        <kirby-dropdown-content :dark="true" ref="settings">
+          <kirby-dropdown-item icon="clipboard">Copy</kirby-dropdown-item>
+          <kirby-dropdown-item icon="google">SEO</kirby-dropdown-item>
+          <kirby-dropdown-item icon="code">Change Template</kirby-dropdown-item>
+          <kirby-dropdown-item icon="chain" @click="$refs.url.open()">Change URL</kirby-dropdown-item>
+          <kirby-dropdown-item icon="trash" @click="$refs.remove.open()">Delete</kirby-dropdown-item>
+        </kirby-dropdown-content>
+      </kirby-dropdown>
+    </template>
+
+    <template slot="buttons-right">
+      <kirby-languages></kirby-languages>
+    </template>
+
+  </kirby-header>
+
+  <kirby-grid gutter="large">
+    <kirby-column width="1/2">
+
+      <kirby-headline class="kirby-table-headline">
+
+        Drafts
+
+        <kirby-button-group slot="options">
+          <kirby-button icon="plus" @click="$refs.create.open()">Add</kirby-button>
+
+          <!--
+          <kirby-dropdown>
+            <kirby-button icon="search" @click="$refs.filter.toggle(); $nextTick(function() { $refs.search.focus() }) ">Search</kirby-button>
+            <kirby-dropdown-content class="kirby-search-dropdown" :dark="true" ref="filter">
+              <input ref="search" type="text" placeholder="Search…">
+            </kirby-dropdown-content>
+          </kirby-dropdown>
+          -->
+
+        </kirby-button-group>
+
+      </kirby-headline>
+
+      <kirby-pages parent="blog"></kirby-pages>
+
+      <kirby-pagination class="kirby-table-pagination"
+        align="center"
+        :page="1"
+        :limit="5"
+        :total="5"
+        :details="true" />
+
+    </kirby-column>
+    <kirby-column width="1/2">
+
+      <kirby-headline class="kirby-table-headline">
+
+        Public Articles
+
+        <kirby-button-group slot="options">
+          <kirby-button icon="plus" @click="$refs.create.open()">Add</kirby-button>
+
+          <!--
+          <kirby-button icon="search">Search</kirby-button>
+          -->
+        </kirby-button-group>
+
+      </kirby-headline>
+
+      <kirby-pages parent="projects"></kirby-pages>
+
+      <kirby-pagination class="kirby-table-pagination"
+        align="center"
+        :page="4"
+        :limit="5"
+        :total="24"
+        :details="true" />
+
+    </kirby-column>
+  </kirby-grid>
+
+  <kirby-page-create-dialog ref="create"></kirby-page-create-dialog>
+  <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
+  <kirby-page-remove-dialog ref="remove"></kirby-page-remove-dialog>
+
+</kirby-view>

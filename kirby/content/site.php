@@ -18,6 +18,7 @@ return [
     'children' => [
         require 'home/home.php',
         require 'projects/projects.php',
+        require 'blog/blog.php',
         require 'about/about.php',
         require 'contact/contact.php',
     ]

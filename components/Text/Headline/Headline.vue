@@ -1,7 +1,7 @@
 <template>
-  
+
   <kirby-bar v-if="$slots.options">
-    <h2 slot="left" class="kirby-headline" :data-size="size"><slot /></h2>    
+    <h2 slot="left" class="kirby-headline" :data-size="size"><slot /></h2>
     <template slot="right">
       <slot name="options"></slot>
     </template>
@@ -29,7 +29,6 @@ export default {
 .kirby-headline {
   font-size: $font-size-medium;
   font-weight: 500;
-  margin-bottom: .5rem;
   line-height: 1.5em;
 }
 .kirby-headline[data-size="small"] {

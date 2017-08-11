@@ -83,7 +83,10 @@ export default {
     'kirby-page-remove-dialog': PageRemoveDialog,
     'kirby-page-url-dialog': PageUrlDialog,
   },
-  props: ['layout'],
+  props: [
+    'layout',
+    'parent'
+  ],
   data() {
     return {
       pages: []
@@ -94,7 +97,7 @@ export default {
     let params = {
       id: {
         type: 'String',
-        value: 'projects'
+        value: this.parent
       }
     };
 
