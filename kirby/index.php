@@ -9,7 +9,7 @@ use Kirby\Http\Response\Json;
 use Kirby\Users\Users;
 use Kirby\Users\User;
 
-$url = 'https://localhost:8000';
+$url = 'http://localhost:8000';
 
 // load all users
 $users = new Users([

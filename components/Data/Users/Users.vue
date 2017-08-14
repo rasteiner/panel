@@ -8,7 +8,7 @@
           <kirby-table-cell type="image" aria-hidden="true">
             <a href="" tabindex="-1"><kirby-image :src="user.image.url" :cover="true"></kirby-image></a>
           </kirby-table-cell>
-          <kirby-table-cell type="link"><a href="">{{ user.username }}</a></kirby-table-cell>
+          <kirby-table-cell type="link"><a href="">{{ user.firstName }}</a></kirby-table-cell>
           <kirby-table-cell type="link"><a href="" tabindex="-1">{{ user.email }}</a></kirby-table-cell>
           <kirby-table-cell type="button">
 
@@ -48,7 +48,7 @@
 <script>
 
 // API
-import UsersQuery from '@api/Users.js';
+import Query from '@api/Query.js';
 
 // Components
 import Button from 'Buttons/Button/Button.vue';
@@ -103,10 +103,16 @@ export default {
       }
     },
     fetch(offset) {
-      UsersQuery({
-        role: this.role
-      }).then(function(users) {
 
+      let select = `
+        email,
+        firstName,
+        image {
+          url
+        }
+      `;
+
+      Query('users', {}, select).then(function (users) {
         this.users = users;
         this.total = this.users.length;
 
@@ -115,6 +121,7 @@ export default {
         }
 
       }.bind(this));
+
     },
     paginate(info) {
       this.fetch(info.offset);
