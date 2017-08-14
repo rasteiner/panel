@@ -8,7 +8,7 @@
       <kirby-dropdown-content @open="$nextTick(() => $refs.page.focus())" class="kirby-pagination-selector" :dark="true" ref="dropdown">
         <div>
           <label for="kirby-pagination-input">{{ pageLabel }}</label>
-          <input id="kirby-pagination-input" ref="page" type="number" :value="currentPage" @input="goTo($event.target.value)" :min="1" :max="pages">
+          <input id="kirby-pagination-input" ref="page" type="number" :value="currentPage" @input="goTo($event.target.value)" @focus="$event.target.select()" :min="1" :max="pages">
         </div>
       </kirby-dropdown-content>
     </kirby-dropdown>
