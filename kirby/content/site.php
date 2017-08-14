@@ -1,7 +1,5 @@
 <?php
 
-$url = 'http://localhost:8000';
-
 return [
     'props' => [
         'url' => $url,

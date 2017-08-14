@@ -90,6 +90,7 @@ import Headline from 'Text/Headline/Headline.vue'
 import Txt from 'Text/Txt/Txt.vue'
 
 /** Views **/
+import PageView from 'Views/Page/PageView.vue';
 import UsersView from 'Views/Users/UsersView.vue';
 import UserView from 'Views/User/UserView.vue';
 
@@ -193,6 +194,7 @@ new Vue({
     'kirby-txt': Txt,
 
     /** Views */
+    'kirby-page-view': PageView,
     'kirby-users-view': UsersView,
     'kirby-user-view': UserView,
 

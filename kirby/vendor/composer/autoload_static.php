@@ -33,8 +33,8 @@ class ComposerStaticInited0de8c7798f30df0a52cfa409a2a04d
         'Kirby\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
-            1 => __DIR__ . '/..' . '/getkirby/toolkit/src',
-            2 => __DIR__ . '/..' . '/getkirby/filesystem/src',
+            1 => __DIR__ . '/..' . '/getkirby/filesystem/src',
+            2 => __DIR__ . '/..' . '/getkirby/toolkit/src',
             3 => __DIR__ . '/..' . '/getkirby/data/src',
             4 => __DIR__ . '/..' . '/getkirby/http/src',
             5 => __DIR__ . '/..' . '/getkirby/cms/src',

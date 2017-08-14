@@ -1,74 +1,5 @@
 [
     {
-        "name": "getkirby/toolkit",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/k-next/toolkit.git",
-            "reference": "86deacdc46a5612376c80a9663fe2e2dc62e4a10"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/k-next/toolkit/zipball/86deacdc46a5612376c80a9663fe2e2dc62e4a10",
-            "reference": "86deacdc46a5612376c80a9663fe2e2dc62e4a10",
-            "shasum": ""
-        },
-        "archive": {
-            "exclude": [
-                "/.gitignore",
-                "/.travis.yml",
-                "phpunit.xml",
-                "/tests",
-                "/vendor"
-            ]
-        },
-        "require": {
-            "ext-mbstring": "*",
-            "php": ">=7.0.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*"
-        },
-        "time": "2017-08-10 09:55:40",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Kirby\\": "src/"
-            }
-        },
-        "autoload-dev": {
-            "psr-4": {
-                "Kirby\\": "tests/"
-            }
-        },
-        "scripts": {
-            "test": [
-                "./vendor/bin/phpunit --coverage-html=tests/coverage"
-            ]
-        },
-        "authors": [
-            {
-                "name": "Bastian Allgeier",
-                "email": "bastian@getkirby.com",
-                "homepage": "http://bastianallgeier.com"
-            }
-        ],
-        "description": "Kirby Toolkit",
-        "homepage": "https://getkirby.com",
-        "keywords": [
-            "kirby",
-            "toolkit"
-        ],
-        "support": {
-            "email": "support@getkirby.com",
-            "issues": "https://github.com/getkirby/kirby/issues",
-            "forum": "https://forum.getkirby.com",
-            "source": "https://github.com/getkirby/kirby"
-        }
-    },
-    {
         "name": "getkirby/filesystem",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -195,147 +126,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "getkirby/data",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/k-next/data.git",
-            "reference": "d3f1d016b545d994b9ebed97ec0ec90d00170d3b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/k-next/data/zipball/d3f1d016b545d994b9ebed97ec0ec90d00170d3b",
-            "reference": "d3f1d016b545d994b9ebed97ec0ec90d00170d3b",
-            "shasum": ""
-        },
-        "archive": {
-            "exclude": [
-                "/.gitignore",
-                "/.travis.yml",
-                "phpunit.xml",
-                "/tests",
-                "/vendor"
-            ]
-        },
-        "require": {
-            "getkirby/filesystem": "*",
-            "getkirby/toolkit": "dev-master",
-            "php": ">=7.0.0",
-            "symfony/yaml": "*"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*"
-        },
-        "time": "2017-08-10 09:42:52",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Kirby\\": "src/"
-            }
-        },
-        "autoload-dev": {
-            "psr-4": {
-                "Kirby\\": "tests/"
-            }
-        },
-        "scripts": {
-            "test": [
-                "./vendor/bin/phpunit --coverage-html=tests/coverage"
-            ]
-        },
-        "authors": [
-            {
-                "name": "Bastian Allgeier",
-                "email": "bastian@getkirby.com",
-                "homepage": "http://bastianallgeier.com"
-            }
-        ],
-        "description": "Kirby Data",
-        "homepage": "https://getkirby.com",
-        "keywords": [
-            "data",
-            "json",
-            "kirby",
-            "yaml"
-        ],
-        "support": {
-            "email": "support@getkirby.com",
-            "issues": "https://github.com/getkirby/kirby/issues",
-            "forum": "https://forum.getkirby.com",
-            "source": "https://github.com/getkirby/kirby"
-        }
-    },
-    {
-        "name": "getkirby/http",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/k-next/http.git",
-            "reference": "7a448891ba5e755b2202d1ed48f1f29f6716ed26"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/k-next/http/zipball/7a448891ba5e755b2202d1ed48f1f29f6716ed26",
-            "reference": "7a448891ba5e755b2202d1ed48f1f29f6716ed26",
-            "shasum": ""
-        },
-        "archive": {
-            "exclude": [
-                "/.gitignore",
-                "phpunit.xml",
-                "/tests",
-                "/vendor"
-            ]
-        },
-        "require": {
-            "getkirby/toolkit": "dev-master",
-            "php": ">=7.0.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*"
-        },
-        "time": "2017-08-10 10:10:12",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Kirby\\": "src/"
-            }
-        },
-        "autoload-dev": {
-            "psr-4": {
-                "Kirby\\": "tests/"
-            }
-        },
-        "scripts": {
-            "test": [
-                "./vendor/bin/phpunit --stderr --coverage-html=tests/coverage"
-            ]
-        },
-        "authors": [
-            {
-                "name": "Bastian Allgeier",
-                "email": "bastian@getkirby.com",
-                "homepage": "http://bastianallgeier.com"
-            }
-        ],
-        "description": "Kirby HTTP",
-        "homepage": "https://getkirby.com",
-        "keywords": [
-            "http",
-            "kirby"
-        ],
-        "support": {
-            "email": "support@getkirby.com",
-            "issues": "https://github.com/getkirby/kirby/issues",
-            "forum": "https://forum.getkirby.com",
-            "source": "https://github.com/getkirby/kirby"
-        }
-    },
-    {
         "name": "webonyx/graphql-php",
         "version": "v0.9.13",
         "version_normalized": "0.9.13.0",
@@ -383,18 +173,227 @@
         ]
     },
     {
+        "name": "getkirby/toolkit",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/k-next/toolkit.git",
+            "reference": "45385aa28dc59b600b7e67cee91e95b97a1428bf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/k-next/toolkit/zipball/45385aa28dc59b600b7e67cee91e95b97a1428bf",
+            "reference": "45385aa28dc59b600b7e67cee91e95b97a1428bf",
+            "shasum": ""
+        },
+        "archive": {
+            "exclude": [
+                "/.gitignore",
+                "/.travis.yml",
+                "phpunit.xml",
+                "/tests",
+                "/vendor"
+            ]
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=7.0.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "time": "2017-08-14 11:28:46",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Kirby\\": "src/"
+            }
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "Kirby\\": "tests/"
+            }
+        },
+        "scripts": {
+            "test": [
+                "./vendor/bin/phpunit --coverage-html=tests/coverage"
+            ]
+        },
+        "authors": [
+            {
+                "name": "Bastian Allgeier",
+                "email": "bastian@getkirby.com",
+                "homepage": "http://bastianallgeier.com"
+            }
+        ],
+        "description": "Kirby Toolkit",
+        "homepage": "https://getkirby.com",
+        "keywords": [
+            "kirby",
+            "toolkit"
+        ],
+        "support": {
+            "email": "support@getkirby.com",
+            "issues": "https://github.com/getkirby/kirby/issues",
+            "forum": "https://forum.getkirby.com",
+            "source": "https://github.com/getkirby/kirby"
+        }
+    },
+    {
+        "name": "getkirby/data",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/k-next/data.git",
+            "reference": "4d352306e550b3796f500eee2bd30ea6e4265ad4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/k-next/data/zipball/4d352306e550b3796f500eee2bd30ea6e4265ad4",
+            "reference": "4d352306e550b3796f500eee2bd30ea6e4265ad4",
+            "shasum": ""
+        },
+        "archive": {
+            "exclude": [
+                "/.gitignore",
+                "phpunit.xml",
+                "/tests",
+                "/vendor"
+            ]
+        },
+        "require": {
+            "getkirby/filesystem": "*",
+            "getkirby/toolkit": "dev-master",
+            "php": ">=7.0.0",
+            "symfony/yaml": "*"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "time": "2017-08-14 11:32:25",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Kirby\\": "src/"
+            }
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "Kirby\\": "tests/"
+            }
+        },
+        "scripts": {
+            "test": [
+                "./vendor/bin/phpunit --coverage-html=tests/coverage"
+            ]
+        },
+        "authors": [
+            {
+                "name": "Bastian Allgeier",
+                "email": "bastian@getkirby.com",
+                "homepage": "http://bastianallgeier.com"
+            }
+        ],
+        "description": "Kirby Data",
+        "homepage": "https://getkirby.com",
+        "keywords": [
+            "data",
+            "json",
+            "kirby",
+            "yaml"
+        ],
+        "support": {
+            "email": "support@getkirby.com",
+            "issues": "https://github.com/getkirby/kirby/issues",
+            "forum": "https://forum.getkirby.com",
+            "source": "https://github.com/getkirby/kirby"
+        }
+    },
+    {
+        "name": "getkirby/http",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/k-next/http.git",
+            "reference": "6e2478ac0f5f75fe5c1de125f727eef53811266d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/k-next/http/zipball/6e2478ac0f5f75fe5c1de125f727eef53811266d",
+            "reference": "6e2478ac0f5f75fe5c1de125f727eef53811266d",
+            "shasum": ""
+        },
+        "archive": {
+            "exclude": [
+                "/.gitignore",
+                "phpunit.xml",
+                "/tests",
+                "/vendor"
+            ]
+        },
+        "require": {
+            "getkirby/toolkit": "dev-master",
+            "php": ">=7.0.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "time": "2017-08-10 15:35:31",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Kirby\\": "src/"
+            }
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "Kirby\\": "tests/"
+            }
+        },
+        "scripts": {
+            "test": [
+                "./vendor/bin/phpunit --stderr --coverage-html=tests/coverage"
+            ]
+        },
+        "authors": [
+            {
+                "name": "Bastian Allgeier",
+                "email": "bastian@getkirby.com",
+                "homepage": "http://bastianallgeier.com"
+            }
+        ],
+        "description": "Kirby HTTP",
+        "homepage": "https://getkirby.com",
+        "keywords": [
+            "http",
+            "kirby"
+        ],
+        "support": {
+            "email": "support@getkirby.com",
+            "issues": "https://github.com/getkirby/kirby/issues",
+            "forum": "https://forum.getkirby.com",
+            "source": "https://github.com/getkirby/kirby"
+        }
+    },
+    {
         "name": "getkirby/cms",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/k-next/cms.git",
-            "reference": "4f60fb6aafd69c2bc5cb33dab6252dd622aaa1c4"
+            "reference": "e7226b79538a4dc55e346a685f595630ed92566f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/k-next/cms/zipball/4f60fb6aafd69c2bc5cb33dab6252dd622aaa1c4",
-            "reference": "4f60fb6aafd69c2bc5cb33dab6252dd622aaa1c4",
+            "url": "https://api.github.com/repos/k-next/cms/zipball/e7226b79538a4dc55e346a685f595630ed92566f",
+            "reference": "e7226b79538a4dc55e346a685f595630ed92566f",
             "shasum": ""
         },
         "archive": {
@@ -417,7 +416,7 @@
             "phpunit/phpunit": "*",
             "webonyx/graphql-php": "^0.9.8"
         },
-        "time": "2017-08-10 14:34:07",
+        "time": "2017-08-14 15:58:14",
         "type": "library",
         "installation-source": "source",
         "autoload": {

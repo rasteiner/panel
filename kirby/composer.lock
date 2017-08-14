@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/k-next/cms.git",
-                "reference": "4f60fb6aafd69c2bc5cb33dab6252dd622aaa1c4"
+                "reference": "e7226b79538a4dc55e346a685f595630ed92566f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/k-next/cms/zipball/4f60fb6aafd69c2bc5cb33dab6252dd622aaa1c4",
-                "reference": "4f60fb6aafd69c2bc5cb33dab6252dd622aaa1c4",
+                "url": "https://api.github.com/repos/k-next/cms/zipball/e7226b79538a4dc55e346a685f595630ed92566f",
+                "reference": "e7226b79538a4dc55e346a685f595630ed92566f",
                 "shasum": ""
             },
             "archive": {
@@ -67,7 +67,7 @@
                 "source": "https://github.com/k-next/cms/tree/master",
                 "issues": "https://github.com/k-next/cms/issues"
             },
-            "time": "2017-08-10 14:34:07"
+            "time": "2017-08-14 15:58:14"
         },
         {
             "name": "getkirby/data",
@@ -75,18 +75,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/k-next/data.git",
-                "reference": "d3f1d016b545d994b9ebed97ec0ec90d00170d3b"
+                "reference": "4d352306e550b3796f500eee2bd30ea6e4265ad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/k-next/data/zipball/d3f1d016b545d994b9ebed97ec0ec90d00170d3b",
-                "reference": "d3f1d016b545d994b9ebed97ec0ec90d00170d3b",
+                "url": "https://api.github.com/repos/k-next/data/zipball/4d352306e550b3796f500eee2bd30ea6e4265ad4",
+                "reference": "4d352306e550b3796f500eee2bd30ea6e4265ad4",
                 "shasum": ""
             },
             "archive": {
                 "exclude": [
                     "/.gitignore",
-                    "/.travis.yml",
                     "phpunit.xml",
                     "/tests",
                     "/vendor"
@@ -138,7 +137,7 @@
                 "forum": "https://forum.getkirby.com",
                 "source": "https://github.com/getkirby/kirby"
             },
-            "time": "2017-08-10 09:42:52"
+            "time": "2017-08-14 11:32:25"
         },
         {
             "name": "getkirby/filesystem",
@@ -213,12 +212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/k-next/http.git",
-                "reference": "7a448891ba5e755b2202d1ed48f1f29f6716ed26"
+                "reference": "6e2478ac0f5f75fe5c1de125f727eef53811266d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/k-next/http/zipball/7a448891ba5e755b2202d1ed48f1f29f6716ed26",
-                "reference": "7a448891ba5e755b2202d1ed48f1f29f6716ed26",
+                "url": "https://api.github.com/repos/k-next/http/zipball/6e2478ac0f5f75fe5c1de125f727eef53811266d",
+                "reference": "6e2478ac0f5f75fe5c1de125f727eef53811266d",
                 "shasum": ""
             },
             "archive": {
@@ -271,7 +270,7 @@
                 "forum": "https://forum.getkirby.com",
                 "source": "https://github.com/getkirby/kirby"
             },
-            "time": "2017-08-10 10:10:12"
+            "time": "2017-08-10 15:35:31"
         },
         {
             "name": "getkirby/toolkit",
@@ -279,12 +278,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/k-next/toolkit.git",
-                "reference": "86deacdc46a5612376c80a9663fe2e2dc62e4a10"
+                "reference": "45385aa28dc59b600b7e67cee91e95b97a1428bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/k-next/toolkit/zipball/86deacdc46a5612376c80a9663fe2e2dc62e4a10",
-                "reference": "86deacdc46a5612376c80a9663fe2e2dc62e4a10",
+                "url": "https://api.github.com/repos/k-next/toolkit/zipball/45385aa28dc59b600b7e67cee91e95b97a1428bf",
+                "reference": "45385aa28dc59b600b7e67cee91e95b97a1428bf",
                 "shasum": ""
             },
             "archive": {
@@ -338,7 +337,7 @@
                 "forum": "https://forum.getkirby.com",
                 "source": "https://github.com/getkirby/kirby"
             },
-            "time": "2017-08-10 09:55:40"
+            "time": "2017-08-14 11:28:46"
         },
         {
             "name": "symfony/yaml",

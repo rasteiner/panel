@@ -20,6 +20,7 @@ export default {
   flex-grow: 1;
   display: flex;
 }
+
 .kirby-column[data-width="1/1"] {
   width: 100%;
 }
@@ -34,6 +35,7 @@ export default {
 }
 .kirby-column[data-width="1/4"] {
   width: 25%;
+  min-width: 15rem;
 }
 .kirby-column[data-width="1/5"] {
   width: 20%;
@@ -65,6 +67,7 @@ export default {
 .kirby-column[data-width="3/4"] {
   width: 75%;
 }
+
 .kirby-column-content {
   width: 100%;
 }
