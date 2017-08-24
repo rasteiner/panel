@@ -126,53 +126,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "webonyx/graphql-php",
-        "version": "v0.9.13",
-        "version_normalized": "0.9.13.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/webonyx/graphql-php.git",
-            "reference": "8fe26a1a21e3a96e470b5712bc9d392239e8308f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/8fe26a1a21e3a96e470b5712bc9d392239e8308f",
-            "reference": "8fe26a1a21e3a96e470b5712bc9d392239e8308f",
-            "shasum": ""
-        },
-        "require": {
-            "ext-mbstring": "*",
-            "php": ">=5.4,<8.0-DEV"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^4.8"
-        },
-        "suggest": {
-            "react/promise": "To use ReactPHP promise adapter"
-        },
-        "time": "2017-07-17 17:25:45",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "src/deprecated.php"
-            ],
-            "psr-4": {
-                "GraphQL\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD"
-        ],
-        "description": "A PHP port of GraphQL reference implementation",
-        "homepage": "https://github.com/webonyx/graphql-php",
-        "keywords": [
-            "api",
-            "graphql"
-        ]
-    },
-    {
         "name": "getkirby/data",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -382,18 +335,65 @@
         }
     },
     {
+        "name": "webonyx/graphql-php",
+        "version": "v0.9.14",
+        "version_normalized": "0.9.14.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/webonyx/graphql-php.git",
+            "reference": "ed6629130869893e6efb5757dab5812def357bce"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/ed6629130869893e6efb5757dab5812def357bce",
+            "reference": "ed6629130869893e6efb5757dab5812def357bce",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=5.4,<8.0-DEV"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.8"
+        },
+        "suggest": {
+            "react/promise": "To use ReactPHP promise adapter"
+        },
+        "time": "2017-08-18 15:30:03",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/deprecated.php"
+            ],
+            "psr-4": {
+                "GraphQL\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD"
+        ],
+        "description": "A PHP port of GraphQL reference implementation",
+        "homepage": "https://github.com/webonyx/graphql-php",
+        "keywords": [
+            "api",
+            "graphql"
+        ]
+    },
+    {
         "name": "getkirby/cms",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/k-next/cms.git",
-            "reference": "7b5d84a8935dc1154632b5444f64591fe9983f6a"
+            "reference": "d802a30aecb7bbb1c083baed78f757f3047f7e4c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/k-next/cms/zipball/7b5d84a8935dc1154632b5444f64591fe9983f6a",
-            "reference": "7b5d84a8935dc1154632b5444f64591fe9983f6a",
+            "url": "https://api.github.com/repos/k-next/cms/zipball/d802a30aecb7bbb1c083baed78f757f3047f7e4c",
+            "reference": "d802a30aecb7bbb1c083baed78f757f3047f7e4c",
             "shasum": ""
         },
         "archive": {
@@ -416,7 +416,7 @@
             "phpunit/phpunit": "*",
             "webonyx/graphql-php": "^0.9.8"
         },
-        "time": "2017-08-17 12:57:01",
+        "time": "2017-08-24 12:00:35",
         "type": "library",
         "installation-source": "source",
         "autoload": {

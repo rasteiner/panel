@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/k-next/cms.git",
-                "reference": "7b5d84a8935dc1154632b5444f64591fe9983f6a"
+                "reference": "d802a30aecb7bbb1c083baed78f757f3047f7e4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/k-next/cms/zipball/7b5d84a8935dc1154632b5444f64591fe9983f6a",
-                "reference": "7b5d84a8935dc1154632b5444f64591fe9983f6a",
+                "url": "https://api.github.com/repos/k-next/cms/zipball/d802a30aecb7bbb1c083baed78f757f3047f7e4c",
+                "reference": "d802a30aecb7bbb1c083baed78f757f3047f7e4c",
                 "shasum": ""
             },
             "archive": {
@@ -67,7 +67,7 @@
                 "source": "https://github.com/k-next/cms/tree/master",
                 "issues": "https://github.com/k-next/cms/issues"
             },
-            "time": "2017-08-17 12:57:01"
+            "time": "2017-08-24 12:00:35"
         },
         {
             "name": "getkirby/data",
@@ -396,16 +396,16 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v0.9.13",
+            "version": "v0.9.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "8fe26a1a21e3a96e470b5712bc9d392239e8308f"
+                "reference": "ed6629130869893e6efb5757dab5812def357bce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/8fe26a1a21e3a96e470b5712bc9d392239e8308f",
-                "reference": "8fe26a1a21e3a96e470b5712bc9d392239e8308f",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/ed6629130869893e6efb5757dab5812def357bce",
+                "reference": "ed6629130869893e6efb5757dab5812def357bce",
                 "shasum": ""
             },
             "require": {
@@ -437,7 +437,7 @@
                 "api",
                 "graphql"
             ],
-            "time": "2017-07-17 17:25:45"
+            "time": "2017-08-18 15:30:03"
         }
     ],
     "packages-dev": [],
