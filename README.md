@@ -1,5 +1,9 @@
 # Kirby Next: UI
 
+[![Build Status](https://scrutinizer-ci.com/g/k-next/ui/badges/build.png?b=master)](https://scrutinizer-ci.com/g/k-next/ui/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/k-next/ui/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/k-next/ui/?branch=master)
+[![Code Quality](https://scrutinizer-ci.com/g/k-next/ui/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/k-next/ui/?branch=master)
+
 ## Build Setup
 
 ``` bash
@@ -46,6 +50,6 @@ npm run test:watch
 ## Author
 
 Bastian Allgeier
-<bastian@getkirby.com>  
-<http://getkirby.com>  
+<bastian@getkirby.com>
+<http://getkirby.com>
 <http://twitter.com/getkirby>
