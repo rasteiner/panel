@@ -47,7 +47,7 @@ export default {
 
 .kirby-field-header {
   display: flex;
-  padding: 1rem 0 .5rem;
+  padding: 1rem 0 1rem;
 }
 .kirby-field-header label {
   display: block;

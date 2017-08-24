@@ -2,6 +2,10 @@ Title: Extending Kirby
 
 ----
 
+Draft: 1
+
+----
+
 Date: 2016-08-02
 
 ----
@@ -10,7 +14,7 @@ Coverimage: extending.png
 
 ----
 
-Text: 
+Text:
 
 Kirby comes as a clean package, aiming to provide you with a useful toolkit to get started with. But it it is also very modular and extensible. Rather than providing a solution to every imaginable problem out of the box, Kirby prefers to let *you* decide which features your project really needs.
 

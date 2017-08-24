@@ -1,15 +1,17 @@
 <template>
-  <div 
-    ref="input" 
-    contenteditable="true" 
+  <component :is="tag"
+    ref="input"
+    contenteditable="true"
     class="kirby-fancy-input"
     spellcheck="false"
-    v-once 
+    v-once
     :placeholder="placeholder"
-    @input="input"  
-    @keydown.enter="enter" 
-    @keydown.delete="remove">{{ value }}</div>
-  </div>
+    @input="input"
+    @blur="blur"
+    @keydown.enter="enter"
+    @keydown.delete="remove">
+    {{ value }}
+  </component>
 </template>
 
 <script>
@@ -21,6 +23,10 @@ export default {
     'kirby-textarea-input': TextareaInput
   },
   props: {
+    tag: {
+      type: String,
+      default: 'div'
+    },
     value: {
       type: String
     },
@@ -38,13 +44,17 @@ export default {
     },
     focus() {
       this.$refs.input.focus();
+      this.emit('focus');
+    },
+    blur() {
+      this.$emit('blur');
     },
     enter(e) {
 
       if (this.multiline === false) {
-        e.preventDefault();        
+        e.preventDefault();
       }
-      
+
       this.$emit('enter');
 
     },

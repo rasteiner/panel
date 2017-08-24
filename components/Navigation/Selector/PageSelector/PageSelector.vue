@@ -24,7 +24,7 @@ import Dropdown from 'Navigation/Dropdown/Dropdown.vue'
 import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue'
 import DropdownItem from 'Navigation/Dropdown/DropdownItem.vue'
 import Icon from 'Images/Icon/Icon.vue'
-import Query from '@api/Query.js'
+import Query from '@/Api/Query.js'
 
 export default {
   components: {

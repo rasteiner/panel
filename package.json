@@ -19,7 +19,8 @@
     "@frctl/fractal": "^1.1.4",
     "vue": "^2.4.0",
     "vue-router": "^2.7.0",
-    "vuedraggable": "^2.14.1"
+    "vuedraggable": "^2.14.1",
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

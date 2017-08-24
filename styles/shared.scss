@@ -19,12 +19,12 @@ $color-dark-grey: #777;
 $color-light: #efefef;
 $color-light-grey: #999;
 $color-background: $color-light;
-$color-positive: #c2c77b;
-$color-focus: #92b2ca;
-$color-notice: #f4cf86;
-$color-negative: #d77c79;
+$color-positive: #b5bd68;
+$color-focus: rgba(63, 143, 212, 0.5);
+$color-notice: #f0c674;
+$color-negative: #cc6666;
 $color-border: #dedede;
-$color-backdrop: rgba(0,0,0, .6);
+$color-backdrop: rgba($color-dark, .6);
 
 /**
  * Typography

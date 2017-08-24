@@ -59,9 +59,10 @@ export default {
 .kirby-input {
   display: flex;
   align-items: stretch;
-  border: 0 solid $color-border;
   background: $color-white;
   border: 2px solid $color-border;
+  border: 2px solid #fff;
+  border-radius: $border-radius;
 }
 .kirby-input[data-focus] {
   border-color: $color-focus;

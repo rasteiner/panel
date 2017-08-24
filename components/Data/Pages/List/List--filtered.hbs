@@ -1,0 +1,7 @@
+<kirby-pages layout="cards" parent="projects" :filter="[
+    {
+        field: 'draft',
+        operator: '==',
+        value: '1'
+    }
+]" sort="title desc" />

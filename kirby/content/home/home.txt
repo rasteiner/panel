@@ -2,11 +2,15 @@ Title: Home
 
 ----
 
+Group: misc
+
+----
+
 Intro: Yay! If you are seeing this, the installation of Kirby worked. :-)
 
 ----
 
-Text: 
+Text:
 
 ## Get started
 

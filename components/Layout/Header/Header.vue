@@ -23,7 +23,7 @@
 
 <script>
 
-import Bar from 'Bars/Bar/Bar.vue';
+import Bar from 'Layout/Bar/Bar.vue';
 import Breadcrumb from 'Navigation/Breadcrumb/Breadcrumb.vue';
 import BreadcrumbItem from 'Navigation/Breadcrumb/BreadcrumbItem.vue';
 import ButtonGroup from 'Buttons/ButtonGroup/ButtonGroup.vue';
@@ -45,7 +45,7 @@ export default {
     'icon',
     'link',
     'label',
-    'breadcrumb', 
+    'breadcrumb',
     'pagination'
   ]
 }

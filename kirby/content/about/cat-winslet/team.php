@@ -3,11 +3,12 @@
 use Kirby\Data\Data;
 
 $folder = basename(__DIR__);
+$id     = 'about/' . $folder;
 
 return [
     'props' => [
-        'id'       => $folder,
-        'url'      => 'about/' . $folder,
+        'id'       => $id,
+        'url'      => $url . '/' . $id,
         'template' => 'team'
     ],
     'data'  => Data::read(__DIR__ . '/team.txt'),

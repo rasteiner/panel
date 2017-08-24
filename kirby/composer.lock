@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/k-next/cms.git",
-                "reference": "e7226b79538a4dc55e346a685f595630ed92566f"
+                "reference": "7b5d84a8935dc1154632b5444f64591fe9983f6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/k-next/cms/zipball/e7226b79538a4dc55e346a685f595630ed92566f",
-                "reference": "e7226b79538a4dc55e346a685f595630ed92566f",
+                "url": "https://api.github.com/repos/k-next/cms/zipball/7b5d84a8935dc1154632b5444f64591fe9983f6a",
+                "reference": "7b5d84a8935dc1154632b5444f64591fe9983f6a",
                 "shasum": ""
             },
             "archive": {
@@ -67,7 +67,7 @@
                 "source": "https://github.com/k-next/cms/tree/master",
                 "issues": "https://github.com/k-next/cms/issues"
             },
-            "time": "2017-08-14 15:58:14"
+            "time": "2017-08-17 12:57:01"
         },
         {
             "name": "getkirby/data",
@@ -278,12 +278,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/k-next/toolkit.git",
-                "reference": "45385aa28dc59b600b7e67cee91e95b97a1428bf"
+                "reference": "37c1f50a572dac73ac78174b96ba6f6dcb2c2c02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/k-next/toolkit/zipball/45385aa28dc59b600b7e67cee91e95b97a1428bf",
-                "reference": "45385aa28dc59b600b7e67cee91e95b97a1428bf",
+                "url": "https://api.github.com/repos/k-next/toolkit/zipball/37c1f50a572dac73ac78174b96ba6f6dcb2c2c02",
+                "reference": "37c1f50a572dac73ac78174b96ba6f6dcb2c2c02",
                 "shasum": ""
             },
             "archive": {
@@ -337,7 +337,7 @@
                 "forum": "https://forum.getkirby.com",
                 "source": "https://github.com/getkirby/kirby"
             },
-            "time": "2017-08-14 11:28:46"
+            "time": "2017-08-16 07:24:28"
         },
         {
             "name": "symfony/yaml",

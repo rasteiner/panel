@@ -1,14 +1,26 @@
 <template>
-  <div class="kirby-cards">
+  <draggable class="kirby-cards">
     <slot />
-  </div>
+  </draggable>
 </template>
+
+<script>
+
+import draggable from 'vuedraggable';
+
+export default {
+  components: {
+    draggable
+  }
+};
+
+</script>
 
 <style lang="scss">
 
 .kirby-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 3fr));  
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 3fr));
   grid-gap: 1.5rem;
 }
 

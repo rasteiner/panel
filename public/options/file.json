@@ -1,0 +1,32 @@
+[
+  {
+    "icon": "play-circle",
+    "text": "Open",
+    "link": false,
+    "click": "show"
+  },
+  {
+    "icon": "download",
+    "text": "Download",
+    "link": false,
+    "click": "show"
+  },
+  {
+    "icon": "pencil",
+    "text": "Edit",
+    "link": false,
+    "click": "edit"
+  },
+  {
+    "icon": "cloud-upload",
+    "text": "Replace",
+    "link": false,
+    "click": "replace"
+  },
+  {
+    "icon": "trash-o",
+    "text": "Delete",
+    "link": false,
+    "click": "remove"
+  }
+]

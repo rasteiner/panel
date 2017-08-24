@@ -6,10 +6,10 @@
       <kirby-table-body>
         <kirby-table-row v-for="(user, index) in users" :key="user.id">
           <kirby-table-cell type="image" aria-hidden="true">
-            <a href="" tabindex="-1"><kirby-image :src="user.image.url" :cover="true"></kirby-image></a>
+            <router-link :to="'/users/' + user.email" tabindex="-1"><kirby-image :src="user.image.url" :cover="true"></kirby-image></router-link>
           </kirby-table-cell>
-          <kirby-table-cell type="link"><a href="">{{ user.firstName }}</a></kirby-table-cell>
-          <kirby-table-cell type="link"><a href="" tabindex="-1">{{ user.email }}</a></kirby-table-cell>
+          <kirby-table-cell type="link"><router-link :to="'/users/' + user.email">{{ user.firstName }}</router-link></kirby-table-cell>
+          <kirby-table-cell type="link"><router-link :to="'/users/' + user.email" tabindex="-1">{{ user.email }}</router-link></kirby-table-cell>
           <kirby-table-cell type="button">
 
             <kirby-dropdown>
@@ -22,7 +22,7 @@
                 @action="action($event, user)"
                 align="right"
                 :ref="'dropdown-' + index"
-                options="/mock/data/user-options.json"
+                options="/options/user.json"
                 :dark="true">
               </kirby-dropdown-content>
             </kirby-dropdown>
@@ -32,12 +32,12 @@
       </kirby-table-body>
     </kirby-table>
 
-    <kirby-pagination align="center"
-      @paginate="paginate"
+    <kirby-pagination
+      v-if="paginationData.hide !== true"
+      v-bind="paginationData"
+      align="center"
       :details="true"
-      :total="total"
-      :limit="limit"
-      :keys="keys" />
+      @paginate="paginate" />
 
     <kirby-user-remove-dialog ref="remove" />
 
@@ -46,9 +46,6 @@
 </template>
 
 <script>
-
-// API
-import Query from '@api/Query.js';
 
 // Components
 import Button from 'Buttons/Button/Button.vue';
@@ -61,6 +58,9 @@ import TableRow from 'Layout/Table/TableRow.vue';
 import TableCell from 'Layout/Table/TableCell.vue';
 import UserRemoveDialog from 'Dialogs/User/UserRemoveDialog/UserRemoveDialog.vue';
 import Pagination from 'Navigation/Pagination/Pagination.vue';
+
+// API
+import UsersQuery from '@/Api/UsersQuery.js';
 
 export default {
   components: {
@@ -76,59 +76,67 @@ export default {
     'kirby-user-remove-dialog': UserRemoveDialog
   },
   props: {
-    keys: {
-      type: Boolean,
-      default: false
-    },
     role: {
       type: String,
       default: null
     },
-    limit: {
-      type: Number,
-      default: 10
+    pagination: {
+      type: Object,
+      default() {
+        return {
+          page: 1,
+          limit: 10,
+          keys: false,
+          hide: false
+        }
+      }
     }
   },
   data() {
     return {
       users: [],
-      total: 0
+      paginationData: this.pagination
     }
   },
   methods: {
     action(action, user) {
       switch(action) {
+        case 'edit':
+          this.$router.push('/users/' + user.email);
+          break;
         case 'remove':
-          this.$refs.remove.open(user.username);
+          this.$refs.remove.open(user.email);
+          break;
       }
     },
-    fetch(offset) {
+    fetch() {
 
-      let select = `
-        email,
-        firstName,
-        image {
-          url
+      const query = {
+        role: this.role,
+        pagination: {
+          page:  this.paginationData.page,
+          limit: this.paginationData.limit
         }
-      `;
+      };
 
-      Query('users', {}, select).then(function (users) {
-        this.users = users;
-        this.total = this.users.length;
-
-        if(this.limit) {
-          this.users = this.users.slice(offset, offset + this.limit);
-        }
-
+      UsersQuery(query).then(function (response) {
+        this.users = response.users;
+        this.paginationData.total = response.pagination.total;
       }.bind(this));
 
     },
-    paginate(info) {
-      this.fetch(info.offset);
+    paginate(pagination) {
+      this.paginationData.page = pagination.page;
+      this.fetch();
+    }
+  },
+  watch: {
+    role: function() {
+      this.fetch();
     }
   },
   created() {
-    this.fetch(0);
+    this.fetch();
   }
 }
 

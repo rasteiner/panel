@@ -10,8 +10,8 @@
         :info="page.id"
         :link="page.link"
         menu-label="Page Actions"
-        options="/mock/data/page-options.json"
-        @action="action">
+        options="/options/page.json"
+        @action="action(page, $event)">
       </kirby-card>
     </kirby-cards>
 
@@ -19,9 +19,13 @@
       <kirby-table-body>
         <kirby-table-row v-for="(page, index) in pages" :key="page.id">
           <kirby-table-cell type="image" aria-hidden="true">
-            <a href="" tabindex="-1"><kirby-image :src="page.image.url" :cover="true"></kirby-image></a>
+            <router-link :to="page.link" tabindex="-1">
+              <kirby-image :src="page.image.url" :cover="true"></kirby-image>
+            </router-link>
           </kirby-table-cell>
-          <kirby-table-cell type="link"><a href="">{{ page.title }}</a></kirby-table-cell>
+          <kirby-table-cell type="link">
+            <router-link :to="page.link">{{ page.title }}</router-link>
+          </kirby-table-cell>
           <kirby-table-cell type="button">
 
             <kirby-dropdown>
@@ -31,10 +35,10 @@
                 @click="$refs['dropdown-' + index][0].toggle()">
               </kirby-button>
               <kirby-dropdown-content
-                @action="action"
+                @action="action(page, $event)"
                 align="right"
                 :ref="'dropdown-' + index"
-                options="/mock/data/page-options.json"
+                options="/options/page.json"
                 :dark="true">
               </kirby-dropdown-content>
             </kirby-dropdown>
@@ -43,6 +47,14 @@
         </kirby-table-row>
       </kirby-table-body>
     </kirby-table>
+
+    <kirby-pagination
+      v-if="query.pagination.hide !== true"
+      v-bind="pagination"
+      @paginate="paginate"
+      :page="query.pagination.page"
+      :total="total"
+      />
 
     <kirby-page-url-dialog ref="url" />
     <kirby-page-remove-dialog ref="remove" />
@@ -53,76 +65,93 @@
 
 <script>
 
-import Button from 'Buttons/Button/Button.vue';
-import Card from 'Layout/Card/Card.vue';
-import Cards from 'Layout/Cards/Cards.vue';
-import Dropdown from 'Navigation/Dropdown/Dropdown.vue';
-import DropdownContent from 'Navigation/Dropdown/DropdownContent.vue';
-import Image from 'Images/Image/Image.vue';
-import Table from 'Layout/Table/Table.vue';
-import TableBody from 'Layout/Table/TableBody.vue';
-import TableRow from 'Layout/Table/TableRow.vue';
-import TableCell from 'Layout/Table/TableCell.vue';
-import PageUrlDialog from 'Dialogs/Page/PageUrlDialog/PageUrlDialog.vue';
-import PageRemoveDialog from 'Dialogs/Page/PageRemoveDialog/PageRemoveDialog.vue';
-
-import Query from '@api/Query.js';
+import ChildrenQuery from '@/Api/ChildrenQuery.js';
 
 export default {
-  components: {
-    'kirby-button': Button,
-    'kirby-card': Card,
-    'kirby-cards': Cards,
-    'kirby-dropdown': Dropdown,
-    'kirby-dropdown-content': DropdownContent,
-    'kirby-image': Image,
-    'kirby-table': Table,
-    'kirby-table-body': TableBody,
-    'kirby-table-row': TableRow,
-    'kirby-table-cell': TableCell,
-    'kirby-page-remove-dialog': PageRemoveDialog,
-    'kirby-page-url-dialog': PageUrlDialog,
+  props: {
+    layout: {
+      type: String,
+      default: 'list'
+    },
+    parent: {
+      type: String,
+      default: '/'
+    },
+    pagination: {
+      type: Object,
+      default() {
+        return {
+          page: 1,
+          limit: 10,
+          keys: false,
+          hide: false,
+          align: 'center',
+          details: true
+        }
+      }
+    },
+    sort: {
+      type: String,
+      default: null
+    },
+    filter: {
+      type: Array,
+      default() {
+        return [];
+      }
+    }
   },
-  props: [
-    'layout',
-    'parent'
-  ],
   data() {
     return {
-      pages: []
+      pages: [],
+      total: 0,
+      offset: this.pagination.page
+    };
+  },
+  computed: {
+    query() {
+      return {
+        parent: this.parent,
+        filter: this.filter,
+        sort: this.sort,
+        pagination: {
+          page:  this.offset,
+          limit: this.pagination.limit,
+        }
+      };
     }
   },
   created() {
-
-    let params = {
-      id: {
-        type: 'String',
-        value: this.parent
-      }
-    };
-
-    let select = `
-      url,
-      title,
-      image {
-        url
-      }
-    `;
-
-    Query('children', params, select).then(function (children) {
-      this.pages = children;
-    }.bind(this));
-
+    this.fetch();
+  },
+  watch: {
+    query: function() {
+      this.fetch();
+    }
   },
   methods: {
-    action(action) {
+    fetch(page) {
+      ChildrenQuery(this.query).then((response) => {
+        this.pages = response.pages;
+        this.total = response.pagination.total;
+      });
+    },
+    paginate(pagination) {
+      this.offset = pagination.page;
+    },
+    action(page, action) {
       switch(action) {
+        case 'preview':
+          window.open(page.url);
+          break;
         case 'url':
-          this.$refs.url.open();
+          this.$refs.url.open(page.id);
           break;
         case 'remove':
-          this.$refs.remove.open();
+          this.$refs.remove.open(page.id);
           break;
+        default:
+          this.$store.dispatch('error', 'Not yet implemented');
       }
     }
   }

@@ -1,7 +1,9 @@
 <template>
 
   <kirby-bar v-if="$slots.options">
-    <h2 slot="left" class="kirby-headline" :data-size="size"><slot /></h2>
+    <h2 slot="left" class="kirby-headline" :data-size="size">
+      <span><slot /></span>
+    </h2>
     <template slot="right">
       <slot name="options"></slot>
     </template>
@@ -13,7 +15,7 @@
 
 <script>
 
-import Bar from 'Bars/Bar/Bar.vue';
+import Bar from 'Layout/Bar/Bar.vue';
 
 export default {
   components: {
@@ -36,6 +38,10 @@ export default {
 }
 .kirby-headline[data-size="large"] {
   font-size: $font-size-large;
+}
+.kirby-headline > span {
+  display: block;
+  padding: 1rem 0;
 }
 
 </style>

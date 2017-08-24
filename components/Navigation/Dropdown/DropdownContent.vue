@@ -1,9 +1,9 @@
 <template>
   <div v-if="isOpen" class="kirby-dropdown-content" :data-dark="dark" :data-align="align">
     <span v-if="dropdownItems">
-      <kirby-dropdown-item v-for="(option, index) in dropdownItems" 
+      <kirby-dropdown-item v-for="(option, index) in dropdownItems"
         :key="index"
-        :icon="option.icon" 
+        :icon="option.icon"
         :upload="option.upload"
         @click="$emit('action', option.click)">
           {{ option.text }}
@@ -100,6 +100,7 @@ export default {
   position: absolute;
   top: 100%;
   left: 0;
+  padding: .5rem 0;
   background: $color-white;
   z-index: z-index(dropdown);
   text-align: left;
@@ -118,7 +119,6 @@ export default {
   color: $color-light;
 
   .kirby-dropdown-item {
-    border-bottom: 1px solid rgba(255,255,255, .2);
     color: lighten($color-light-grey, 10%);
   }
 

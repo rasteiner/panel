@@ -1,0 +1,24 @@
+title: Blog
+layout:
+    -
+        width: 1/2
+        sections:
+            drafts:
+                type: pages
+                headline: Drafts
+                filter:
+                    -
+                        field: draft
+                        operator: "=="
+                        value: '1'
+    -
+        width: 1/2
+        sections:
+            published:
+                type: pages
+                headline: Published Articles
+                filter:
+                    -
+                        field: draft
+                        operator: "!="
+                        value: '1'

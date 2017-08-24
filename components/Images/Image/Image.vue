@@ -1,6 +1,10 @@
 <template>
   <figure class="kirby-image" :data-ratio="ratio" :data-back="back" :data-cover="cover">
-    <span><img :src="src" :alt="alt || ''"></span>
+    <span>
+      <transition name="kirby-image-transition">
+        <img v-if="loaded" :src="src" :alt="alt || ''">
+      </transition>
+    </span>
   </figure>
 </template>
 
@@ -13,7 +17,19 @@ export default {
     'ratio',
     'back',
     'cover'
-  ]
+  ],
+  data() {
+    return {
+      loaded: false
+    }
+  },
+  created() {
+    let img = new Image();
+    img.onload = function () {
+      this.loaded = true;
+    }.bind(this);
+    img.src = this.src;
+  }
 }
 
 </script>
@@ -32,9 +48,18 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  width: 100%;  
+  width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.kirby-image-transition-enter-active,
+.kirby-image-transition-leave-active {
+  transition: opacity .2s
+}
+.kirby-image-transition-enter,
+.kirby-image-transition-leave-to {
+  opacity: 0
 }
 
 .kirby-image[data-ratio="1/1"] span {

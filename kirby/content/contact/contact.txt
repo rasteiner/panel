@@ -2,7 +2,11 @@ Title: Contact
 
 ----
 
-Text: 
+Group: misc
+
+----
+
+Text:
 
 ## Follow the Kirby Team on Twitter
 
@@ -33,9 +37,9 @@ Intro: This contact page does not only contain useful resources that help you to
 
 ----
 
-Contactoptions: 
+Contactoptions:
 
-- 
+-
   title: Contact
   text: >
     Feel free to drop us a line if you
@@ -43,7 +47,7 @@ Contactoptions:
   url: mailto:support@getkirby.com
   linktext: Write an email
   icon: contact.svg
-- 
+-
   title: Forum
   text: >
     Join the Kirby community and connect
@@ -51,7 +55,7 @@ Contactoptions:
   url: https://forum.getkirby.com/
   linktext: Visit Kirby’s forum
   icon: forum.svg
-- 
+-
   title: GitHub
   text: >
     Report Kirby-related issues directly on
@@ -59,7 +63,7 @@ Contactoptions:
   url: https://github.com/getkirby
   linktext: Kirby on GitHub
   icon: github.svg
-- 
+-
   title: Docs
   text: "Check out Kirby's detailed tutorials and instructions."
   url: https://getkirby.com/docs

@@ -1,36 +1,38 @@
 <template>
-  <div v-if="isOpen" @click="close" class="kirby-dialog">
-    <div @click.stop class="kirby-dialog-box" :data-size="size">
-      <slot name="header">
-        <kirby-bar class="kirby-dialog-header">
-          <template slot="left">
-            <slot name="headline">
-              <kirby-headline>{{ headline }}</kirby-headline>
-            </slot>
-          </template>
-          <template slot="right">
-            <slot name="options"></slot>
-          </template>
-        </kirby-bar>
-      </slot>
-      <div class="kirby-dialog-body">
-        <slot />
-      </div>
-      <footer class="kirby-dialog-footer">
-        <slot name="footer">
-          <kirby-button-group>
-            <kirby-button @click="cancel" icon="times">Cancel</kirby-button>
-            <kirby-button @click="submit" :icon="icon" :state="state">{{ button }}</kirby-button>
-          </kirby-button-group>
+  <transition name="kirby-dialog-transition">
+    <div v-if="isOpen" @click="close" class="kirby-dialog">
+      <div @click.stop class="kirby-dialog-box" :data-size="size">
+        <slot name="header">
+          <kirby-bar class="kirby-dialog-header">
+            <template slot="left">
+              <slot name="headline">
+                <kirby-headline>{{ headline }}</kirby-headline>
+              </slot>
+            </template>
+            <template slot="right">
+              <slot name="options"></slot>
+            </template>
+          </kirby-bar>
         </slot>
-      </footer>
+        <div class="kirby-dialog-body">
+          <slot />
+        </div>
+        <footer class="kirby-dialog-footer">
+          <slot name="footer">
+            <kirby-button-group>
+              <kirby-button @click="cancel" icon="times">Cancel</kirby-button>
+              <kirby-button @click="submit" :icon="icon" :state="state">{{ button }}</kirby-button>
+            </kirby-button-group>
+          </slot>
+        </footer>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
 
-import Bar from 'Bars/Bar/Bar.vue';
+import Bar from 'Layout/Bar/Bar.vue';
 import Button from 'Buttons/Button/Button.vue';
 import ButtonGroup from 'Buttons/ButtonGroup/ButtonGroup.vue';
 import Headline from 'Text/Headline/Headline.vue';
@@ -117,9 +119,30 @@ export default {
   justify-content: center;
   z-index: z-index(dialog);
 }
+
+.kirby-dialog-transition-enter-active,
+.kirby-dialog-transition-leave-active {
+  transition: opacity .15s
+}
+.kirby-dialog-transition-enter,
+.kirby-dialog-transition-leave-to {
+  opacity: 0
+}
+
+.kirby-dialog-transition-enter-active .kirby-dialog-box,
+.kirby-dialog-transition-leave-active .kirby-dialog-box{
+  transition: transform .2s
+}
+.kirby-dialog-transition-enter .kirby-dialog-box,
+.kirby-dialog-transition-leave-to .kirby-dialog-box{
+  transform: translateY(-5%);
+}
+
+
+
 .kirby-dialog-box {
   position: relative;
-  background: $color-white;
+  background: $color-light;
   width: 22rem;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
@@ -137,10 +160,11 @@ export default {
   width: 40rem;
 }
 .kirby-dialog-header {
-  background: $color-dark;
-  color: $color-light;
+  background: $color-light;
+  color: $color-dark;
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
+  display: none;
 }
 .kirby-dialog-header .kirby-headline {
   margin: 0;
@@ -151,13 +175,12 @@ export default {
   padding: 1rem 1.5rem;
 }
 .kirby-dialog-body {
-  padding: 1rem 1.5rem;
-  background: $color-light;
+  padding: 1.5rem;
   max-height: calc(100vh - 9rem);
   overflow: auto;
 }
 .kirby-dialog-footer {
-  background: rgba($color-background, .5);
+  border-top: 1px solid $color-border;
   padding: 0 1.5rem;
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;

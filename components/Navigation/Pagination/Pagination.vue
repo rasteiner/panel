@@ -3,7 +3,7 @@
     <kirby-button :disabled="!hasPrev" @click="prev" icon="angle-left" :alt="prevLabel"></kirby-button>
     <kirby-dropdown v-if="details">
       <kirby-button @click="$refs.dropdown.toggle()" :disabled="!hasPages">
-        <template v-if="total > 1">{{ start }}&ndash;{{ end }}&nbsp;/&nbsp;</template>{{ total }}
+        <template v-if="total > 1">{{ detailsText }}</template>{{ total }}
       </kirby-button>
       <kirby-dropdown-content @open="$nextTick(() => $refs.page.focus())" class="kirby-pagination-selector" :dark="true" ref="dropdown">
         <div>
@@ -98,6 +98,13 @@ export default {
       }
 
     },
+    detailsText() {
+      if (this.limit === 1) {
+        return this.start + ' / ';
+      } else {
+        return this.start + '-' + this.end + ' / ';
+      }
+    },
     pages() {
       return Math.ceil(this.total / this.limit);
     },
@@ -133,7 +140,7 @@ export default {
       this.currentPage = page;
 
       this.$emit('paginate', {
-        page: this.currentPage,
+        page: parseInt(this.currentPage),
         start: this.start,
         end: this.end,
         limit: this.limit,

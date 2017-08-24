@@ -7,6 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
-    'Kirby\\' => array($baseDir . '/src', $vendorDir . '/getkirby/filesystem/src', $vendorDir . '/getkirby/toolkit/src', $vendorDir . '/getkirby/data/src', $vendorDir . '/getkirby/http/src', $vendorDir . '/getkirby/cms/src'),
+    'Kirby\\' => array($baseDir . '/src', $vendorDir . '/getkirby/filesystem/src', $vendorDir . '/getkirby/data/src', $vendorDir . '/getkirby/http/src', $vendorDir . '/getkirby/toolkit/src', $vendorDir . '/getkirby/cms/src'),
     'GraphQL\\' => array($vendorDir . '/webonyx/graphql-php/src'),
 );

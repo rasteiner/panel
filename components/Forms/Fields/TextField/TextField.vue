@@ -9,7 +9,8 @@
       :required="required"
       :readonly="readonly"
       :autocomplete="autocomplete"
-      :autofocus="autofocus">
+      :autofocus="autofocus"
+      @input="$emit('input', $event.target.value)">
   </kirby-field>
 </template>
 

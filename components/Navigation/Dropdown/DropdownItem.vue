@@ -1,9 +1,9 @@
 <template>
-  <kirby-button class="kirby-dropdown-item" 
-    :link="link" 
-    :icon="icon" 
-    :upload="upload" 
-    :image="image" 
+  <kirby-button class="kirby-dropdown-item"
+    :link="link"
+    :icon="icon"
+    :upload="upload"
+    :image="image"
     @click="click">
     <slot />
   </kirby-button>
@@ -37,9 +37,8 @@ export default {
 
 .kirby-dropdown-item {
   white-space: nowrap;
-  padding: 1rem 2rem 1rem 1rem;
+  padding: .5rem 1.5rem .5rem .5rem;
   line-height: 1;
-  border-bottom: 1px solid $color-background;
   color: inherit;
   display: flex;
   width: 100%;
