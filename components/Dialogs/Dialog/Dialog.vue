@@ -2,6 +2,7 @@
   <transition name="kirby-dialog-transition">
     <div v-if="isOpen" @click="close" class="kirby-dialog">
       <div @click.stop class="kirby-dialog-box" :data-size="size">
+        <!--
         <slot name="header">
           <kirby-bar class="kirby-dialog-header">
             <template slot="left">
@@ -14,13 +15,14 @@
             </template>
           </kirby-bar>
         </slot>
+        -->
         <div class="kirby-dialog-body">
           <slot />
         </div>
         <footer class="kirby-dialog-footer">
           <slot name="footer">
             <kirby-button-group>
-              <kirby-button @click="cancel" icon="times">Cancel</kirby-button>
+              <kirby-button @click="cancel" icon="cancel">Cancel</kirby-button>
               <kirby-button @click="submit" :icon="icon" :state="state">{{ button }}</kirby-button>
             </kirby-button-group>
           </slot>

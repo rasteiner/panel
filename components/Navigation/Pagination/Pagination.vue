@@ -184,6 +184,7 @@ export default {
 
 .kirby-pagination-selector {
   width: 100%;
+  padding: 0 !important;
 }
 .kirby-pagination-selector > div {
   font-size: 14px;
@@ -201,6 +202,8 @@ export default {
   background: 0;
   color: inherit;
   padding: .5rem 1rem;
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
 }
 .kirby-pagination-selector > div > input:focus {
   outline: 0;

@@ -19,13 +19,13 @@ export default {
 
 .kirby-breadcrumb-item {
   position: relative;
-  display: inline-block;
+  float: left;
   list-style: none;
   white-space: nowrap;
   font-family: $font-family-mono;
   font-size: 14px;
   color: $color-dark-grey;
-  margin-right: .5rem;
+  margin-right: 1.5rem;
 }
 
 .kirby-breadcrumb-item a,
@@ -36,8 +36,9 @@ export default {
   transition: color .3s;
 
   &:after {
+    position: absolute;
+    right: -1rem;
     content: "/";
-    margin-left: .5rem;
   }
 
 }

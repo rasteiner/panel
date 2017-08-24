@@ -7,7 +7,7 @@
       {{ headline }}
 
       <template slot="buttons-left">
-        <kirby-button icon="plus" @click="$refs.create.open()">Add new user</kirby-button>
+        <kirby-button icon="add" @click="$refs.create.open()">Add new user</kirby-button>
       </template>
 
       <template slot="buttons-right">

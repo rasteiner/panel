@@ -3,7 +3,7 @@
     <kirby-headline>
       {{ headline }}
       <kirby-button-group slot="options">
-        <kirby-button icon="plus" @click="$refs.create.open()">Add</kirby-button>
+        <kirby-button icon="add" @click="$refs.create.open()">Add</kirby-button>
       </kirby-button-group>
     </kirby-headline>
     <kirby-pages ref="pages" :layout="layout" :parent="parent" :filter="filter" :pagination="pagination" :sort="sort" />

@@ -103,8 +103,8 @@ export default {
     color: $color-dark;
   }
 
-  .kirby-icon {
-    color: $color-positive;
+  .kirby-icon svg * {
+    fill: $color-positive;
   }
 
 }
@@ -116,8 +116,8 @@ export default {
     color: $color-dark;
   }
 
-  .kirby-icon {
-    color: $color-negative;
+  .kirby-icon svg * {
+    fill: $color-negative;
   }
 
 }

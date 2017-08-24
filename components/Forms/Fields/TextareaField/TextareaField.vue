@@ -24,7 +24,7 @@ export default {
       default: 'text'
     },
     icon: {
-      default: 'align-left'
+      default: 'text'
     }
   }
 }

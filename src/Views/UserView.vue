@@ -9,15 +9,15 @@
 
       <template slot="buttons-left">
         <kirby-dropdown>
-          <kirby-button @click="$refs.picture.toggle()" icon="file-image-o">Picture</kirby-button>
+          <kirby-button @click="$refs.picture.toggle()" icon="image">Picture</kirby-button>
           <kirby-dropdown-content ref="picture" :dark="true">
-            <kirby-dropdown-item icon="cloud-upload" :upload="true">Change</kirby-dropdown-item>
-            <kirby-dropdown-item icon="trash-o">Delete</kirby-dropdown-item>
+            <kirby-dropdown-item icon="upload" :upload="true">Change</kirby-dropdown-item>
+            <kirby-dropdown-item icon="trash">Delete</kirby-dropdown-item>
           </kirby-dropdown-content>
         </kirby-dropdown>
         <kirby-button icon="bolt">Role</kirby-button>
         <kirby-button icon="key">Password</kirby-button>
-        <kirby-button icon="trash-o" @click="$refs.remove.open(user.email)">Delete</kirby-button>
+        <kirby-button icon="trash" @click="$refs.remove.open(user.email)">Delete</kirby-button>
       </template>
 
     </kirby-header>

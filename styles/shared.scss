@@ -6,7 +6,8 @@
  * file is imported. Use only for mixins, variables and functions.
  */
 
-@import './z-index';
+ @import 'styles/_fixme.scss';
+ @import 'styles/z-index.scss';
 
 /**
  * Colors
@@ -19,7 +20,7 @@ $color-light: #efefef;
 $color-light-grey: #999;
 $color-background: $color-light;
 $color-positive: #b5bd68;
-$color-focus: rgba(63, 143, 212, 0.5);
+$color-focus: #9fc7e9;
 $color-notice: #f0c674;
 $color-negative: #cc6666;
 $color-border: #dedede;

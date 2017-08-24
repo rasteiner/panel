@@ -10,12 +10,12 @@
       <kirby-fancy-input :key="page.id + '-title'" :value="page.title" tag="div" @blur="updateTitle" />
 
       <template slot="buttons-left">
-        <kirby-button icon="play-circle" @click="action('preview')">Preview</kirby-button>
+        <kirby-button icon="preview" @click="action('preview')">Preview</kirby-button>
         <kirby-button v-if="!site" icon="toggle-on" @click="action('status')">Draft</kirby-button>
         <kirby-dropdown v-if="!site">
           <kirby-button @click="$refs.settings.toggle()" icon="cog">Settings</kirby-button>
           <kirby-dropdown-content :dark="true" ref="settings">
-            <kirby-dropdown-item icon="clipboard" @click="action('copy')">Copy</kirby-dropdown-item>
+            <kirby-dropdown-item icon="copy" @click="action('copy')">Copy</kirby-dropdown-item>
             <kirby-dropdown-item icon="code" @click="action('template')">Change Template</kirby-dropdown-item>
             <kirby-dropdown-item icon="chain" @click="action('url')">Change URL</kirby-dropdown-item>
             <kirby-dropdown-item icon="trash" @click="action('remove')">Delete</kirby-dropdown-item>
@@ -56,7 +56,7 @@ export default {
         title: '',
         id: ''
       },
-      icon: 'file-o',
+      icon: 'page',
       breadcrumb: [],
       pagination: {},
       layout: []

@@ -1,13 +1,13 @@
 [
   {
-    "icon": "pencil", 
-    "text": "Edit", 
+    "icon": "edit",
+    "text": "Edit",
     "link": "#",
     "click": "edit"
   },
   {
-    "icon": "trash-o", 
-    "text": "Delete", 
+    "icon": "trash",
+    "text": "Delete",
     "link": "#",
     "click": "remove"
   }

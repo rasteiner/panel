@@ -127,8 +127,8 @@ export default {
     color: #fff;
   }
 
-  .kirby-button .kirby-icon {
-    color: #fff;
+  .kirby-button .kirby-icon svg * {
+    fill: #fff;
   }
 
 }

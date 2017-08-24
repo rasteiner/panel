@@ -6,7 +6,7 @@
         label: 'Title',
         type: 'text',
         required: true,
-        icon: 'font'
+        icon: 'title'
       },
       {
         name: 'uid',

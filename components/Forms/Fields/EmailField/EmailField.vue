@@ -17,7 +17,7 @@ export default {
       default: 'Email'
     },
     icon: {
-      default: 'envelope'
+      default: 'email'
     },
     name: {
       default: 'email'

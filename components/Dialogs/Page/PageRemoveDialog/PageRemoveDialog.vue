@@ -1,7 +1,7 @@
 <template>
   <kirby-dialog ref="dialog" headline="Delete page" state="negative" button="Delete" @submit="submit">
     <kirby-txt>
-      Do you really want to delete <br>"<strong>{{ page.title }}</strong>"?
+      Do you really want to delete <br><strong>{{ page.title }}</strong>?
     </kirby-txt>
   </kirby-dialog>
 </template>

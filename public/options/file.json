@@ -1,6 +1,6 @@
 [
   {
-    "icon": "play-circle",
+    "icon": "preview",
     "text": "Open",
     "link": false,
     "click": "show"
@@ -12,19 +12,19 @@
     "click": "show"
   },
   {
-    "icon": "pencil",
+    "icon": "edit",
     "text": "Edit",
     "link": false,
     "click": "edit"
   },
   {
-    "icon": "cloud-upload",
+    "icon": "upload",
     "text": "Replace",
     "link": false,
     "click": "replace"
   },
   {
-    "icon": "trash-o",
+    "icon": "trash",
     "text": "Delete",
     "link": false,
     "click": "remove"
