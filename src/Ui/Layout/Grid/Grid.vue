@@ -15,48 +15,27 @@ export default {
 <style lang="scss">
 
 .kirby-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
 }
-
-.kirby-grid[data-gutter="line"] {
-  margin-left: -2px;
-}
-.kirby-grid[data-gutter="line"] > .kirby-column {
-  padding-left: 2px;
-  padding-bottom: 2px;
-}
-
 .kirby-grid[data-gutter="small"] {
-  margin-left: 1rem;
+  grid-gap: 1rem;
 }
-.kirby-grid[data-gutter="small"] > .kirby-column {
-  padding-left: 1rem;
-  padding-bottom: 1rem;
-}
-
 .kirby-grid[data-gutter="medium"] {
-  margin-left: -1.5rem;
+  grid-gap: 1.5rem;
 }
-.kirby-grid[data-gutter="medium"] > .kirby-column {
-  padding-left: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
 .kirby-grid[data-gutter="large"] {
-  margin-left: -3rem;
+  grid-gap: 3rem;
 }
-.kirby-grid[data-gutter="large"] > .kirby-column {
-  padding-left: 3rem;
-  padding-bottom: 3rem;
+.kirby-grid[data-gutter="huge"] {
+  grid-gap: 4.5rem;
 }
 
-.kirby-grid[data-gutter="huge"] {
-  margin-left: -4.5rem;
-}
-.kirby-grid[data-gutter="huge"] > .kirby-column {
-  padding-left: 4.5rem;
-  padding-bottom: 4.5rem;
+
+@media screen and (min-width: $breakpoint-medium) {
+  .kirby-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
 }
 
 </style>
