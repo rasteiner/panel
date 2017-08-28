@@ -7,11 +7,9 @@
     v-once
     :placeholder="placeholder"
     @input="input"
-    @blur="blur"
+    @blur="$emit('blur', $event)"
     @keydown.enter="enter"
-    @keydown.delete="remove">
-    {{ value }}
-  </component>
+    @keydown.delete="remove" v-html="value" />
 </template>
 
 <script>
@@ -26,7 +24,8 @@ export default {
       type: String
     },
     placeholder: {
-      type: String
+      type: String,
+      default: 'Start typing…'
     },
     multiline: {
       type: Boolean,
@@ -40,9 +39,6 @@ export default {
     focus() {
       this.$refs.input.focus();
       this.emit('focus');
-    },
-    blur() {
-      this.$emit('blur');
     },
     enter(e) {
 
@@ -71,7 +67,6 @@ export default {
   line-height: 1.5em;
   resize: none;
   width: 100%;
-  background: none;
   border: 0;
 }
 .kirby-fancy-input:focus {

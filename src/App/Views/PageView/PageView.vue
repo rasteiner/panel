@@ -7,7 +7,7 @@
       :breadcrumb="breadcrumb"
       :pagination="pagination">
 
-      <kirby-fancy-input :key="page.id + '-title'" :value="page.title" tag="div" @blur="updateTitle" />
+      <kirby-fancy-input :key="page.id + '-title'" :value="page.title" placeholder="Title …" tag="div" @blur="updateTitle($event.target.innerText)" />
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">Preview</kirby-button>
@@ -90,8 +90,11 @@ export default {
       }.bind(this));
 
     },
-    updateTitle () {
-      this.$store.dispatch('success', 'The page title has been updated');
+    updateTitle (title) {
+      if (title !== this.page.title) {
+        this.page.title = title;
+        this.$store.dispatch('success', 'The page title has been updated');
+      }
     },
     action (action) {
       switch (action) {
