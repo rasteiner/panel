@@ -1,5 +1,5 @@
 import './Buttons/Buttons.js';
-import './Data/Data.js';
+import './Collection/Collection.js';
 import './Dialog/Dialog.js';
 import './Forms/Forms.js';
 import './Images/Images.js';

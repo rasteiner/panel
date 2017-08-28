@@ -3,7 +3,11 @@
     <kirby-headline>
       <span>{{ headline }}</span>
     </kirby-headline>
-    <kirby-files :layout="layout" :parent="parent" :filter="filter" :pagination="pagination" :sort="sort" />
+    <kirby-files-collection
+      :layout="layout"
+      :query="query"
+      :pagination="pagination"
+  />
   </section>
 </template>
 
@@ -18,7 +22,16 @@ export default {
     'filter',
     'pagination',
     'sort'
-  ]
+  ],
+  computed: {
+    query () {
+      return {
+        parent: this.parent,
+        filter: this.filter,
+        sort: this.sort
+      }
+    }
+  }
 };
 
 </script>

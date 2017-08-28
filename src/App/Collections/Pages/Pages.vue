@@ -1,6 +1,6 @@
 <template>
-  <div class="kirby-pages">
-    <kirby-data v-bind="setup" @paginate="paginate" @action="action" />
+  <div class="kirby-pages-collection">
+    <kirby-collection v-bind="setup" @paginate="paginate" @action="action" />
     <kirby-page-url-dialog ref="url" />
     <kirby-page-remove-dialog ref="remove" />
   </div>
@@ -8,11 +8,11 @@
 
 <script>
 
-import DataLayoutsMixin from 'Data/DataLayouts.mixin.js';
-import ChildrenQuery from '@/Api/ChildrenQuery.js';
+import CollectionMixin from '../Collection.mixin.js';
+import ChildrenQuery from 'App/Api/ChildrenQuery.js';
 
 export default {
-  mixins: [DataLayoutsMixin],
+  mixins: [CollectionMixin],
   methods: {
     fetch () {
 
@@ -28,7 +28,6 @@ export default {
             id: page.id,
             image: page.image,
             text: page.title,
-            info: page.id,
             link: page.link,
             options: '/options/page.json'
           }

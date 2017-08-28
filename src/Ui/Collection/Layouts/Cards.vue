@@ -9,8 +9,8 @@
     </kirby-cards>
 
     <kirby-pagination
-      v-if="paginationOptions.hide !== true"
-      v-bind="paginationOptions"
+      v-if="pagination.hide !== true"
+      v-bind="pagination"
       @paginate="$emit('paginate', $event)" />
 
   </div>
@@ -19,10 +19,8 @@
 
 <script>
 
-import DataMixin from '../Data.mixin.js';
-
 export default {
-  mixins: [DataMixin]
+  props: ['items', 'pagination']
 };
 
 </script>

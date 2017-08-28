@@ -6,13 +6,11 @@
         <kirby-button icon="add" @click="$refs.create.open()">Add</kirby-button>
       </kirby-button-group>
     </kirby-headline>
-    <kirby-data
+    <kirby-pages-collection
       :layout="layout"
-      :items="items"
+      :query="query"
       :pagination="pagination"
-      @paginate="paginate"
-      @action="action"
-      />
+    />
     <kirby-page-create-dialog ref="create"></kirby-page-create-dialog>
   </section>
 </template>

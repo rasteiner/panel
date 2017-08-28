@@ -74,7 +74,7 @@ export default {
   methods: {
     fetch() {
 
-      if (this.path === '/') {
+      if (!this.path || this.path === '/') {
         this.site       = true;
         this.page       = {id: '_site', title: 'Site', url: '/'};
         this.breadcrumb = [];

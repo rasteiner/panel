@@ -13,6 +13,7 @@ export default (params) => {
         items {
           email,
           firstName,
+          role,
           image {
             url
           }
