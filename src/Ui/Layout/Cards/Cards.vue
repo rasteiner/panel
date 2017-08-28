@@ -1,20 +1,8 @@
 <template>
-  <draggable class="kirby-cards">
+  <div class="kirby-cards">
     <slot />
-  </draggable>
+  </div>
 </template>
-
-<script>
-
-import draggable from 'vuedraggable';
-
-export default {
-  components: {
-    draggable
-  }
-};
-
-</script>
 
 <style lang="scss">
 
