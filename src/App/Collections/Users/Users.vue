@@ -28,6 +28,7 @@ export default {
             image: user.image,
             text: user.email,
             email: user.email,
+            role: user.role,
             link: '/users/' + user.email,
             options: '/options/user.json'
           }

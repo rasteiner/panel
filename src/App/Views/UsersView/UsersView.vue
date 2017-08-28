@@ -16,7 +16,7 @@
 
     </kirby-header>
 
-    <kirby-users ref="users" :keys="true" :role="role" />
+    <kirby-users-collection ref="users" :keys="true" :role="role" />
 
     <kirby-user-create-dialog ref="create" />
 

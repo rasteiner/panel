@@ -10,17 +10,32 @@ export default [
   {
     path: '/pages',
     name: 'Site',
-    component: PageView
+    component: PageView,
+    props: (route) => {
+      return {
+        path: '/'
+      };
+    }
   },
   {
     path: '/pages/:page+',
     name: 'Page',
-    component: PageView
+    component: PageView,
+    props: (route) => {
+      return {
+        path: route.params.page
+      };
+    }
   },
   {
     path: '/users/role/:role',
     name: 'UsersByRole',
-    component: UsersView
+    component: UsersView,
+    props: (route) => {
+      return {
+        role: route.params.role
+      };
+    }
   },
   {
     path: '/users',
@@ -30,6 +45,11 @@ export default [
   {
     path: '/users/:email',
     name: 'User',
-    component: UserView
+    component: UserView,
+    props: (route) => {
+      return {
+        email: route.params.email
+      };
+    }
   }
 ]
