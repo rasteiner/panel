@@ -3,10 +3,10 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    lab: './src/lab.js'
+    'panel': './src/panel.js'
   },
   output: {
-    path: path.resolve(__dirname, './public/js/'),
+    path: path.resolve(__dirname, './assets/js/'),
     filename: '[name].js'
   },
   module: {
@@ -53,11 +53,10 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': path.resolve(__dirname, './src'),
       styles: path.resolve(__dirname, './styles')
     },
     modules: [
-      path.resolve(__dirname, './components'),
+      path.resolve(__dirname, './src'),
       path.resolve('./node_modules')
     ]
   },
