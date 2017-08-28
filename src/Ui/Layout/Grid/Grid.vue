@@ -25,10 +25,16 @@ export default {
   grid-gap: 1.5rem;
 }
 .kirby-grid[data-gutter="large"] {
-  grid-gap: 3rem;
+  grid-gap: 1.5rem;
+  @media screen and (min-width: $breakpoint-medium) {
+    grid-gap: 3rem;
+  }
 }
 .kirby-grid[data-gutter="huge"] {
-  grid-gap: 4.5rem;
+  grid-gap: 1.5rem;
+  @media screen and (min-width: $breakpoint-medium) {
+    grid-gap: 4.5rem;
+  }
 }
 
 

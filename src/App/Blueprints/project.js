@@ -1,27 +1,6 @@
 module.exports = function (page, data) {
 
   return [
-    {
-      width: '1/3',
-      sections: [
-        {
-          headline: 'Cover',
-          layout: 'cards',
-          type: 'files',
-          parent: page.id,
-          pagination: {
-            hide: true,
-            page: 1,
-            limit: 1
-          }
-        },
-        {
-          headline: 'Gallery',
-          type: 'files',
-          parent: page.id
-        }
-      ]
-    },
 
     // middle column
     {
@@ -61,6 +40,28 @@ module.exports = function (page, data) {
             },
           ]
         },
+      ]
+    },
+
+    {
+      width: '1/3',
+      sections: [
+        {
+          headline: 'Cover',
+          layout: 'cards',
+          type: 'files',
+          parent: page.id,
+          pagination: {
+            hide: true,
+            page: 1,
+            limit: 1
+          }
+        },
+        {
+          headline: 'Gallery',
+          type: 'files',
+          parent: page.id
+        }
       ]
     },
 

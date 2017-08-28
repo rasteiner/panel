@@ -37,11 +37,3 @@ export default {
 }
 
 </script>
-
-<style>
-
-.kirby-fieldset {
-  margin-bottom: -1.5rem;
-}
-
-</style>

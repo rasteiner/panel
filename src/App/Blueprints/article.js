@@ -2,6 +2,24 @@ module.exports = function (page) {
 
   return [
     {
+      width: '2/3',
+      sections: [
+        {
+          type: 'fields',
+          values: page.fields,
+          fields: [
+            {
+              name: 'text',
+              id: 'text',
+              label: 'Text',
+              type: 'textarea'
+            }
+          ]
+        }
+      ]
+    },
+
+    {
       width: '1/3',
       sections: [
         {
@@ -30,25 +48,6 @@ module.exports = function (page) {
           headline: 'Images',
           type: 'files',
           parent: page.id
-        }
-      ]
-    },
-
-    // middle column
-    {
-      width: '2/3',
-      sections: [
-        {
-          type: 'fields',
-          values: page.fields,
-          fields: [
-            {
-              name: 'text',
-              id: 'text',
-              label: 'Text',
-              type: 'textarea'
-            }
-          ]
         }
       ]
     },

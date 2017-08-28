@@ -99,10 +99,14 @@ export default {
 .kirby-input-icon {
   width: 3rem;
   border-left: 1px dashed $color-border;
-  display: flex;
   justify-content: center;
   align-items: center;
   color: $color-dark;
+  display: none;
+
+  @media screen and (min-width: $breakpoint-small) {
+    display: flex;
+  }
 }
 
 </style>

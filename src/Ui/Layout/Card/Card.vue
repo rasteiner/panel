@@ -60,7 +60,7 @@ export default {
 }
 .kirby-card-content {
   background: #fff;
-  padding: 1rem;
+  padding: .5rem 1rem;
   line-height: 1.5em;
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
@@ -75,6 +75,8 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: $font-family-mono;
+  font-size: $font-size-small;
 }
 .kirby-card-info {
   color: $color-dark-grey;
@@ -90,7 +92,8 @@ export default {
   right: 0;
 }
 .kirby-card-options-button {
-  padding: 1.05rem;
+  padding: .6rem 1rem;
+  line-height: 1.5em;
 }
 
 </style>

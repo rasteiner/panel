@@ -1,5 +1,5 @@
 <template>
-  <kirby-dialog ref="dialog" headline="Delete file" state="negative" button="Delete" @submit="submit">
+  <kirby-dialog ref="dialog" headline="Delete file" state="negative" icon="trash" button="Delete" @submit="submit">
     <kirby-txt>
       Do you really want to delete <br><strong>{{ file.filename }}</strong>?
     </kirby-txt>

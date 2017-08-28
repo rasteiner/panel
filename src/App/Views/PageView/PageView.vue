@@ -29,7 +29,7 @@
 
     </kirby-header>
 
-    <kirby-grid v-if="page" gutter="large">
+    <kirby-grid class="kirby-sections" v-if="page" gutter="large">
       <kirby-column v-for="(column, columnIndex) in layout" :key="page.id + '-column-' + columnIndex" :width="column.width">
         <component v-for="(section, sectionIndex) in column.sections" :key="page.id + '-section-' + sectionIndex" :is="'kirby-' + section.type + '-section'" v-bind="section" />
       </kirby-column>

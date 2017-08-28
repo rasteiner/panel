@@ -47,6 +47,7 @@ export default {
     },
     paginate (pagination) {
       this.page = pagination.page;
+      this.fetch();
     },
     action (item, action) {
       this.$store.dispatch('error', 'Not yet implemented');
