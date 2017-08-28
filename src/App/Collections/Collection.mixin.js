@@ -13,10 +13,7 @@ export default {
     pagination: {
       type: Object,
       default() {
-        return {
-          page: 1,
-          limit: 10
-        };
+        return {};
       }
     }
   },
@@ -36,15 +33,12 @@ export default {
     }
   },
   computed: {
-    setup () {
+    paginationOptions () {
       return {
-        layout: this.layout,
-        items: this.items,
-        pagination: Object.assign(this.pagination, {
-          page: this.page,
-          total: this.total
-        })
-      }
+        ...this.pagination,
+        page: this.page,
+        total: this.total
+      };
     }
   },
   methods: {

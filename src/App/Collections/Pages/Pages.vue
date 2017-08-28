@@ -1,6 +1,12 @@
 <template>
   <div class="kirby-pages-collection">
-    <kirby-collection v-bind="setup" @paginate="paginate" @action="action" />
+    <kirby-collection
+      :layout="layout"
+      :items="items"
+      :pagination="paginationOptions"
+      @paginate="paginate"
+      @action="action"
+    />
     <kirby-page-url-dialog ref="url" />
     <kirby-page-remove-dialog ref="remove" />
   </div>
@@ -32,6 +38,7 @@ export default {
             options: '/options/page.json'
           }
         });
+
       });
     },
     action(page, action) {

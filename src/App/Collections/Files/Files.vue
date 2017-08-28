@@ -1,6 +1,12 @@
 <template>
   <div class="kirby-files-collection">
-    <kirby-collection v-bind="setup" @paginate="paginate" @action="action" />
+    <kirby-collection
+      :layout="layout"
+      :items="items"
+      :pagination="paginationOptions"
+      @paginate="paginate"
+      @action="action"
+    />
     <kirby-file-remove-dialog ref="remove" />
   </div>
 </template>
@@ -27,6 +33,7 @@ export default {
             id: file.filename,
             image: {url: file.url},
             text: file.filename,
+            filename: file.filename,
             url: file.url,
             link: '/',
             options: '/options/file.json'

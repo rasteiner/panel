@@ -1,10 +1,20 @@
 <template>
-  <component
-    :is="'kirby-' + layout + '-collection'"
-    :items="items"
-    :pagination="paginationOptions"
-    @paginate="paginate"
-    @action="action" />
+
+  <div class="kirby-collection">
+    <component
+      :is="'kirby-' + layout + '-collection'"
+      :items="items"
+      :pagination="paginationOptions"
+      @paginate="paginate"
+      @action="action" />
+
+    <kirby-pagination
+      v-if="paginationOptions.hide !== true"
+      v-bind="paginationOptions"
+      @paginate="$emit('paginate', $event)" />
+
+  </div>
+
 </template>
 
 <script>
@@ -35,25 +45,25 @@ export default {
       }
     }
   },
+  computed: {
+    paginationOptions () {
+      return {
+        limit: 10,
+        align: 'center',
+        details: true,
+        keys: false,
+        hide: false,
+        total: 0,
+        ...this.pagination
+      }
+    }
+  },
   methods: {
     paginate (pagination) {
       this.$emit('paginate', pagination);
     },
     action (item, action) {
       this.$emit('action', item, action);
-    }
-  },
-  computed: {
-    paginationOptions () {
-      return Object.assign({
-          page: 1,
-          limit: 10,
-          align: 'center',
-          details: true,
-          keys: false,
-          hide: false,
-          total: 0
-      }, this.pagination);
     }
   }
 }

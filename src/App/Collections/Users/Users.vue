@@ -1,6 +1,12 @@
 <template>
   <div class="kirby-users-collection">
-    <kirby-collection v-bind="setup" @paginate="paginate" @action="action" />
+    <kirby-collection
+      :layout="layout"
+      :items="items"
+      :pagination="paginationOptions"
+      @paginate="paginate"
+      @action="action"
+    />
     <kirby-user-remove-dialog ref="remove" />
   </div>
 </template>
