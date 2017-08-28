@@ -66,6 +66,7 @@
 import UserQuery from 'App/Api/UserQuery.js';
 
 export default {
+  props: ['email'],
   data () {
     return {
       user: {
@@ -122,7 +123,7 @@ export default {
     }
   },
   created () {
-    UserQuery(this.$route.params.email).then(function (user) {
+    UserQuery(this.email).then(function (user) {
       this.user = user;
     }.bind(this));
   }

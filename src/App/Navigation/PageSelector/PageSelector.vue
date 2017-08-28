@@ -19,7 +19,7 @@
 
 <script>
 
-import Query from '@/Api/Query.js'
+import Query from 'App/Api/Query.js'
 
 export default {
   data() {

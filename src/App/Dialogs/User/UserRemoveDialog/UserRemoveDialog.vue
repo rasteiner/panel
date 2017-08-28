@@ -7,10 +7,10 @@
 <script>
 
 // components
-import DialogMixin from 'Dialogs/Dialog/Dialog.mixin.js';
+import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
 
 // api
-import UserQuery from '@/Api/UserQuery.js';
+import UserQuery from 'App/Api/UserQuery.js';
 
 export default {
   mixins: [DialogMixin],

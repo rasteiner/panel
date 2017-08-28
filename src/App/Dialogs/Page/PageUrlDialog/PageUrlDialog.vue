@@ -15,8 +15,8 @@
 
 <script>
 
-import DialogMixin from 'Dialogs/Dialog/Dialog.mixin.js';
-import PageQuery from '@/Api/PageQuery.js';
+import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
+import PageQuery from 'App/Api/PageQuery.js';
 
 export default {
   mixins: [DialogMixin],

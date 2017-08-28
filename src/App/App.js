@@ -1,4 +1,8 @@
 import Vue from 'vue';
-import App from './App.vue';
 
-Vue.component('kirby-app', App);
+import './Dialogs/Dialogs.js';
+import './Navigation/Navigation.js';
+import './Panel/Panel.js';
+import './Sections/Sections.js';
+import './Views/Views.js';
+

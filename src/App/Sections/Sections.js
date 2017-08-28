@@ -1,8 +1,8 @@
 import Vue from 'vue'
 
-import PagesSection from 'Sections/Pages/PagesSection.vue'
-import FilesSection from 'Sections/Files/FilesSection.vue'
-import FieldsSection from 'Sections/Fields/FieldsSection.vue'
+import PagesSection from './Pages/PagesSection.vue'
+import FilesSection from './Files/FilesSection.vue'
+import FieldsSection from './Fields/FieldsSection.vue'
 
 Vue.component('kirby-pages-section', PagesSection);
 Vue.component('kirby-files-section', FilesSection);

@@ -49,6 +49,7 @@ import PageQuery from 'App/Api/PageQuery.js';
 import LayoutQuery from 'App/Api/LayoutQuery.js';
 
 export default {
+  props: ['path'],
   data() {
     return {
       site: false,
@@ -64,11 +65,6 @@ export default {
   },
   created() {
     this.fetch();
-  },
-  computed: {
-    path() {
-      return this.$route.params.page || '/';
-    }
   },
   watch: {
     $route() {

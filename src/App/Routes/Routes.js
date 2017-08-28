@@ -1,6 +1,6 @@
-import PageView from '../Views/PageView.vue';
-import UsersView from '../Views/UsersView.vue';
-import UserView from '../Views/UserView.vue';
+import PageView from '../Views/PageView/PageView.vue';
+import UsersView from '../Views/UsersView/UsersView.vue';
+import UserView from '../Views/UserView/UserView.vue';
 
 export default [
   {

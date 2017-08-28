@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-app">
+  <div class="kirby-panel">
     <router-view></router-view>
     <transition name="fade">
       <kirby-notification v-if="$store.state.notification" v-bind="$store.state.notification" />
