@@ -62,6 +62,7 @@ export default {
   bottom: 0;
   left: 0;
   padding: 1rem;
+  overflow: auto;
 }
 
 .kirby-widget-content .kirby-headline {
@@ -69,6 +70,7 @@ export default {
   font-family: $font-family-mono;
   font-weight: 400;
   font-size: $font-size-small;
+  color: $color-dark-grey;
 }
 
 </style>
