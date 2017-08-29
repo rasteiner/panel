@@ -1,6 +1,7 @@
 import DashboardView from '../Views/DashboardView/DashboardView.vue';
 import LoginView from '../Views/LoginView/LoginView.vue';
 import PageView from '../Views/PageView/PageView.vue';
+import FileView from '../Views/FileView/FileView.vue';
 import UsersView from '../Views/UsersView/UsersView.vue';
 import UserView from '../Views/UserView/UserView.vue';
 import SettingsView from '../Views/SettingsView/SettingsView.vue';
@@ -45,13 +46,24 @@ export default [
     }
   },
   {
-    path: '/pages/:page+',
+    path: '/pages/:path+',
     name: 'Page',
     component: PageView,
     beforeEnter: auth,
     props: (route) => {
       return {
-        path: route.params.page
+        path: route.params.path
+      };
+    }
+  },
+  {
+    path: '/files/:path+',
+    name: 'File',
+    component: FileView,
+    beforeEnter: auth,
+    props: (route) => {
+      return {
+        path: route.params.path
       };
     }
   },

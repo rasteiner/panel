@@ -35,7 +35,7 @@ export default {
             text: file.filename,
             filename: file.filename,
             url: file.url,
-            link: '/',
+            link: '/files/' + file.page.id + '/' + file.filename,
             options: '/options/file.json'
           }
         });

@@ -11,7 +11,10 @@ export default (params) => {
         items {
           filename,
           url,
-          niceSize
+          niceSize,
+          page {
+            id
+          }
         }
       }
     }
