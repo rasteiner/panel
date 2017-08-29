@@ -10,9 +10,13 @@ export default new Vuex.Store({
     language: 'EN',
     translation: 'EN',
     user: null,
-    notification: null
+    notification: null,
+    menu: false
   },
   mutations: {
+    menu (state, menu) {
+      state.menu = menu;
+    },
     language (state, language) {
       state.language = language;
     },

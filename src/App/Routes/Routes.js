@@ -1,11 +1,13 @@
+import DashboardView from '../Views/DashboardView/DashboardView.vue';
 import PageView from '../Views/PageView/PageView.vue';
 import UsersView from '../Views/UsersView/UsersView.vue';
 import UserView from '../Views/UserView/UserView.vue';
+import SettingsView from '../Views/SettingsView/SettingsView.vue';
 
 export default [
   {
     path: '/',
-    redirect: '/pages'
+    component: DashboardView
   },
   {
     path: '/pages',
@@ -51,5 +53,10 @@ export default [
         email: route.params.email
       };
     }
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: SettingsView
   }
 ]

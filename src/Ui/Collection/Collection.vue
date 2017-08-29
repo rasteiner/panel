@@ -1,18 +1,20 @@
 <template>
 
   <div class="kirby-collection">
-    <component
-      :is="'kirby-' + layout + '-collection'"
-      :items="items"
-      :pagination="paginationOptions"
-      @paginate="paginate"
-      @action="action" />
+    <template v-if="items.length">
+      <component
+        :is="'kirby-' + layout + '-collection'"
+        :items="items"
+        :pagination="paginationOptions"
+        @paginate="paginate"
+        @action="action" />
 
-    <kirby-pagination
-      v-if="paginationOptions.hide !== true"
-      v-bind="paginationOptions"
-      @paginate="$emit('paginate', $event)" />
-
+      <kirby-pagination
+        v-if="paginationOptions.hide !== true"
+        v-bind="paginationOptions"
+        @paginate="$emit('paginate', $event)" />
+    </template>
+    <slot v-else />
   </div>
 
 </template>

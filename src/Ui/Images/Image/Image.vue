@@ -4,6 +4,7 @@
       <transition name="kirby-image-transition">
         <img v-if="loaded" :src="src" :alt="alt || ''">
       </transition>
+      <kirby-loader v-if="!loaded" position="center" theme="light" />
     </span>
   </figure>
 </template>

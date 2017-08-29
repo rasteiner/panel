@@ -1,17 +1,70 @@
 <template>
-  <div class="kirby-panel">
-    <router-view></router-view>
+  <div class="kirby-panel" :data-menu="$store.state.menu">
+    <kirby-menu ref="menu" :open="$store.state.menu" @close="$store.commit('menu', false)">
+      <section class="kirby-menu-section">
+        <kirby-button @click="$refs.menu.close()" link="/" icon="dashboard">Dashboard</kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/pages" icon="page">Site</kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/settings" icon="cog">Settings</kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/users" icon="users">Users</kirby-button>
+      </section>
+      <section class="kirby-menu-section kirby-menu-section-bottom">
+        <kirby-button @click="$refs.menu.close()" link="/users/bastian@getkirby.com" icon="account">Your account</kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/logout" icon="logout">Logout</kirby-button>
+      </section>
+    </kirby-menu>
+    <router-view class="kirby-panel-view"></router-view>
     <transition name="fade">
       <kirby-notification v-if="$store.state.notification" v-bind="$store.state.notification" />
     </transition>
   </div>
 </template>
 
-<style>
+<script>
+
+export default {
+  data () {
+    return {
+      menu: false
+    }
+  }
+}
+
+</script>
+
+<style lang="scss">
+
+.kirby-topbar {
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid $color-border;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }
 .fade-enter, .fade-leave-to {
   opacity: 0
 }
+
+.kirby-panel-view {
+  position: relative;
+  left: 0;
+}
+
+@media screen and (max-width: $breakpoint-menu) {
+  .kirby-panel[data-menu] {
+    overflow: hidden;
+  }
+  .kirby-panel[data-menu] .kirby-panel-view {
+    position: relative;
+    left: calc(100% - 4.5rem);
+  }
+}
+
+@media screen and (min-width: $breakpoint-menu) {
+  .kirby-panel {
+    margin-left: $width-menu;
+  }
+}
+
 </style>

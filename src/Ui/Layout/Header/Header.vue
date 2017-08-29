@@ -2,11 +2,18 @@
   <header class="kirby-header">
 
     <kirby-bar class="kirby-header-breadcrumb-bar">
-      <kirby-breadcrumb slot="left">
-        <kirby-breadcrumb-item :link="link" :title="label"><kirby-icon :type="icon" :alt="label" /></kirby-breadcrumb-item>
-        <kirby-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" :link="item.link">{{ item.label }}</kirby-breadcrumb-item>
-      </kirby-breadcrumb>
-      <kirby-pagination slot="right" v-if="pagination" v-bind="pagination" />
+      <template slot="left">
+        <kirby-breadcrumb>
+          <kirby-breadcrumb-item class="kirby-header-menu-button">
+            <kirby-button @click="$store.commit('menu', true)" icon="menu"></kirby-button>
+          </kirby-breadcrumb-item>
+          <kirby-breadcrumb-item :link="link" :title="label"><kirby-icon :type="icon" :alt="label" /></kirby-breadcrumb-item>
+          <kirby-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" :link="item.link">{{ item.label }}</kirby-breadcrumb-item>
+        </kirby-breadcrumb>
+      </template>
+      <template slot="right">
+        <kirby-pagination v-if="pagination" v-bind="pagination" />
+      </template>
     </kirby-bar>
 
     <kirby-headline size="large"><slot /></kirby-headline>
@@ -63,6 +70,19 @@ export default {
     display: inline-block;
   }
 
+}
+
+.kirby-header-menu-button {
+  position: relative;
+}
+
+.kirby-header-menu-button span::after {
+  content: "›" !important;
+}
+@media screen and (min-width: $breakpoint-menu) {
+  .kirby-header-menu-button {
+    display: none;
+  }
 }
 
 </style>

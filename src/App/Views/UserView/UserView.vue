@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-user-view">
 
-    <kirby-header icon="user" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination">
+    <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination">
 
       {{ headline }}
 

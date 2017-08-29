@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-users-view">
 
-    <kirby-header icon="user" link="/users">
+    <kirby-header icon="users" link="/users">
 
       {{ headline }}
 
