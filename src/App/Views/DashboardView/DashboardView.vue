@@ -43,3 +43,12 @@
 
   </kirby-view>
 </template>
+
+
+<style lang="scss">
+
+.kirby-widget .kirby-table-cell {
+  background: $color-light;
+}
+
+</style>

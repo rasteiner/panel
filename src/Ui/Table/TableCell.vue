@@ -21,7 +21,6 @@ export default {
   padding: .5rem 1rem;
   line-height: 1.5em;
   background: $color-white;
-  border-left: 1px dashed $color-border;
   font-family: $font-family-mono;
   font-size: $font-size-small;
 }

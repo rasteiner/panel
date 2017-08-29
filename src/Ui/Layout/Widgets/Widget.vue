@@ -23,7 +23,6 @@ export default {
   grid-row: span 1;
   background: $color-white;
   padding-bottom: 66.66%;
-  border-radius: $border-radius;
 }
 .kirby-widget[data-size="1x2"] {
   grid-column: span 1;
@@ -62,7 +61,6 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  overflow: auto;
   padding: 1rem;
 }
 
@@ -71,10 +69,6 @@ export default {
   font-family: $font-family-mono;
   font-weight: 400;
   font-size: $font-size-small;
-}
-.kirby-widget-content .kirby-collection {
-  border-radius: $border-radius;
-  overflow: hidden;
 }
 
 </style>

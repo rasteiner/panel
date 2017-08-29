@@ -9,7 +9,7 @@
 .kirby-widgets {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: .5rem;
+  grid-gap: 2px;
 }
 
 </style>

@@ -1,18 +1,43 @@
 import DashboardView from '../Views/DashboardView/DashboardView.vue';
+import LoginView from '../Views/LoginView/LoginView.vue';
 import PageView from '../Views/PageView/PageView.vue';
 import UsersView from '../Views/UsersView/UsersView.vue';
 import UserView from '../Views/UserView/UserView.vue';
 import SettingsView from '../Views/SettingsView/SettingsView.vue';
 
+/* store */
+import store from '../Store/Store.js';
+
+const auth = function (to, from, next) {
+  if (store.state.user) {
+    next();
+  } else {
+    next('/login');
+  }
+};
+
 export default [
   {
     path: '/',
-    component: DashboardView
+    component: DashboardView,
+    beforeEnter: auth
+  },
+  {
+    path: '/login',
+    component: LoginView,
+    beforeEnter: (to, from, next) => {
+      if (store.state.user !== null) {
+        next('/');
+      } else {
+        next();
+      }
+    }
   },
   {
     path: '/pages',
     name: 'Site',
     component: PageView,
+    beforeEnter: auth,
     props: (route) => {
       return {
         path: '/'
@@ -23,6 +48,7 @@ export default [
     path: '/pages/:page+',
     name: 'Page',
     component: PageView,
+    beforeEnter: auth,
     props: (route) => {
       return {
         path: route.params.page
@@ -33,6 +59,7 @@ export default [
     path: '/users/role/:role',
     name: 'UsersByRole',
     component: UsersView,
+    beforeEnter: auth,
     props: (route) => {
       return {
         role: route.params.role
@@ -42,12 +69,14 @@ export default [
   {
     path: '/users',
     name: 'Users',
+    beforeEnter: auth,
     component: UsersView
   },
   {
     path: '/users/:email',
     name: 'User',
     component: UserView,
+    beforeEnter: auth,
     props: (route) => {
       return {
         email: route.params.email
@@ -57,6 +86,7 @@ export default [
   {
     path: '/settings',
     name: 'Settings',
+    beforeEnter: auth,
     component: SettingsView
   }
 ]

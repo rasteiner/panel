@@ -25,7 +25,8 @@ export default new Vuex.Store({
     },
     login (state) {
       state.user = {
-        email: 'bastian@getkirby.com'
+        email: 'bastian@getkirby.com',
+        firstName: 'Bastian'
       };
     },
     logout (state) {

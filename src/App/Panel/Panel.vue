@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-panel" :data-menu="$store.state.menu">
+  <div class="kirby-panel" v-if="$store.state.user" :data-menu="$store.state.menu">
     <kirby-menu ref="menu" :open="$store.state.menu" @close="$store.commit('menu', false)">
       <section class="kirby-menu-section">
         <kirby-button @click="$refs.menu.close()" link="/" icon="dashboard">Dashboard</kirby-button>
@@ -9,10 +9,16 @@
       </section>
       <section class="kirby-menu-section kirby-menu-section-bottom">
         <kirby-button @click="$refs.menu.close()" link="/users/bastian@getkirby.com" icon="account">Your account</kirby-button>
-        <kirby-button @click="$refs.menu.close()" link="/logout" icon="logout">Logout</kirby-button>
+        <kirby-button @click="logout" link="/logout" icon="logout">Logout</kirby-button>
       </section>
     </kirby-menu>
     <router-view class="kirby-panel-view"></router-view>
+    <transition name="fade">
+      <kirby-notification v-if="$store.state.notification" v-bind="$store.state.notification" />
+    </transition>
+  </div>
+  <div v-else>
+    <router-view></router-view>
     <transition name="fade">
       <kirby-notification v-if="$store.state.notification" v-bind="$store.state.notification" />
     </transition>
@@ -26,18 +32,18 @@ export default {
     return {
       menu: false
     }
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('logout');
+      this.$router.push('/login');
+    }
   }
 }
 
 </script>
 
 <style lang="scss">
-
-.kirby-topbar {
-  padding: 1rem 1.5rem;
-  background: #fff;
-  border-bottom: 1px solid $color-border;
-}
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
