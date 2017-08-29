@@ -54,6 +54,7 @@
       }
     ]" :values="user" @input="input" />
 
+    <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
 
   </kirby-view>
@@ -115,6 +116,9 @@ export default {
         case 'picture.delete':
           this.$store.dispatch('success', 'The image has been deleted');
           this.user.image = false;
+          break;
+        case 'password':
+          this.$refs.password.open(this.user.email);
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');

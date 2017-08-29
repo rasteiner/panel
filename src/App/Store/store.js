@@ -9,7 +9,10 @@ export default new Vuex.Store({
   state: {
     language: 'EN',
     translation: 'EN',
-    user: null,
+    user: {
+      email: 'bastian@getkirby.com',
+      firstName: 'Bastian'
+    },
     notification: null,
     menu: false
   },
