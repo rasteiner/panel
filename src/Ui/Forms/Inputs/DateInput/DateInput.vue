@@ -64,10 +64,11 @@ export default {
 
       var options = [];
 
-      Dates.days(this.year, this.month, 'numbers').forEach(function(number) {
+      Dates.days(this.year, this.month, 'numbers').forEach(function(day) {
+        day = day.padZero();
         options.push({
-          value: number,
-          text: number + '.'
+          value: day,
+          text: day
         })
       });
 
@@ -78,9 +79,10 @@ export default {
 
       var options = [];
 
-      Dates.months('array').forEach(function(month, index) {
+      Dates.months('array').forEach(function(monthName, month) {
+        month = (month + 1).padZero();
         options.push({
-          value: (index + 1),
+          value: month,
           text: month
         });
       });
@@ -119,14 +121,21 @@ export default {
   flex-grow: 1;
 }
 .kirby-date-input-selects .kirby-select-input {
-  padding: .65rem 0 .65rem .5rem;
+  padding: .65rem 0 .65rem;
   min-height: 2.5rem;
 }
+.kirby-date-input-selects .kirby-select-input:after {
+  content: '.';
+  padding: 0 .1rem;
+}
 .kirby-date-input-selects .kirby-select-input:first-child {
-  border-left: 0;
+  padding-left: .5rem;
 }
 .kirby-date-input-selects .kirby-select-input:last-child {
   flex-grow: 1;
+}
+.kirby-date-input-selects .kirby-select-input:last-child:after {
+  display: none;
 }
 
 </style>

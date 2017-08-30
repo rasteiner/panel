@@ -1,3 +1,7 @@
+/* Helpers */
+import './Helpers/padZero.js';
+
+/* Components */
 import './Buttons/Buttons.js';
 import './Collection/Collection.js';
 import './Dialog/Dialog.js';
