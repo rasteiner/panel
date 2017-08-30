@@ -50,7 +50,8 @@
 .kirby-widget-number {
   position: absolute;
   bottom: 1rem;
-  font-size: 4vw;
+  font-size: 3rem;
+  z-index: 2;
 }
 
 .kirby-widget .kirby-table-cell {

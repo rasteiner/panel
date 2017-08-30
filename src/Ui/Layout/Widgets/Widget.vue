@@ -22,38 +22,48 @@ export default {
   grid-column: span 1;
   grid-row: span 1;
   background: $color-white;
-  padding-bottom: 66.66%;
+  padding-bottom: 50%;
 }
-.kirby-widget[data-size="1x2"] {
-  grid-column: span 1;
-  grid-row: span 2;
-  padding-bottom: calc(66.66% * 2);
+
+@media screen and (min-width: $breakpoint-small) {
+  .kirby-widget {
+    padding-bottom: 66.66%;
+  }
 }
-.kirby-widget[data-size="2x1"] {
-  grid-column: span 2;
-  grid-row: span 1;
-  padding-bottom: calc(66.66% / 2);
+
+@media screen and (min-width: $breakpoint-medium) {
+  .kirby-widget[data-size="1x2"] {
+    grid-column: span 1;
+    grid-row: span 2;
+    padding-bottom: calc(66.66% * 2);
+  }
+  .kirby-widget[data-size="2x1"] {
+    grid-column: span 2;
+    grid-row: span 1;
+    padding-bottom: calc(66.66% / 2);
+  }
+  .kirby-widget[data-size="2x2"] {
+    grid-column: span 2;
+    grid-row: span 2;
+    padding-bottom: calc(66.66% / 1);
+  }
+  .kirby-widget[data-size="3x1"] {
+    grid-column: span 3;
+    grid-row: span 1;
+    padding-bottom: calc(66.66% / 3);
+  }
+  .kirby-widget[data-size="3x2"] {
+    grid-column: span 3;
+    grid-row: span 2;
+    padding-bottom: calc(66.66% / 2);
+  }
+  .kirby-widget[data-size="3x1"] {
+    grid-column: span 3;
+    grid-row: span 3;
+    padding-bottom: 66.66%;
+  }
 }
-.kirby-widget[data-size="2x2"] {
-  grid-column: span 2;
-  grid-row: span 2;
-  padding-bottom: calc(66.66% / 1);
-}
-.kirby-widget[data-size="3x1"] {
-  grid-column: span 3;
-  grid-row: span 1;
-  padding-bottom: calc(66.66% / 3);
-}
-.kirby-widget[data-size="3x2"] {
-  grid-column: span 3;
-  grid-row: span 2;
-  padding-bottom: calc(66.66% / 2);
-}
-.kirby-widget[data-size="3x1"] {
-  grid-column: span 3;
-  grid-row: span 3;
-  padding-bottom: 66.66%;
-}
+
 
 .kirby-widget-content {
   position: absolute;
@@ -62,7 +72,17 @@ export default {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  overflow: auto;
+  overflow: hidden;
+}
+.kirby-widget-content:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3rem;
+  z-index: 1;
+  background: -webkit-linear-gradient(bottom, #fff, #fff 25%, rgba(#fff, 0));
 }
 
 .kirby-widget-content .kirby-headline {
