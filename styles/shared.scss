@@ -6,8 +6,27 @@
  * file is imported. Use only for mixins, variables and functions.
  */
 
- @import 'styles/_fixme.scss';
- @import 'styles/z-index.scss';
+$layers: (
+  dropdown:      500,
+  dialog:        400,
+  navigation:    300,
+  content:       200,
+  background:    100
+);
+
+@function z-index($key, $add: 0) {
+  @return map-get($layers, $key) + $add;
+}
+
+
+// FIXME: move this out of the way
+.kirby-dialog .kirby-fieldset {
+  padding-bottom: .5rem;
+}
+.kirby-dialog .kirby-fieldset .kirby-field-header {
+  padding-top: 0;
+}
+
 
 /**
  * Colors
