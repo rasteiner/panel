@@ -16,7 +16,7 @@
         <kirby-table-cell v-if="item.options" type="button">
           <kirby-dropdown>
             <kirby-button
-              icon="angle-down"
+              icon="dots"
               alt="Options"
               @click="$refs['dropdown-' + index][0].toggle()">
             </kirby-button>

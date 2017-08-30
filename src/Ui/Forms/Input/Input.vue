@@ -55,12 +55,12 @@ export default {
   display: flex;
   align-items: stretch;
   background: $color-white;
-  border: 1px solid $color-border;
+  border: 2px solid $color-border;
   border-radius: $border-radius;
 }
 .kirby-input[data-focus] {
   border-color: $color-focus;
-  box-shadow: 0 0 0 1.5px rgba($color-focus, 0.25);
+  box-shadow: $box-shadow-focus;
 }
 .kirby-input[data-error] {
   border-color: $color-negative;

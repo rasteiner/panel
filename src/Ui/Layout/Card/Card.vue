@@ -15,7 +15,7 @@
     <kirby-dropdown v-if="options">
       <kirby-button
         class="kirby-card-options-button"
-        icon="angle-down"
+        icon="dots"
         :alt="menuLabel"
         @click="$refs.dropdown.toggle()">
       </kirby-button>
@@ -57,6 +57,14 @@ export default {
 
 .kirby-card {
   position: relative;
+}
+.kirby-card a {
+  display: block;
+  border-radius: $border-radius;
+}
+.kirby-card a:focus {
+  outline: 0;
+  box-shadow: $box-shadow-focus-full;
 }
 .kirby-card-content {
   background: #fff;

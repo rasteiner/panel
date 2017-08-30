@@ -25,10 +25,6 @@ export default {
   font-size: $font-size-small;
 }
 
-.kirby-table-cell > .link {
-  border-bottom: 2px solid currentColor;
-}
-
 /* types */
 .kirby-table-cell[data-type="image"] {
   padding: 0;
