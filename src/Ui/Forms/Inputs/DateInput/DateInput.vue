@@ -119,8 +119,7 @@ export default {
   flex-grow: 1;
 }
 .kirby-date-input-selects .kirby-select-input {
-  padding: .65rem 1rem;
-  border-left: 1px dashed $color-border;
+  padding: .65rem 0 .65rem .5rem;
   min-height: 2.5rem;
 }
 .kirby-date-input-selects .kirby-select-input:first-child {

@@ -1,6 +1,6 @@
 <template>
   <kirby-field v-bind="$props">
-    <kirby-number-input v-bind="$props" />
+    <input type="number" v-bind="$props" />
   </kirby-field>
 </template>
 
@@ -16,6 +16,9 @@ export default {
     },
     name: {
       default: 'number'
+    },
+    min: {
+      default: 0
     }
   }
 }

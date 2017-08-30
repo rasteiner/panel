@@ -98,7 +98,6 @@ export default {
 }
 .kirby-input-icon {
   width: 3rem;
-  border-left: 1px dashed $color-border;
   justify-content: center;
   align-items: center;
   color: $color-dark;
