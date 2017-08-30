@@ -7,7 +7,7 @@
       :breadcrumb="breadcrumb"
       :pagination="pagination">
 
-      <kirby-fancy-input :key="page.id + '-title'" :value="page.title" placeholder="Title …" tag="div" @blur="updateTitle($event.target.innerText)" />
+      <kirby-fancy-input class="kirby-page-title" :key="page.id + '-title'" :value="page.title" placeholder="Title …" tag="div" @blur="updateTitle($event.target.innerText)" />
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">Preview</kirby-button>
@@ -120,7 +120,19 @@ export default {
 <style lang="scss">
 
 .kirby-page-view .kirby-column section:not(:last-child) {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.kirby-page-view .kirby-page-title {
+  padding-left: .5rem;
+  padding-right: .5rem;
+  margin-left: -.5rem;
+  width: calc(100% + 1rem);
+}
+
+.kirby-page-view .kirby-page-title:focus {
+  @include focus-ring;
+  background: #fff;
 }
 
 </style>

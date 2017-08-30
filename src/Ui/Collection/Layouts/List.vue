@@ -8,7 +8,7 @@
           </router-link>
         </kirby-table-cell>
         <kirby-table-cell type="link">
-          <router-link :to="item.link">{{ item.text }}</router-link>
+          <router-link v-tab :to="item.link">{{ item.text }}</router-link>
         </kirby-table-cell>
         <kirby-table-cell v-if="item.info" type="info">
           <router-link :to="item.link">{{ item.info }}</router-link>

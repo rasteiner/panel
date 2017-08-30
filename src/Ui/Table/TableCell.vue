@@ -55,6 +55,11 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.kirby-table-cell[data-type="link"] a[data-tabbed] {
+  position: relative;
+  @include focus-ring;
+  z-index: 1;
+}
 
 .kirby-table-cell[data-type="icon"] {
   width: 2.5rem;

@@ -1,6 +1,9 @@
 /* Helpers */
 import './Helpers/padZero.js';
 
+/* Directives */
+import './Directives/Tab.js';
+
 /* Components */
 import './Buttons/Buttons.js';
 import './Collection/Collection.js';

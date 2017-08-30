@@ -3,13 +3,15 @@
     type="button"
     class="kirby-button"
     @click="click"
+    v-tab
     :disabled="disabled"
+    :data-tabbed="tabbed"
     :data-state="state"
     :data-has-image="image ? true : false">
     <kirby-icon v-if="icon" :type="icon" :alt="alt"></kirby-icon>
     <img v-else-if="image" class="kirby-button-image" :src="image" :alt="alt || ''">
     <span v-if="$slots.default" class="kirby-button-text"><slot /></span>
-    <input v-if="upload" type="file" ref="input"
+    <input tabindex="-1" v-if="upload" type="file" ref="input"
       :multiple="upload.multiple || false"
       :accept="upload.accept || '*'"
       @change="change">
@@ -33,6 +35,11 @@ export default {
       return this.link ? 'router-link' : 'button'
     }
   },
+  data() {
+    return {
+      tabbed: false
+    }
+  },
   methods: {
     click: function () {
       if (this.upload) {
@@ -46,6 +53,12 @@ export default {
     },
     change: function (event) {
       this.$emit('upload')
+    },
+    tab: function ($event) {
+      this.tabbed = true;
+    },
+    untab: function () {
+      this.tabbed = false;
     }
   }
 }
@@ -67,8 +80,12 @@ export default {
 
   &:focus,
   &:hover {
-    outline: 0;
+    outline: none;
     color: $color-dark;
+  }
+
+  &[data-tabbed] {
+    @include focus-ring;
   }
 
   * {

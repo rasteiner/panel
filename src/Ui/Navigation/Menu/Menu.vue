@@ -63,7 +63,7 @@ export default {
   display: block;
   width: 100%;
   text-align: left;
-  padding: .25rem 0;
+  padding: .25rem 1.5rem;
   color: $color-light-grey;
   white-space: nowrap;
   overflow: hidden;
@@ -78,7 +78,7 @@ export default {
 }
 
 .kirby-menu-section {
-  padding: 1.5rem 1.5rem 0;
+  padding: 1.5rem 0 0;
 }
 
 .kirby-menu-section-bottom {

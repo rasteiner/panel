@@ -1,6 +1,6 @@
 <template>
   <li class="kirby-breadcrumb-item">
-    <router-link v-if="link" :to="link">
+    <router-link v-tab v-if="link" :to="link">
       <slot />
     </router-link>
     <span v-else><slot /></span>
@@ -39,6 +39,10 @@ export default {
     position: absolute;
     right: -1rem;
     content: "/";
+  }
+
+  &[data-tabbed] {
+    @include focus-ring;
   }
 
 }
