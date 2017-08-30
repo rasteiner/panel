@@ -136,25 +136,16 @@ export default {
 .kirby-dialog-box[data-size="large"] {
   width: 40rem;
 }
-.kirby-dialog-header {
-  background: $color-light;
-  color: $color-dark;
-  border-top-left-radius: $border-radius;
-  border-top-right-radius: $border-radius;
-  display: none;
-}
-.kirby-dialog-header .kirby-headline {
-  margin: 0;
-  line-height: 1;
-  font-family: $font-family-mono;
-  color: $color-light-grey;
-  font-size: $font-size-small;
-  padding: 1rem 1.5rem;
-}
 .kirby-dialog-body {
   padding: 1.5rem;
   max-height: calc(100vh - 9rem);
   overflow: auto;
+}
+.kirby-dialog-body .kirby-fieldset {
+  padding-bottom: .5rem;
+}
+.kirby-dialog-body .kirby-fieldset .kirby-field-header {
+  padding-top: 0;
 }
 .kirby-dialog-footer {
   border-top: 1px solid $color-border;
