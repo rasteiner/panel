@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 /** Forms/Fields **/
+import CheckboxField from './CheckboxField/CheckboxField.vue'
 import DateField from './DateField/DateField.vue'
 import EmailField from './EmailField/EmailField.vue'
 import NumberField from './NumberField/NumberField.vue'
@@ -13,6 +14,7 @@ import TextareaField from './TextareaField/TextareaField.vue'
 import TextField from './TextField/TextField.vue'
 import UrlField from './UrlField/UrlField.vue'
 
+Vue.component('kirby-checkbox-field', CheckboxField);
 Vue.component('kirby-date-field', DateField);
 Vue.component('kirby-email-field', EmailField);
 Vue.component('kirby-number-field', NumberField);

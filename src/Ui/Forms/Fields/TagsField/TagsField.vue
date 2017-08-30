@@ -1,6 +1,6 @@
 <template>
   <kirby-field v-bind="$props">
-    <kirby-tags-input v-bind="$props" />
+    <kirby-tags-input ref="input" v-bind="$props" />
   </kirby-field>
 </template>
 
