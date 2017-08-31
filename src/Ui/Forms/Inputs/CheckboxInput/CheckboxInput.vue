@@ -20,15 +20,19 @@ $color-checkbox-focus: #567896;
 
 .kirby-checkbox-input {
   position: relative;
+  display: flex;
 }
 .kirby-checkbox-input input {
   opacity: 0;
-  margin-right: .5rem;
+  margin-right: 1rem;
 }
 .kirby-checkbox-input label {
   font-size: $font-size-small;
   font-family: $font-family-mono;
   cursor: pointer;
+  display: block;
+  flex-grow: 1;
+  min-height: 1.25rem;
 }
 .kirby-checkbox-input label::before{
   position: absolute;
