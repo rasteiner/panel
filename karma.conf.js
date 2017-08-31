@@ -6,7 +6,11 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
     frameworks: ['jasmine'],
     // this is the entry file for all our tests.
-    files: ['test/index.js'],
+    files: [
+      'node_modules/babel-polyfill/dist/polyfill.js',
+      'node_modules/whatwg-fetch/fetch.js',
+      'test/index.js'
+    ],
     // we will pass the entry file to webpack for bundling.
     preprocessors: {
       'test/index.js': ['webpack']

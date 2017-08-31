@@ -1,14 +1,8 @@
 import Vue from 'vue';
-import Button from './Button.vue';
-
-const components = {
-  'kirby-button': Button
-};
 
 describe('Button', () => {
   it('renders the text', () => {
     const vm  = new Vue({
-      components,
       template: '<kirby-button>Test!</kirby-button>'
     }).$mount();
 
@@ -17,7 +11,6 @@ describe('Button', () => {
 
   it('can have an icon', () => {
     const vm = new Vue({
-      components,
       template: '<kirby-button icon="positive"></kirby-button>',
     }).$mount();
 
