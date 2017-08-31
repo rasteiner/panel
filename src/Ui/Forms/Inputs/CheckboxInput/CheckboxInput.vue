@@ -33,14 +33,14 @@ $color-checkbox-focus: #567896;
 .kirby-checkbox-input label::before{
   position: absolute;
   top: 50%;
-  margin-top: -7px;
   left: 0;
+  transform: translateY(-50%);
   content: "";
   height: 12px;
   width: 12px;
   border-radius: 2px;
   background-color: $color-white;
-  border: 1px solid $color-checkbox-border;
+  border: 2px solid $color-checkbox-border;
   cursor: pointer;
   transition: all .2s;
 }
@@ -48,11 +48,11 @@ $color-checkbox-focus: #567896;
   position: absolute;
   content: none;
   top: 50%;
-  left: 2px;
+  left: 3px;
   margin-top: -4px;
   display: inline-block;
   height: 3px;
-  width: 7px;
+  width: 8px;
   border-left: 2px solid $color-light;
   border-bottom: 2px solid $color-light;
   transform: rotate(-45deg);
@@ -60,12 +60,12 @@ $color-checkbox-focus: #567896;
 }
 .kirby-checkbox-input input:focus + label::before {
   border-color: $color-checkbox-focus;
-  box-shadow: 0 0 0 1.5px rgba($color-checkbox-focus, 0.25);
+  box-shadow: 0 0 0 3px rgba($color-checkbox-focus, 0.25);
 }
 .kirby-checkbox-input input:checked:focus + label::before {
   background: $color-checkbox-focus;
   border-color: $color-checkbox-focus;
-  box-shadow: 0 0 0 1.5px rgba($color-checkbox-focus, 0.25);
+  box-shadow: 0 0 0 3px rgba($color-checkbox-focus, 0.25);
 }
 .kirby-checkbox-input input:checked + label::before {
   background: $color-dark;
