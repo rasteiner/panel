@@ -17,7 +17,7 @@
   <script>
     var panel = {
       config: {
-        api: 'http://localhost/kirby/v3/ui/kirby/',
+        api: './kirby/',
         assets: './assets'
       }
     };
