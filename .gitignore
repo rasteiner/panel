@@ -1,6 +1,11 @@
 .DS_Store
+
 node_modules/
+
 dist/
 npm-debug.log
 yarn-error.log
-/public/js/build.js
+
+/assets/js/panel.js
+/kirby/vendor
+/kirby/composer.lock

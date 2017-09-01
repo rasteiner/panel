@@ -10,7 +10,12 @@
 # install dependencies
 npm install
 
+# prepare Kirby installation
+cd kirby
+composer install
+
 # run fractal and webpack
+cd ../
 npm run start
 
 # build for production with minification
