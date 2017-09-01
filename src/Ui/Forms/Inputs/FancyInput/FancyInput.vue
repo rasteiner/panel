@@ -38,7 +38,7 @@ export default {
     },
     focus() {
       this.$refs.input.focus();
-      this.emit('focus');
+      this.$emit('focus');
     },
     enter(e) {
 
