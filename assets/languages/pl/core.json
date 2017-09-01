@@ -202,7 +202,7 @@
     "users.form.options.headline": "Opcje konta",
     "users.form.options.message": "Wyślij email",
     "users.form.options.delete": "Usuń konto",
-    "picture": "Zdjęcie profilowe",
+    "user.image": "Zdjęcie profilowe",
     "users.form.avatar.upload": "Dodaj zdjęcie profilowe",
     "users.form.avatar.replace": "Zmień zdjęcie profilowe",
     "users.form.avatar.delete": "Usuń zdjęcie profilowe",

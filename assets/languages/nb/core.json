@@ -202,7 +202,7 @@
     "users.form.options.headline": "Kontoalternativer",
     "users.form.options.message": "Send epost",
     "users.form.options.delete": "Slett konto",
-    "picture": "Profil bilde",
+    "user.image": "Profil bilde",
     "users.form.avatar.upload": "Last opp ett profil bilde",
     "users.form.avatar.replace": "Erstatt profil bildet",
     "users.form.avatar.delete": "Slett profil bildet",

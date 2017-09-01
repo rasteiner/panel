@@ -202,7 +202,7 @@
     "users.form.options.headline": "Opcions de la compta",
     "users.form.options.message": "Enviar correu electrònic",
     "users.form.options.delete": "Eliminar compte",
-    "picture": "Imatge del perfil",
+    "user.image": "Imatge del perfil",
     "users.form.avatar.upload": "Carregar imatge del perfil",
     "users.form.avatar.replace": "Reemplaçar imatge del perfil",
     "users.form.avatar.delete": "Eliminar imatge del perfil",

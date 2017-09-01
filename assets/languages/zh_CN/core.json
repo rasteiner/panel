@@ -202,7 +202,7 @@
     "users.form.options.headline": "账户选项",
     "users.form.options.message": "发送邮件",
     "users.form.options.delete": "删除帐户",
-    "picture": "用户资料图片",
+    "user.image": "用户资料图片",
     "users.form.avatar.upload": "上传用户资料图片",
     "users.form.avatar.replace": "替换用户资料图片",
     "users.form.avatar.delete": "删除用户资料图片",

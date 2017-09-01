@@ -202,7 +202,7 @@
     "users.form.options.headline": "使用者選項",
     "users.form.options.message": "傳送郵件",
     "users.form.options.delete": "刪除使用者",
-    "picture": "使用者照片",
+    "user.image": "使用者照片",
     "users.form.avatar.upload": "上傳使用者照片",
     "users.form.avatar.replace": "更換使用者照片",
     "users.form.avatar.delete": "刪除使用者照片",

@@ -48,22 +48,18 @@ export default new Vuex.Store({
       context.commit('logout');
     },
     language (context, locale) {
-      console.log(locale);
-      console.log(Vue.i18n.localeExists(locale));
       if(Vue.i18n.localeExists(locale) === false) {
-        console.log(panel.config.assets + '/languages/' + locale + '/core.json');
         fetch(panel.config.assets + '/languages/' + locale + '/core.json').
-        then((resource) => {
-          console.log(resource);
-          return resource.json();
-        }).
+        then((resource) => resource.json()).
         then((json) => {
-          console.log(json);
           Vue.i18n.add(locale, json);
+        }).
+        then(() => {
+          context.commit('language', locale);
         });
+      } else {
+        context.commit('language', locale);
       }
-
-      context.commit('language', locale);
     },
     notification (context, notification) {
       context.commit('notification', notification);

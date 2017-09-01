@@ -202,7 +202,7 @@
     "users.form.options.headline": "Fiók beállítások",
     "users.form.options.message": "Email küldése",
     "users.form.options.delete": "Fiók törlése",
-    "picture": "Profil kép",
+    "user.image": "Profil kép",
     "users.form.avatar.upload": "Profil kép feltöltése",
     "users.form.avatar.replace": "Profil kép cseréje",
     "users.form.avatar.delete": "Profil kép törlése",

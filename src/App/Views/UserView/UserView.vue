@@ -11,7 +11,7 @@
       <template slot="buttons-left">
         <kirby-dropdown>
           <kirby-button @click="$refs.picture.toggle()" icon="image">
-            {{ $t('picture') }}
+            {{ $t('user.image') }}
           </kirby-button>
           <kirby-dropdown-content ref="picture" :dark="true">
             <template v-if="user.image">

@@ -202,7 +202,7 @@
     "users.form.options.headline": "Opțiuni cont",
     "users.form.options.message": "Trimite email",
     "users.form.options.delete": "Șterge contul",
-    "picture": "Poza de profil",
+    "user.image": "Poza de profil",
     "users.form.avatar.upload": "Încarcă o poză de profil",
     "users.form.avatar.replace": "Înlocuiește poza de profil",
     "users.form.avatar.delete": "Șterge poza de profil",

@@ -202,7 +202,7 @@
     "users.form.options.headline": "Επιλογές λογαριασμού",
     "users.form.options.message": "Αποστολή email",
     "users.form.options.delete": "Διαγραφή λογαριασμού",
-    "picture": "Εικόνα προφίλ",
+    "user.image": "Εικόνα προφίλ",
     "users.form.avatar.upload": "Ανέβασμα εικόνας προφίλ",
     "users.form.avatar.replace": "Αντικατάσταση εικόνας προφίλ",
     "users.form.avatar.delete": "Διαγραφή εικόνας προφίλ",

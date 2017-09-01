@@ -202,7 +202,7 @@
     "users.form.options.headline": "Опции аккаунта",
     "users.form.options.message": "Отправить эл.почту",
     "users.form.options.delete": "Удалить аккаунт",
-    "picture": "Аватар (фото)",
+    "user.image": "Аватар (фото)",
     "users.form.avatar.upload": "Закачать картинку для аккаунта",
     "users.form.avatar.replace": "Заменить картинку для аккаунта",
     "users.form.avatar.delete": "Удалить картинку для аккаунта",

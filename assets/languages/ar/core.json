@@ -202,7 +202,7 @@
     "users.form.options.headline": "خيارات الحساب",
     "users.form.options.message": "إرسال بريد إلكتروني",
     "users.form.options.delete": "حذف الحساب",
-    "picture": "الصورة الشخصية",
+    "user.image": "الصورة الشخصية",
     "users.form.avatar.upload": "رفع الصورة الشخصية",
     "users.form.avatar.replace": "استبدال الصورة الشخصية",
     "users.form.avatar.delete": "حذف الصورة الشخصية",

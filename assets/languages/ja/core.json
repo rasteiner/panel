@@ -202,7 +202,7 @@
     "users.form.options.headline": "アカウントオプション",
     "users.form.options.message": "Emailを送る",
     "users.form.options.delete": "アカウントを削除",
-    "picture": "プロフィール用画像",
+    "user.image": "プロフィール用画像",
     "users.form.avatar.upload": "画像のアップロード",
     "users.form.avatar.replace": "画像の変更",
     "users.form.avatar.delete": "画像の削除",

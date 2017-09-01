@@ -15,17 +15,11 @@
     "users": "Users",
     "account": "Your account",
 
-    "email": "Email",
-    "email.placeholder": "mail@example.com",
-    "password": "Password",
-
     "page.list": "Page List",
     "page.title": "Title",
     "page.preview": "Preview",
     "page.template.change": "Change template",
     "page.url.change": "Change URL",
-
-    "picture": "Picture",
 
     "user": "User",
     "user.previous": "Previous User",
@@ -33,9 +27,13 @@
     "user.add": "Add a new user",
     "user.firstname": "First name",
     "user.lastname": "Last name",
+    "user.image": "user.image",
     "user.role": "Role",
     "user.language": "Language",
 
+    "email": "Email",
+    "email.placeholder": "mail@example.com",
+    "password": "Password",
     "website": "Website",
 
     "notification.welcome": "Welcome {name}",

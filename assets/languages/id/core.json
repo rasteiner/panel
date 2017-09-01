@@ -202,7 +202,7 @@
     "users.form.options.headline": "Opsi akun",
     "users.form.options.message": "Kirim email",
     "users.form.options.delete": "Hapus akun",
-    "picture": "Gambar profil",
+    "user.image": "Gambar profil",
     "users.form.avatar.upload": "Unggah gambar profil",
     "users.form.avatar.replace": "Ganti gambar profil",
     "users.form.avatar.delete": "Hapus gambar profil",

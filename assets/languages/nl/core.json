@@ -202,7 +202,7 @@
     "users.form.options.headline": "Account-opties",
     "users.form.options.message": "E-mail versturen",
     "users.form.options.delete": "Verwijder account",
-    "picture": "Avatar",
+    "user.image": "Avatar",
     "users.form.avatar.upload": "Avatar uploaden",
     "users.form.avatar.replace": "Avatar vervangen",
     "users.form.avatar.delete": "Delete avatar",

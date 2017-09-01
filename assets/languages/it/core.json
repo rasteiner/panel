@@ -202,7 +202,7 @@
     "users.form.options.headline": "Opzioni account",
     "users.form.options.message": "Invia email",
     "users.form.options.delete": "Elimina account",
-    "picture": "Immagine del profilo",
+    "user.image": "Immagine del profilo",
     "users.form.avatar.upload": "Carica immagine del profilo",
     "users.form.avatar.replace": "Sostituisci immagine del profilo",
     "users.form.avatar.delete": "Elimina immagine del profilo",

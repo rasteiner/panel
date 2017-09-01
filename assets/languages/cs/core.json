@@ -202,7 +202,7 @@
     "users.form.options.headline": "Možnosti účtu",
     "users.form.options.message": "Poslat email",
     "users.form.options.delete": "Smazat účet",
-    "picture": "Profilový obrázek",
+    "user.image": "Profilový obrázek",
     "users.form.avatar.upload": "Nahrát profilový obrázek",
     "users.form.avatar.replace": "Nahradit profilový obrázek",
     "users.form.avatar.delete": "Smazat profilový obrázek",

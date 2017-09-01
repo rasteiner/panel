@@ -202,7 +202,7 @@
     "users.form.options.headline": "Kontoinställningar",
     "users.form.options.message": "Skicka e-post",
     "users.form.options.delete": "Radera konto",
-    "picture": "Profilbild",
+    "user.image": "Profilbild",
     "users.form.avatar.upload": "Ladda upp profilbild",
     "users.form.avatar.replace": "Byt ut profilbild",
     "users.form.avatar.delete": "Radera profilbild",

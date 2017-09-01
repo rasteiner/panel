@@ -202,7 +202,7 @@
     "users.form.options.headline": "Tilinhallinta",
     "users.form.options.message": "Lähetä sähköposti",
     "users.form.options.delete": "Poista tili",
-    "picture": "Profiilikuva",
+    "user.image": "Profiilikuva",
     "users.form.avatar.upload": "Lisää profiilikuva",
     "users.form.avatar.replace": "Vaihda profiilikuva",
     "users.form.avatar.delete": "Poista profiilikuva",

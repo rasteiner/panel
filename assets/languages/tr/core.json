@@ -202,7 +202,7 @@
     "users.form.options.headline": "Kullanıcı Ayarları",
     "users.form.options.message": "E-Posta gönder",
     "users.form.options.delete": "Bu hesabı sil",
-    "picture": "Profil resmi",
+    "user.image": "Profil resmi",
     "users.form.avatar.upload": "Profil resmi yükle",
     "users.form.avatar.replace": "Profil resmini değiştir",
     "users.form.avatar.delete": "Profil resmini sil",

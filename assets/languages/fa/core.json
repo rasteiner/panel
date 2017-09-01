@@ -202,7 +202,7 @@
     "users.form.options.headline": "گزینه های حساب کاربری",
     "users.form.options.message": "ارسال پست الکترونیک",
     "users.form.options.delete": "حذف حساب کاربری",
-    "picture": "تصویر پروفایل",
+    "user.image": "تصویر پروفایل",
     "users.form.avatar.upload": "آپلود تصویر پروفایل",
     "users.form.avatar.replace": "جایگزینی تصویر پروفایل",
     "users.form.avatar.delete": "حذف نصویر پروفایل",

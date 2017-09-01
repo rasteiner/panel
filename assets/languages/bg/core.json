@@ -202,7 +202,7 @@
     "users.form.options.headline": "Опции на акаунта",
     "users.form.options.message": "Изпратете email",
     "users.form.options.delete": "Изтрийте акаунт",
-    "picture": "Профилна картинка",
+    "user.image": "Профилна картинка",
     "users.form.avatar.upload": "Качете профилна картинка",
     "users.form.avatar.replace": "Заменете профилната картинка",
     "users.form.avatar.delete": "Изтрийте профилната картинка",

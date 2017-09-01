@@ -202,7 +202,7 @@
     "users.form.options.headline": "Konto instillinger",
     "users.form.options.message": "Send email",
     "users.form.options.delete": "Slet konto",
-    "picture": "Profilbillede",
+    "user.image": "Profilbillede",
     "users.form.avatar.upload": "Upload profilbillede",
     "users.form.avatar.replace": "Erstat profilbillede",
     "users.form.avatar.delete": "Slet profilbillede",
