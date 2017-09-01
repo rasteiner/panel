@@ -33,4 +33,4 @@ fractal.web.set('static.path', path.join(__dirname, 'assets'));
 /*
  * Destinaton for the static version when running `fractal build`
  */
-fractal.web.set('builder.dest', __dirname + '/build');
+fractal.web.set('builder.dest', __dirname + '/fractal');
