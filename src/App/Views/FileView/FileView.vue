@@ -14,7 +14,7 @@
       </template>
 
       <template slot="buttons-right">
-        <kirby-languages></kirby-languages>
+        <kirby-translations></kirby-translations>
       </template>
 
     </kirby-header>
