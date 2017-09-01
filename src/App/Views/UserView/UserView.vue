@@ -14,7 +14,7 @@
           <kirby-dropdown-content ref="picture" :dark="true">
             <template v-if="user.image">
               <kirby-dropdown-item icon="upload" :upload="true">Change</kirby-dropdown-item>
-              <kirby-dropdown-item icon="trash" @click="action('picture.delete')">Delete</kirby-dropdown-item>
+              <kirby-dropdown-item icon="trash" @click="action('picture.delete')">{{ $t("delete") }}</kirby-dropdown-item>
             </template>
             <template v-else>
               <kirby-dropdown-item icon="upload" :upload="true">Upload</kirby-dropdown-item>
@@ -24,7 +24,7 @@
         </kirby-dropdown>
         <kirby-button icon="bolt" @click="action('role')">Role</kirby-button>
         <kirby-button icon="key" @click="action('password')">Password</kirby-button>
-        <kirby-button icon="trash" @click="$refs.remove.open(user.email)">Delete</kirby-button>
+        <kirby-button icon="trash" @click="$refs.remove.open(user.email)">{{ $t("delete") }}</kirby-button>
       </template>
 
     </kirby-header>
@@ -51,6 +51,11 @@
         name: 'website',
         label: 'Website',
         type: 'url'
+      },
+      {
+        name: 'language',
+        label: 'Language (temporary to test i18n)',
+        type: 'text',
       }
     ]" :values="user" @input="input" />
 
@@ -74,6 +79,7 @@ export default {
         firstName: '',
         lastName: '',
         email: '',
+        language: '',
         website: '',
         role: '',
         image: {
@@ -110,6 +116,9 @@ export default {
       this.user.firstName = data.firstName;
       this.user.lastName = data.lastName;
       this.user.email = data.email;
+      this.user.language = data.language;
+      console.log(data.language);
+      this.$store.dispatch('language', data.language);
     },
     action (action) {
       switch (action) {
@@ -127,9 +136,9 @@ export default {
     }
   },
   created () {
-    UserQuery(this.email).then(function (user) {
+    UserQuery(this.email).then((user) => {
       this.user = user;
-    }.bind(this));
+    });
   }
 }
 
