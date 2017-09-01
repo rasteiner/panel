@@ -168,12 +168,20 @@ export default {
           this.$store.dispatch('error', 'Not yet implemented');
           break;
       }
+    },
+    fetch () {
+      UserQuery(this.email).then((user) => {
+        this.user = user;
+      });
     }
   },
   created () {
-    UserQuery(this.email).then((user) => {
-      this.user = user;
-    });
+    this.fetch()
+  },
+  watch: {
+    email () {
+      this.fetch()
+    }
   }
 }
 
