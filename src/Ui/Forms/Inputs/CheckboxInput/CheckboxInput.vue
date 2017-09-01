@@ -1,7 +1,7 @@
 <template>
   <span class="kirby-checkbox-input">
-    <input type="checkbox" id="checkbox" class="kirby-checkbox-input" />
-    <label for="checkbox">{{ label }}</label>
+    <input type="checkbox" :id="_uid" class="kirby-checkbox-input" />
+    <label :for="_uid">{{ label }}</label>
   </span>
 </template>
 
