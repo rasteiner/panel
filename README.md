@@ -22,6 +22,10 @@ npm run start
 npm run build
 ```
 
+## Troubleshooting
+
+If installing Fractal fails, please try installing it globally. 
+
 ## Fractal
 
 We use [Clearleft's Fractal](http://fractal.build/) to develop and preview our UI components. After running `fractal start --sync` components can be viewed in your browser at: `http://localhost:3000/`
