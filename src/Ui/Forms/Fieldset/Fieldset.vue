@@ -23,9 +23,9 @@ export default {
       }
     }
   },
-  data () {
-    return {
-      data: this.values
+  computed: {
+    data() {
+      return this.values
     }
   },
   methods: {
