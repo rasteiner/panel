@@ -7,6 +7,8 @@ let notificationTimeout = null;
 
 export default new Vuex.Store({
   state: {
+    assets: '/assets',
+    api: '/api',
     language: 'EN',
     translation: 'EN',
     user: {
@@ -17,6 +19,12 @@ export default new Vuex.Store({
     menu: false
   },
   mutations: {
+    assets(state, assets) {
+      state.assets = assets;
+    },
+    api(state, api) {
+      state.api = api;
+    },
     menu (state, menu) {
       state.menu = menu;
     },
@@ -57,6 +65,11 @@ export default new Vuex.Store({
     },
     error (context, message) {
       context.dispatch('notification', {message, type: 'error'});
+    }
+  },
+  getters: {
+    api (state) {
+      return state.api;
     }
   }
 });

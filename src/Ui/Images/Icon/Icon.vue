@@ -19,7 +19,7 @@ export default {
   },
   created() {
 
-    fetch('/icons/' + this.type + '.svg').then(function(response) {
+    fetch(this.$store.state.assets + '/icons/' + this.type + '.svg').then(function(response) {
       if(response.ok) {
         return response.text();
       } else {
