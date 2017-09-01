@@ -2,14 +2,26 @@
   <div class="kirby-panel" v-if="$store.state.user" :data-menu="$store.state.menu">
     <kirby-menu ref="menu" :open="$store.state.menu" @close="$store.commit('menu', false)">
       <section class="kirby-menu-section">
-        <kirby-button @click="$refs.menu.close()" link="/" icon="dashboard">{{ $t("dashboard") }}</kirby-button>
-        <kirby-button @click="$refs.menu.close()" link="/pages" icon="page">{{ $t("site") }}</kirby-button>
-        <kirby-button @click="$refs.menu.close()" link="/settings" icon="cog">{{ $t("settings") }}</kirby-button>
-        <kirby-button @click="$refs.menu.close()" link="/users" icon="users">{{ $t("users") }}</kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/" icon="dashboard">
+          {{ $t('dashboard') }}
+        </kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/pages" icon="page">
+          {{ $t('site') }}
+        </kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/settings" icon="cog">
+          {{ $t('settings') }}
+        </kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/users" icon="users">
+          {{ $t('users') }}
+        </kirby-button>
       </section>
       <section class="kirby-menu-section kirby-menu-section-bottom">
-        <kirby-button @click="$refs.menu.close()" link="/users/bastian@getkirby.com" icon="account">{{ $t("account") }}</kirby-button>
-        <kirby-button @click="logout" link="/logout" icon="logout">{{ $t("logout") }}</kirby-button>
+        <kirby-button @click="$refs.menu.close()" link="/users/bastian@getkirby.com" icon="account">
+          {{ $t('account') }}
+        </kirby-button>
+        <kirby-button @click="logout" link="/logout" icon="logout">
+          {{ $t('logout') }}
+        </kirby-button>
       </section>
     </kirby-menu>
     <router-view class="kirby-panel-view"></router-view>

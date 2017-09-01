@@ -2,12 +2,12 @@
 
   <kirby-view class="kirby-page-view">
 
-    <kirby-header label="{{ $t('page.list') }}" link="/pages"
+    <kirby-header :label="$t('page.list')" link="/pages"
       :icon="icon"
       :breadcrumb="breadcrumb"
       :pagination="pagination">
 
-      <kirby-fancy-input class="kirby-page-title" :key="page.id + '-title'" :value="page.title" placeholder="{{ $t('page.title') }} …" tag="div" @blur="updateTitle($event.target.innerText)" />
+      <kirby-fancy-input class="kirby-page-title" :key="page.id + '-title'" :value="page.title" :placeholder="$t('page.title') + ' …'" tag="div" @blur="updateTitle($event.target.innerText)" />
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">

@@ -115,7 +115,7 @@ export default {
         },
         {
           name: 'language',
-          label: this.$t('user.language') + ' (for testing i18n)',
+          label: this.$t('user.language'),
           type: 'select',
           options: this.languages
         }
