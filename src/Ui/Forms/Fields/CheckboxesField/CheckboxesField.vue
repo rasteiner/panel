@@ -1,9 +1,7 @@
 <template>
-
-  <kirby-field class="kirby-radio-field" v-bind="$props">
-    <kirby-radio-input v-bind="$props" v-model="data" />
+  <kirby-field class="kirby-checkboxes-field" v-bind="$props">
+    <kirby-checkboxes-input v-model="data" v-bind="$props" />
   </kirby-field>
-
 </template>
 
 <script>
@@ -18,17 +16,16 @@ export default {
     },
     name: {
       type: String,
-      default: 'radio'
+      default: 'checks'
+    },
+    value: {
+      type: Array,
+      default: []
     }
   },
   data() {
     return {
       data: this.value
-    }
-  },
-  watch: {
-    data (value) {
-      this.$emit('input', data)
     }
   }
 }
@@ -37,7 +34,7 @@ export default {
 
 <style>
 
-.kirby-radio-field .kirby-input-content {
+.kirby-checkboxes-field .kirby-input-content {
   padding: .65rem .65rem;
 }
 

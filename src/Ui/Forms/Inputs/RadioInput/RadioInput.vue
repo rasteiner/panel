@@ -9,7 +9,7 @@
       :name="name"
       :value="option.value"
       :id="name + '_' + option.value"
-      @change="$emit('input', option.value)"
+      v-model="data"
       class="kirby-radio-input" />
       <label :for="name + '_' + option.value">
         {{ option.text }}
@@ -29,6 +29,16 @@ export default {
     name: {
       type: String,
       default: 'radio'
+    }
+  },
+  data() {
+    return {
+      data: this.value
+    }
+  },
+  watch: {
+    data (value) {
+      this.$emit('input', value)
     }
   }
 }

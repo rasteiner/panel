@@ -1,8 +1,8 @@
-const api = 'http://localhost:8000'
+import store from '../Store/store.js';
 
 export default (query, variables, headers) => {
 
-    return fetch(api, {
+    return fetch(window.panel.config.api, {
         method: 'POST',
         headers: headers || {},
         body: JSON.stringify({
