@@ -17,14 +17,14 @@
           <kirby-dropdown-content :dark="true" ref="settings">
             <kirby-dropdown-item icon="copy" @click="action('copy')">Copy</kirby-dropdown-item>
             <kirby-dropdown-item icon="code" @click="action('template')">Change Template</kirby-dropdown-item>
-            <kirby-dropdown-item icon="chain" @click="action('url')">Change URL</kirby-dropdown-item>
-            <kirby-dropdown-item icon="trash" @click="action('remove')">Delete</kirby-dropdown-item>
+            <kirby-dropdown-item icon="chain" @click="action('url')">{{ $t("pages.show.changeurl") }}</kirby-dropdown-item>
+            <kirby-dropdown-item icon="trash" @click="action('remove')">{{ $t("delete") }}</kirby-dropdown-item>
           </kirby-dropdown-content>
         </kirby-dropdown>
       </template>
 
       <template slot="buttons-right">
-        <kirby-languages></kirby-languages>
+        <kirby-translations></kirby-translations>
       </template>
 
     </kirby-header>

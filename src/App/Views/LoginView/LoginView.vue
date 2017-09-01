@@ -15,7 +15,7 @@
           placeholder: 'Password …'
         }
       ]" />
-      <kirby-button type="submit" icon="check">Login</kirby-button>
+      <kirby-button type="submit" icon="check">{{ $t("login.button") }}</kirby-button>
     </form>
   </div>
   <kirby-loader v-else position="center" theme="dark" />
