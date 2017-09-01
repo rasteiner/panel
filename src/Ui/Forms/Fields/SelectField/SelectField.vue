@@ -1,12 +1,12 @@
 <template>
   <kirby-field v-bind="$props">
-    <kirby-select-input v-bind="$props" />
+    <kirby-select-input v-model="data" v-bind="$props" />
   </kirby-field>
 </template>
 
 <script>
 
-import Props from '../TextField/TextField.props.js';
+import Props from '../Field.props.js';
 
 export default {
   mixins: [Props],
@@ -21,6 +21,12 @@ export default {
       default: 'angle-down'
     },
     options: {
+      type: Array
+    }
+  },
+  data() {
+    return {
+      data: this.value
     }
   }
 }
