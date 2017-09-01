@@ -8,5 +8,6 @@ return [
     'image'     => [
         'root' => __DIR__ . '/../../assets/avatars/fabian.jpg',
         'url'  => $url . '/assets/avatars/fabian.jpg'
-    ]
+    ],
+    'language'  => 'de'
 ];
