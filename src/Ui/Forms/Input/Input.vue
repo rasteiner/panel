@@ -18,24 +18,24 @@
 
 export default {
   props: ['error', 'prefix', 'icon'],
-  data: function() {
+  data () {
     return {
       isFocused: false
     }
   },
-  mounted: function() {
+  mounted () {
 
-    this.$el.addEventListener('focus', function() {
+    this.$el.addEventListener('focus', () => {
       this.isFocused = true;
-    }.bind(this), true);
+    }, true);
 
-    this.$el.addEventListener('blur', function() {
+    this.$el.addEventListener('blur', () => {
       this.isFocused = false;
-    }.bind(this), true);
+    }, true);
 
   },
   methods: {
-    focus: function() {
+    focus () {
 
       var input = this.$el.querySelector('input:not([type="radio"]):first-child, textarea:first-child, select:first-child');
 
