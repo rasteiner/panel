@@ -28,10 +28,15 @@
 <script>
 
 export default {
+  props: ['assets', 'api'],
   data () {
     return {
       menu: false
     }
+  },
+  created ()  {
+    this.$store.commit('assets', this.assets);
+    this.$store.commit('api', this.api);
   },
   methods: {
     logout () {

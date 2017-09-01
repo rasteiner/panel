@@ -6,6 +6,7 @@ import DateField from './DateField/DateField.vue'
 import EmailField from './EmailField/EmailField.vue'
 import NumberField from './NumberField/NumberField.vue'
 import PasswordField from './PasswordField/PasswordField.vue'
+import RadioField from './RadioField/RadioField.vue'
 import SelectField from './SelectField/SelectField.vue'
 import TableField from './TableField/TableField.vue'
 import TagsField from './TagsField/TagsField.vue'
@@ -19,6 +20,7 @@ Vue.component('kirby-date-field', DateField);
 Vue.component('kirby-email-field', EmailField);
 Vue.component('kirby-number-field', NumberField);
 Vue.component('kirby-password-field', PasswordField);
+Vue.component('kirby-radio-field', RadioField);
 Vue.component('kirby-select-field', SelectField);
 Vue.component('kirby-table-field', TableField);
 Vue.component('kirby-tags-field', TagsField);
