@@ -41,7 +41,12 @@ export default {
 <style lang="scss">
 
 .kirby-select-field .kirby-select-input select {
+  right: -3rem;
   width: calc(100% + 3rem);
+}
+
+.kirby-select-field .kirby-input-icon {
+  pointer-events: none;
 }
 
 </style>
