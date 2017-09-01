@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[getkirby/panel.core]
+file_filter = assets/languages/<lang>/core.json
+source_file = assets/languages/en/core.json
+source_lang = en
+type = KEYVALUEJSON
