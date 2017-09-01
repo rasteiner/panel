@@ -8,12 +8,8 @@ let notificationTimeout = null;
 export default new Vuex.Store({
   state: {
     translation: 'EN',
-    language: 'EN',
-    user: {
-      email: 'bastian@getkirby.com',
-      firstName: 'Bastian',
-      language: 'en'
-    },
+    language: 'en',
+    user: null,
     notification: null,
     menu: false
   },
@@ -32,10 +28,12 @@ export default new Vuex.Store({
       state.notification = notification;
     },
     login (state) {
-      state.user = {
+      const user = {
         email: 'bastian@getkirby.com',
-        firstName: 'Bastian'
+        firstName: 'Bastian',
+        language: 'en'
       };
+      state.user = user;
     },
     logout (state) {
       state.user = null;
@@ -44,6 +42,7 @@ export default new Vuex.Store({
   actions: {
     login (context) {
       context.commit('login');
+      context.dispatch('language', context.state.user.language);
     },
     logout (context) {
       context.commit('logout');
