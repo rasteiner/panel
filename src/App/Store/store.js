@@ -53,10 +53,13 @@ export default new Vuex.Store({
         then((resource) => resource.json()).
         then((json) => {
           Vue.i18n.add(locale, json);
+        }).
+        then(() => {
+          context.commit('language', locale);
         });
+      } else {
+        context.commit('language', locale);
       }
-
-      context.commit('language', locale);
     },
     notification (context, notification) {
       context.commit('notification', notification);
