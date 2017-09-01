@@ -29,35 +29,7 @@
 
     </kirby-header>
 
-    <kirby-fieldset :fields="[
-      {
-        name: 'firstName',
-        label: 'First Name',
-        type: 'text',
-        width: '1/2'
-      },
-      {
-        name: 'lastName',
-        label: 'Last Name',
-        type: 'text',
-        width: '1/2'
-      },
-      {
-        name: 'email',
-        label: 'Email',
-        type: 'email'
-      },
-      {
-        name: 'website',
-        label: 'Website',
-        type: 'url'
-      },
-      {
-        name: 'language',
-        label: 'Language (temporary to test i18n)',
-        type: 'text',
-      }
-    ]" :values="user" @input="input" />
+    <kirby-fieldset :fields="fields" :values="user" @input="input" />
 
     <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
@@ -99,6 +71,37 @@ export default {
     },
     headline() {
       return this.user.firstName + ' ' + this.user.lastName;
+    },
+    fields() {
+      return [
+        {
+          name: 'firstName',
+          label: this.$t('users.form.firstname.label'),
+          type: 'text',
+          width: '1/2'
+        },
+        {
+          name: 'lastName',
+          label: this.$t('users.form.lastname.label'),
+          type: 'text',
+          width: '1/2'
+        },
+        {
+          name: 'email',
+          label: this.$t('fields.email.label'),
+          type: 'email'
+        },
+        {
+          name: 'website',
+          label: 'Website',
+          type: 'url'
+        },
+        {
+          name: 'language',
+          label: this.$t('users.form.language.label') + ' (testing i18n)',
+          type: 'text'
+        }
+      ]
     },
     pagination() {
       return {
