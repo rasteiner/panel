@@ -36,7 +36,7 @@ export default {
             email: user.email,
             role: user.role,
             link: '/users/' + user.email,
-            options: '/options/user.json'
+            options: panel.config.assets + '/options/user.json'
           }
         });
       });
