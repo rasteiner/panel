@@ -1,6 +1,6 @@
 <template>
   <kirby-field class="kirby-checkboxes-field" v-bind="$props">
-    <kirby-checkboxes-input v-bind="$props" />
+    <kirby-checkboxes-input v-model="data" v-bind="$props" />
   </kirby-field>
 </template>
 
@@ -21,6 +21,11 @@ export default {
     value: {
       type: Array,
       default: []
+    }
+  },
+  data() {
+    return {
+      data: this.value
     }
   }
 }
