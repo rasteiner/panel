@@ -150,7 +150,10 @@ export default {
       this.user.lastName = data.lastName;
       this.user.email = data.email;
       this.user.language = data.language;
-      this.$store.dispatch('language', data.language);
+
+      if(this.$store.state.user.email === this.user.email) {
+        this.$store.dispatch('language', data.language);
+      }
     },
     action (action) {
       switch (action) {
