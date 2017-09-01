@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import VuexI18n from 'vuex-i18n';
 
 /** Store */
-import store from 'App/Store/Store.js';
+import store from 'App/Store/store.js';
 
 /** Routes */
 import Routes from 'App/Routes/Routes.js';

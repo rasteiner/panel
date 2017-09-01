@@ -7,7 +7,7 @@ import UserView from '../Views/UserView/UserView.vue';
 import SettingsView from '../Views/SettingsView/SettingsView.vue';
 
 /* store */
-import store from '../Store/Store.js';
+import store from '../Store/store.js';
 
 const auth = function (to, from, next) {
   if (store.state.user) {
