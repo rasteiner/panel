@@ -52,7 +52,7 @@ export default {
   watch: {
     data: function(value) {
       this.label = this.text(value);
-      this.emit('input', value)
+      this.$emit('input', value)
     }
   },
   methods: {
