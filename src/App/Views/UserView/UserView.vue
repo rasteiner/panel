@@ -51,7 +51,7 @@ export default {
         firstName: '',
         lastName: '',
         email: '',
-        language: '',
+        language: 'en',
         website: '',
         role: '',
         image: {
@@ -98,9 +98,22 @@ export default {
         },
         {
           name: 'language',
-          label: this.$t('users.form.language.label') + ' (testing i18n)',
-          type: 'text'
+          label: this.$t('users.form.language.label') + ' (for testing i18n)',
+          type: 'select',
+          options: this.languages
         }
+      ]
+    },
+    languages() {
+      return [
+        { value: 'en', text: 'English' },
+        { value: 'de', text: 'German' },
+        { value: 'es_ES', text: 'Spanish' },
+        { value: 'ar', text: 'Arabic' },
+        { value: 'zh_CN', text: 'Chinese' },
+        { value: 'sv_SE', text: 'Swedish' },
+        { value: 'ko', text: 'Korean' },
+        { value: 'ru', text: 'Russian' }
       ]
     },
     pagination() {
@@ -120,7 +133,6 @@ export default {
       this.user.lastName = data.lastName;
       this.user.email = data.email;
       this.user.language = data.language;
-      console.log(data.language);
       this.$store.dispatch('language', data.language);
     },
     action (action) {
