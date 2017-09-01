@@ -6,10 +6,11 @@ use Kirby\Api\Api;
 use Kirby\Cms\Site;
 use Kirby\Http\Request;
 use Kirby\Http\Response\Json;
+use Kirby\Http\Url;
 use Kirby\Users\Users;
 use Kirby\Users\User;
 
-$url = 'http://localhost:8000';
+$url = 'http://' . $_SERVER['HTTP_HOST'] . '/' . trim($_SERVER['REQUEST_URI'], '/');
 
 // load all users
 $users = new Users([
