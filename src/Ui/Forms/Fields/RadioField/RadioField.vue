@@ -25,6 +25,11 @@ export default {
     return {
       data: this.value
     }
+  },
+  watch: {
+    data (value) {
+      this.$emit('input', data)
+    }
   }
 }
 

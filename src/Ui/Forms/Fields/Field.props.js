@@ -35,5 +35,10 @@ export default {
       type: String,
       default: 'text'
     }
+  },
+  methods: {
+    input (value) {
+      this.$emit('input', value)
+    }
   }
 }

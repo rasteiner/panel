@@ -1,5 +1,5 @@
 <template>
-  <kirby-text-field v-bind="$props"></kirby-text-field>
+  <kirby-text-field v-bind="$props" @input="input"></kirby-text-field>
 </template>
 
 <script>
