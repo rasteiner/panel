@@ -12,6 +12,16 @@
 
   <main>{{{ yield }}}</main>
 
+  <script>
+
+  panel = {
+    config: {
+      assets: '',
+      api: 'http://localhost:8000'
+    }
+  };
+
+  </script>
   <script src="{{ path '/js/panel.js' }}"></script>
 
 </body>

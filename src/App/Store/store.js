@@ -49,7 +49,7 @@ export default new Vuex.Store({
     },
     language (context, locale) {
       if(Vue.i18n.localeExists(locale) === false) {
-        fetch('/languages/' + locale + '/core.json').
+        fetch(panel.config.assets + '/languages/' + locale + '/core.json').
         then((resource) => resource.json()).
         then((json) => {
           Vue.i18n.add(locale, json);

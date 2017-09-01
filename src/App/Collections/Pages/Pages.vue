@@ -35,7 +35,7 @@ export default {
             image: page.image,
             text: page.title,
             link: page.link,
-            options: '/options/page.json'
+            options: panel.config.assets + '/options/page.json'
           }
         });
 
