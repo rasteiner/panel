@@ -34,10 +34,6 @@ export default {
       menu: false
     }
   },
-  created ()  {
-    this.$store.commit('assets', this.assets);
-    this.$store.commit('api', this.api);
-  },
   methods: {
     logout () {
       this.$store.dispatch('logout');
