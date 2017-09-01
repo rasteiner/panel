@@ -16,10 +16,11 @@ const router = new VueRouter({
 
 /** i18n */
 Vue.use(VuexI18n.plugin, store);
-Vue.i18n.fallback('en')
+store.dispatch('language', store.state.language);
+Vue.i18n.fallback(store.state.language);
 
-store.dispatch('language', 'en');
-store.dispatch('language', store.state.user.language);
+/** TODO: Remove Fake Login */
+store.dispatch('login');
 
 /** Ui Kit */
 import 'Ui/Ui.js';
