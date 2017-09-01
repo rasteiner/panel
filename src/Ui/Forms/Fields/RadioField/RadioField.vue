@@ -1,14 +1,14 @@
 <template>
 
   <kirby-field class="kirby-radio-field" v-bind="$props">
-    <kirby-radio-input v-bind="$props" v-model="value" />
+    <kirby-radio-input v-bind="$props" v-model="data" />
   </kirby-field>
 
 </template>
 
 <script>
 
-import Props from '../TextField/TextField.props.js';
+import Props from '../Field.props.js';
 
 export default {
   mixins: [Props],
@@ -19,6 +19,11 @@ export default {
     name: {
       type: String,
       default: 'radio'
+    }
+  },
+  data() {
+    return {
+      data: this.value
     }
   }
 }
