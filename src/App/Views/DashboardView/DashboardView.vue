@@ -2,7 +2,7 @@
   <kirby-view class="kirby-dashboard-view">
 
     <kirby-header label="Dashboard" link="/" icon="dashboard">
-      Dashboard
+      {{ $t("dashboard") }}
     </kirby-header>
 
     <kirby-widgets>

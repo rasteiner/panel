@@ -7,11 +7,11 @@
       {{ headline }}
 
       <template slot="buttons-left">
-        <kirby-button icon="add" @click="$refs.create.open()">Add new user</kirby-button>
+        <kirby-button icon="add" @click="$refs.create.open()">{{ $t('user.add') }}</kirby-button>
       </template>
 
       <template slot="buttons-right">
-        <kirby-button icon="search">Search</kirby-button>
+        <kirby-button icon="search">{{ $t('search') }}</kirby-button>
       </template>
 
     </kirby-header>
@@ -32,7 +32,7 @@ export default {
       return this.$route.params.role;
     },
     headline() {
-      return !this.role ? 'Users' : 'Role: ' + this.role
+      return !this.role ? this.$t('users') : this.$t('user.role') + ': ' + this.role
     }
   }
 }
