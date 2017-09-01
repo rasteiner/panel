@@ -1,21 +1,8 @@
 <template>
   <div v-if="!loading" class="kirby-login-view">
     <form @submit.prevent="login">
-      <kirby-fieldset :fields="[
-        {
-          name: 'email',
-          label: 'Email',
-          type: 'email'
-        },
-        {
-          name: 'password',
-          label: 'Password',
-          type: 'text',
-          icon: 'key',
-          placeholder: 'Password …'
-        }
-      ]" />
-      <kirby-button type="submit" icon="check">{{ $t("login.button") }}</kirby-button>
+      <kirby-fieldset :fields="fields" />
+      <kirby-button type="submit" icon="check">{{ $t("login") }}</kirby-button>
     </form>
   </div>
   <kirby-loader v-else position="center" theme="dark" />
@@ -29,13 +16,32 @@ export default {
       loading: false
     };
   },
+  computed: {
+    fields () {
+      return [
+        {
+          name: 'email',
+          label: this.$t('email'),
+          type: 'email',
+          placeholder: this.$t('email.placeholder')
+        },
+        {
+          name: 'password',
+          label: this.$t('password'),
+          type: 'text',
+          icon: 'key',
+          placeholder: this.$t('password') + ' …'
+        }
+      ]
+    }
+  },
   methods: {
     login () {
 
       this.loading = true;
       setTimeout(() => {
         this.$store.dispatch('login');
-        this.$store.dispatch('success', 'Welcome ' + this.$store.state.user.firstName);
+        this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.firstName }));
         this.$router.push('/');
       }, 2000);
     }

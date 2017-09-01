@@ -10,21 +10,37 @@
 
       <template slot="buttons-left">
         <kirby-dropdown>
-          <kirby-button @click="$refs.picture.toggle()" icon="image">Picture</kirby-button>
+          <kirby-button @click="$refs.picture.toggle()" icon="image">
+            {{ $t('picture') }}
+          </kirby-button>
           <kirby-dropdown-content ref="picture" :dark="true">
             <template v-if="user.image">
-              <kirby-dropdown-item icon="upload" :upload="true">Change</kirby-dropdown-item>
-              <kirby-dropdown-item icon="trash" @click="action('picture.delete')">{{ $t("delete") }}</kirby-dropdown-item>
+              <kirby-dropdown-item icon="upload" :upload="true">
+                {{ $t('change') }}
+              </kirby-dropdown-item>
+              <kirby-dropdown-item icon="trash" @click="action('picture.delete')">
+                {{ $t('delete') }}
+              </kirby-dropdown-item>
             </template>
             <template v-else>
-              <kirby-dropdown-item icon="upload" :upload="true">Upload</kirby-dropdown-item>
-              <kirby-dropdown-item icon="import" @click="action('picture.import')">Import</kirby-dropdown-item>
+              <kirby-dropdown-item icon="upload" :upload="true">
+                {{ $t('upload') }}
+              </kirby-dropdown-item>
+              <kirby-dropdown-item icon="import" @click="action('picture.import')">
+                {{ $t('import') }}
+              </kirby-dropdown-item>
             </template>
           </kirby-dropdown-content>
         </kirby-dropdown>
-        <kirby-button icon="bolt" @click="action('role')">Role</kirby-button>
-        <kirby-button icon="key" @click="action('password')">Password</kirby-button>
-        <kirby-button icon="trash" @click="$refs.remove.open(user.email)">{{ $t("delete") }}</kirby-button>
+        <kirby-button icon="bolt" @click="action('role')">
+          {{ $t('user.role') }}
+        </kirby-button>
+        <kirby-button icon="key" @click="action('password')">
+          {{ $t('password') }}
+        </kirby-button>
+        <kirby-button icon="trash" @click="$refs.remove.open(user.email)">
+          {{ $t('delete') }}
+        </kirby-button>
       </template>
 
     </kirby-header>
@@ -65,7 +81,7 @@ export default {
       return [
         {
           link: '/users/role/' + this.user.role,
-          label: 'role: ' + this.user.role
+          label: this.$t('user.role') + ': ' + this.user.role
         }
       ];
     },
@@ -76,29 +92,30 @@ export default {
       return [
         {
           name: 'firstName',
-          label: this.$t('users.form.firstname.label'),
+          label: this.$t('user.firstname'),
           type: 'text',
           width: '1/2'
         },
         {
           name: 'lastName',
-          label: this.$t('users.form.lastname.label'),
+          label: this.$t('user.lastname'),
           type: 'text',
           width: '1/2'
         },
         {
           name: 'email',
-          label: this.$t('fields.email.label'),
-          type: 'email'
+          label: this.$t('email'),
+          type: 'email',
+          placeholder: this.$t('email.placeholder')
         },
         {
           name: 'website',
-          label: 'Website',
+          label: this.$t('website'),
           type: 'url'
         },
         {
           name: 'language',
-          label: this.$t('users.form.language.label') + ' (for testing i18n)',
+          label: this.$t('user.language') + ' (for testing i18n)',
           type: 'select',
           options: this.languages
         }
@@ -121,9 +138,9 @@ export default {
         page: 1,
         limit: 1,
         total: 5,
-        pageLabel: 'User',
-        prevLabel: 'Previous User',
-        nextLabel: 'Next User'
+        pageLabel: this.$t('user'),
+        prevLabel: this.$t('user.previous'),
+        nextLabel: this.$t('user.next')
       };
     }
   },
@@ -138,7 +155,7 @@ export default {
     action (action) {
       switch (action) {
         case 'picture.delete':
-          this.$store.dispatch('success', 'The image has been deleted');
+          this.$store.dispatch('success', this.$t('notification.image.deleted'));
           this.user.image = false;
           break;
         case 'password':
