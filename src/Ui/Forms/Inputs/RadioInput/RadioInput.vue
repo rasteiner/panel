@@ -21,7 +21,17 @@
 <script>
 
 export default {
-  props: ['options', 'value', 'name'],
+  props: {
+    options: {
+      type: Array,
+      default: []
+    },
+    name: {
+      type: String,
+      default: 'radio'
+    },
+    value: {}
+  },
   data() {
     return {
       data: this.value
@@ -81,7 +91,9 @@ $color-radio-focus: #567896;
   height: 8px;
   width: 8px;
   border-radius: 50%;
-  transition: all .2s;
+}
+.kirby-radio-input input:checked + label::before {
+  border-color: $color-dark;
 }
 .kirby-radio-input input:focus + label::before {
   border-color: $color-radio-focus;
@@ -89,9 +101,9 @@ $color-radio-focus: #567896;
 }
 .kirby-radio-input input:checked + label::after {
   content: "";
-  background: $color-radio-border;
+  background: $color-dark;
 }
-.kirby-radio-input input:checked:focus + label::after {
+.kirby-radio-input input:focus + label::after {
     background: $color-radio-focus;
 }
 
