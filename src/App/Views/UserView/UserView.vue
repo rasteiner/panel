@@ -29,35 +29,7 @@
 
     </kirby-header>
 
-    <kirby-fieldset :fields="[
-      {
-        name: 'firstName',
-        label: 'First Name',
-        type: 'text',
-        width: '1/2'
-      },
-      {
-        name: 'lastName',
-        label: 'Last Name',
-        type: 'text',
-        width: '1/2'
-      },
-      {
-        name: 'email',
-        label: 'Email',
-        type: 'email'
-      },
-      {
-        name: 'website',
-        label: 'Website',
-        type: 'url'
-      },
-      {
-        name: 'language',
-        label: 'Language (temporary to test i18n)',
-        type: 'text',
-      }
-    ]" :values="user" @input="input" />
+    <kirby-fieldset :fields="fields" :values="user" @input="input" />
 
     <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
@@ -79,7 +51,7 @@ export default {
         firstName: '',
         lastName: '',
         email: '',
-        language: '',
+        language: 'en',
         website: '',
         role: '',
         image: {
@@ -100,6 +72,50 @@ export default {
     headline() {
       return this.user.firstName + ' ' + this.user.lastName;
     },
+    fields() {
+      return [
+        {
+          name: 'firstName',
+          label: this.$t('users.form.firstname.label'),
+          type: 'text',
+          width: '1/2'
+        },
+        {
+          name: 'lastName',
+          label: this.$t('users.form.lastname.label'),
+          type: 'text',
+          width: '1/2'
+        },
+        {
+          name: 'email',
+          label: this.$t('fields.email.label'),
+          type: 'email'
+        },
+        {
+          name: 'website',
+          label: 'Website',
+          type: 'url'
+        },
+        {
+          name: 'language',
+          label: this.$t('users.form.language.label') + ' (for testing i18n)',
+          type: 'select',
+          options: this.languages
+        }
+      ]
+    },
+    languages() {
+      return [
+        { value: 'en', text: 'English' },
+        { value: 'de', text: 'German' },
+        { value: 'es_ES', text: 'Spanish' },
+        { value: 'ar', text: 'Arabic' },
+        { value: 'zh_CN', text: 'Chinese' },
+        { value: 'sv_SE', text: 'Swedish' },
+        { value: 'ko', text: 'Korean' },
+        { value: 'ru', text: 'Russian' }
+      ]
+    },
     pagination() {
       return {
         page: 1,
@@ -117,7 +133,6 @@ export default {
       this.user.lastName = data.lastName;
       this.user.email = data.email;
       this.user.language = data.language;
-      console.log(data.language);
       this.$store.dispatch('language', data.language);
     },
     action (action) {
