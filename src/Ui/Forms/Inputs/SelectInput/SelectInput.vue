@@ -1,7 +1,21 @@
 <template>
   <div v-if="options.length" class="kirby-select-input">
-    <select ref="select" :id="id" :required="required" :value="value" @input="input($event.target.value)" @focus="$emit('focus')" @blur="$emit('blur')" :autofocus="autofocus">
-      <option v-for="option in options" :value="option.value" :disabled="option.disabled">{{ option.text }}</option>
+    <select
+    ref="select"
+    :id="id"
+    :required="required"
+    v-model="data"
+    @change="$emit('input', $event.target.value)"
+    @focus="$emit('focus')"
+    @blur="$emit('blur')"
+    :autofocus="autofocus">
+
+      <option
+      v-for="option in options"
+      :key="option.value"
+      :value="option.value"
+      :disabled="option.disabled">{{ option.text }}</option>
+
     </select>
     <label :for="id">{{ label }}</label>
   </div>
@@ -30,13 +44,15 @@ export default {
     }
 
     return {
+      data: this.value,
       label: label
     }
 
   },
   watch: {
-    value: function(value) {
+    data: function(value) {
       this.label = this.text(value);
+      this.$emit('input', value)
     }
   },
   methods: {
@@ -48,15 +64,12 @@ export default {
     },
     text: function(value) {
       var text = '';
-      this.options.forEach(function(option) {
+      this.options.forEach((option) => {
         if(option.value == value) {
           text = option.text;
         }
-      }.bind(this));
+      });
       return text;
-    },
-    input: function(value) {
-      this.$emit('input', value);
     }
   }
 }

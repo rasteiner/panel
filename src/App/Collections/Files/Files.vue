@@ -36,7 +36,7 @@ export default {
             filename: file.filename,
             url: file.url,
             link: '/files/' + file.page.id + '/' + file.filename,
-            options: '/options/file.json'
+            options: panel.config.assets + '/options/file.json'
           }
         });
       });
