@@ -37,7 +37,7 @@ export default {
   methods: {
     focus: function() {
 
-      var input = this.$el.querySelector('input:first-child, textarea:first-child, select:first-child');
+      var input = this.$el.querySelector('input:not([type="radio"]):first-child, textarea:first-child, select:first-child');
 
       if(input) {
         input.focus();
