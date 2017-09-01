@@ -29,13 +29,13 @@ export default {
     required: {},
     autofocus: {},
     options: {
-      default: function() {
+      default () {
         return [];
       }
     },
     value: {}
   },
-  data: function() {
+  data () {
 
     var label = this.text(this.value);
 
@@ -50,19 +50,19 @@ export default {
 
   },
   watch: {
-    data: function(value) {
+    data (value) {
       this.label = this.text(value);
       this.$emit('input', value)
     }
   },
   methods: {
-    focus: function() {
+    focus () {
       this.$refs.select.focus();
     },
-    blur: function() {
+    blur () {
       this.$refs.select.blur();
     },
-    text: function(value) {
+    text (value) {
       var text = '';
       this.options.forEach((option) => {
         if(option.value == value) {
@@ -92,6 +92,7 @@ export default {
   width: 100%;
   font: inherit;
   cursor: pointer;
+  -webkit-appearance: none;
 }
 .kirby-select-input label {
   cursor: pointer;

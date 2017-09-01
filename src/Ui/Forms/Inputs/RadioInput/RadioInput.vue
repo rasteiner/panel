@@ -29,7 +29,8 @@ export default {
     name: {
       type: String,
       default: 'radio'
-    }
+    },
+    value: {}
   },
   data() {
     return {
