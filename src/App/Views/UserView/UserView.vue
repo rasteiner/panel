@@ -77,7 +77,7 @@ export default {
     }
   },
   computed: {
-    breadcrumb() {
+    breadcrumb () {
       return [
         {
           link: '/users/role/' + this.user.role,
@@ -85,7 +85,7 @@ export default {
         }
       ];
     },
-    headline() {
+    headline () {
       return this.user.firstName + ' ' + this.user.lastName;
     },
     fields() {
@@ -120,7 +120,7 @@ export default {
         }
       ]
     },
-    pagination() {
+    pagination () {
       return {
         page: 1,
         limit: 1,

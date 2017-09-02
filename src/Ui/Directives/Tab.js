@@ -1,13 +1,13 @@
 import Vue from 'vue';
 
 Vue.directive('tab', {
-  inserted: function (el) {
-    el.addEventListener('keyup', function(e) {
+  inserted: (el) => {
+    el.addEventListener('keyup', (e) => {
       if (e.keyCode === 9) {
         el.dataset.tabbed = true;
       }
     });
-    el.addEventListener('blur', function() {
+    el.addEventListener('blur', () => {
       delete el.dataset.tabbed;
     });
   }

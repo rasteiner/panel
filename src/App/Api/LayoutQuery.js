@@ -1,3 +1,1 @@
-export default (blueprint, page) => {
-  return require('App/Blueprints/' + blueprint + '.js')(page);
-};
+export default (blueprint, page) => require('App/Blueprints/' + blueprint + '.js')(page);

@@ -12,12 +12,12 @@
 export default {
   props: ['removable', 'size'],
   methods: {
-    remove: function() {
+    remove () {
       if(this.removable) {
         this.$emit('remove');
       }
     },
-    focus: function() {
+    focus () {
       this.$refs.button.focus();
     }
   }

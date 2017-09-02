@@ -27,26 +27,24 @@ export default (path) => {
     }
   `;
 
-  return Query(query, {id: path}).then(function (response) {
+  return Query(query, { id: path }).then((response) => {
 
     let page = response.page;
     let data = {};
 
-    page.fields.forEach(function (item) {
+    page.fields.forEach((item) => {
       data[item.key] = item.value;
     });
 
     page.fields     = data;
     page.link       = '/pages/' + page.id;
-    page.breadcrumb = page.parents.map(function (page) {
-      return {
-        link: '/pages/' + page.id,
-        label: page.title
-      };
-    });
+    page.breadcrumb = page.parents.map((page) => ({
+      link: '/pages/' + page.id,
+      label: page.title
+    }));
 
     return page;
 
-  }.bind(this));
+  });
 
 };

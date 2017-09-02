@@ -9,7 +9,7 @@ let notificationTimeout = null;
 
 export default new Vuex.Store({
   state: {
-    translation: 'EN',
+    translation: 'en',
     language: 'en',
     direction: 'ltr',
     user: null,

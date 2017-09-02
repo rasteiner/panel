@@ -20,17 +20,15 @@ export default (path) => {
     }
   `;
 
-  return Query(query, {id: path}).then(function (response) {
+  return Query(query, { id: path }).then((response) => {
 
     let file = response.file;
 
     file.link       = '/files/' + file.page.id + '/' + file.filename;
-    file.breadcrumb = file.page.parents.map(function (page) {
-      return {
-        link: '/pages/' + page.id,
-        label: page.title
-      };
-    });
+    file.breadcrumb = file.page.parents.map((page) => ({
+      link: '/pages/' + page.id,
+      label: page.title
+    }));
 
     file.breadcrumb.push({
       link: '/pages/' + file.page.id,
@@ -38,7 +36,6 @@ export default (path) => {
     });
 
     return file;
-
-  }.bind(this));
+  });
 
 };

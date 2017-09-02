@@ -29,16 +29,13 @@ export default {
 
       ChildrenQuery(this.query).then((response) => {
         this.total = response.pagination.total;
-        this.items = response.pages.map(function(page) {
-          return {
-            id: page.id,
-            image: page.image,
-            text: page.title,
-            link: page.link,
-            options: panel.config.assets + '/options/page.json'
-          }
-        });
-
+        this.items = response.pages.map((page) => ({
+          id: page.id,
+          image: page.image,
+          text: page.title,
+          link: page.link,
+          options: panel.config.assets + '/options/page.json'
+        }));
       });
     },
     action(page, action) {

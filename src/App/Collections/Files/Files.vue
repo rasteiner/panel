@@ -28,17 +28,15 @@ export default {
 
       FilesQuery(this.query).then((response) => {
         this.total = response.pagination.total;
-        this.items = response.files.map(function(file) {
-          return {
-            id: file.filename,
-            image: {url: file.url},
-            text: file.filename,
-            filename: file.filename,
-            url: file.url,
-            link: '/files/' + file.page.id + '/' + file.filename,
-            options: panel.config.assets + '/options/file.json'
-          }
-        });
+        this.items = response.files.map((file) => ({
+          id: file.filename,
+          image: {url: file.url},
+          text: file.filename,
+          filename: file.filename,
+          url: file.url,
+          link: '/files/' + file.page.id + '/' + file.filename,
+          options: panel.config.assets + '/options/file.json'
+        }));
       });
 
     },

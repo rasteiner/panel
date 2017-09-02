@@ -69,7 +69,7 @@ import FileQuery from 'App/Api/FileQuery.js';
 
 export default {
   props: ['path'],
-  data() {
+  data () {
     return {
       file: {
         filename: ''
@@ -77,7 +77,7 @@ export default {
       breadcrumb: []
     }
   },
-  created() {
+  created () {
     this.fetch();
   },
   watch: {
@@ -100,10 +100,10 @@ export default {
   methods: {
     fetch() {
 
-      FileQuery(this.path).then(function (file) {
+      FileQuery(this.path).then((file) => {
         this.file       = file;
         this.breadcrumb = file.breadcrumb;
-      }.bind(this));
+      });
 
     },
     action (action) {

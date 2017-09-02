@@ -62,7 +62,7 @@ import LayoutQuery from 'App/Api/LayoutQuery.js';
 
 export default {
   props: ['path'],
-  data() {
+  data () {
     return {
       site: false,
       page: {
@@ -75,11 +75,11 @@ export default {
       layout: []
     }
   },
-  created() {
+  created () {
     this.fetch();
   },
   watch: {
-    $route() {
+    $route () {
       this.fetch();
     }
   },
@@ -94,12 +94,12 @@ export default {
         return true;
       }
 
-      PageQuery(this.path).then(function (page) {
+      PageQuery(this.path).then((page) => {
         this.site       = false;
         this.page       = page;
         this.breadcrumb = page.breadcrumb;
         this.layout     = LayoutQuery(this.page.template, this.page);
-      }.bind(this));
+      });
 
     },
     updateTitle (title) {

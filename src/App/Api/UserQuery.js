@@ -16,8 +16,7 @@ export default (email) => {
     }
   `;
 
-  return Query(query, {email: email}).then(function(response) {
-    return response.user;
-  });
+  return Query(query, { email: email }).
+         then((response) => response.user);
 
 };

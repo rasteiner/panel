@@ -28,17 +28,15 @@ export default {
 
       UsersQuery(this.query).then((response) => {
         this.total = response.pagination.total;
-        this.items = response.users.map(function(user) {
-          return {
-            id: user.email,
-            image: user.image,
-            text: user.email,
-            email: user.email,
-            role: user.role,
-            link: '/users/' + user.email,
-            options: panel.config.assets + '/options/user.json'
-          }
-        });
+        this.items = response.users.map((user) => ({
+          id: user.email,
+          image: user.image,
+          text: user.email,
+          email: user.email,
+          role: user.role,
+          link: '/users/' + user.email,
+          options: panel.config.assets + '/options/user.json'
+        }));
       });
 
     },

@@ -22,20 +22,20 @@
 import Query from 'App/Api/Query.js'
 
 export default {
-  data() {
+  data () {
     return {
       pages: [],
       path: null
     }
   },
-  mounted() {
+  mounted () {
     this.$refs.dropdown.open();
   },
-  created() {
+  created () {
     this.fetch();
   },
   methods: {
-    fetch(id) {
+    fetch (id) {
 
       let params = {
         id: {
@@ -46,21 +46,21 @@ export default {
 
       let select = 'title, id, hasChildren';
 
-      Query('children', params, select).then(function (children) {
+      Query('children', params, select).then((children) => {
         this.pages = children;
-      }.bind(this));
+      });
 
       this.path = id ? id + '/' : '';
 
     },
-    back() {
+    back () {
       this.fetch(this.path.split('/').slice(0, -2).join('/'));
     },
-    select(id) {
+    select (id) {
       this.$emit('select', id);
       this.$refs.dropdown.close();
     },
-    open() {
+    open () {
       this.fetch();
       this.$refs.dropdown.open();
     }

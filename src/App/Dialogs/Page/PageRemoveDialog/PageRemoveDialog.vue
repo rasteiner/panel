@@ -22,10 +22,10 @@ export default {
   },
   methods: {
     open (id) {
-      PageQuery(id).then(function(page) {
+      PageQuery(id).then((page) => {
         this.page = page;
         this.$refs.dialog.open();
-      }.bind(this));
+      });
     },
     submit () {
       this.$store.dispatch('success', 'The page has been deleted');
