@@ -4,15 +4,15 @@ import Input from '../Inputs/Input.props.js';
 export default {
   mixin: [Input],
   props: {
-    'label': {
+    label: {
       type: String,
       default: ''
     },
-    'icon': {
+    icon: {
       type: [Boolean, String],
       default: false
     },
-    'help': {
+    help: {
       type: String,
       default: ''
     }
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     input (data) {
-      this.$emit('input', data)
+      this.data = data
     }
   }
 }

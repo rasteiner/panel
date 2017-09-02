@@ -35,22 +35,23 @@ export default {
     value: {}
   },
   data () {
-
-    var label = this.text(this.value);
-
-    if(label == false && this.options[0]) {
-      label = this.options[0].text;
-    }
-
     return {
       data: this.value,
-      label: label
     }
+  },
+  computed: {
+    label () {
+      var label = this.text(this.data);
 
+      if(!label && this.options[0]) {
+        label = this.options[0].text;
+      }
+
+      return label
+    }
   },
   watch: {
     data (value) {
-      this.label = this.text(value);
       this.$emit('input', value);
     }
   },

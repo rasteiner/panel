@@ -22,6 +22,9 @@ export default {
     },
     options: {
       type: Array
+    },
+    value: {
+      type: String
     }
   }
 }
