@@ -76,6 +76,14 @@ export default {
       }
     }
   },
+  created () {
+    this.fetch()
+  },
+  watch: {
+    email () {
+      this.fetch()
+    }
+  },
   computed: {
     breadcrumb () {
       return [
@@ -86,7 +94,7 @@ export default {
       ];
     },
     headline () {
-      return this.user.firstName + ' ' + this.user.lastName;
+      return `${this.user.firstName} ${this.user.lastName}`;
     },
     fields() {
       return [
@@ -138,6 +146,7 @@ export default {
       this.user.email = data.email;
       this.user.language = data.language;
 
+      // if current panel user, switch language
       if(this.$store.state.user.email === this.user.email) {
         this.$store.dispatch('language', data.language);
       }
@@ -160,14 +169,6 @@ export default {
       UserQuery(this.email).then((user) => {
         this.user = user;
       });
-    }
-  },
-  created () {
-    this.fetch()
-  },
-  watch: {
-    email () {
-      this.fetch()
     }
   }
 }
