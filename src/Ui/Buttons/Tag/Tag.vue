@@ -59,13 +59,25 @@ export default {
 }
 .kirby-tag-toggle {
   position: relative;
-  border-left: 1px solid rgba(255,255,255, .3);
   color: rgba(255,255,255, .7);
   width: 2rem;
+
+  [dir="ltr"] & {
+    border-left: 1px solid rgba(255,255,255, .3);
+  }
+  [dir="rtl"] & {
+    border-right: 1px solid rgba(255,255,255, .3);
+  }
 }
 .kirby-tag:focus .kirby-tag-toggle {
-  border-left: 1px solid rgba($color-dark, .3);
   color: rgba($color-dark, .7);
+
+  [dir="ltr"] & {
+    border-left: 1px solid rgba($color-dark, .3);
+  }
+  [dir="rtl"] & {
+    border-right: 1px solid rgba($color-dark, .3);
+  }
 }
 .kirby-tag-toggle:hover {
   background: rgba(255,255,255, .2);
@@ -77,9 +89,15 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: -1px;
-  margin-left: -1px;
   font-size: 1.1em;
   color: inherit;
+
+  [dir="ltr"] & {
+    margin-left: -1px;
+  }
+  [dir="rtl"] & {
+    margin-right: -1px;
+  }
 }
 
 </style>

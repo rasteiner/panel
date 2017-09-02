@@ -129,7 +129,12 @@ export default {
   padding: 0 .1rem;
 }
 .kirby-date-input-selects .kirby-select-input:first-child {
-  padding-left: .5rem;
+  [dir="ltr"] & {
+    padding-left: .5rem;
+  }
+  [dir="rtl"] & {
+    padding-right: .5rem;
+  }
 }
 .kirby-date-input-selects .kirby-select-input:last-child {
   flex-grow: 1;

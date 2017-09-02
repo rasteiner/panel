@@ -31,8 +31,14 @@ export default {
 <style lang="scss">
 
 .kirby-select-field .kirby-select-input select {
-  right: -3rem;
   width: calc(100% + 3rem);
+
+  [dir="ltr"] & {
+     right: -3rem;
+  }
+  [dir="rtl"] & {
+     left: -3rem;
+  }
 }
 
 .kirby-select-field .kirby-input-icon {

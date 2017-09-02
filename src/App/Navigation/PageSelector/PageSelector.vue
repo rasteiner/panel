@@ -90,7 +90,13 @@ export default {
 }
 .kirby-page-selector-item .kirby-button:first-child {
   flex-grow: 1;
-  text-align: left;
+
+  [dir="ltr"] & {
+    text-align: left;
+  }
+  [dir="rtl"] & {
+    text-align: right;
+  }
 }
 
 </style>

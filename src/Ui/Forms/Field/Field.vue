@@ -61,7 +61,13 @@ export default {
 .kirby-field[data-required] .kirby-field-header label:after {
   content: "*";
   color: $color-focus;
-  padding-left: .35rem;
+
+  [dir="ltr"] & {
+    padding-left: .35rem;
+  }
+  [dir="rtl"] & {
+    padding-right: .35rem;
+  }
 }
 .kirby-field[data-required][data-error] .kirby-field-header label:after {
   color: $color-negative;

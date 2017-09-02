@@ -16,7 +16,13 @@
   line-height: 1;
   display: block;
   width: 100%;
-  text-align: left;
+
+  [dir="ltr"] & {
+    text-align: left;
+  }
+  [dir="rtl"] & {
+    text-align: right;
+  }
 }
 
 </style>

@@ -32,7 +32,7 @@ export default {
 <style>
 
 .kirby-checkbox-field .kirby-input-content {
-  padding: .65rem .65rem;
+  padding: .65rem;
 }
 
 </style>

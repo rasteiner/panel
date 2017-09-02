@@ -178,17 +178,29 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-tags-input {
   display: flex;
   flex-wrap: wrap;
-  padding: 4px 0 0 4px;
   align-items: baseline;
+
+  [dir="ltr"] & {
+    padding: 4px 0 0 4px;
+  }
+  [dir="rtl"] & {
+    padding: 4px 4px 0 0;
+  }
 }
 .kirby-tags-input .kirby-tag {
-  margin-right: 4px;
   margin-bottom: 4px;
+
+  [dir="ltr"] & {
+    margin-right: 4px;
+  }
+  [dir="rtl"] & {
+    margin-left: 4px;
+  }
 }
 .kirby-tags-input .kirby-tag.sortable-ghost {
   opacity: .2;
@@ -203,9 +215,15 @@ export default {
   outline: 0;
   line-height: 1;
   outline: 0;
-  margin-right: 4px;
   margin-bottom: 4px;
   border-radius: 3px;
+
+  [dir="ltr"] & {
+    margin-right: 4px;
+  }
+  [dir="rtl"] & {
+    margin-left: 4px;
+  }
 }
 
 </style>

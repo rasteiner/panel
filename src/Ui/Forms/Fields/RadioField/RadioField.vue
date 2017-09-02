@@ -28,7 +28,7 @@ export default {
 <style>
 
 .kirby-radio-field .kirby-input-content {
-  padding: .65rem .65rem;
+  padding: .65rem;
 }
 
 </style>

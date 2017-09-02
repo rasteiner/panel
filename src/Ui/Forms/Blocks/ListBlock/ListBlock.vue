@@ -103,7 +103,12 @@ export default {
 }
 .kirby-list-block ul,
 .kirby-list-block ol {
-  margin-left: 1rem;
+  [dir="ltr"] & {
+    margin-left: 1rem;
+  }
+  [dir="rtl"] & {
+    margin-right: 1rem;
+  }
 }
 .kirby-list-block ul li {
   list-style: disc;

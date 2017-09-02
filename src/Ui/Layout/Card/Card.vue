@@ -97,7 +97,13 @@ export default {
 .kirby-card .kirby-dropdown {
   position: absolute;
   bottom: 0;
-  right: 0;
+
+  [dir="ltr"] & {
+    right: 0;
+  }
+  [dir="rtl"] & {
+    left: 0;
+  }
 }
 .kirby-card-options-button {
   padding: .6rem 1rem;

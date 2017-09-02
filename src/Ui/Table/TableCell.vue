@@ -34,7 +34,12 @@ export default {
 }
 
 .kirby-table-cell[data-type="image"] + .kirby-table-cell {
-  border-left: 0;
+  [dir="ltr"] & {
+    border-left: 0;
+  }
+  [dir="rtl"] & {
+    border-right: 0;
+  }
 }
 
 .kirby-table-cell[data-type="image"] .kirby-image {
@@ -78,9 +83,15 @@ export default {
 }
 
 .kirby-table-cell[data-type="number"] {
-  text-align: right;
   width: 0.00001%;
   white-space: nowrap;
+
+  [dir="ltr"] & {
+    text-align: right;
+  }
+  [dir="rtl"] & {
+    text-align: left;
+  }
 }
 
 .kirby-table-cell[data-type="info"] {
@@ -89,7 +100,12 @@ export default {
 
 /* alignments */
 .kirby-table-cell[data-align="left"] {
-  text-align: left;
+  [dir="ltr"] & {
+    text-align: left;
+  }
+  [dir="rtl"] & {
+    text-align: right;
+  }
 }
 
 .kirby-table-cell[data-align="center"] {
@@ -97,7 +113,12 @@ export default {
 }
 
 .kirby-table-cell[data-align="right"] {
-  text-align: right;
+  [dir="ltr"] & {
+    text-align: right;
+  }
+  [dir="rtl"] & {
+    text-align: left;
+  }
 }
 
 /* widths */
