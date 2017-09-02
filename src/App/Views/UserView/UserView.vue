@@ -116,21 +116,8 @@ export default {
         {
           name: 'language',
           label: this.$t('user.language'),
-          type: 'select',
-          options: this.languages
+          type: 'language'
         }
-      ]
-    },
-    languages() {
-      return [
-        { value: 'en', text: 'English' },
-        { value: 'de', text: 'German' },
-        { value: 'es_ES', text: 'Spanish' },
-        { value: 'ar', text: 'Arabic' },
-        { value: 'zh_CN', text: 'Chinese' },
-        { value: 'sv_SE', text: 'Swedish' },
-        { value: 'ko', text: 'Korean' },
-        { value: 'ru', text: 'Russian' }
       ]
     },
     pagination() {
