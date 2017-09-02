@@ -138,8 +138,14 @@ export default {
 .kirby-page-view .kirby-page-title {
   padding-left: .5rem;
   padding-right: .5rem;
-  margin-left: -.5rem;
   width: calc(100% + 1rem);
+
+  [dir="ltr"] & {
+    margin-left: -.5rem;
+  }
+  [dir="rtl"] & {
+    margin-right: -.5rem;
+  }
 }
 
 .kirby-page-view .kirby-page-title:focus {

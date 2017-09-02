@@ -7,10 +7,18 @@
       {{ file.filename }}
 
       <template slot="buttons-left">
-        <kirby-button icon="download" @click="action('download')">Download</kirby-button>
-        <kirby-button icon="upload" :upload="true">Replace</kirby-button>
-        <kirby-button icon="title" @click="action('rename')">Rename</kirby-button>
-        <kirby-button icon="trash" @click="action('remove')">Delete</kirby-button>
+        <kirby-button icon="download" @click="action('download')">
+          {{ $t('download') }}
+        </kirby-button>
+        <kirby-button icon="upload" :upload="true">
+          {{ $t('upload') }}
+        </kirby-button>
+        <kirby-button icon="title" @click="action('rename')">
+          {{ $t('rename') }}
+        </kirby-button>
+        <kirby-button icon="trash" @click="action('remove')">
+          {{ $t('delete') }}
+        </kirby-button>
       </template>
 
       <template slot="buttons-right">

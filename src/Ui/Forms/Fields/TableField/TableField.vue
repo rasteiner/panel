@@ -148,7 +148,12 @@ export default {
   }
 
   .kirby-dialog-header .kirby-button-group .kirby-button:last-child {
-    padding-right: 1.5rem;
+    [dir="ltr"] & {
+      padding-right: 1.5rem;
+    }
+    [dir="rtl"] & {
+      padding-left: 1.5rem;
+    }
   }
 
 }
@@ -164,11 +169,15 @@ export default {
     .kirby-table-header-cell {
       color: $color-dark-grey;
       border-bottom: 2px solid $color-background;
-      border-left: 1px dashed $color-border;
-    }
 
-    .kirby-table-header-cell[data-type="button"] {
-      border-left: none;
+      &:not([data-type="button"]) {
+        [dir="ltr"] & {
+          border-left: 1px dashed $color-border;
+        }
+        [dir="rtl"] & {
+          border-right: 1px dashed $color-border;
+        }
+      }
     }
 
   }

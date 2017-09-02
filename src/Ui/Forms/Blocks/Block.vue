@@ -42,7 +42,13 @@ export default {
 .kirby-block-options.kirby-dropdown {
   position: absolute;
   top: 0;
-  left: 0;
+
+  [dir="ltr"] & {
+    left: 0;
+  }
+  [dir="rtl"] & {
+    right: 0;
+  }
 }
 .kirby-block-options .kirby-dropdown-item {
   border-bottom: 0 !important;

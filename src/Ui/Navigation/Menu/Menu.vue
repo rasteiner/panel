@@ -32,14 +32,22 @@ export default {
   z-index: 1;
   transform: translateX(-100%);
 }
+
 .kirby-menu-container {
   position: absolute;
   top: 0;
-  left: 0;
   bottom: 0;
-  right: 4.5rem;
   background: $color-dark;
   z-index: 2;
+
+  [dir="ltr"] & {
+    right: 4.5rem;
+    left: 0;
+  }
+  [dir="rtl"] & {
+    right: 0;
+    left: 4.5rem;
+  }
 }
 
 .kirby-menu[data-open] {
@@ -53,21 +61,32 @@ export default {
 
   .kirby-menu,
   .kirby-menu-container {
-    right: auto;
     width: $width-menu;
+
+    [dir="ltr"] & {
+      right: auto;
+    }
+    [dir="rtl"] & {
+      left: auto;
+    }
   }
 }
-
 
 .kirby-menu-container .kirby-button {
   display: block;
   width: 100%;
-  text-align: left;
   padding: .25rem 1.5rem;
   color: $color-light-grey;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  [dir="ltr"] & {
+    text-align: left;
+  }
+  [dir="rtl"] & {
+    text-align: right;
+  }
 }
 .kirby-menu-container .kirby-button:hover,
 .kirby-menu-container .kirby-button:focus {

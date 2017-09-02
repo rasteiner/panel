@@ -181,15 +181,22 @@ export default {
 }
 
 .kirby-user-view-image {
-  position: absolute;
-  width: 3rem;
-  right: 0;
-  top: 50%;
-  margin-top: -1.5rem;
   display: inline-block;
+  position: absolute;
+  top: 50%;
+  width: 3rem;
+  margin-top: -1.5rem;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: -.2rem;
+
+  [dir="ltr"] & {
+    right: 0;
+    margin-right: -.2rem;
+  }
+  [dir="rtl"] & {
+    left: 0;
+    margin-left: -.2rem;
+  }
 }
 
 </style>

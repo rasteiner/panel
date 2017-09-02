@@ -59,7 +59,12 @@ export default {
 }
 
 .kirby-header .kirby-pagination {
-  margin-right: -1rem;
+  [dir="ltr"] & {
+    margin-right: -1rem;
+  }
+  [dir="rtl"] & {
+    margin-left: -1rem;
+  }
 }
 
 .kirby-header-options-primary > .kirby-button .kirby-button-text,
@@ -77,7 +82,12 @@ export default {
 }
 
 .kirby-header-menu-button span::after {
-  content: "›" !important;
+  [dir="ltr"] & {
+    content: "›" !important;
+  }
+  [dir="rtl"] & {
+    content: "‹" !important;
+  }
 }
 @media screen and (min-width: $breakpoint-menu) {
   .kirby-header-menu-button {

@@ -76,13 +76,24 @@ export default {
   }
   .kirby-panel[data-menu] .kirby-panel-view {
     position: relative;
-    left: calc(100% - 4.5rem);
+
+    [dir="ltr"] & {
+      left: calc(100% - 4.5rem);
+    }
+    [dir="rtl"] & {
+      right: calc(100% - 4.5rem);
+    }
   }
 }
 
 @media screen and (min-width: $breakpoint-menu) {
   .kirby-panel {
-    margin-left: $width-menu;
+    [dir="ltr"] & {
+      margin-left: $width-menu;
+    }
+    [dir="rtl"] & {
+      margin-right: $width-menu;
+    }
   }
 }
 

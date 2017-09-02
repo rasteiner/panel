@@ -32,8 +32,5 @@ import 'App/App.js';
 new Vue({
   el: 'main',
   router,
-  store,
-  created () {
-
-  }
+  store
 });

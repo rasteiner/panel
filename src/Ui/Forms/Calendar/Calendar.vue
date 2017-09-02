@@ -242,7 +242,12 @@ export default {
 }
 .kirby-calendar td,
 .kirby-calendar th {
-  text-align: right;
+  [dir="ltr"] & {
+    text-align: right;
+  }
+  [dir="rtl"] & {
+    text-align: left;
+  }
 }
 .kirby-calendar-day .kirby-button {
   padding: .25rem;

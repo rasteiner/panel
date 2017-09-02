@@ -163,10 +163,20 @@ export default {
   }
 
   .kirby-button:first-child {
-    text-align: left;
+    [dir="ltr"] & {
+      text-align: left;
+    }
+    [dir="rtl"] & {
+      text-align: right;
+    }
   }
   .kirby-button:last-child {
-    text-align: right;
+    [dir="ltr"] & {
+      text-align: right;
+    }
+    [dir="rtl"] & {
+      text-align: left;
+    }
   }
 
 }

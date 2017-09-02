@@ -57,7 +57,13 @@ $color-radio-focus: #567896;
 }
 .kirby-radio-input input {
   opacity: 0;
-  margin-right: 1rem;
+
+  [dir="ltr"] & {
+    margin-right: 1rem;
+  }
+  [dir="rtl"] & {
+    margin-left: 1rem;
+  }
 }
 .kirby-radio-input label {
   font-size: $font-size-small;
@@ -70,7 +76,6 @@ $color-radio-focus: #567896;
 .kirby-radio-input label::before{
   position: absolute;
   top: 50%;
-  left: 0;
   transform: translateY(-50%);
   content: "";
   height: 12px;
@@ -80,17 +85,30 @@ $color-radio-focus: #567896;
   border: 2px solid $color-radio-border;
   cursor: pointer;
   transition: all .2s;
+
+  [dir="ltr"] & {
+    left: 0;
+  }
+  [dir="rtl"] & {
+    right: 0;
+  }
 }
 .kirby-radio-input input + label::after {
   position: absolute;
   content: none;
   top: 50%;
-  left: 4px;
   margin-top: -4px;
   display: inline-block;
   height: 8px;
   width: 8px;
   border-radius: 50%;
+
+  [dir="ltr"] & {
+    left: 4px;
+  }
+  [dir="rtl"] & {
+    right: 4px;
+  }
 }
 .kirby-radio-input input:checked + label::before {
   border-color: $color-dark;
@@ -104,7 +122,7 @@ $color-radio-focus: #567896;
   background: $color-dark;
 }
 .kirby-radio-input input:focus + label::after {
-    background: $color-radio-focus;
+  background: $color-radio-focus;
 }
 
 </style>

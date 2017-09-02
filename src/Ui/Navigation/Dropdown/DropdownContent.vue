@@ -94,19 +94,32 @@ export default {
 .kirby-dropdown-content {
   position: absolute;
   top: 100%;
-  left: 0;
   padding: .5rem 0;
   background: $color-white;
   z-index: z-index(dropdown);
-  text-align: left;
   color: $color-dark;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
+
+  [dir="ltr"] & {
+    left: 0;
+    text-align: left;
+  }
+  [dir="rtl"] & {
+    right: 0;
+    text-align: right;
+  }
 }
 
 .kirby-dropdown-content[data-align="right"] {
-  left: auto;
-  right: 0;
+  [dir="ltr"] & {
+    left: auto;
+    right: 0;
+  }
+  [dir="rtl"] & {
+    right: auto;
+    left: 0;
+  }
 }
 
 .kirby-dropdown-content[data-dark] {
