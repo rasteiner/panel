@@ -28,7 +28,8 @@ $api     = new Api([
     'variables' => $request->body()->get('variables'),
     'data'      => [
         'site'  => $site,
-        'users' => $users
+        'users' => $users,
+        'languages' => __DIR__ . '/../assets/languages'
     ]
 ]);
 
