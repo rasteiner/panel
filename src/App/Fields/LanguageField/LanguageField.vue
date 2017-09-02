@@ -18,10 +18,14 @@ export default {
     },
     icon: {
       default: 'globe'
+    },
+    value: {
+      type: String
     }
   },
   data() {
     return {
+      data: this.value,
       options: []
     };
   },
@@ -29,7 +33,7 @@ export default {
     this.fetch();
   },
   methods: {
-    fetch() {
+    fetch () {
 
       Query(`
         query {
@@ -44,6 +48,11 @@ export default {
           value: lang.locale,
           text: lang.name
         }))
+        this.options.unshift({
+          value: '',
+          text: 'Please select a language…',
+          disabled: true
+         })
       });
 
     }
