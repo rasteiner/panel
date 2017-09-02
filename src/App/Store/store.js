@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Query from 'App/Api/Query.js';
+
 
 Vue.use(Vuex);
 
@@ -9,6 +11,7 @@ export default new Vuex.Store({
   state: {
     translation: 'EN',
     language: 'en',
+    direction: 'ltr',
     user: null,
     notification: null,
     menu: false
@@ -19,7 +22,12 @@ export default new Vuex.Store({
     },
     language (state, language) {
       state.language = language;
+      document.documentElement.lang = language;
       Vue.i18n.set(language);
+    },
+    direction (state, direction) {
+      state.direction = direction;
+      document.dir = direction;
     },
     translation (state, translation) {
       state.translation = translation;
@@ -48,16 +56,32 @@ export default new Vuex.Store({
       context.commit('logout');
     },
     language (context, locale) {
+      // if language strings have already been loaded
       if(Vue.i18n.localeExists(locale)) {
-        return context.commit('language', locale);
+        context.commit('language', locale);
+
+      // load language string json file
+      } else {
+        fetch(panel.config.assets + '/languages/' + locale + '/core.json').
+        then((resource) => resource.json()).
+        then((json) => {
+          Vue.i18n.add(locale, json);
+          context.commit('language', locale);
+        });
       }
 
-      fetch(panel.config.assets + '/languages/' + locale + '/core.json').
-      then((resource) => resource.json()).
-      then((json) => {
-        Vue.i18n.add(locale, json);
-        context.commit('language', locale);
+      // load language information from API
+      Query(`
+        query($locale: String) {
+          language(locale: $locale) {
+            direction
+          }
+        }
+      `, { locale: locale }).
+      then((response) => {
+        context.commit('direction', response.language.direction);
       });
+
     },
     notification (context, notification) {
       context.commit('notification', notification);
