@@ -32,8 +32,6 @@ export default {
   methods: {
     fetch() {
 
-      console.log(this.role);
-
       Query(`
         query($role: String) {
           users(role: $role) {

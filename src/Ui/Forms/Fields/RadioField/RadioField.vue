@@ -20,16 +20,6 @@ export default {
       type: String,
       default: 'radio'
     }
-  },
-  data() {
-    return {
-      data: this.value
-    }
-  },
-  watch: {
-    data (value) {
-      this.$emit('input', data)
-    }
   }
 }
 

@@ -1,12 +1,12 @@
 <template>
   <kirby-field class="kirby-checkbox-field" v-bind="$props">
-    <kirby-checkbox-input :label="text" />
+    <kirby-checkbox-input v-model="data" :label="text" />
   </kirby-field>
 </template>
 
 <script>
 
-import Props from '../TextField/TextField.props.js';
+import Props from '../Field.props.js';
 
 export default {
   mixins: [Props],
@@ -20,6 +20,9 @@ export default {
     name: {
       type: String,
       default: 'check'
+    },
+    value: {
+      default: false
     }
   }
 }

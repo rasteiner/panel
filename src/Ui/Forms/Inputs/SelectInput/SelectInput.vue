@@ -2,13 +2,10 @@
   <div v-if="options.length" class="kirby-select-input">
     <select
     ref="select"
-    :id="id"
-    :required="required"
+    v-bind="$props"
     v-model="data"
-    @change="$emit('input', $event.target.value)"
     @focus="$emit('focus')"
-    @blur="$emit('blur')"
-    :autofocus="autofocus">
+    @blur="$emit('blur')">
 
       <option
       v-for="option in options"
@@ -25,7 +22,9 @@
 
 export default {
   props: {
-    id: {},
+    id: {
+      default: this._uid
+    },
     required: {},
     autofocus: {},
     options: {
@@ -52,7 +51,7 @@ export default {
   watch: {
     data (value) {
       this.label = this.text(value);
-      this.$emit('input', value)
+      this.$emit('input', value);
     }
   },
   methods: {

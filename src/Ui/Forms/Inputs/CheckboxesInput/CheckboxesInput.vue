@@ -3,9 +3,9 @@
     <kirby-checkbox-input
     v-for="(option, index) in options"
     :key="index"
-    :value="option.value"
+    :value="data.indexOf(option.value) !== -1"
     :label="option.text"
-    v-model="data"
+    @input="input($event, index)"
      />
   </div>
 </template>
@@ -31,6 +31,16 @@ export default {
   watch: {
     data (value) {
       this.$emit('input', value)
+    }
+  },
+  methods: {
+    input (value, index) {
+      let option = this.options[index].value;
+      if (value === true) {
+        this.data.push(option)
+      } else {
+        this.data = this.data.filter(item => item !== option)
+      }
     }
   }
 

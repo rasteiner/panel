@@ -9,7 +9,7 @@
 import Props from '../Field.props.js';
 
 export default {
-  mixins: [Props],
+   mixins: [Props],
   props: {
     options: {
       type: Array
@@ -21,11 +21,6 @@ export default {
     value: {
       type: Array,
       default: []
-    }
-  },
-  data() {
-    return {
-      data: this.value
     }
   }
 }

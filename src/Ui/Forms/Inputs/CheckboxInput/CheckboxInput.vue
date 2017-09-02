@@ -1,42 +1,33 @@
 <template>
   <span class="kirby-checkbox-input">
-    <input type="checkbox" :value="value" v-model="checked" :id="_uid" class="kirby-checkbox-input" />
+    <input type="checkbox" v-model="data" :id="_uid" class="kirby-checkbox-input" :checked="data" />
     <label :for="_uid">{{ label }}</label>
   </span>
 </template>
 
 <script>
 
+import Props from '../Input.props.js';
+
 export default {
-  model: {
-    prop: 'data',
-    event: 'change'
-  },
+  mixins: [Props],
   props: {
     label: {
       type: String
     },
     value: {
-      type: String
-    },
-    data: {
-      type: Array,
-      default: []
+      type: Boolean,
+      default: false
     }
   },
-  data() {
+  data () {
     return {
-      checked: this.data.indexOf(this.value) !== -1
+      data: this.value
     }
   },
   watch: {
-    checked (checked) {
-      if (checked) {
-        this.data.push(this.value)
-        this.$emit('change', this.data)
-      } else {
-        this.$emit('change', this.data.filter(value => value !== this.value))
-      }
+    data (value) {
+      this.$emit('input', value);
     }
   }
 }

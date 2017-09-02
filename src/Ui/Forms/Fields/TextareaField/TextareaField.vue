@@ -1,6 +1,6 @@
 <template>
   <kirby-field v-bind="$props">
-    <kirby-textarea-input v-bind="$props" @input="input" />
+    <kirby-textarea-input v-bind="$props" v-model="data" />
   </kirby-field>
 </template>
 

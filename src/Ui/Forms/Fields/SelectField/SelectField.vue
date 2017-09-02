@@ -23,16 +23,6 @@ export default {
     options: {
       type: Array
     }
-  },
-  data () {
-    return {
-      data: this.value
-    }
-  },
-  watch: {
-    data (value) {
-      this.$emit('input', value)
-    }
   }
 }
 
