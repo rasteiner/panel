@@ -147,7 +147,7 @@ export default {
       this.user.language = data.language;
 
       // if current panel user, switch language
-      if(this.$store.state.user.email === this.user.email) {
+      if(data.language && this.$store.state.user.email === this.user.email) {
         this.$store.dispatch('language', data.language);
       }
     },
