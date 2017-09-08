@@ -15,7 +15,8 @@ export default {
     help: {
       type: String,
       default: ''
-    }
+    },
+    value: {}
   },
   data () {
     return {

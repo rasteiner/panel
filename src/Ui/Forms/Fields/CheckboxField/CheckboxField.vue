@@ -22,6 +22,7 @@ export default {
       default: 'check'
     },
     value: {
+      type: Boolean,
       default: false
     }
   }

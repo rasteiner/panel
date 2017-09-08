@@ -21,7 +21,7 @@ export default {
     placeholder: {
       default: 'mail@example.com'
     },
-    tpye: {
+    type: {
       default: 'email'
     }
   }
