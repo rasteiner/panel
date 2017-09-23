@@ -1,6 +1,6 @@
 <template>
   <span class="kirby-checkbox-input">
-    <input type="checkbox" v-model="data" :id="_uid" class="kirby-checkbox-input" :checked="data" />
+    <input type="checkbox" v-model="data" :id="_uid" :checked="data" />
     <label :for="_uid">
       <span class="kirby-checkbox-styled" aria-hidden="true">
         <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
