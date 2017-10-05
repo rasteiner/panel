@@ -8,7 +8,7 @@ module.exports = function (page, data) {
       sections: [
         {
           type: 'fields',
-          values: page.fields,
+          values: page.content,
           fields: [
             {
               name: 'year',

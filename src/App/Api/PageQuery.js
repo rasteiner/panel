@@ -15,7 +15,7 @@ export default (path) => {
           slug,
           title
         }
-        fields {
+        content {
           key,
           value
         },
@@ -32,11 +32,11 @@ export default (path) => {
     let page = response.page;
     let data = {};
 
-    page.fields.forEach(function (item) {
+    page.content.forEach(function (item) {
       data[item.key] = item.value;
     });
 
-    page.fields     = data;
+    page.content    = data;
     page.link       = '/pages/' + page.id;
     page.breadcrumb = page.parents.map(function (page) {
       return {
