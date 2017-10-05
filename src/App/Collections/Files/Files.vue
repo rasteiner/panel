@@ -7,6 +7,11 @@
       @paginate="paginate"
       @action="action"
     />
+
+    <kirby-box v-if="items.length === 0">
+      <kirby-button :upload="true" icon="upload">Upload</kirby-button>
+    </kirby-box>
+
     <kirby-file-remove-dialog ref="remove" />
   </div>
 </template>
