@@ -11,13 +11,13 @@
 <body>
 
   <main>
-    <kirby-panel assets="./assets" api="http://localhost/kirby/v3/kirby"></kirby-panel>
+    <kirby-panel></kirby-panel>
   </main>
 
   <script>
     var panel = {
       config: {
-        api: './kirby/',
+        api: '../api/',
         assets: './assets'
       }
     };
