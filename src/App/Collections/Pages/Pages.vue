@@ -7,8 +7,8 @@
       @paginate="paginate"
       @action="action"
     />
-    <kirby-page-url-dialog ref="url" />
-    <kirby-page-remove-dialog ref="remove" />
+    <kirby-page-url-dialog ref="url" @success="$emit('url')" />
+    <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
   </div>
 </template>
 

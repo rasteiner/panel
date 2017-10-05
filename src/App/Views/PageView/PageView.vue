@@ -7,7 +7,14 @@
       :breadcrumb="breadcrumb"
       :pagination="pagination">
 
-      <kirby-fancy-input class="kirby-page-title" :key="page.id + '-title'" :value="page.title" :placeholder="$t('page.title') + ' …'" tag="div" @blur="updateTitle($event.target.innerText)" />
+      <kirby-fancy-input
+        class="kirby-page-title"
+        :key="page.id + '-title'"
+        :value="page.title"
+        :placeholder="$t('page.title') + ' …'"
+        tag="div"
+        @blur="updateTitle($event.target.innerText)"
+        @enter="$event.target.blur()" />
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">
@@ -43,7 +50,12 @@
 
     <kirby-grid class="kirby-sections" v-if="page" gutter="large">
       <kirby-column v-for="(column, columnIndex) in layout" :key="page.id + '-column-' + columnIndex" :width="column.width">
-        <component v-for="(section, sectionIndex) in column.sections" :key="page.id + '-section-' + sectionIndex" :is="'kirby-' + section.type + '-section'" v-bind="section" />
+        <component
+          v-for="(section, sectionIndex) in column.sections"
+          :key="page.id + '-section-' + sectionIndex"
+          :is="'kirby-' + section.type + '-section'"
+          :page="page"
+          v-bind="section" />
       </kirby-column>
     </kirby-grid>
 
@@ -58,6 +70,7 @@
 
 
 import PageQuery from 'App/Api/PageQuery.js';
+import UpdatePage from 'App/Api/UpdatePage.js';
 import LayoutQuery from 'App/Api/LayoutQuery.js';
 
 export default {
@@ -105,7 +118,19 @@ export default {
     updateTitle (title) {
       if (title !== this.page.title) {
         this.page.title = title;
-        this.$store.dispatch('success', 'The page title has been updated');
+
+        UpdatePage({
+          id: this.page.id,
+          content: [
+            {
+              key: 'title',
+              value: title
+            }
+          ]
+        }).then((page) => {
+          this.$store.dispatch('success', 'The page title has been updated');
+        });
+
       }
     },
     action (action) {

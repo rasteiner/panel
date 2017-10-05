@@ -39,6 +39,10 @@ export default {
         e.preventDefault();
       }
 
+      if (e.metaKey || e.ctrlKey) {
+        this.$emit('submit', e);
+      }
+
     },
     remove (e) {
 

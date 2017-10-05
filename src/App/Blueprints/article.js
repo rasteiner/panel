@@ -24,7 +24,7 @@ module.exports = function (page) {
       sections: [
         {
           type: 'fields',
-          values: page.fields,
+          values: page.content,
           fields: [
             {
               name: 'date',

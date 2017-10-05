@@ -10,6 +10,7 @@
 
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
 import PageQuery from 'App/Api/PageQuery.js';
+import DeletePage from 'App/Api/DeletePage.js';
 
 export default {
   mixins: [DialogMixin],
@@ -28,11 +29,16 @@ export default {
       });
     },
     submit () {
-      this.$store.dispatch('success', 'The page has been deleted');
+      DeletePage(this.page.id).then(() => {
 
-      if (this.$route.path === this.page.link) {
-        this.$router.push('/pages/' + this.page.parent.id);
-      }
+        this.$store.dispatch('success', 'The page has been deleted');
+        this.$emit('success');
+
+        if (this.$route.path === this.page.link) {
+          this.$router.push('/pages/' + this.page.parent.id);
+        }
+
+      });
     }
   }
 }

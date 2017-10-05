@@ -46,7 +46,7 @@ export default {
         e.preventDefault();
       }
 
-      this.$emit('enter');
+      this.$emit('enter', e);
 
     },
     remove (e) {
