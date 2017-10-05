@@ -12,7 +12,7 @@
     "lint": "npm-run-all lint:js --silent",
     "test": "karma start karma.conf.js --single-run",
     "test:watch": "karma start karma.conf.js",
-    "api": "php -S localhost:8000 -t ./kirby",
+    "api": "php -S localhost:8000 -t ../",
     "start": "npm-run-all --parallel dev fractal api"
   },
   "dependencies": {
