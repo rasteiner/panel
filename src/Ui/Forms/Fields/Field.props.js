@@ -1,44 +1,36 @@
+
+import Input from '../Inputs/Input.props.js';
+
 export default {
+  mixin: [Input],
   props: {
-    'label': {
+    label: {
       type: String,
       default: ''
     },
-    'icon': {
+    icon: {
+      type: [Boolean, String],
       default: false
     },
-    'name': {
+    help: {
       type: String,
       default: ''
     },
-    'value': {
-      type: String,
-      default: ''
-    },
-    'required': {
-      type: Boolean,
-      default: false
-    },
-    'readonly': {
-      type: Boolean,
-      default: false
-    },
-    'autofocus': {
-      type: Boolean,
-      default: false
-    },
-    'help': {
-      type: String,
-      default: ''
-    },
-    'type': {
-      type: String,
-      default: 'text'
+    value: {}
+  },
+  data () {
+    return {
+      data: this.value
+    }
+  },
+  watch: {
+    data () {
+      this.$emit('input', this.data)
     }
   },
   methods: {
-    input (value) {
-      this.$emit('input', value)
+    input (data) {
+      this.data = data
     }
   }
 }

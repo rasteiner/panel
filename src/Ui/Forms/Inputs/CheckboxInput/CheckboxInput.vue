@@ -1,42 +1,33 @@
 <template>
   <span class="kirby-checkbox-input">
-    <input type="checkbox" :value="value" v-model="checked" :id="_uid" class="kirby-checkbox-input" />
+    <input type="checkbox" v-model="data" :id="_uid" class="kirby-checkbox-input" :checked="data" />
     <label :for="_uid">{{ label }}</label>
   </span>
 </template>
 
 <script>
 
+import Props from '../Input.props.js';
+
 export default {
-  model: {
-    prop: 'data',
-    event: 'change'
-  },
+  mixins: [Props],
   props: {
     label: {
       type: String
     },
     value: {
-      type: String
-    },
-    data: {
-      type: Array,
-      default: []
+      type: Boolean,
+      default: false
     }
   },
-  data() {
+  data () {
     return {
-      checked: this.data.indexOf(this.value) !== -1
+      data: this.value
     }
   },
   watch: {
-    checked (checked) {
-      if (checked) {
-        this.data.push(this.value)
-        this.$emit('change', this.data)
-      } else {
-        this.$emit('change', this.data.filter(value => value !== this.value))
-      }
+    data (value) {
+      this.$emit('input', value);
     }
   }
 }
@@ -54,7 +45,13 @@ $color-checkbox-focus: #567896;
 }
 .kirby-checkbox-input input {
   opacity: 0;
-  margin-right: 1rem;
+
+  [dir="ltr"] & {
+    margin-right: 1rem;
+  }
+  [dir="rtl"] & {
+    margin-left: 1rem;
+  }
 }
 .kirby-checkbox-input label {
   font-size: $font-size-small;
@@ -67,7 +64,6 @@ $color-checkbox-focus: #567896;
 .kirby-checkbox-input label::before{
   position: absolute;
   top: 50%;
-  left: 0;
   transform: translateY(-50%);
   content: "";
   height: 12px;
@@ -77,12 +73,18 @@ $color-checkbox-focus: #567896;
   border: 2px solid $color-checkbox-border;
   cursor: pointer;
   transition: all .2s;
+
+  [dir="ltr"] & {
+    left: 0;
+  }
+  [dir="rtl"] & {
+    right: 0;
+  }
 }
 .kirby-checkbox-input input + label::after {
   position: absolute;
   content: none;
   top: 50%;
-  left: 3px;
   margin-top: -4px;
   display: inline-block;
   height: 3px;
@@ -91,6 +93,13 @@ $color-checkbox-focus: #567896;
   border-bottom: 2px solid $color-light;
   transform: rotate(-45deg);
   transition: all .2s;
+
+  [dir="ltr"] & {
+    left: 3px;
+  }
+  [dir="rtl"] & {
+    right: 3px;
+  }
 }
 .kirby-checkbox-input input:focus + label::before {
   border-color: $color-checkbox-focus;

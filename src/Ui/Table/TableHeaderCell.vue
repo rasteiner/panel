@@ -19,10 +19,16 @@ export default {
 <style lang="scss">
 
 .kirby-table-header-cell.kirby-table-cell {
-  text-align: left;
   font-weight: 600;
   background: none;
   border: 0;
+
+  [dir="ltr"] & {
+    text-align: left;
+  }
+  [dir="rtl"] & {
+    text-align: right;
+  }
 }
 
 </style>

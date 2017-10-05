@@ -20,11 +20,17 @@ export default {
 
 .kirby-quote-block .kirby-fancy-input {
   padding: 0 1.5rem;
-  border-left: 5px solid $color-background;
   margin-bottom: 1.5rem;
   font-family: serif;
   font-style: italic;
   font-size: 1.5em;
+
+  [dir="ltr"] & {
+    border-left: 5px solid $color-background;
+  }
+  [dir="rtl"] & {
+    border-right: 5px solid $color-background;
+  }
 }
 
 </style>

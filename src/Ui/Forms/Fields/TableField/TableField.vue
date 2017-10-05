@@ -4,7 +4,7 @@
 
     <template slot="options">
       <kirby-button-group>
-        <kirby-button icon="plus-circle" @click="add()">Add</kirby-button>
+        <kirby-button icon="add" @click="add">Add</kirby-button>
       </kirby-button-group>
     </template>
 
@@ -17,8 +17,8 @@
             <kirby-table-header-cell v-for="column in columns" :key="column.name">
               {{ column.label }}
             </kirby-table-header-cell>
-            <kirby-table-header-cell type="button"></kirby-table-header-cell>
-            <kirby-table-header-cell type="button"></kirby-table-header-cell>
+            <kirby-table-header-cell type="button" />
+            <kirby-table-header-cell type="button" />
           </kirby-table-header>
 
           <kirby-table-body>
@@ -27,10 +27,10 @@
                 {{ row[column.name] }}
               </kirby-table-cell>
               <kirby-table-cell type="button">
-                <kirby-button icon="pencil" @click="edit(row)" />
+                <kirby-button icon="edit" @click="edit(row)" />
               </kirby-table-cell>
               <kirby-table-cell type="button">
-                <kirby-button icon="trash-o" @click="remove(row)" />
+                <kirby-button icon="trash" @click="remove(row)" />
               </kirby-table-cell>
             </kirby-table-row>
           </kirby-table-body>
@@ -84,21 +84,15 @@ export default {
     },
     columns: {
       type: Array,
-      default() {
-        return [];
-      }
+      default: []
     },
     fields: {
       type: Array,
-      default() {
-        return [];
-      }
+      default: []
     },
     value: {
       type: Array,
-      default() {
-        return [];
-      }
+      default: []
     }
   },
   methods: {
@@ -154,7 +148,12 @@ export default {
   }
 
   .kirby-dialog-header .kirby-button-group .kirby-button:last-child {
-    padding-right: 1.5rem;
+    [dir="ltr"] & {
+      padding-right: 1.5rem;
+    }
+    [dir="rtl"] & {
+      padding-left: 1.5rem;
+    }
   }
 
 }
@@ -170,11 +169,15 @@ export default {
     .kirby-table-header-cell {
       color: $color-dark-grey;
       border-bottom: 2px solid $color-background;
-      border-left: 1px dashed $color-border;
-    }
 
-    .kirby-table-header-cell[data-type="button"] {
-      border-left: none;
+      &:not([data-type="button"]) {
+        [dir="ltr"] & {
+          border-left: 1px dashed $color-border;
+        }
+        [dir="rtl"] & {
+          border-right: 1px dashed $color-border;
+        }
+      }
     }
 
   }

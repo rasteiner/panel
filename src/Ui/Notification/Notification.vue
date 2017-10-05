@@ -27,19 +27,33 @@ export default {
 .kirby-notification {
   position: fixed;
   top: 1.5rem;
-  right: 1.5rem;
   background: $color-dark;
   color: $color-white;
   padding: .5rem 1rem .5rem 3rem;
   border-radius: $border-radius;
   font-family: $font-family-mono;
   font-size: $font-size-small;
+
+  [dir="ltr"] & {
+    right: 1.5rem;
+    padding: .5rem 1rem .5rem 3rem;
+  }
+  [dir="rtl"] & {
+    left: 1.5rem;
+    padding: .5rem 3rem .5rem 1rem;
+  }
 }
 .kirby-notification .kirby-icon {
   position: absolute;
   top: 50%;
-  left: 1rem;
   margin-top: -.525rem;
+
+  [dir="ltr"] & {
+   left: 1rem;
+  }
+  [dir="rtl"] & {
+    right: 1rem;
+  }
 }
 .kirby-notification[data-type="success"] .kirby-icon svg * {
   fill: $color-positive;

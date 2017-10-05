@@ -16,8 +16,9 @@ const router = new VueRouter({
 
 /** i18n */
 Vue.use(VuexI18n.plugin, store);
-store.dispatch('language', store.state.language);
+Vue.i18n.set(store.state.language);
 Vue.i18n.fallback(store.state.language);
+store.dispatch('language', store.state.language);
 
 /** TODO: Remove Fake Login */
 store.dispatch('login');
@@ -31,8 +32,5 @@ import 'App/App.js';
 new Vue({
   el: 'main',
   router,
-  store,
-  created () {
-
-  }
+  store
 });

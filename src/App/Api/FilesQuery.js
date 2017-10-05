@@ -20,11 +20,9 @@ export default (params) => {
     }
   `;
 
-  return Query(query, {query: params}).then(function (response) {
-    return {
-      files:      response.files.items,
+  return Query(query, { query: params }).then((response) => ({
+      files: response.files.items,
       pagination: response.files.pagination
-    };
-  });
+  }));
 
 };

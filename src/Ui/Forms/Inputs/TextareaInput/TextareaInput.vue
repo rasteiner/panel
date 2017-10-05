@@ -29,11 +29,10 @@ export default {
     }
   },
   methods: {
-    focus: function() {
+    focus () {
       this.$refs.textarea.focus();
     },
-    enter: function(e) {
-
+    enter (e) {
       this.$emit('enter', e);
 
       if (this.multiline === false) {
@@ -41,7 +40,7 @@ export default {
       }
 
     },
-    remove: function(e) {
+    remove (e) {
 
       if (e.target.selectionStart === 0 && e.target.value.length === 0) {
         this.$emit('empty');
@@ -51,8 +50,8 @@ export default {
       this.$emit('remove', e);
     }
   },
-  mounted: function() {
-    this.$nextTick(function() {
+  mounted () {
+    this.$nextTick(() => {
       autosize(this.$el);
     });
   }

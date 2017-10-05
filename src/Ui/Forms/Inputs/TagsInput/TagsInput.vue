@@ -40,15 +40,15 @@ export default {
     draggable
   },
   props: {
-    'id': {},
-    'value': {},
-    'required': {},
-    'separator': {
+    id: {},
+    value: {},
+    required: {},
+    separator: {
       default: ','
     },
-    'autofocus': {},
-    'autocomplete': {},
-    'sortable': {
+    autofocus: {},
+    autocomplete: {},
+    sortable: {
       default: true
     }
   },
@@ -57,9 +57,7 @@ export default {
     var tags = this.value || [];
 
     if(typeof tags === 'string') {
-      var tags = tags.split(this.separator).map(function(tag) {
-        return tag.trim();
-      });
+      var tags = tags.split(this.separator).map(tag => tag.trim());
     }
 
     return {
@@ -76,7 +74,6 @@ export default {
       this.selected = tag;
     },
     remove: function(tag) {
-
       var prev = this.get('prev');
       var next = this.get('next');
 
@@ -85,16 +82,17 @@ export default {
       if(prev) {
         prev.ref.focus();
       } else if(next) {
-        this.$nextTick(function() {
+        this.$nextTick(() => {
           var nextIndex  = this.tags.indexOf(next.tag);
           var nextResult = this.get(nextIndex);
           this.selected = nextResult.tag;
           nextResult.ref.focus();
-        }.bind(this));
+        });
       } else {
         this.$refs.input.focus();
       }
 
+      this.$emit('input', this.tags);
     },
     index: function(tag) {
       return this.tags.indexOf(tag);
@@ -118,6 +116,7 @@ export default {
         this.$refs.input.value = '';
       }
 
+      this.$emit('input', this.tags);
     },
     get: function(method) {
 
@@ -179,17 +178,29 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-tags-input {
   display: flex;
   flex-wrap: wrap;
-  padding: 4px 0 0 4px;
   align-items: baseline;
+
+  [dir="ltr"] & {
+    padding: 4px 0 0 4px;
+  }
+  [dir="rtl"] & {
+    padding: 4px 4px 0 0;
+  }
 }
 .kirby-tags-input .kirby-tag {
-  margin-right: 4px;
   margin-bottom: 4px;
+
+  [dir="ltr"] & {
+    margin-right: 4px;
+  }
+  [dir="rtl"] & {
+    margin-left: 4px;
+  }
 }
 .kirby-tags-input .kirby-tag.sortable-ghost {
   opacity: .2;
@@ -204,9 +215,15 @@ export default {
   outline: 0;
   line-height: 1;
   outline: 0;
-  margin-right: 4px;
   margin-bottom: 4px;
   border-radius: 3px;
+
+  [dir="ltr"] & {
+    margin-right: 4px;
+  }
+  [dir="rtl"] & {
+    margin-left: 4px;
+  }
 }
 
 </style>

@@ -166,7 +166,12 @@ export default {
   text-align: center;
 }
 .kirby-pagination[data-align="right"] {
-  text-align: right;
+  [dir="ltr"] & {
+    text-align: right;
+  }
+  [dir="rtl"] & {
+    text-align: left;
+  }
 }
 
 .kirby-pagination-selector {
@@ -180,7 +185,13 @@ export default {
 }
 .kirby-pagination-selector > div > label {
   padding: .5rem 1rem;
-  border-right: 1px solid rgba(#fff, .1);
+
+  [dir="ltr"] & {
+    border-right: 1px solid rgba(#fff, .1);
+  }
+  [dir="rtl"] & {
+    border-left: 1px solid rgba(#fff, .1);
+  }
 }
 .kirby-pagination-selector > div > input {
   flex-grow: 1;

@@ -27,9 +27,9 @@ export default {
 
   },
   mounted: function() {
-    document.addEventListener('click', function() {
+    document.addEventListener('click', () => {
       this.open = false;
-    }.bind(this));
+    });
   },
   methods: {
     focus: function() {
@@ -64,7 +64,7 @@ export default {
 
       var options = [];
 
-      Dates.days(this.year, this.month, 'numbers').forEach(function(day) {
+      Dates.days(this.year, this.month, 'numbers').forEach((day) => {
         day = day.padZero();
         options.push({
           value: day,
@@ -79,7 +79,7 @@ export default {
 
       var options = [];
 
-      Dates.months('array').forEach(function(monthName, month) {
+      Dates.months('array').forEach((monthName, month) => {
         month = (month + 1).padZero();
         options.push({
           value: month,
@@ -94,7 +94,7 @@ export default {
 
       var options = [];
 
-      Dates.years(new Date().getFullYear(), 10, 10).forEach(function(year, index) {
+      Dates.years(new Date().getFullYear(), 10, 10).forEach((year, index) => {
         options.push({
           value: year,
           text: year
@@ -129,7 +129,12 @@ export default {
   padding: 0 .1rem;
 }
 .kirby-date-input-selects .kirby-select-input:first-child {
-  padding-left: .5rem;
+  [dir="ltr"] & {
+    padding-left: .5rem;
+  }
+  [dir="rtl"] & {
+    padding-right: .5rem;
+  }
 }
 .kirby-date-input-selects .kirby-select-input:last-child {
   flex-grow: 1;

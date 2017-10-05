@@ -22,7 +22,7 @@ export default (params) => {
     }
   `;
 
-  return Query(query, {query: params}).then(function (response) {
+  return Query(query, { query: params }).then((response) => {
 
     let pages = response.children.items.map((page) => {
 
@@ -35,14 +35,12 @@ export default (params) => {
       }
 
       return page;
-
     });
 
     return {
       pages,
       pagination: response.children.pagination
     }
-
   });
 
 };

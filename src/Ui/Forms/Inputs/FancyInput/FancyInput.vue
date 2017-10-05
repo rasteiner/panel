@@ -33,14 +33,14 @@ export default {
     }
   },
   methods: {
-    input(e) {
+    input (e) {
       this.$emit('input', e.target.innerText);
     },
-    focus() {
+    focus () {
       this.$refs.input.focus();
       this.$emit('focus');
     },
-    enter(e) {
+    enter (e) {
 
       if (this.multiline === false) {
         e.preventDefault();
@@ -49,7 +49,7 @@ export default {
       this.$emit('enter');
 
     },
-    remove(e) {
+    remove (e) {
       if (window.getSelection().baseOffset <= 1 && this.$el.innerText.length === 0) {
         e.preventDefault();
         this.$emit('empty');

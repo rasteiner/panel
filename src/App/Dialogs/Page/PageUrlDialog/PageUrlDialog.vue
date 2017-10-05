@@ -40,11 +40,11 @@ export default {
       }
     },
     open (id) {
-      PageQuery(id).then(function(page) {
+      PageQuery(id).then((page) => {
         this.page = page;
         this.sluggify(this.page.slug);
         this.$refs.dialog.open();
-      }.bind(this));
+      });
     },
     submit () {
       this.$store.dispatch('success', 'The URL has been changed to: /' + this.page.id);

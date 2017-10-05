@@ -28,10 +28,10 @@
 
 export default {
   computed: {
-    role() {
+    role () {
       return this.$route.params.role;
     },
-    headline() {
+    headline () {
       return !this.role ? this.$t('users') : this.$t('user.role') + ': ' + this.role
     }
   }

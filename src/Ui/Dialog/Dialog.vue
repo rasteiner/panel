@@ -20,7 +20,7 @@
 
 <script>
 
-const PanelDialogEscapeListener = function (e) {
+const PanelDialogEscapeListener = (e) => {
   if (e.code === 'Escape') {
     this.close()
   }
@@ -39,40 +39,40 @@ export default {
       default: 'check'
     }
   },
-  data: function () {
+  data () {
     return {
       isOpen: this.sticky === true
     }
   },
   methods: {
-    open: function () {
+    open () {
       this.isOpen = true
 
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         var autofocus = this.$el.querySelector('input, textarea, button')
         if (autofocus) {
           autofocus.focus()
         }
-      }.bind(this))
+      })
     },
-    close: function () {
+    close () {
       if (this.sticky !== true) {
         this.isOpen = false
       }
     },
-    cancel: function() {
+    cancel () {
       this.$emit('cancel');
       this.close();
     },
-    submit: function() {
+    submit () {
       this.$emit('submit');
       this.close();
     }
   },
-  created: function () {
+  created () {
     window.addEventListener('keyup', PanelDialogEscapeListener.bind(this), false)
   },
-  destroyed: function () {
+  destroyed () {
     window.removeEventListener('keyup', PanelDialogEscapeListener, false)
   }
 }
@@ -163,10 +163,20 @@ export default {
   }
 
   .kirby-button:first-child {
-    text-align: left;
+    [dir="ltr"] & {
+      text-align: left;
+    }
+    [dir="rtl"] & {
+      text-align: right;
+    }
   }
   .kirby-button:last-child {
-    text-align: right;
+    [dir="ltr"] & {
+      text-align: right;
+    }
+    [dir="rtl"] & {
+      text-align: left;
+    }
   }
 
 }

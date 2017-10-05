@@ -22,16 +22,9 @@ export default {
     },
     options: {
       type: Array
-    }
-  },
-  data () {
-    return {
-      data: this.value
-    }
-  },
-  watch: {
-    data (value) {
-      this.$emit('input', value)
+    },
+    value: {
+      type: String
     }
   }
 }
@@ -41,8 +34,14 @@ export default {
 <style lang="scss">
 
 .kirby-select-field .kirby-select-input select {
-  right: -3rem;
   width: calc(100% + 3rem);
+
+  [dir="ltr"] & {
+     right: -3rem;
+  }
+  [dir="rtl"] & {
+     left: -3rem;
+  }
 }
 
 .kirby-select-field .kirby-input-icon {

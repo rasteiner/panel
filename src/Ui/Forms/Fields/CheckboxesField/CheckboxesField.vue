@@ -9,7 +9,7 @@
 import Props from '../Field.props.js';
 
 export default {
-  mixins: [Props],
+   mixins: [Props],
   props: {
     options: {
       type: Array
@@ -22,11 +22,6 @@ export default {
       type: Array,
       default: []
     }
-  },
-  data() {
-    return {
-      data: this.value
-    }
   }
 }
 
@@ -35,7 +30,7 @@ export default {
 <style>
 
 .kirby-checkboxes-field .kirby-input-content {
-  padding: .65rem .65rem;
+  padding: .65rem;
 }
 
 </style>

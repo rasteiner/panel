@@ -36,15 +36,11 @@ export default {
     },
     items: {
       type: Array,
-      default () {
-        return [];
-      }
+      default: []
     },
     pagination: {
       type: Object,
-      default () {
-        return {};
-      }
+      default: {}
     }
   },
   computed: {

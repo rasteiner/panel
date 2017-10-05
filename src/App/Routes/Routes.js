@@ -9,7 +9,7 @@ import SettingsView from '../Views/SettingsView/SettingsView.vue';
 /* store */
 import store from '../Store/store.js';
 
-const auth = function (to, from, next) {
+const auth = (to, from, next) => {
   if (store.state.user) {
     next();
   } else {
@@ -39,44 +39,36 @@ export default [
     name: 'Site',
     component: PageView,
     beforeEnter: auth,
-    props: (route) => {
-      return {
-        path: '/'
-      };
-    }
+    props: (route) => ({
+      path: '/'
+    })
   },
   {
     path: '/pages/:path+',
     name: 'Page',
     component: PageView,
     beforeEnter: auth,
-    props: (route) => {
-      return {
-        path: route.params.path
-      };
-    }
+    props: (route) => ({
+      path: route.params.path
+    })
   },
   {
     path: '/files/:path+',
     name: 'File',
     component: FileView,
     beforeEnter: auth,
-    props: (route) => {
-      return {
-        path: route.params.path
-      };
-    }
+    props: (route) => ({
+      path: route.params.path
+    })
   },
   {
     path: '/users/role/:role',
     name: 'UsersByRole',
     component: UsersView,
     beforeEnter: auth,
-    props: (route) => {
-      return {
-        role: route.params.role
-      };
-    }
+    props: (route) => ({
+      role: route.params.role
+    })
   },
   {
     path: '/users',
@@ -89,11 +81,9 @@ export default [
     name: 'User',
     component: UserView,
     beforeEnter: auth,
-    props: (route) => {
-      return {
-        email: route.params.email
-      };
-    }
+    props: (route) => ({
+      email: route.params.email
+    })
   },
   {
     path: '/settings',

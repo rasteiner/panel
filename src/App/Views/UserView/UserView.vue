@@ -76,8 +76,16 @@ export default {
       }
     }
   },
+  created () {
+    this.fetch()
+  },
+  watch: {
+    email () {
+      this.fetch()
+    }
+  },
   computed: {
-    breadcrumb() {
+    breadcrumb () {
       return [
         {
           link: '/users/role/' + this.user.role,
@@ -85,8 +93,8 @@ export default {
         }
       ];
     },
-    headline() {
-      return this.user.firstName + ' ' + this.user.lastName;
+    headline () {
+      return `${this.user.firstName} ${this.user.lastName}`;
     },
     fields() {
       return [
@@ -115,25 +123,12 @@ export default {
         },
         {
           name: 'language',
-          label: this.$t('user.language') + ' (for testing i18n)',
-          type: 'select',
-          options: this.languages
+          label: this.$t('user.language'),
+          type: 'language'
         }
       ]
     },
-    languages() {
-      return [
-        { value: 'en', text: 'English' },
-        { value: 'de', text: 'German' },
-        { value: 'es_ES', text: 'Spanish' },
-        { value: 'ar', text: 'Arabic' },
-        { value: 'zh_CN', text: 'Chinese' },
-        { value: 'sv_SE', text: 'Swedish' },
-        { value: 'ko', text: 'Korean' },
-        { value: 'ru', text: 'Russian' }
-      ]
-    },
-    pagination() {
+    pagination () {
       return {
         page: 1,
         limit: 1,
@@ -150,7 +145,11 @@ export default {
       this.user.lastName = data.lastName;
       this.user.email = data.email;
       this.user.language = data.language;
-      this.$store.dispatch('language', data.language);
+
+      // if current panel user, switch language
+      if(data.language && this.$store.state.user.email === this.user.email) {
+        this.$store.dispatch('language', data.language);
+      }
     },
     action (action) {
       switch (action) {
@@ -165,12 +164,12 @@ export default {
           this.$store.dispatch('error', 'Not yet implemented');
           break;
       }
+    },
+    fetch () {
+      UserQuery(this.email).then((user) => {
+        this.user = user;
+      });
     }
-  },
-  created () {
-    UserQuery(this.email).then((user) => {
-      this.user = user;
-    });
   }
 }
 
@@ -183,15 +182,22 @@ export default {
 }
 
 .kirby-user-view-image {
-  position: absolute;
-  width: 3rem;
-  right: 0;
-  top: 50%;
-  margin-top: -1.5rem;
   display: inline-block;
+  position: absolute;
+  top: 50%;
+  width: 3rem;
+  margin-top: -1.5rem;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: -.2rem;
+
+  [dir="ltr"] & {
+    right: 0;
+    margin-right: -.2rem;
+  }
+  [dir="rtl"] & {
+    left: 0;
+    margin-left: -.2rem;
+  }
 }
 
 </style>

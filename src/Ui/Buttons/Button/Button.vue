@@ -98,7 +98,12 @@ export default {
   }
 
   .kirby-icon ~ .kirby-button-text {
-    padding-left: .25rem;
+    [dir="ltr"] & {
+      padding-left: .25rem;
+    }
+    [dir="rtl"] & {
+      padding-right: .25rem;
+    }
   }
 
 }
@@ -136,12 +141,17 @@ export default {
 
 .kirby-button[data-has-image] {
   width: 100%;
-  text-align: left;
+
+  [dir="ltr"] & {
+    text-align: left;
+  }
+  [dir="rtl"] & {
+    text-align: right;
+  }
 
   .kirby-button-text {
     padding: 0;
   }
-
 }
 
 .kirby-button input[type="file"] {
@@ -156,10 +166,20 @@ export default {
 .kirby-button-image {
   width: 1.5rem;
   height: 1.5rem;
-  margin: -.5rem .25rem -.5rem 0;
+  margin-top: -.5rem;
+  margin-bottom: -.5rem;
   border-radius: 50%;
   background: $color-dark;
   object-fit: cover;
+
+  [dir="ltr"] & {
+    margin-right: .25rem;
+    margin-left: 0;
+  }
+  [dir="rtl"] & {
+    margin-right: 0;
+    margin-left: .25rem;
+  }
 }
 
 .kirby-button-text span {

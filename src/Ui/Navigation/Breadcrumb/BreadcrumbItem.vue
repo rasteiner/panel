@@ -19,13 +19,20 @@ export default {
 
 .kirby-breadcrumb-item {
   position: relative;
-  float: left;
   list-style: none;
   white-space: nowrap;
   font-family: $font-family-mono;
   font-size: 14px;
   color: $color-dark-grey;
-  margin-right: 1.5rem;
+
+  [dir="ltr"] & {
+    float: left;
+    margin-right: 1.5rem;
+  }
+  [dir="rtl"] & {
+    float: right;
+    margin-left: 1.5rem;
+  }
 }
 
 .kirby-breadcrumb-item a,
@@ -37,8 +44,14 @@ export default {
 
   &:after {
     position: absolute;
-    right: -1rem;
     content: "/";
+
+    [dir="ltr"] & {
+      right: -1rem;
+    }
+    [dir="rtl"] & {
+      left: -1rem;
+    }
   }
 
   &[data-tabbed] {

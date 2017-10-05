@@ -21,10 +21,10 @@ export default {
   },
   methods: {
     open(email) {
-      UserQuery(email).then(function (user) {
+      UserQuery(email).then((user) => {
         this.user = user;
         this.$refs.dialog.open();
-      }.bind(this));
+      });
     },
     submit () {
       this.$store.dispatch('success', 'The user has been deleted');

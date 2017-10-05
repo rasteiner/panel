@@ -11,18 +11,21 @@ export default {
   mixins: [Props],
   props: {
     label: {
-      default: 'User'
+      default: 'Language'
     },
     name: {
-      default: 'user'
+      default: 'language'
     },
     icon: {
-      default: 'user'
+      default: 'globe'
     },
-    role: {}
+    value: {
+      type: String
+    }
   },
   data() {
     return {
+      data: this.value,
       options: []
     };
   },
@@ -30,24 +33,26 @@ export default {
     this.fetch();
   },
   methods: {
-    fetch() {
+    fetch () {
 
       Query(`
-        query($role: String) {
-          users(role: $role) {
-            items {
-              email,
-              firstName,
-              role
-            }
+        query {
+          languages {
+            name,
+            locale
           }
         }
-      `, {role: this.role}).
+      `).
       then(response => {
-        this.options = response.users.items.map(user =>({
-          value: user.email,
-          text: `${user.email}`
+        this.options = response.languages.map(lang =>({
+          value: lang.locale,
+          text: lang.name
         }))
+        this.options.unshift({
+          value: '',
+          text: 'Please select a language…',
+          disabled: true
+         })
       });
 
     }

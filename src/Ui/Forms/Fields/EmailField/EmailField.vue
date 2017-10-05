@@ -1,5 +1,5 @@
 <template>
-  <kirby-text-field v-bind="$props" @input="input"></kirby-text-field>
+  <kirby-text-field v-bind="$props" @input="input" />
 </template>
 
 <script>
@@ -21,7 +21,7 @@ export default {
     placeholder: {
       default: 'mail@example.com'
     },
-    tpye: {
+    type: {
       default: 'email'
     }
   }

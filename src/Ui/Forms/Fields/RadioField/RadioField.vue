@@ -20,16 +20,6 @@ export default {
       type: String,
       default: 'radio'
     }
-  },
-  data() {
-    return {
-      data: this.value
-    }
-  },
-  watch: {
-    data (value) {
-      this.$emit('input', data)
-    }
   }
 }
 
@@ -38,7 +28,7 @@ export default {
 <style>
 
 .kirby-radio-field .kirby-input-content {
-  padding: .65rem .65rem;
+  padding: .65rem;
 }
 
 </style>

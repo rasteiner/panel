@@ -22,11 +22,14 @@ export default (params) => {
     }
   `;
 
-  return Query(query, {page: params.pagination.page, limit: params.pagination.limit, role: params.role}).then(function (response) {
-    return {
-      users:      response.users.items,
-      pagination: response.users.pagination
-    }
-  });
+  return Query(query, {
+    page: params.pagination.page,
+    limit: params.pagination.limit,
+    role: params.role
+  }).
+  then((response) => ({
+    users: response.users.items,
+    pagination: response.users.pagination
+  }));
 
 };

@@ -7,7 +7,7 @@
       :breadcrumb="breadcrumb"
       :pagination="pagination">
 
-      <kirby-fancy-input class="kirby-page-title" :key="page.id + '-title'" :value="page.title" :placeholder="$t('page.title') + '…'" tag="div" @blur="updateTitle($event.target.innerText)" />
+      <kirby-fancy-input class="kirby-page-title" :key="page.id + '-title'" :value="page.title" :placeholder="$t('page.title') + ' …'" tag="div" @blur="updateTitle($event.target.innerText)" />
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">
@@ -62,7 +62,7 @@ import LayoutQuery from 'App/Api/LayoutQuery.js';
 
 export default {
   props: ['path'],
-  data() {
+  data () {
     return {
       site: false,
       page: {
@@ -75,11 +75,11 @@ export default {
       layout: []
     }
   },
-  created() {
+  created () {
     this.fetch();
   },
   watch: {
-    $route() {
+    $route () {
       this.fetch();
     }
   },
@@ -94,12 +94,12 @@ export default {
         return true;
       }
 
-      PageQuery(this.path).then(function (page) {
+      PageQuery(this.path).then((page) => {
         this.site       = false;
         this.page       = page;
         this.breadcrumb = page.breadcrumb;
         this.layout     = LayoutQuery(this.page.template, this.page);
-      }.bind(this));
+      });
 
     },
     updateTitle (title) {
@@ -138,8 +138,14 @@ export default {
 .kirby-page-view .kirby-page-title {
   padding-left: .5rem;
   padding-right: .5rem;
-  margin-left: -.5rem;
   width: calc(100% + 1rem);
+
+  [dir="ltr"] & {
+    margin-left: -.5rem;
+  }
+  [dir="rtl"] & {
+    margin-right: -.5rem;
+  }
 }
 
 .kirby-page-view .kirby-page-title:focus {
