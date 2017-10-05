@@ -44,4 +44,8 @@ export default {
   line-height: 0;
 }
 
+.kirby-icon svg * {
+  fill: $color-dark;
+}
+
 </style>
