@@ -40,7 +40,9 @@ export default {
     },
     pagination: {
       type: Object,
-      default: {}
+      default: () => {
+        return {};
+      }
     }
   },
   computed: {

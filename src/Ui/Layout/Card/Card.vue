@@ -2,6 +2,7 @@
   <div class="kirby-card">
     <component :is="wrapper" :to="link">
       <kirby-image
+        v-if="image"
         :src="image.url"
         :ratio="image.ratio || '3/2'"
         back="black"
