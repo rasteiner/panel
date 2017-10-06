@@ -7,7 +7,8 @@
         :items="items"
         :pagination="paginationOptions"
         @paginate="paginate"
-        @action="action" />
+        @action="action"
+        @click="click" />
 
       <kirby-pagination
         v-if="paginationOptions.hide !== true"
@@ -61,6 +62,9 @@ export default {
   methods: {
     paginate (pagination) {
       this.$emit('paginate', pagination);
+    },
+    click (item) {
+      this.$emit('click', item);
     },
     action (item, action) {
       this.$emit('action', item, action);
