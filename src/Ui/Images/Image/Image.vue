@@ -4,7 +4,8 @@
       <transition name="kirby-image-transition">
         <img v-if="loaded" :src="src" :alt="alt || ''">
       </transition>
-      <kirby-loader v-if="!loaded" position="center" theme="light" />
+      <kirby-loader v-if="!loaded && !error" position="center" theme="light" />
+      <div class="kirby-image-error" v-if="error">×</div>
     </span>
   </figure>
 </template>
@@ -19,21 +20,22 @@ export default {
     'back',
     'cover'
   ],
-  data() {
+  data () {
     return {
-      loaded: false
+      loaded: false,
+      error:  false
     }
   },
-  created() {
+  created () {
     let img = new Image();
 
-    img.onload = function () {
+    img.onload = () => {
       this.loaded = true;
-    }.bind(this);
+    };
 
-    img.onerror = function(message) {
-      this.loaded = true;
-    }.bind(this);
+    img.onerror = (message) => {
+      this.error  = true;
+    };
 
     img.src = this.src;
   }
@@ -58,6 +60,15 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.kirby-image-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $color-white;
+  font-size: .9em;
 }
 
 .kirby-image-transition-enter-active,
@@ -85,6 +96,9 @@ export default {
 }
 .kirby-image[data-back="white"] span {
   background: $color-white;
+}
+.kirby-image[data-back="white"] .kirby-image-error {
+  background: $color-dark;
 }
 .kirby-image[data-back="pattern"] span {
   background: url(/images/pattern.png);
