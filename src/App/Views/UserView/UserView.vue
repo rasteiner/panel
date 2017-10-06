@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-user-view">
 
-    <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination">
+    <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" @paginate="paginate">
 
       {{ headline }}
 
@@ -58,11 +58,17 @@
 
 // api
 import UserQuery from 'App/Api/UserQuery.js';
+import UsersQuery from 'App/Api/UsersQuery.js';
 
 export default {
-  props: ['email'],
+  props: {
+    email: {
+      type: String
+    }
+  },
   data () {
     return {
+      id: this.email,
       user: {
         firstName: '',
         lastName: '',
@@ -80,7 +86,7 @@ export default {
     this.fetch()
   },
   watch: {
-    email () {
+    id () {
       this.fetch()
     }
   },
@@ -142,9 +148,9 @@ export default {
   methods: {
     input (data) {
       this.user.firstName = data.firstName;
-      this.user.lastName = data.lastName;
-      this.user.email = data.email;
-      this.user.language = data.language;
+      this.user.lastName  = data.lastName;
+      this.user.email     = data.email;
+      this.user.language  = data.language;
 
       // if current panel user, switch language
       if(data.language && this.$store.state.user.email === this.user.email) {
@@ -165,8 +171,15 @@ export default {
           break;
       }
     },
+    paginate (pagination) {
+      UsersQuery({
+        pagination: pagination
+      }).then((response) => {
+        this.id = response.users[0].email;
+      });
+    },
     fetch () {
-      UserQuery(this.email).then((user) => {
+      UserQuery(this.id).then((user) => {
         this.user = user;
       });
     }
