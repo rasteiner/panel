@@ -16,6 +16,7 @@
 
 import CollectionMixin from '../Collection.mixin.js';
 import ChildrenQuery from 'App/Api/ChildrenQuery.js';
+import Api from 'App/Api/Api.js';
 
 export default {
   mixins: [CollectionMixin],
@@ -26,6 +27,23 @@ export default {
         page:  this.page,
         limit: this.pagination.limit
       };
+
+      Api.get('children/' + this.query.parent).then((response) => {
+
+        this.total = response.pagination.total;
+        this.items = response.items.map((page) => ({
+          id: page.id,
+          image: page.image,
+          text: page.title,
+          link: page.url,
+          options: panel.config.assets + '/options/page.json'
+        }));
+
+
+      });
+
+
+
 
       ChildrenQuery(this.query).then((response) => {
         this.total = response.pagination.total;
