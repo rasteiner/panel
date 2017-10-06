@@ -1,6 +1,6 @@
 <template>
   <transition name="kirby-dialog-transition">
-    <div v-if="isOpen" @click="close" class="kirby-dialog">
+    <div v-show="isOpen" @click="close" class="kirby-dialog">
       <div @click.stop class="kirby-dialog-box" :data-size="size">
         <div class="kirby-dialog-body">
           <slot />
@@ -82,19 +82,22 @@ export default {
 <style lang="scss">
 
 .kirby-dialog {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border: 0;
-  width: 100%;
-  height: 100%;
-  background: $color-backdrop;
-  display: flex;
-  align-items: center;
+  display:         flex;
+  align-items:     center;
   justify-content: center;
-  z-index: z-index(dialog);
+
+  position: fixed;
+  top:      0;
+  right:    0;
+  bottom:   0;
+  left:     0;
+  border:   0;
+
+  width:  100%;
+  height: 100%;
+
+  background: $color-backdrop;
+  z-index:    z-index(dialog);
 }
 
 .kirby-dialog-transition-enter-active,
