@@ -80,8 +80,8 @@ export default {
     this.fetch()
   },
   watch: {
-    email () {
-      this.fetch()
+    $route () {
+      this.fetch();
     }
   },
   computed: {
