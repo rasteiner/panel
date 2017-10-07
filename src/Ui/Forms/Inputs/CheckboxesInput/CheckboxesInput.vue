@@ -47,3 +47,12 @@ export default {
 }
 
 </script>
+
+
+<style lang="scss">
+
+.kirby-checkboxes-input > * + * {
+  margin-top: 4px;
+}
+
+</style>

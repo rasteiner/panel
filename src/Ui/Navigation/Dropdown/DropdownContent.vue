@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpen" class="kirby-dropdown-content" :data-dark="dark" :data-align="align">
+  <div v-show="isOpen" class="kirby-dropdown-content" :data-dark="dark" :data-align="align">
     <span v-if="dropdownItems">
       <kirby-dropdown-item v-for="(option, index) in dropdownItems"
         :key="index"
