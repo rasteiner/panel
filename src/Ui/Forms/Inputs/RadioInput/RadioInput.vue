@@ -13,6 +13,9 @@
       class="kirby-radio-input" />
       <label :for="name + '_' + option.value">
         {{ option.text }}
+        <div v-if="option.info" class="kirby-radio-input-info">
+          {{ option.info }}
+        </div>
       </label>
     </span>
   </div>
@@ -29,6 +32,9 @@ export default {
     name: {
       type: String,
       default: 'radio'
+    },
+    info: {
+      type: String
     },
     value: {}
   },
@@ -207,5 +213,11 @@ $radio-label-gap: 8px;
 //   background-color: $color-radio-focus;
 //   border-color: $color-radio-focus;
 // }
+
+.kirby-radio-input-info {
+  font-size: .8em;
+  line-height: 1.2;
+  color: $color-light-grey;
+}
 
 </style>

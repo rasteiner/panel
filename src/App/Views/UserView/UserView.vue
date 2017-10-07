@@ -47,6 +47,7 @@
 
     <kirby-fieldset :fields="fields" :values="user" @input="input" />
 
+    <kirby-user-role-dialog ref="role" />
     <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
 
@@ -162,6 +163,9 @@ export default {
         case 'picture.delete':
           this.$store.dispatch('success', this.$t('notification.image.deleted'));
           this.user.image = false;
+          break;
+        case 'role':
+          this.$refs.role.open(this.user.email);
           break;
         case 'password':
           this.$refs.password.open(this.user.email);
