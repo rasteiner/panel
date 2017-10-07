@@ -1,11 +1,12 @@
 import DashboardView from '../Views/DashboardView/DashboardView.vue';
+import FileView from '../Views/FileView/FileView.vue';
+import InstallationView from '../Views/InstallationView/InstallationView.vue';
 import LoginView from '../Views/LoginView/LoginView.vue';
 import PageView from '../Views/PageView/PageView.vue';
+import SettingsView from '../Views/SettingsView/SettingsView.vue';
 import TemplateView from '../Views/TemplateView/TemplateView.vue';
-import FileView from '../Views/FileView/FileView.vue';
 import UsersView from '../Views/UsersView/UsersView.vue';
 import UserView from '../Views/UserView/UserView.vue';
-import SettingsView from '../Views/SettingsView/SettingsView.vue';
 
 /* store */
 import store from '../Store/store.js';
@@ -28,6 +29,18 @@ export default [
     path: '/login',
     component: LoginView,
     beforeEnter: (to, from, next) => {
+      if (store.state.user !== null) {
+        next('/');
+      } else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/installation',
+    component: InstallationView,
+    beforeEnter: (to, from, next) => {
+      store.dispatch('logout');
       if (store.state.user !== null) {
         next('/');
       } else {
