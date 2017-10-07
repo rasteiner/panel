@@ -29,57 +29,56 @@
     </section>
 
     <section v-if="template" class="kirby-template-review">
-      <kirby-collection layout="cards" @click="select" :items="[
-        {
-          id:   page.template,
-          text: 'Old template',
-          info: page.template,
-          image: {
-            url: image(page.template)
-          }
-        },
-        {
-          id:   template,
-          text: 'New template',
-          info: template,
-          image: {
-            url: image(template)
-          }
-        }
-      ]"></kirby-collection><br>
+
+      <kirby-grid class="kirby-sections" gutter="small">
+        <kirby-column width="1/3">
+          <kirby-collection layout="cards" @click="select" :items="[
+            {
+              id:   template,
+              text: 'New template: ' + template,
+              info: 'Old template: ' + page.template,
+              image: {
+                url: image(template)
+              }
+            }
+          ]"></kirby-collection>
+        </kirby-column>
+
+        <kirby-column width="2/3">
+          <kirby-input>
+            <kirby-table>
+              <kirby-table-header>
+                <kirby-table-header-cell>
+                  Field
+                </kirby-table-header-cell>
+                <kirby-table-header-cell>
+                  Type
+                </kirby-table-header-cell>
+                <kirby-table-header-cell>
+                  Old value
+                </kirby-table-header-cell>
+                <kirby-table-header-cell>
+                  New value
+                </kirby-table-header-cell>
+              </kirby-table-header>
+
+              <kirby-table-body>
+                <kirby-table-row v-for="change in changes" :key="change.name">
+                  <kirby-table-cell v-html="change.name" :state="state(change.status)"></kirby-table-cell>
+                  <kirby-table-cell :state="!change.type ? 'faded' : null" v-html="change.type || '–'"></kirby-table-cell>
+                  <kirby-table-cell :state="!change.oldValue ? 'faded' : null" v-html="change.oldValue || '–'"></kirby-table-cell>
+                  <kirby-table-cell :state="!change.newValue ? 'faded' : null" v-html="change.newValue || '–'"></kirby-table-cell>
+                </kirby-table-row>
+              </kirby-table-body>
+            </kirby-table>
+          </kirby-input>
+        </kirby-column>
+      </kirby-grid>
 
 
-      <kirby-input>
-        <kirby-table>
-          <kirby-table-header>
-            <kirby-table-header-cell>
-              Field name
-            </kirby-table-header-cell>
-            <kirby-table-header-cell>
-              Status
-            </kirby-table-header-cell>
-            <kirby-table-header-cell>
-              Type
-            </kirby-table-header-cell>
-            <kirby-table-header-cell>
-              Old value
-            </kirby-table-header-cell>
-            <kirby-table-header-cell>
-              New value
-            </kirby-table-header-cell>
-          </kirby-table-header>
 
-          <kirby-table-body>
-            <kirby-table-row v-for="change in changes" :key="change.name">
-              <kirby-table-cell v-html="change.name"></kirby-table-cell>
-              <kirby-table-cell :state="state(change.status)" v-html="change.status"></kirby-table-cell>
-              <kirby-table-cell v-html="change.type"></kirby-table-cell>
-              <kirby-table-cell :state="!change.oldValue ? 'faded' : null" v-html="change.oldValue || '–'"></kirby-table-cell>
-              <kirby-table-cell :state="!change.newValue ? 'faded' : null" v-html="change.newValue || '–'"></kirby-table-cell>
-            </kirby-table-row>
-          </kirby-table-body>
-        </kirby-table>
-      </kirby-input>
+
+
     </section>
 
   </kirby-view>
@@ -132,7 +131,7 @@ export default {
         {
           name: 'deadline',
           status: 'removed',
-          type: 'date',
+          type: '',
           oldValue: '2017-12-31',
           newValue: ''
         }
