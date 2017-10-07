@@ -86,8 +86,8 @@ export default {
     this.fetch()
   },
   watch: {
-    id () {
-      this.fetch()
+    $route () {
+      this.fetch();
     }
   },
   computed: {
