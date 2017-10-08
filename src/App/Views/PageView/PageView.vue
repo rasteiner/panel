@@ -54,7 +54,7 @@
         <kirby-translations></kirby-translations>
       </template>
 
-      <template slot="buttons-right" v-if="page &&!template.current">
+      <template slot="buttons-right" v-if="!template.current">
         <kirby-button icon="check" state="positive" @click="updateTemplate" v-if="template.selected">Confirm</kirby-button>
         <kirby-button icon="edit" @click="template.selected = ''" v-if="template.selected">Re-select</kirby-button>
         <kirby-button icon="cancel" @click="template.current = page.template">Cancel</kirby-button>
@@ -95,13 +95,14 @@
 
 <script>
 
-
+import slugify from 'slugify';
 import PageQuery from 'App/Api/PageQuery.js';
+import CreatePage from 'App/Api/CreatePage.js';
 import UpdatePage from 'App/Api/UpdatePage.js';
 import LayoutQuery from 'App/Api/LayoutQuery.js';
 
 export default {
-  props: ['path'],
+  props: ['path', 'create'],
   data () {
     return {
       site: false,
@@ -121,7 +122,7 @@ export default {
   },
   computed: {
     task () {
-      if (!this.page.id) {
+      if (!this.page.title) {
         return 'Please enter a page title…'
       }
 
@@ -144,6 +145,20 @@ export default {
   methods: {
     fetch() {
 
+      // Prepare adding a new page
+      console.log(this.create);
+      if (this.create) {
+        // Reset to initial data since component is reused
+        Object.assign(this.$data, this.$options.data.call(this));
+        // Focus on empty title
+        this.$nextTick(() => {
+          this.$el.querySelector('.kirby-page-title').focus()
+        })
+        return false;
+      }
+
+
+      // Load site
       if (!this.path || this.path === '/') {
         this.site             = true;
         this.page             = {id: '_site', title: 'Site', url: '/'};
@@ -153,6 +168,7 @@ export default {
         return true;
       }
 
+      // Load page
       PageQuery(this.path).then((page) => {
         this.site             = false;
         this.page             = page;
@@ -161,28 +177,63 @@ export default {
         this.layout           = LayoutQuery(this.page.template, this.page);
       });
     },
+    createPage (template) {
+
+      // Error for empty title
+      if (!this.page.title) {
+        this.$el.querySelector('.kirby-page-title').focus()
+        this.$store.dispatch('error', 'Please set a page title');
+        return false;
+      }
+
+      // Create path/id
+      let path = this.path + '/' + slugify(this.page.title).toLowerCase();
+
+      // Create page through API call
+      CreatePage({
+        id: path,
+        template: template,
+        content: [
+          {
+            key: 'title',
+            value: this.page.title
+          }
+        ]
+      }).then(() => {
+        this.$store.dispatch('success', 'The page has been created');
+        // Go to newly created page
+        this.$router.push({
+          name: 'Page',
+          params: { path: path }
+        })
+      });
+    },
     updateTitle (title) {
-      if (title !== this.page.title) {
-        this.page.title = title;
+      if (title === this.page.title) {
+        return false;
+      }
 
+      this.page.title = title;
+
+      if (this.page.id) {
         UpdatePage({
-          id: this.page.id,
-          content: [
-            {
-              key: 'title',
-              value: title
-            }
-          ]
-        }).then((page) => {
-          this.$store.dispatch('success', 'The page title has been updated');
-        });
-
+        id: this.page.id,
+        content: [
+          {
+            key: 'title',
+            value: title
+          }
+        ]
+      }).then((page) => {
+        this.$store.dispatch('success', 'The page title has been updated');
+      });
       }
     },
     selectTemplate (item) {
-      this.template.selected = item.id
-      if (!this.page.template) {
-        this.updateTemplate()
+      if (!this.page.id) {
+        this.createPage(item.id)
+      } else {
+        this.template.selected = item.id
       }
     },
     updateTemplate () {

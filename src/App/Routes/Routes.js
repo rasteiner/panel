@@ -49,7 +49,8 @@ export default [
     component: PageView,
     beforeEnter: auth,
     props: (route) => ({
-      path: route.params.path
+      path: route.params.path,
+      create: route.query.create
     })
   },
   {
