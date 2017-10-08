@@ -57,7 +57,7 @@
       <template slot="buttons-right" v-if="!template.current">
         <kirby-button icon="check" state="positive" @click="updateTemplate" v-if="template.selected">Confirm</kirby-button>
         <kirby-button icon="edit" @click="template.selected = ''" v-if="template.selected">Re-select</kirby-button>
-        <kirby-button icon="cancel" @click="template.current = page.template">Cancel</kirby-button>
+        <kirby-button icon="cancel" @click="cancelTemplate">Cancel</kirby-button>
       </template>
 
     </kirby-header>
@@ -102,7 +102,7 @@ import UpdatePage from 'App/Api/UpdatePage.js';
 import LayoutQuery from 'App/Api/LayoutQuery.js';
 
 export default {
-  props: ['path', 'create'],
+  props: ['path', 'initial'],
   data () {
     return {
       site: false,
@@ -146,8 +146,7 @@ export default {
     fetch() {
 
       // Prepare adding a new page
-      console.log(this.create);
-      if (this.create) {
+      if (this.initial) {
         // Reset to initial data since component is reused
         Object.assign(this.$data, this.$options.data.call(this));
         // Focus on empty title
@@ -177,7 +176,7 @@ export default {
         this.layout           = LayoutQuery(this.page.template, this.page);
       });
     },
-    createPage (template) {
+    create (template) {
 
       // Error for empty title
       if (!this.page.title) {
@@ -231,7 +230,7 @@ export default {
     },
     selectTemplate (item) {
       if (!this.page.id) {
-        this.createPage(item.id)
+        this.create(item.id)
       } else {
         this.template.selected = item.id
       }
@@ -240,6 +239,19 @@ export default {
       this.page.template    = this.template.selected;
       this.template.current = this.template.selected;
       this.layout           = LayoutQuery(this.page.template, this.page);
+    },
+    cancelTemplate () {
+      // Cancel creating page
+      if (this.initial) {
+        this.$router.push({
+          name: 'Page',
+          params: { path: this.path }
+        })
+
+      // Cancel switching template
+      } else {
+        this.template.current = this.page.template
+      }
     },
     action (action) {
       switch (action) {

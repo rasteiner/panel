@@ -50,7 +50,7 @@ export default [
     beforeEnter: auth,
     props: (route) => ({
       path: route.params.path,
-      create: route.query.create
+      initial: route.query.create
     })
   },
   {
