@@ -150,6 +150,14 @@ export default {
       if (this.initial) {
         // Reset to initial data since component is reused
         Object.assign(this.$data, this.$options.data.call(this));
+        PageQuery(this.path).then((page) => {
+          this.breadcrumb = page.breadcrumb;
+          this.breadcrumb.push({
+            label: page.title,
+            link:  page.url
+          });
+        });
+
         // Focus on empty title
         this.$nextTick(() => {
           this.$el.querySelector('.kirby-page-title').focus()
