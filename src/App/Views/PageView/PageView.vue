@@ -8,6 +8,7 @@
       :pagination="pagination">
 
       <kirby-fancy-input
+        ref="title"
         class="kirby-page-title"
         :key="page.id + '-title'"
         :value="page.title"
@@ -16,7 +17,8 @@
         @blur="updateTitle($event.target.innerText)"
         @enter="$event.target.blur()" />
 
-      <template slot="buttons-left">
+
+      <template slot="buttons-left" v-if="!task">
         <kirby-button icon="preview" @click="action('preview')">
           {{ $t('page.preview') }}
         </kirby-button>
@@ -37,18 +39,30 @@
             <kirby-dropdown-item icon="chain" @click="action('url')">
               {{ $t("page.url.change") }}
             </kirby-dropdown-item>
-            <kirby-dropdown-item icon="trash" @click="action('remove')">{{ $t("delete") }}</kirby-dropdown-item>
+            <kirby-dropdown-item icon="trash" @click="action('remove')">
+              {{ $t("delete") }}
+            </kirby-dropdown-item>
           </kirby-dropdown-content>
         </kirby-dropdown>
       </template>
 
-      <template slot="buttons-right">
+      <template slot="buttons-left" v-if="task">
+        <div class="kirby-page-task">{{ task }}</div>
+      </template>
+
+      <template slot="buttons-right" v-if="!task">
         <kirby-translations></kirby-translations>
+      </template>
+
+      <template slot="buttons-right" v-if="page &&!template.current">
+        <kirby-button icon="check" state="positive" @click="updateTemplate" v-if="template.selected">Confirm</kirby-button>
+        <kirby-button icon="edit" @click="template.selected = ''" v-if="template.selected">Re-select</kirby-button>
+        <kirby-button icon="cancel" @click="template.current = page.template">Cancel</kirby-button>
       </template>
 
     </kirby-header>
 
-    <kirby-grid class="kirby-sections" v-if="page" gutter="large">
+    <kirby-grid class="kirby-sections" v-if="page && template.current" gutter="large">
       <kirby-column v-for="(column, columnIndex) in layout" :key="page.id + '-column-' + columnIndex" :width="column.width">
         <component
           v-for="(section, sectionIndex) in column.sections"
@@ -58,6 +72,19 @@
           v-bind="section" />
       </kirby-column>
     </kirby-grid>
+
+
+    <kirby-page-template-selector
+      v-if="!template.current && !template.selected"
+      @select="selectTemplate">
+    </kirby-page-template-selector>
+
+    <kirby-page-template-review
+      v-if="!template.current && template.selected"
+      :page="page"
+      :template="template.selected">
+    </kirby-page-template-review>
+
 
     <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
     <kirby-page-remove-dialog ref="remove"></kirby-page-remove-dialog>
@@ -85,7 +112,25 @@ export default {
       icon: 'page',
       breadcrumb: [],
       pagination: {},
+      template: {
+        current: '',
+        selected: ''
+      },
       layout: []
+    }
+  },
+  computed: {
+    task () {
+      if (!this.page.id) {
+        return 'Please enter a page title…'
+      }
+
+      if (!this.template.current) {
+        if (!this.template.selected) {
+          return 'Select a  template…';
+        }
+        return 'Review and confirm changes…';
+      }
     }
   },
   created () {
@@ -100,20 +145,21 @@ export default {
     fetch() {
 
       if (!this.path || this.path === '/') {
-        this.site       = true;
-        this.page       = {id: '_site', title: 'Site', url: '/'};
-        this.breadcrumb = [];
-        this.layout     = LayoutQuery('site');
+        this.site             = true;
+        this.page             = {id: '_site', title: 'Site', url: '/'};
+        this.breadcrumb       = [];
+        this.template.current = 'site';
+        this.layout           = LayoutQuery('site');
         return true;
       }
 
       PageQuery(this.path).then((page) => {
-        this.site       = false;
-        this.page       = page;
-        this.breadcrumb = page.breadcrumb;
-        this.layout     = LayoutQuery(this.page.template, this.page);
+        this.site             = false;
+        this.page             = page;
+        this.breadcrumb       = page.breadcrumb;
+        this.template.current = page.template;
+        this.layout           = LayoutQuery(this.page.template, this.page);
       });
-
     },
     updateTitle (title) {
       if (title !== this.page.title) {
@@ -133,6 +179,17 @@ export default {
 
       }
     },
+    selectTemplate (item) {
+      this.template.selected = item.id
+      if (!this.page.template) {
+        this.updateTemplate()
+      }
+    },
+    updateTemplate () {
+      this.page.template    = this.template.selected;
+      this.template.current = this.template.selected;
+      this.layout           = LayoutQuery(this.page.template, this.page);
+    },
     action (action) {
       switch (action) {
         case 'preview':
@@ -142,10 +199,10 @@ export default {
           this.$refs.url.open(this.page.id);
           break;
         case 'template':
-          this.$router.push({
-            name: 'Template',
-            params: { path: this.path }
-          });
+          this.template = {
+            current:  '',
+            selected: ''
+          };
           break;
         case 'remove':
           this.$refs.remove.open(this.page.id);
@@ -182,6 +239,15 @@ export default {
 .kirby-page-view .kirby-page-title:focus {
   @include focus-ring;
   background: #fff;
+}
+
+.kirby-page-task {
+  position:    relative;
+  padding:     1rem;
+  font-size:   $font-size-small;
+  font-family: $font-family-mono;
+  line-height: inherit;
+  color:       $color-dark-grey;
 }
 
 </style>
