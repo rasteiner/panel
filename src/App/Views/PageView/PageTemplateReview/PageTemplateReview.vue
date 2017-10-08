@@ -4,8 +4,8 @@
     <kirby-grid class="kirby-sections" gutter="small">
       <kirby-column width="1/3">
         <kirby-card
-          :text="'New template: ' + template"
-          :info="'Old template: ' + page.template"
+          :text="'New template: ' + selected"
+          :info="'Old template: ' + current"
           :image="{
             url: 'https://unsplash.it/600/400/?random'
           }"></kirby-card>
@@ -48,11 +48,12 @@
 <script>
 
 export default {
-  props: ['page', 'template'],
+  props: ['current', 'selected'],
   computed: {
     changes () {
-      if (this.template) {
-        console.log(this.template);
+      if (this.selected) {
+        // TODO: Implement Diff API call
+        console.log(this.selected);
       }
       return [
         {

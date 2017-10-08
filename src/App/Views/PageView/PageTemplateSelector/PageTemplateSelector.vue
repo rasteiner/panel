@@ -18,6 +18,7 @@ export default {
       this.$emit('select', item)
     },
     fetch () {
+      // TODO: Implement Blueprint API call
       this.blueprints = [
         {
           id:   'default',

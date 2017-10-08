@@ -1,8 +1,8 @@
 import Vue from 'vue'
 
 import PageView from './PageView.vue';
-import PageTemplateSelector from './PageTemplate/PageTemplateSelector/PageTemplateSelector.vue';
-import PageTemplateReview from './PageTemplate/PageTemplateReview/PageTemplateReview.vue';
+import PageTemplateSelector from './PageTemplateSelector/PageTemplateSelector.vue';
+import PageTemplateReview from './PageTemplateReview/PageTemplateReview.vue';
 
 
 Vue.component('kirby-page-view', PageView);

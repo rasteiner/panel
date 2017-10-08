@@ -82,7 +82,8 @@
     <kirby-page-template-review
       v-if="!template.current && template.selected"
       :page="page"
-      :template="template.selected">
+      :current="page.template"
+      :selected="template.selected">
     </kirby-page-template-review>
 
 
