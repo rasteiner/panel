@@ -44,18 +44,19 @@ export default [
     })
   },
   {
-    path: '/pages/:path+',
-    name: 'Page',
-    component: PageView,
+    path: '/pages/:path+/files/:filename',
+    name: 'File',
+    component: FileView,
     beforeEnter: auth,
     props: (route) => ({
-      path: route.params.path
+      path: route.params.path,
+      filename: route.params.filename
     })
   },
   {
-    path: '/files/:path+',
-    name: 'File',
-    component: FileView,
+    path: '/pages/:path+',
+    name: 'Page',
+    component: PageView,
     beforeEnter: auth,
     props: (route) => ({
       path: route.params.path

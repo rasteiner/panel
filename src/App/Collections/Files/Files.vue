@@ -26,20 +26,20 @@ export default {
   methods: {
     fetch () {
 
-      this.query.pagination = {
+      this.query.paginate = {
         page:  this.page,
         limit: this.pagination.limit
       };
 
       Page.files(this.query.parent, this.query).then((response) => {
         this.total = response.pagination.total;
-        this.items = response.files.map((file) => ({
+        this.items = response.items.map((file) => ({
           id: file.filename,
           image: {url: file.url},
           text: file.filename,
           filename: file.filename,
           url: file.url,
-          link: '/files/' + file.page.id + '/' + file.filename,
+          link: '/pages/' + file.parent + '/files/' + file.filename,
           options: panel.config.assets + '/options/file.json'
         }));
       });

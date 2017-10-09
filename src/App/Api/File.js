@@ -1,13 +1,13 @@
 import Api from './Api.js';
 
 export default {
-    get (id) {
-        return Api.get('pages/' + id);
+    get (page, filename) {
+        return Api.get('pages/' + page + '/files/' + filename);
     },
-    update (id, data) {
-        return Api.post('pages/' + id, data);
+    update (page, filename, data) {
+        return Api.post('pages/' + page + '/files/' + filename, data);
     },
-    delete (id) {
-        return Api.delete('pages/' + id);
+    delete (page, filename) {
+        return Api.delete('pages/' + page + '/files/' + filename);
     }
 };

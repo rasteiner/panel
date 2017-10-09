@@ -21,7 +21,7 @@ export default {
   methods: {
     fetch() {
 
-      this.query.pagination = {
+      this.query.paginate = {
         page:  this.page,
         limit: this.pagination.limit
       };

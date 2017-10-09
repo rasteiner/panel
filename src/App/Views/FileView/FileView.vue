@@ -68,7 +68,7 @@
 import File from 'App/Api/File.js';
 
 export default {
-  props: ['path'],
+  props: ['path', 'filename'],
   data () {
     return {
       file: {
@@ -100,7 +100,7 @@ export default {
   methods: {
     fetch() {
 
-      File.get(this.path).then((file) => {
+      File.get(this.path, this.filename).then((file) => {
         this.file       = file;
         this.breadcrumb = file.breadcrumb;
       });
