@@ -1,16 +1,19 @@
-
 export default {
-    request(path, params) {
-        return fetch(window.panel.config.api + '/' + path, params).then((response) => response.json())
-    },
-    get(path) {
-        return this.request(path, {
-            method: 'GET'
+    request (path, options) {
+        return fetch(window.panel.config.api + '/' + path, options).then((response) => {
+            return response.json();
         });
     },
-    post(data) {
-        return this.request(path, {
-            method: 'POST'
-        });
+    get (path, options) {
+        return this.request(path, Object.assign(options || {}, {method: 'GET'}));
+    },
+    post (path, data, options) {
+        return this.request(path, Object.assign(options || {}, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        }));
+    },
+    delete (path) {
+        return this.request(path, {method: 'DELETE'});
     }
-}
+};

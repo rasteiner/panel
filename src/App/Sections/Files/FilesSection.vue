@@ -19,6 +19,7 @@ export default {
     'layout',
     'type',
     'parent',
+    'page',
     'filter',
     'pagination',
     'sort'
@@ -26,7 +27,7 @@ export default {
   computed: {
     query () {
       return {
-        parent: this.parent,
+        parent: this.parent || this.page.id,
         filter: this.filter,
         sort: this.sort
       }

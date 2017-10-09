@@ -57,7 +57,7 @@
 <script>
 
 // api
-import UserQuery from 'App/Api/UserQuery.js';
+import User from 'App/Api/User.js';
 
 export default {
   props: ['email'],
@@ -94,7 +94,11 @@ export default {
       ];
     },
     headline () {
-      return `${this.user.firstName} ${this.user.lastName}`;
+      if (this.user.firstName) {
+        return `${this.user.firstName} ${this.user.lastName}`;
+      } else {
+        return this.user.email;
+      }
     },
     fields() {
       return [
@@ -166,8 +170,10 @@ export default {
       }
     },
     fetch () {
-      UserQuery(this.email).then((user) => {
-        this.user = user;
+      User.get(this.email).then((user) => {
+        this.user = user.data;
+        this.user.role  = user.role;
+        this.user.image = user.image;
       });
     }
   }

@@ -19,7 +19,7 @@
 <script>
 
 import CollectionMixin from '../Collection.mixin.js';
-import FilesQuery from 'App/Api/FilesQuery.js';
+import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [CollectionMixin],
@@ -31,7 +31,7 @@ export default {
         limit: this.pagination.limit
       };
 
-      FilesQuery(this.query).then((response) => {
+      Page.files(this.query.parent, this.query).then((response) => {
         this.total = response.pagination.total;
         this.items = response.files.map((file) => ({
           id: file.filename,

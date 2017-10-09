@@ -68,10 +68,8 @@
 
 <script>
 
-
-import PageQuery from 'App/Api/PageQuery.js';
-import UpdatePage from 'App/Api/UpdatePage.js';
-import LayoutQuery from 'App/Api/LayoutQuery.js';
+import Page from 'App/Api/Page.js';
+import Blueprint from 'App/Api/Blueprint.js';
 
 export default {
   props: ['path'],
@@ -100,34 +98,32 @@ export default {
     fetch() {
 
       if (!this.path || this.path === '/') {
-        this.site       = true;
-        this.page       = {id: '_site', title: 'Site', url: '/'};
-        this.breadcrumb = [];
-        this.layout     = LayoutQuery('site');
+
+        Blueprint.get('site').then((blueprint) => {
+          this.site       = true;
+          this.page       = {id: '_site', title: 'Site', url: '/'};
+          this.breadcrumb = [];
+          this.layout     = blueprint.layout;
+        });
+
         return true;
       }
 
-      PageQuery(this.path).then((page) => {
-        this.site       = false;
-        this.page       = page;
-        this.breadcrumb = page.breadcrumb;
-        this.layout     = LayoutQuery(this.page.template, this.page);
+      Page.get(this.path).then((page) => {
+        Blueprint.get(page.template, page).then((blueprint) => {
+          this.site       = false;
+          this.page       = page;
+          this.breadcrumb = page.breadcrumb;
+          this.layout     = blueprint.layout;
+        });
       });
 
     },
     updateTitle (title) {
       if (title !== this.page.title) {
-        this.page.title = title;
 
-        UpdatePage({
-          id: this.page.id,
-          content: [
-            {
-              key: 'title',
-              value: title
-            }
-          ]
-        }).then((page) => {
+        Page.update(this.page.id, {title: title}).then((page) => {
+          this.page.title = title;
           this.$store.dispatch('success', 'The page title has been updated');
         });
 

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Query from 'App/Api/Query.js';
-import Api from 'App/Api/Api.js';
+import Language from 'App/Api/Language.js';
 
 Vue.use(Vuex);
 
@@ -70,9 +69,8 @@ export default new Vuex.Store({
         });
       }
 
-      Api.get('languages/' + locale).then((language) => {
+      Language.get(locale).then((language) => {
         context.commit('direction', language.direction);
-        console.log(response);
       });
 
     },

@@ -19,7 +19,7 @@
 
 <script>
 
-import Query from 'App/Api/Query.js'
+import Page from 'App/Api/Page.js'
 
 export default {
   data () {
@@ -37,20 +37,6 @@ export default {
   methods: {
     fetch (id) {
 
-      let params = {
-        id: {
-          type: 'String',
-          value: id
-        }
-      };
-
-      let select = 'title, id, hasChildren';
-
-      Query('children', params, select).then((children) => {
-        this.pages = children;
-      });
-
-      this.path = id ? id + '/' : '';
 
     },
     back () {

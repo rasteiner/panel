@@ -65,7 +65,7 @@
 
 <script>
 
-import FileQuery from 'App/Api/FileQuery.js';
+import File from 'App/Api/File.js';
 
 export default {
   props: ['path'],
@@ -100,7 +100,7 @@ export default {
   methods: {
     fetch() {
 
-      FileQuery(this.path).then((file) => {
+      File.get(this.path).then((file) => {
         this.file       = file;
         this.breadcrumb = file.breadcrumb;
       });

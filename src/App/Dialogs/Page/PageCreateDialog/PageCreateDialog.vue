@@ -34,8 +34,7 @@
 
 import slugify from 'slugify';
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import PageQuery from 'App/Api/PageQuery.js';
-import CreatePage from 'App/Api/CreatePage.js';
+import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [DialogMixin],
@@ -51,7 +50,7 @@ export default {
   },
   methods: {
     open (id) {
-      PageQuery(id).then((page) => {
+      Page.get(id).then((page) => {
         this.page = page;
         this.$refs.dialog.open();
       });
@@ -61,15 +60,12 @@ export default {
     },
     submit () {
 
-      CreatePage({
-        id: this.page.id + '/' + this.values.uid,
+      Page.create(this.page.id, {
+        slug: this.values.uid,
         template: this.values.template || 'default',
-        content: [
-          {
-            key: 'title',
-            value: this.values.title
-          }
-        ]
+        content: {
+          title: this.values.title
+        }
       }).then(() => {
         this.$store.dispatch('success', 'The page has been created');
         this.$emit('success');

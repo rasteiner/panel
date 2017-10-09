@@ -14,7 +14,7 @@
 <script>
 
 import CollectionMixin from '../Collection.mixin.js';
-import UsersQuery from 'App/Api/UsersQuery.js';
+import User from 'App/Api/User.js';
 
 export default {
   mixins: [CollectionMixin],
@@ -26,15 +26,15 @@ export default {
         limit: this.pagination.limit
       };
 
-      UsersQuery(this.query).then((response) => {
+      User.list(this.query).then((response) => {
         this.total = response.pagination.total;
-        this.items = response.users.map((user) => ({
-          id: user.email,
+        this.items = response.items.map((user) => ({
+          id: user.id,
           image: user.image,
-          text: user.email,
-          email: user.email,
+          text: user.data.email,
+          email: user.data.email,
           role: user.role,
-          link: '/users/' + user.email,
+          link: '/users/' + user.data.email,
           options: panel.config.assets + '/options/user.json'
         }));
       });

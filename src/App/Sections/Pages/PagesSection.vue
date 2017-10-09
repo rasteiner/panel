@@ -25,15 +25,16 @@ export default {
     'headline',
     'layout',
     'parent',
-    'filter',
+    'page',
+    'filterBy',
     'pagination',
     'sort',
   ],
   computed: {
     query () {
       return {
-        parent: this.parent,
-        filter: this.filter,
+        parent: this.parent || this.page.id,
+        filterBy: this.filterBy,
         sort: this.sort
       }
     }

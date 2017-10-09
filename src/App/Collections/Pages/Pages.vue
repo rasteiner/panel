@@ -15,8 +15,9 @@
 <script>
 
 import CollectionMixin from '../Collection.mixin.js';
-import ChildrenQuery from 'App/Api/ChildrenQuery.js';
-import Api from 'App/Api/Api.js';
+
+import Site from 'App/Api/Site.js';
+import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [CollectionMixin],
@@ -28,33 +29,27 @@ export default {
         limit: this.pagination.limit
       };
 
-      Api.get('children/' + this.query.parent).then((response) => {
+      let children;
+
+      if (this.query.parent && this.query.parent !== '/') {
+        children = Page.children(this.query.parent, this.query);
+      } else {
+        children = Site.children(this.query);
+      }
+
+      children.then((response) => {
 
         this.total = response.pagination.total;
         this.items = response.items.map((page) => ({
           id: page.id,
-          image: page.image,
-          text: page.title,
-          link: page.url,
+          image: page.image || {},
+          text: page.content.title,
+          link: '/pages/' + page.id,
           options: panel.config.assets + '/options/page.json'
         }));
 
-
       });
 
-
-
-
-      ChildrenQuery(this.query).then((response) => {
-        this.total = response.pagination.total;
-        this.items = response.pages.map((page) => ({
-          id: page.id,
-          image: page.image,
-          text: page.title,
-          link: page.link,
-          options: panel.config.assets + '/options/page.json'
-        }));
-      });
     },
     action(page, action) {
       switch(action) {

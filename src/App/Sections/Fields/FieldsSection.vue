@@ -9,7 +9,7 @@
 
 <script>
 
-import UpdatePage from 'App/Api/UpdatePage.js';
+import Page from 'App/Api/Page.js';
 
 const Shortcuts = function (e) {
   if (e.metaKey || e.ctrlKey) {
@@ -28,7 +28,7 @@ export default {
   ],
   data() {
     return {
-      data: this.values
+      data: this.page.content
     }
   },
   created: function () {
@@ -39,20 +39,9 @@ export default {
   },
   methods: {
     save () {
-
-      let content = [];
-
-      Object.keys(this.data || {}).forEach((key) => {
-        content.push({
-          key: key,
-          value: this.data[key]
-        });
-      });
-
-      UpdatePage({id: this.page.id, content: content}).then(() => {
+      Page.update(this.page.id, this.data).then(() => {
         this.$store.dispatch('success', 'Saved!');
       });
-
     }
   },
   /*
