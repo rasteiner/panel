@@ -27,7 +27,7 @@ export default {
     'page',
     'filterBy',
     'pagination',
-    'sort',
+    'sortBy',
   ],
   methods: {
     add () {
@@ -46,7 +46,7 @@ export default {
       return {
         parent: this.parentId,
         filterBy: this.filterBy,
-        sort: this.sort
+        sortBy: this.sortBy
       }
     }
   }

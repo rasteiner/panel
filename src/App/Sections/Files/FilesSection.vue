@@ -20,16 +20,16 @@ export default {
     'type',
     'parent',
     'page',
-    'filter',
+    'filterBy',
     'pagination',
-    'sort'
+    'sortBy'
   ],
   computed: {
     query () {
       return {
         parent: this.parent || this.page.id,
-        filter: this.filter,
-        sort: this.sort
+        filterBy: this.filterBy,
+        sortBy: this.sortBy
       }
     }
   }
