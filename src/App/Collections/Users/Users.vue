@@ -18,6 +18,12 @@ import User from 'App/Api/User.js';
 
 export default {
   mixins: [CollectionMixin],
+  props: ['role'],
+  watch: {
+    $route () {
+      this.fetch();
+    }
+  },
   methods: {
     fetch() {
 
@@ -25,6 +31,18 @@ export default {
         page:  this.page,
         limit: this.pagination.limit
       };
+
+      if (this.role) {
+        this.query.filterBy = [
+          {
+            field: 'role',
+            operator: '==',
+            value: this.role
+          }
+        ];
+      } else {
+        this.query.filterBy = [];
+      }
 
       User.list(this.query).then((response) => {
         this.total = response.pagination.total;
