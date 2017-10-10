@@ -12,7 +12,7 @@
       <kirby-button :upload="true" icon="upload">Upload</kirby-button>
     </kirby-box>
 
-    <kirby-file-remove-dialog ref="remove" />
+    <kirby-file-remove-dialog ref="remove" @success="fetch" />
   </div>
 </template>
 
@@ -39,6 +39,7 @@ export default {
           text: file.filename,
           filename: file.filename,
           url: file.url,
+          parent: file.parent,
           link: '/pages/' + file.parent + '/files/' + file.filename,
           options: panel.config.assets + '/options/file.json'
         }));
@@ -51,7 +52,7 @@ export default {
           window.open(file.url);
           break;
         case 'remove':
-          this.$refs.remove.open(file.filename);
+          this.$refs.remove.open(file.parent, file.filename);
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');
