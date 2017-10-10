@@ -66,6 +66,7 @@
 <script>
 
 import File from 'App/Api/File.js';
+import Page from 'App/Api/Page.js';
 
 export default {
   props: ['path', 'filename'],
@@ -102,8 +103,25 @@ export default {
     fetch() {
 
       File.get(this.path, this.filename).then((file) => {
-        this.file       = file;
-        this.breadcrumb = file.breadcrumb;
+
+        this.file = file;
+
+        Page.get(this.path).then((page) => {
+
+          this.breadcrumb = page.parents.map((parent) => {
+            return {
+              label: parent.title,
+              link: '/pages/' + parent.id
+            }
+          });
+
+          this.breadcrumb.push({
+            label: page.title,
+            link: '/pages/' + page.id
+          });
+
+        });
+
       }).catch(() => {
         this.$router.push('../');
       });
