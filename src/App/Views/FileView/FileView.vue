@@ -32,7 +32,7 @@
 
         <kirby-column width="1/2">
           <a :href="file.url" target="_blank">
-            <kirby-image :src="file.url" back="black" ratio="1/1" />
+            <kirby-image v-if="file.url" :src="file.url" back="black" ratio="1/1" />
           </a>
         </kirby-column>
 
@@ -72,7 +72,8 @@ export default {
   data () {
     return {
       file: {
-        filename: ''
+        filename: '',
+        url: ''
       },
       breadcrumb: []
     }
