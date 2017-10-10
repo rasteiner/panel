@@ -121,6 +121,9 @@ export default {
           });
           this.layout     = blueprint.layout;
         });
+      }).catch(() => {
+        this.$store.dispatch('error', 'The page could not be found');
+        this.$router.push('/pages');
       });
 
     },

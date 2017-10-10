@@ -33,7 +33,7 @@ export default {
         this.$store.dispatch('success', 'The page has been deleted');
         this.$emit('success');
 
-        if (this.$route.path === this.page.link) {
+        if (this.$route.path === '/pages/' + this.page.id) {
           this.$router.push('/pages/' + this.page.parent.id);
         }
 

@@ -1,6 +1,7 @@
 import DashboardView from '../Views/DashboardView/DashboardView.vue';
 import LoginView from '../Views/LoginView/LoginView.vue';
 import PageView from '../Views/PageView/PageView.vue';
+import CreatePageView from '../Views/CreatePageView/CreatePageView.vue';
 import TemplateView from '../Views/TemplateView/TemplateView.vue';
 import FileView from '../Views/FileView/FileView.vue';
 import UsersView from '../Views/UsersView/UsersView.vue';
@@ -42,6 +43,15 @@ export default [
     beforeEnter: auth,
     props: (route) => ({
       path: '/'
+    })
+  },
+  {
+    path: '/pages/:path+/new',
+    name: 'CreatePage',
+    component: CreatePageView,
+    beforeEnter: auth,
+    props: (route) => ({
+      path: route.params.path
     })
   },
   {

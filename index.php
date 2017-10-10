@@ -18,7 +18,8 @@
     var panel = {
       config: {
         api: '../api',
-        assets: './assets'
+        assets: './assets',
+        index: '../'
       }
     };
   </script>

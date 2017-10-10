@@ -3,7 +3,7 @@
     <kirby-headline>
       {{ headline }}
       <kirby-button-group slot="options">
-        <kirby-button icon="add" @click="$refs.create.open(parent)">Add</kirby-button>
+        <kirby-button icon="add" @click="add">Add</kirby-button>
       </kirby-button-group>
     </kirby-headline>
     <kirby-pages-collection
@@ -14,7 +14,6 @@
       @remove="$refs.pages.fetch()"
       @url="$refs.pages.fetch()"
     />
-    <kirby-page-create-dialog ref="create" @success="$refs.pages.fetch()"></kirby-page-create-dialog>
   </section>
 </template>
 
@@ -30,10 +29,18 @@ export default {
     'pagination',
     'sort',
   ],
+  methods: {
+    add () {
+      this.$router.push('/pages/' + this.parentId + '/new');
+    }
+  },
   computed: {
+    parentId () {
+      return this.parent || this.page.id;
+    },
     query () {
       return {
-        parent: this.parent || this.page.id,
+        parent: this.parentId,
         filterBy: this.filterBy,
         sort: this.sort
       }
