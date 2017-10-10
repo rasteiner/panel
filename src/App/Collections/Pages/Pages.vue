@@ -7,6 +7,11 @@
       @paginate="paginate"
       @action="action"
     />
+
+    <kirby-box v-if="items.length === 0">
+      <kirby-button>No entries</kirby-button>
+    </kirby-box>
+
     <kirby-page-url-dialog ref="url" @success="$emit('url')" />
     <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
   </div>
