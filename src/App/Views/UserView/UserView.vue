@@ -47,7 +47,7 @@
 
     <kirby-fieldset :fields="fields" :values="user" @input="input" />
 
-    <kirby-user-role-dialog ref="role" />
+    <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
 
