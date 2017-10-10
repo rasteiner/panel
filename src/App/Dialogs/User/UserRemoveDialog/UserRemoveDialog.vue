@@ -26,11 +26,15 @@ export default {
       });
     },
     submit () {
-      this.$store.dispatch('success', 'The user has been deleted');
 
-      if (this.$route.name === 'User') {
-        this.$router.push('/users');
-      }
+      User.delete(this.user.email).then(() => {
+        this.$store.dispatch('success', 'The user has been deleted');
+        this.$emit('success');
+
+        if (this.$route.name === 'User') {
+          this.$router.push('/users');
+        }
+      });
 
     }
   }

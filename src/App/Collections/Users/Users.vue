@@ -7,7 +7,7 @@
       @paginate="paginate"
       @action="action"
     />
-    <kirby-user-remove-dialog ref="remove" />
+    <kirby-user-remove-dialog ref="remove" @success="fetch" />
   </div>
 </template>
 
