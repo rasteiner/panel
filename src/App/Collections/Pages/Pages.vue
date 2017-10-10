@@ -13,6 +13,7 @@
     </kirby-box>
 
     <kirby-page-url-dialog ref="url" @success="$emit('url')" />
+    <kirby-page-status-dialog ref="status" @success="$emit('status')" />
     <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
   </div>
 </template>
@@ -63,6 +64,9 @@ export default {
           break;
         case 'url':
           this.$refs.url.open(page.id);
+          break;
+        case 'status':
+          this.$refs.status.open(page.id);
           break;
         case 'remove':
           this.$refs.remove.open(page.id);
