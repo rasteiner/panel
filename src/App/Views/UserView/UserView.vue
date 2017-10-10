@@ -45,7 +45,10 @@
 
     </kirby-header>
 
-    <kirby-fieldset :fields="fields" :values="user" @input="input" />
+    <form @submit.prevent="save" method="POST">
+      <kirby-fieldset :fields="fields" :values="user" @input="input" @submit="save" />
+      <input type="submit" v-show="false">
+    </form>
 
     <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
@@ -70,8 +73,8 @@ export default {
     return {
       id: this.email,
       user: {
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: '',
         language: 'en',
         website: '',
@@ -100,8 +103,8 @@ export default {
       ];
     },
     headline () {
-      if (this.user.firstName) {
-        return `${this.user.firstName} ${this.user.lastName}`;
+      if (this.user.firstname) {
+        return `${this.user.firstname} ${this.user.lastname}`;
       } else {
         return this.user.email;
       }
@@ -109,13 +112,13 @@ export default {
     fields() {
       return [
         {
-          name: 'firstName',
+          name: 'firstname',
           label: this.$t('user.firstname'),
           type: 'text',
           width: '1/2'
         },
         {
-          name: 'lastName',
+          name: 'lastname',
           label: this.$t('user.lastname'),
           type: 'text',
           width: '1/2'
@@ -151,15 +154,16 @@ export default {
   },
   methods: {
     input (data) {
-      this.user.firstName = data.firstName;
-      this.user.lastName  = data.lastName;
-      this.user.email     = data.email;
-      this.user.language  = data.language;
 
       // if current panel user, switch language
       if(data.language && this.$store.state.user.email === this.user.email) {
         this.$store.dispatch('language', data.language);
       }
+    },
+    save () {
+      User.update(this.id, this.user).then(() => {
+        this.$store.dispatch('success', 'Saved!');
+      });
     },
     action (action) {
       switch (action) {
