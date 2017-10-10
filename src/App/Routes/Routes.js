@@ -46,6 +46,15 @@ export default [
     })
   },
   {
+    path: '/pages/new',
+    name: 'CreateMainPage',
+    component: CreatePageView,
+    beforeEnter: auth,
+    props: (route) => ({
+      path: '/'
+    })
+  },
+  {
     path: '/pages/:path+/new',
     name: 'CreatePage',
     component: CreatePageView,

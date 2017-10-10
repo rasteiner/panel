@@ -31,7 +31,11 @@ export default {
   ],
   methods: {
     add () {
-      this.$router.push('/pages/' + this.parentId + '/new');
+      if (this.parentId && this.parentId !== '/') {
+        this.$router.push('/pages/' + this.parentId + '/new');
+      } else {
+        this.$router.push('/pages/new');
+      }
     }
   },
   computed: {

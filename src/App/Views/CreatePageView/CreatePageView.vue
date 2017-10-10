@@ -66,12 +66,13 @@ export default {
             link: '/pages/' + parent.id
           }
         });
-      }
 
-      crumb.push({
-        label: this.page.title,
-        link: '/pages/' + this.page.id
-      });
+        crumb.push({
+          label: this.page.title,
+          link: '/pages/' + this.page.id
+        });
+
+      }
 
       return crumb;
 
@@ -139,9 +140,8 @@ export default {
       if (!this.path || this.path === '/') {
 
         Blueprint.get('site').then((blueprint) => {
-          this.site       = true;
-          this.page       = {id: '_site', title: 'Site', url: '/'};
-          this.breadcrumb = [];
+          this.site = true;
+          this.page = {id: '_site', title: 'Site', url: '/'};
         });
 
         return true;

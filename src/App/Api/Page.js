@@ -2,7 +2,13 @@ import Api from './Api.js';
 
 export default {
     create (parent, data) {
+
+        if (parent === null || parent === '/') {
+            return Api.post('site/children', data);
+        }
+
         return Api.post('pages/' + parent + '/children', data);
+
     },
     get (id) {
         return Api.get('pages/' + id);
