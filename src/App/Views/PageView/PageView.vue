@@ -5,7 +5,9 @@
     <kirby-header :label="$t('page.list')" link="/pages"
       :icon="icon"
       :breadcrumb="breadcrumb"
-      :pagination="pagination">
+      :pagination="pagination"
+      @prev="prev"
+      @next="next">
 
       <kirby-fancy-input
         class="kirby-page-title"
@@ -79,11 +81,12 @@ export default {
       site: false,
       page: {
         title: '',
-        id: ''
+        id: '',
+        prev: null,
+        next: null
       },
       icon: 'page',
       breadcrumb: [],
-      pagination: {},
       layout: []
     }
   },
@@ -93,6 +96,16 @@ export default {
   watch: {
     $route () {
       this.fetch();
+    }
+  },
+  computed: {
+    pagination () {
+      return {
+        prev: this.page.prev ? true : false,
+        prevLabel: 'Previous page',
+        next: this.page.next ? true : false,
+        nextLabel: 'Next page'
+      };
     }
   },
   methods: {
@@ -137,6 +150,12 @@ export default {
         });
 
       }
+    },
+    prev () {
+      this.$router.push('/pages/' + this.page.prev);
+    },
+    next () {
+      this.$router.push('/pages/' + this.page.next);
     },
     action (action) {
       switch (action) {
