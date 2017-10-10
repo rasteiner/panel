@@ -81,7 +81,9 @@ export default {
         role: '',
         image: {
           url: ''
-        }
+        },
+        prev: null,
+        next: null
       }
     }
   },
@@ -143,11 +145,9 @@ export default {
     },
     pagination () {
       return {
-        page: 1,
-        limit: 1,
-        total: 5,
-        pageLabel: this.$t('user'),
+        prev: this.user.prev ? true : false,
         prevLabel: this.$t('user.previous'),
+        next: this.user.next ? true : false,
         nextLabel: this.$t('user.next')
       };
     }
@@ -182,8 +182,11 @@ export default {
           break;
       }
     },
-    paginate (pagination) {
-
+    prev () {
+      this.$router.push('/users/' + this.user.prev);
+    },
+    next () {
+      this.$router.push('/users/' + this.user.next);
     },
     fetch () {
       User.get(this.email).then((user) => {
