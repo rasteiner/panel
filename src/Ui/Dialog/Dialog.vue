@@ -1,6 +1,6 @@
 <template>
   <transition name="kirby-dialog-transition">
-    <div v-if="isOpen" @click="close" class="kirby-dialog">
+    <div v-show="isOpen" @click="close" class="kirby-dialog">
       <div @click.stop class="kirby-dialog-box" :data-size="size">
         <div class="kirby-dialog-body">
           <slot />
