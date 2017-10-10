@@ -34,7 +34,11 @@ export default {
         this.$emit('success');
 
         if (this.$route.path === '/pages/' + this.page.id) {
-          this.$router.push('/pages/' + this.page.parent.id);
+          if (this.page.parent) {
+            this.$router.push('/pages/' + this.page.parent.id);
+          } else {
+            this.$router.push('/pages');
+          }
         }
 
       });
