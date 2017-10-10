@@ -38,20 +38,28 @@
 
         <kirby-column width="1/2">
           <dl>
-            <dt>Type</dt>
-            <dd>image/jpeg</dd>
+            <template v-if="file.mime">
+              <dt>Type</dt>
+              <dd>{{ file.mime }}</dd>
+            </template>
 
             <dt>URL</dt>
             <dd><a :href="file.url">{{ file.url }}</a></dd>
 
-            <dt>Size</dt>
-            <dd>{{ file.niceSize }}</dd>
+            <template v-if="file.niceSize">
+              <dt>Size</dt>
+              <dd>{{ file.niceSize }}</dd>
+            </template>
 
-            <dt>Dimensions</dt>
-            <dd>1023 &times; 931</dd>
+            <template v-if="file.dimensions">
+              <dt>Dimensions</dt>
+              <dd>{{ file.dimensions }}</dd>
+            </template>
 
-            <dt>Uploaded</dt>
-            <dd>3 days ago by bastian</dd>
+            <template v-if="file.created">
+              <dt>Uploaded</dt>
+              <dd>{{ file.created }}</dd>
+            </template>
           </dl>
         </kirby-column>
       </kirby-grid>
