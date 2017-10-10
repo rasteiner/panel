@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-user-view">
 
-    <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination">
+    <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" @paginate="paginate">
 
       {{ headline }}
 
@@ -47,6 +47,7 @@
 
     <kirby-fieldset :fields="fields" :values="user" @input="input" />
 
+    <kirby-user-role-dialog ref="role" />
     <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
 
@@ -60,9 +61,14 @@
 import User from 'App/Api/User.js';
 
 export default {
-  props: ['email'],
+  props: {
+    email: {
+      type: String
+    }
+  },
   data () {
     return {
+      id: this.email,
       user: {
         firstName: '',
         lastName: '',
@@ -80,8 +86,8 @@ export default {
     this.fetch()
   },
   watch: {
-    email () {
-      this.fetch()
+    $route () {
+      this.fetch();
     }
   },
   computed: {
@@ -146,9 +152,9 @@ export default {
   methods: {
     input (data) {
       this.user.firstName = data.firstName;
-      this.user.lastName = data.lastName;
-      this.user.email = data.email;
-      this.user.language = data.language;
+      this.user.lastName  = data.lastName;
+      this.user.email     = data.email;
+      this.user.language  = data.language;
 
       // if current panel user, switch language
       if(data.language && this.$store.state.user.email === this.user.email) {
@@ -161,6 +167,9 @@ export default {
           this.$store.dispatch('success', this.$t('notification.image.deleted'));
           this.user.image = false;
           break;
+        case 'role':
+          this.$refs.role.open(this.user.email);
+          break;
         case 'password':
           this.$refs.password.open(this.user.email);
           break;
@@ -168,6 +177,9 @@ export default {
           this.$store.dispatch('error', 'Not yet implemented');
           break;
       }
+    },
+    paginate (pagination) {
+
     },
     fetch () {
       User.get(this.email).then((user) => {

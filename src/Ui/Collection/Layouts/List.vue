@@ -1,7 +1,7 @@
 <template>
   <kirby-table>
     <kirby-table-body>
-      <kirby-table-row v-for="(item, index) in items" :key="item.id">
+      <kirby-table-row v-for="(item, index) in items" :key="item.id" @click.native="$emit('click', item)">
         <kirby-table-cell type="image" aria-hidden="true">
           <router-link :to="item.link" tabindex="-1">
             <kirby-image :src="item.image.url" :cover="true" />

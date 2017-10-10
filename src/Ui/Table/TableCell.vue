@@ -1,6 +1,7 @@
 <template>
   <td class="kirby-table-cell"
     :data-type="type"
+    :data-state="state"
     :data-width="width"
     :data-align="align">
     <slot />
@@ -10,7 +11,7 @@
 <script>
 
 export default {
-  props: ['type', 'width', 'align']
+  props: ['type', 'state', 'width', 'align']
 }
 
 </script>
@@ -96,6 +97,23 @@ export default {
 
 .kirby-table-cell[data-type="info"] {
   color: $color-light-grey;
+}
+
+/* states */
+.kirby-table-cell[data-state="positive"] {
+  background: $color-positive;
+}
+
+.kirby-table-cell[data-state="negative"] {
+  background: $color-negative;
+}
+
+.kirby-table-cell[data-state="notice"] {
+  background: $color-notice;
+}
+
+.kirby-table-cell[data-state="faded"] {
+  opacity: .25;
 }
 
 /* alignments */

@@ -1,7 +1,14 @@
 <template>
   <span class="kirby-checkbox-input">
-    <input type="checkbox" v-model="data" :id="_uid" class="kirby-checkbox-input" :checked="data" />
-    <label :for="_uid">{{ label }}</label>
+    <input type="checkbox" v-model="data" :id="_uid" :checked="data" />
+    <label :for="_uid">
+      <span class="kirby-checkbox-styled" aria-hidden="true">
+        <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 5l3.3 3L11 1" stroke-width="2" fill="none" fill-rule="evenodd" />
+        </svg>
+      </span>
+      {{ label }}
+    </label>
   </span>
 </template>
 
@@ -35,87 +42,132 @@ export default {
 </script>
 
 <style lang="scss">
-
-$color-checkbox-border: #d0d2d4;
 $color-checkbox-focus: #567896;
+$color-checkbox-border: #8b8e94;
+$checkbox-focus-outline: 0 0 0 3px rgba(108,166,217,0.25);
+
+$checkbox-width: 16px;
+$checkbox-height: 16px;
+$checkbox-offset-y: 6px;
+$checkbox-label-gap: 8px;
+
 
 .kirby-checkbox-input {
   position: relative;
-  display: flex;
-}
-.kirby-checkbox-input input {
-  opacity: 0;
+  display: block;
+  /* create new stacking context to prevent positioned
+    stacking side-effects with other components */
+  z-index: 0;
 
   [dir="ltr"] & {
-    margin-right: 1rem;
+    padding-left: $checkbox-width + $checkbox-label-gap;
   }
+
   [dir="rtl"] & {
-    margin-left: 1rem;
+    padding-right: $checkbox-width + $checkbox-label-gap;
   }
 }
-.kirby-checkbox-input label {
-  font-size: $font-size-small;
-  font-family: $font-family-mono;
-  cursor: pointer;
-  display: block;
-  flex-grow: 1;
-  min-height: 1.25rem;
-}
-.kirby-checkbox-input label::before{
+
+.kirby-checkbox-input input {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  content: "";
-  height: 12px;
-  width: 12px;
-  border-radius: 2px;
-  background-color: $color-white;
-  border: 2px solid $color-checkbox-border;
+  top: $checkbox-offset-y;
+  width: $checkbox-width + $checkbox-label-gap;
+  height: $checkbox-height;
   cursor: pointer;
-  transition: all .2s;
+
+  /* remove default browser styling to make checkbox
+     resizeable */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  opacity: 0;
 
   [dir="ltr"] & {
     left: 0;
   }
+
   [dir="rtl"] & {
     right: 0;
   }
 }
-.kirby-checkbox-input input + label::after {
+
+.kirby-checkbox-styled {
   position: absolute;
-  content: none;
-  top: 50%;
-  margin-top: -4px;
-  display: inline-block;
-  height: 3px;
-  width: 8px;
-  border-left: 2px solid $color-light;
-  border-bottom: 2px solid $color-light;
-  transform: rotate(-45deg);
-  transition: all .2s;
+  display: block;
+  top: $checkbox-offset-y;
+  width: $checkbox-width;
+  height: $checkbox-height;
+  background-color: $color-white;
+
+  border: 2px solid $color-checkbox-border;
+  border-radius: 2px;
+
+  transition:
+    background-color .2s,
+    border-color .2s;
 
   [dir="ltr"] & {
-    left: 3px;
+    left: 0;
   }
+
   [dir="rtl"] & {
-    right: 3px;
+    right: 0;
+  }
+
+  svg {
+    position: absolute;
+    top: 1px;
+    left: 0;
+  }
+
+  path {
+    stroke: $color-white;
+    stroke-dasharray: 14.149505615234375;
+    stroke-dashoffset: 14.149505615234375;
+    transition:
+      stroke-dashoffset .2s;
   }
 }
-.kirby-checkbox-input input:focus + label::before {
-  border-color: $color-checkbox-focus;
-  box-shadow: 0 0 0 3px rgba($color-checkbox-focus, 0.25);
+
+.kirby-checkbox-input input {
+  
+  /* focus + active */
+  &:focus ~ label .kirby-checkbox-styled,
+  &:active ~ label .kirby-checkbox-styled {
+    box-shadow: $checkbox-focus-outline;
+    border-color: $color-checkbox-focus;
+  }
+
+  /* unchecked active */
+  &:active ~ label .kirby-checkbox-styled {
+    background-color: mix($color-checkbox-focus, $color-white, 30%);
+  }
+
+  /* checked */
+  &:checked ~ label .kirby-checkbox-styled {
+    background-color: $color-dark;
+    border-color: $color-dark;
+
+    path {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* checked + active */
+  &:checked:active ~ label .kirby-checkbox-styled {
+    background-color: $color-checkbox-focus;
+    border-color: $color-checkbox-focus;
+  }
 }
-.kirby-checkbox-input input:checked:focus + label::before {
-  background: $color-checkbox-focus;
-  border-color: $color-checkbox-focus;
-  box-shadow: 0 0 0 3px rgba($color-checkbox-focus, 0.25);
-}
-.kirby-checkbox-input input:checked + label::before {
-  background: $color-dark;
-  border-color: $color-dark;
-}
-.kirby-checkbox-input input:checked + label::after {
-  content: "";
+
+.kirby-checkbox-input label {
+  display: block;
+  //font-size: $font-size-small;
+  //font-family: $font-family-mono;
+  //margin-left: 24px;
+  line-height: 28px;
+  min-height: 28px;
+  cursor: pointer;
 }
 
 </style>

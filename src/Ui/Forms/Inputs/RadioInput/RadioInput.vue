@@ -13,6 +13,9 @@
       class="kirby-radio-input" />
       <label :for="name + '_' + option.value">
         {{ option.text }}
+        <div v-if="option.info" class="kirby-radio-input-info">
+          {{ option.info }}
+        </div>
       </label>
     </span>
   </div>
@@ -29,6 +32,9 @@ export default {
     name: {
       type: String,
       default: 'radio'
+    },
+    info: {
+      type: String
     },
     value: {}
   },
@@ -48,43 +54,81 @@ export default {
 
 <style lang="scss">
 
-$color-radio-border: #d0d2d4;
+$color-radio-border: #8b8e94;
 $color-radio-focus: #567896;
+$radio-focus-outline: 0 0 0 3px rgba(108,166,217,0.25);
+
+$radio-width: 16px;
+$radio-height: 16px;
+$radio-offset-y: 6px;
+$radio-label-gap: 8px;
+
+
+.kirby-radio-inputs > * + * {
+  margin-top: 4px;
+}
 
 .kirby-radio-input {
   position: relative;
-  display: flex;
-}
-.kirby-radio-input input {
-  opacity: 0;
+  display: block;
 
   [dir="ltr"] & {
-    margin-right: 1rem;
+    padding-left: $radio-width + $radio-label-gap;
   }
+
   [dir="rtl"] & {
-    margin-left: 1rem;
+    padding-right: $radio-width + $radio-label-gap;
   }
 }
-.kirby-radio-input label {
-  font-size: $font-size-small;
-  font-family: $font-family-mono;
-  cursor: pointer;
-  display: block;
-  flex-grow: 1;
-  min-height: 1.25rem;
-}
-.kirby-radio-input label::before{
+
+.kirby-radio-input input {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: $radio-offset-y;
+  width: $radio-width + $radio-label-gap;
+  height: $radio-height;
+
+  /* remove default browser styling to make checkbox
+     resizeable */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  opacity: 0;
+  cursor: pointer;
+
+  [dir="ltr"] & {
+    left: 0;
+  }
+
+  [dir="rtl"] & {
+    right: 0;
+  }
+}
+
+.kirby-radio-input label {
+  display: block;
+  // font-size: $font-size-small;
+  // font-family: $font-family-mono;
+  line-height: 28px;
+  min-height: 28px;
+  cursor: pointer;
+}
+
+/* radio button background */
+.kirby-radio-input label::before {
   content: "";
-  height: 12px;
-  width: 12px;
-  border-radius: 50%;
+  position: absolute;
+  top: $radio-offset-y;
+  height: $radio-width;
+  width: $radio-height;
+  
   background-color: $color-white;
   border: 2px solid $color-radio-border;
+  border-radius: 50%;
   cursor: pointer;
-  transition: all .2s;
+  
+  transition:
+    background-color .2s,
+    border-color .2s;
 
   [dir="ltr"] & {
     left: 0;
@@ -93,36 +137,87 @@ $color-radio-focus: #567896;
     right: 0;
   }
 }
+
+/* radio button dot */
 .kirby-radio-input input + label::after {
+  content: '';
   position: absolute;
-  content: none;
-  top: 50%;
-  margin-top: -4px;
-  display: inline-block;
-  height: 8px;
-  width: 8px;
+  top: $radio-offset-y + 5px;
+  height: 6px;
+  width: 6px;
+  background-color: $color-white;
   border-radius: 50%;
+  transform: scale(0);
+  transition:
+    transform .2s;
 
   [dir="ltr"] & {
-    left: 4px;
+    left: 5px;
   }
   [dir="rtl"] & {
-    right: 4px;
+    right: 5px;
   }
 }
+
+
+/* focus + active */
+.kirby-radio-input input:focus + label::before,
+.kirby-radio-input input:active + label::before {
+  box-shadow: $radio-focus-outline;
+  border-color: $color-radio-focus;
+}
+
+/* unselected active */
+.kirby-radio-input input:active + label::before {
+  background-color: mix($color-radio-focus, $color-white, 30%);
+}
+
+/* checked */
 .kirby-radio-input input:checked + label::before {
+  background-color: $color-dark;
   border-color: $color-dark;
 }
-.kirby-radio-input input:focus + label::before {
-  border-color: $color-radio-focus;
-  box-shadow: 0 0 0 3px rgba($color-radio-focus, 0.25);
-}
+
 .kirby-radio-input input:checked + label::after {
-  content: "";
-  background: $color-dark;
+  transform: none;
 }
-.kirby-radio-input input:focus + label::after {
-  background: $color-radio-focus;
+
+/* checked + active */
+.kirby-radio-input input:checked:active + label::before {
+  background-color: $color-radio-focus;
+  border-color: $color-radio-focus;
+}
+
+
+// /* checked */
+// .kirby-radio-input input:checked + label::before {
+//   background-color: $color-dark;
+//   border-color: $color-dark;
+// }
+
+// /* focus + active */
+// .kirby-radio-input input:focus + label::before,
+// .kirby-radio-input input:active + label::before {
+//   border-color: $color-radio-focus;
+//   box-shadow: $radio-focus-outline;
+// }
+
+// /* checked */
+// .kirby-radio-input input:checked + label::after {
+//   opacity: 1;
+//   transform: none;
+// }
+
+// /* checked + active */
+// .kirby-radio-input input:active + label::before {
+//   background-color: $color-radio-focus;
+//   border-color: $color-radio-focus;
+// }
+
+.kirby-radio-input-info {
+  font-size: .8em;
+  line-height: 1.2;
+  color: $color-light-grey;
 }
 
 </style>
