@@ -59,6 +59,7 @@
       </kirby-column>
     </kirby-grid>
 
+    <kirby-page-status-dialog ref="status"></kirby-page-status-dialog>
     <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
     <kirby-page-remove-dialog ref="remove"></kirby-page-remove-dialog>
 
@@ -141,6 +142,9 @@ export default {
       switch (action) {
         case 'preview':
           window.open(this.page.url);
+          break;
+        case 'status':
+          this.$refs.status.open(this.page.id);
           break;
         case 'url':
           this.$refs.url.open(this.page.id);
