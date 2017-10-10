@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-file-view">
 
-    <kirby-header label="File" link="/pages" icon="page" :breadcrumb="breadcrumb" :pagination="pagination">
+    <kirby-header label="File" link="/pages" icon="page" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
 
       {{ file.filename }}
 
@@ -82,7 +82,9 @@ export default {
     return {
       file: {
         filename: '',
-        url: ''
+        url: '',
+        prev: null,
+        next: null
       },
       breadcrumb: []
     }
@@ -98,12 +100,10 @@ export default {
   computed: {
     pagination() {
       return {
-        page: 1,
-        limit: 1,
-        total: 5,
-        pageLabel: 'File',
+        prev: this.file.prev ? true : false,
         prevLabel: 'Previous File',
-        nextLabel: 'Next File'
+        next: this.file.next ? true : false,
+        nextLabel: 'Next File',
       };
     }
   },
@@ -147,6 +147,12 @@ export default {
           this.$store.dispatch('error', 'Not yet implemented');
           break;
       }
+    },
+    prev () {
+      this.$router.push('/pages/' + this.path + '/files/' + this.file.prev);
+    },
+    next () {
+      this.$router.push('/pages/' + this.path + '/files/' + this.file.next);
     }
   }
 }
