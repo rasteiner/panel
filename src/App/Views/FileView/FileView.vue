@@ -103,6 +103,8 @@ export default {
       File.get(this.path, this.filename).then((file) => {
         this.file       = file;
         this.breadcrumb = file.breadcrumb;
+      }).catch(() => {
+        this.$router.push('../');
       });
 
     },
@@ -112,7 +114,7 @@ export default {
           window.open(this.file.url);
           break;
         case 'remove':
-          this.$refs.remove.open(this.file.filename);
+          this.$refs.remove.open(this.file.parent, this.file.filename);
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');

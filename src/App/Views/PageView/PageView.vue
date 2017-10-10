@@ -123,7 +123,7 @@ export default {
         });
       }).catch(() => {
         this.$store.dispatch('error', 'The page could not be found');
-        this.$router.push('/pages');
+        this.$router.push('../');
       });
 
     },
