@@ -6,7 +6,7 @@
 
       {{ headline }}
 
-      <kirby-image v-if="user.image" class="kirby-user-view-image" ratio="1/1" :src="user.image.url" />
+      <kirby-image v-if="image" class="kirby-user-view-image" ratio="1/1" :src="image" />
 
       <template slot="buttons-left">
         <kirby-dropdown>
@@ -110,6 +110,9 @@ export default {
       } else {
         return this.user.email;
       }
+    },
+    image () {
+      return this.user.image.url
     },
     fields() {
       return [
