@@ -4,7 +4,16 @@
 
     <kirby-header label="File" link="/pages" icon="page" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
 
-      {{ file.filename }}
+      <div class="kirby-file-view-title">
+        <kirby-fancy-input
+          ref="filename"
+          :key="file.id + '-title'"
+          v-model="file.name"
+          placeholder="filename"
+          tag="span"
+          @blur="updateFilename($event.target.innerText)"
+          @enter="$event.target.blur()" /><span>.{{ file.extension }}</span>
+      </div>
 
       <template slot="buttons-left">
         <kirby-button icon="download" @click="action('download')">
@@ -12,9 +21,6 @@
         </kirby-button>
         <kirby-button icon="upload" :upload="true">
           {{ $t('upload') }}
-        </kirby-button>
-        <kirby-button icon="title" @click="action('rename')">
-          {{ $t('rename') }}
         </kirby-button>
         <kirby-button icon="trash" @click="action('remove')">
           {{ $t('delete') }}
@@ -32,7 +38,7 @@
 
         <kirby-column width="1/2">
           <a :href="file.url" target="_blank">
-            <kirby-image v-if="file.url" :src="file.url" back="black" ratio="1/1" />
+            <kirby-image v-if="file.url" :src="file.url + '?' + new Date()" back="black" ratio="1/1" />
           </a>
         </kirby-column>
 
@@ -75,11 +81,13 @@
 
 import File from 'App/Api/File.js';
 import Page from 'App/Api/Page.js';
+import slug from 'App/Helpers/slug.js';
 
 export default {
   props: ['path', 'filename'],
   data () {
     return {
+      name: '',
       file: {
         filename: '',
         url: '',
@@ -113,6 +121,7 @@ export default {
       File.get(this.path, this.filename).then((file) => {
 
         this.file = file;
+        this.name = file.name;
 
         Page.get(this.path).then((page) => {
 
@@ -153,6 +162,25 @@ export default {
     },
     next () {
       this.$router.push('/pages/' + this.path + '/files/' + this.file.next);
+    },
+    updateFilename (name) {
+
+      name = slug(name);
+
+      if (name.length === 0) {
+        this.$store.dispatch('alert', 'Please enter a filename');
+        return;
+      }
+
+      if (name === this.name) {
+        return true;
+      }
+
+      File.rename(this.path, this.file.filename, name).then((file) => {
+        this.$router.push('/pages/' + this.path + '/files/' + file.filename);
+        this.$store.dispatch('success', 'The file has been renamed');
+      });
+
     }
   }
 }
@@ -160,6 +188,21 @@ export default {
 </script>
 
 <style lang="scss">
+
+.kirby-file-view-title {
+  display: flex;
+}
+.kirby-file-view-title > span:first-child {
+  width: auto;
+  text-transform: lowercase;
+}
+.kirby-file-view-title > span:first-child:focus {
+  @include focus-ring;
+  background: #fff;
+  padding: 0 .5rem;
+  margin-left: -.5rem;
+  margin-right: -.5rem;
+}
 
 .kirby-file-view .kirby-header {
   margin-bottom: 0;

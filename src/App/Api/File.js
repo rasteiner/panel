@@ -7,6 +7,11 @@ export default {
     update (page, filename, data) {
         return Api.post('pages/' + page + '/files/' + filename, data);
     },
+    rename (page, filename, to) {
+        return Api.post('pages/' + page + '/files/' + filename + '/rename', {
+            name: to
+        });
+    },
     delete (page, filename) {
         return Api.delete('pages/' + page + '/files/' + filename);
     }
