@@ -3,7 +3,7 @@ export default {
         return fetch(window.panel.config.api + '/' + path, options).then((response) => {
             return response.json();
         }).then((json) => {
-            if (json.status && json.status !== 'success') {
+            if (json.status && json.status !== 'ok') {
                 throw Error(json.status);
             }
 

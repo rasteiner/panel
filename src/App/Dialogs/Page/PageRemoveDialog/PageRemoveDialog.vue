@@ -35,7 +35,7 @@ export default {
 
         if (this.$route.path === '/pages/' + this.page.id) {
           if (this.page.parent) {
-            this.$router.push('/pages/' + this.page.parent.id);
+            this.$router.push('/pages/' + this.page.parent);
           } else {
             this.$router.push('/pages');
           }
