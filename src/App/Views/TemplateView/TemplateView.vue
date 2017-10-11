@@ -11,9 +11,7 @@
       </div>
 
       <template slot="buttons-left">
-        <div class="kirby-page-task" @click="select">
-          {{ task }}
-        </div>
+        <div class="kirby-page-task">{{ task }}</div>
       </template>
 
       <template slot="buttons-right">
@@ -24,62 +22,53 @@
     </kirby-header>
 
 
-    <section v-if="!template" class="kirby-template-selector">
-      <kirby-collection layout="cards" @click="select" :items="blueprints"></kirby-collection>
-    </section>
+    <kirby-collection v-if="!template" layout="cards" @click="select" :items="blueprints" class="kirby-template-select"></kirby-collection>
 
-    <section v-if="template" class="kirby-template-review">
-
-      <kirby-grid class="kirby-sections" gutter="small">
-        <kirby-column width="1/3">
-          <kirby-collection layout="cards" @click="select" :items="[
-            {
-              id:   template,
-              text: 'New template: ' + template,
-              info: 'Old template: ' + page.template,
-              image: {
-                url: image(template)
-              }
+    <kirby-grid v-if="template" class="kirby-sections" gutter="small">
+      <kirby-column width="1/3">
+        <kirby-collection layout="cards" @click="select" :items="[
+          {
+            id:   template,
+            text: 'New template: ' + template,
+            info: 'Old template: ' + page.template,
+            image: {
+              url: image(template)
             }
-          ]"></kirby-collection>
-        </kirby-column>
+          }
+        ]"></kirby-collection>
+      </kirby-column>
 
-        <kirby-column width="2/3">
-          <kirby-input>
-            <kirby-table>
-              <kirby-table-header>
-                <kirby-table-header-cell>
-                  Field
-                </kirby-table-header-cell>
-                <kirby-table-header-cell>
-                  Type
-                </kirby-table-header-cell>
-                <kirby-table-header-cell>
-                  Old value
-                </kirby-table-header-cell>
-                <kirby-table-header-cell>
-                  New value
-                </kirby-table-header-cell>
-              </kirby-table-header>
+      <kirby-column width="2/3">
+        <kirby-input>
+          <kirby-table>
+            <kirby-table-header>
+              <kirby-table-header-cell>
+                Field
+              </kirby-table-header-cell>
+              <kirby-table-header-cell>
+                Type
+              </kirby-table-header-cell>
+              <kirby-table-header-cell>
+                Old value
+              </kirby-table-header-cell>
+              <kirby-table-header-cell>
+                New value
+              </kirby-table-header-cell>
+            </kirby-table-header>
 
-              <kirby-table-body>
-                <kirby-table-row v-for="change in changes" :key="change.name">
-                  <kirby-table-cell v-html="change.name" :state="state(change.status)"></kirby-table-cell>
-                  <kirby-table-cell :state="!change.type ? 'faded' : null" v-html="change.type || '–'"></kirby-table-cell>
-                  <kirby-table-cell :state="!change.oldValue ? 'faded' : null" v-html="change.oldValue || '–'"></kirby-table-cell>
-                  <kirby-table-cell :state="!change.newValue ? 'faded' : null" v-html="change.newValue || '–'"></kirby-table-cell>
-                </kirby-table-row>
-              </kirby-table-body>
-            </kirby-table>
-          </kirby-input>
-        </kirby-column>
-      </kirby-grid>
+            <kirby-table-body>
+              <kirby-table-row v-for="change in changes" :key="change.name">
+                <kirby-table-cell v-html="change.name" :state="change.state"></kirby-table-cell>
+                <kirby-table-cell :state="!change.type ? 'faded' : null" v-html="change.type || '–'"></kirby-table-cell>
+                <kirby-table-cell :state="!change.oldValue ? 'faded' : null" v-html="change.oldValue || '–'"></kirby-table-cell>
+                <kirby-table-cell :state="!change.newValue ? 'faded' : null" v-html="change.newValue || '–'"></kirby-table-cell>
+              </kirby-table-row>
+            </kirby-table-body>
+          </kirby-table>
+        </kirby-input>
+      </kirby-column>
+    </kirby-grid>
 
-
-
-
-
-    </section>
 
   </kirby-view>
 
@@ -87,8 +76,8 @@
 
 <script>
 
-
 import Page from 'App/Api/Page.js';
+import Blueprint from 'App/Api/Blueprint.js';
 
 export default {
   props: ['path'],
@@ -116,21 +105,21 @@ export default {
       this.changes = [
         {
           name: 'category',
-          status: 'changed',
+          state: 'notice',
           type: 'tags &rarr; select',
           oldValue: 'elephant, tiger',
           newValue: ''
         },
         {
           name: 'client',
-          status: 'added',
+          state: 'positive',
           type: 'text',
           oldValue: '',
           newValue: 'Apple'
         },
         {
           name: 'deadline',
-          status: 'removed',
+          state: 'negative',
           type: '',
           oldValue: '2017-12-31',
           newValue: ''
@@ -143,36 +132,43 @@ export default {
       this.template = item.id;
     },
     confirm () {
-      this.$router.push({
-        name: 'Page',
-        params: { path: this.path }
-      });
+      // TODO: Update template
+
+      this.$router.push('/pages/' + this.path );
     },
     cancel () {
-      this.$router.push({
-        name: 'Page',
-        params: { path: this.path }
-      });
-    },
-    state (status) {
-      switch(status) {
-        case 'changed':
-          return 'notice';
-        case 'added':
-          return 'positive';
-        case 'removed':
-          return 'negative';
-      }
+      this.$router.push('/pages/' + this.path );
     },
     image (blueprint) {
-      return 'http://localhost:8000/assets/images/templates/' + blueprint + '.png';
+      return window.panel.config.index + '/assets/blueprints/' + blueprint + '.png';
     },
     fetch () {
-
       Page.get(this.path).then((page) => {
         this.page       = page;
-        this.breadcrumb = page.breadcrumb;
+        this.breadcrumb = page.parents.map((parent) => {
+          return {
+            label: parent.title,
+            link: '/pages/' + parent.id
+          }
+        });
       });
+
+      /*
+      Blueprint.list().then((blueprints) => {
+        this.blueprints = blueprints.map((id) => {
+          return Blueprint.get(id).then((blueprint) => {
+            return {
+              id:   id,
+              text: blueprint.name,
+              info: blueprint.description,
+              image: {
+                url: this.image(id)
+              }
+            }
+          });
+        });
+      });
+      */
 
       this.blueprints = [
         {
@@ -225,7 +221,7 @@ export default {
   color:       $color-dark-grey;
 }
 
-.kirby-template-selector .kirby-card {
+.kirby-template-select .kirby-card {
   cursor: pointer;
 }
 
