@@ -1,5 +1,13 @@
 <template>
   <div class="kirby-pages-collection">
+
+    <kirby-headline>
+      {{ headline }}
+      <kirby-button-group slot="options">
+        <kirby-button icon="add" @click="add">Add</kirby-button>
+      </kirby-button-group>
+    </kirby-headline>
+
     <kirby-collection
       :layout="layout"
       :items="items"
@@ -28,6 +36,13 @@ import Page from 'App/Api/Page.js';
 export default {
   mixins: [CollectionMixin],
   methods: {
+    add () {
+      if (this.query.parent && this.query.parent !== '/') {
+        this.$router.push('/pages/' + this.query.parent + '/new');
+      } else {
+        this.$router.push('/pages/new');
+      }
+    },
     fetch () {
 
       this.query.paginate = {
