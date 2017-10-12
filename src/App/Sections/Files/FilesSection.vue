@@ -1,13 +1,11 @@
 <template>
   <section>
-    <kirby-headline>
-      <span>{{ headline }}</span>
-    </kirby-headline>
     <kirby-files-collection
+      :headline="headline"
       :layout="layout"
       :query="query"
       :pagination="pagination"
-  />
+    />
   </section>
 </template>
 

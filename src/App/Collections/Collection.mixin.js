@@ -1,5 +1,8 @@
 export default {
   props: {
+    headline: {
+      type: String
+    },
     layout: {
       type: String,
       default: 'list'
