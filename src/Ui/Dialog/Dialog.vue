@@ -5,14 +5,14 @@
         <div class="kirby-dialog-body">
           <slot />
         </div>
-        <footer class="kirby-dialog-footer">
-          <slot name="footer">
+        <slot name="footer">
+          <footer class="kirby-dialog-footer">
             <kirby-button-group>
               <kirby-button @click="cancel" icon="cancel">Cancel</kirby-button>
               <kirby-button @click="submit" :icon="icon" :state="state">{{ button }}</kirby-button>
             </kirby-button-group>
-          </slot>
-        </footer>
+          </footer>
+        </slot>
       </div>
     </div>
   </transition>
