@@ -15,7 +15,7 @@
           </kirby-button>
           <kirby-dropdown-content ref="picture" :dark="true">
             <template v-if="user.image">
-              <kirby-dropdown-item icon="upload" :upload="true">
+              <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('change') }}
               </kirby-dropdown-item>
               <kirby-dropdown-item icon="trash" @click="action('picture.delete')">
@@ -23,7 +23,7 @@
               </kirby-dropdown-item>
             </template>
             <template v-else>
-              <kirby-dropdown-item icon="upload" :upload="true">
+              <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('upload') }}
               </kirby-dropdown-item>
               <kirby-dropdown-item icon="import" @click="action('picture.import')">
@@ -53,6 +53,8 @@
     <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
+
+    <kirby-upload ref="upload" url="/" accept="image/*" :multiple="false" />
 
   </kirby-view>
 
