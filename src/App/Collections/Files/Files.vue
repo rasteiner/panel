@@ -4,7 +4,7 @@
     <kirby-headline>
       <span>{{ headline }}</span>
       <kirby-button-group slot="options">
-        <kirby-button icon="upload" @click="$refs.upload.open()"></kirby-button>
+        <kirby-button icon="upload" @click="upload"></kirby-button>
       </kirby-button-group>
     </kirby-headline>
 
@@ -22,7 +22,7 @@
 
     <kirby-file-remove-dialog ref="remove" @success="fetch" />
 
-    <kirby-upload ref="upload" :url="uploadApi" @success="uploaded" />
+    <kirby-upload ref="upload" @success="uploaded" />
 
   </div>
 </template>
@@ -34,11 +34,6 @@ import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [CollectionMixin],
-  computed: {
-    uploadApi () {
-      return window.panel.config.api + '/pages/' + this.query.parent + '/files';
-    },
-  },
   methods: {
     fetch () {
 
@@ -56,6 +51,7 @@ export default {
           filename: file.filename,
           url: file.url,
           parent: file.parent,
+          mime: file.mime,
           link: '/pages/' + file.parent + '/files/' + file.filename,
           options: panel.config.assets + '/options/file.json'
         }));
@@ -70,9 +66,21 @@ export default {
         case 'remove':
           this.$refs.remove.open(file.parent, file.filename);
           break;
+        case 'replace':
+          this.$refs.upload.open({
+            url: window.panel.config.api + '/pages/' + this.query.parent + '/files/' + file.filename,
+            accept: file.mime,
+            multiple: false
+          });
+          break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');
       }
+    },
+    upload() {
+      this.$refs.upload.open({
+        url: window.panel.config.api + '/pages/' + this.query.parent + '/files',
+      });
     },
     uploaded () {
       this.fetch();

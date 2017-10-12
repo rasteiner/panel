@@ -1,6 +1,6 @@
 <template>
   <div class="kirby-upload">
-    <input ref="input" tabindex="-1" type="file" @change="upload" :accept="accept" :multiple="multiple">
+    <input ref="input" tabindex="-1" type="file" @change="upload" :accept="options.accept" :multiple="options.multiple">
 
     <kirby-dialog ref="dialog">
       <template>
@@ -25,8 +25,7 @@ import uploadFile from 'Ui/Helpers/uploadFile.js';
 export default {
   props: {
     url: {
-      type: String,
-      required: true
+      type: String
     },
     accept: {
       type: String,
@@ -39,14 +38,18 @@ export default {
   },
   data () {
     return {
+      options: this.$props,
       completed: {},
       files: null,
       total: 0
     }
   },
   methods: {
-    open() {
-      this.$refs.input.click();
+    open(params) {
+      this.options = Object.assign({}, this.$props, params);
+      this.$nextTick(() => {
+        this.$refs.input.click();
+      });
     },
     upload (e) {
 
@@ -63,7 +66,7 @@ export default {
         this.total++;
 
         uploadFile(file, {
-          url: this.url,
+          url: this.options.url,
           progress: (xhr, file, progress) => {
             this.$refs[file.name][0].set(progress);
           },
