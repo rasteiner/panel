@@ -19,7 +19,7 @@
         <kirby-button icon="download" @click="action('download')">
           {{ $t('download') }}
         </kirby-button>
-        <kirby-button icon="upload" :upload="true">
+        <kirby-button icon="upload" @click="$refs.upload.open()">
           {{ $t('upload') }}
         </kirby-button>
         <kirby-button icon="trash" @click="action('remove')">
@@ -73,6 +73,8 @@
 
     <kirby-file-remove-dialog ref="remove" />
 
+    <kirby-upload ref="upload" url="" :accept="file.mime" @success="uploaded" />
+
   </kirby-view>
 
 </template>
@@ -92,7 +94,8 @@ export default {
         filename: '',
         url: '',
         prev: null,
-        next: null
+        next: null,
+        mime: null
       },
       breadcrumb: []
     }
@@ -181,6 +184,9 @@ export default {
         this.$store.dispatch('success', 'The file has been renamed');
       });
 
+    },
+    uploaded () {
+      this.$store.dispatch('success', 'The file has been replaced');
     }
   }
 }
