@@ -51,7 +51,7 @@ export default {
           image: page.image || {},
           text: page.content.title,
           link: '/pages/' + page.id,
-          options: panel.config.assets + '/options/page.json'
+          options: panel.config.api + '/pages/' + page.id + '/options'
         }));
 
       });

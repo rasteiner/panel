@@ -13,6 +13,9 @@ export default {
     get (id) {
         return Api.get('pages/' + id);
     },
+    options (id) {
+        return Api.get('pages/' + id + '/options');
+    },
     update (id, data) {
         return Api.post('pages/' + id, data);
     },

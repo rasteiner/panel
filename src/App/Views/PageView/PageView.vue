@@ -29,18 +29,7 @@
           <kirby-button @click="$refs.settings.toggle()" icon="cog">
             {{ $t('settings') }}
           </kirby-button>
-          <kirby-dropdown-content :dark="true" ref="settings">
-            <kirby-dropdown-item icon="copy" @click="action('copy')">
-              {{ $t('copy') }}
-            </kirby-dropdown-item>
-            <kirby-dropdown-item icon="code" @click="action('template')">
-              {{ $t('page.template.change') }}
-            </kirby-dropdown-item>
-            <kirby-dropdown-item icon="chain" @click="action('url')">
-              {{ $t("page.url.change") }}
-            </kirby-dropdown-item>
-            <kirby-dropdown-item icon="trash" @click="action('remove')">{{ $t("delete") }}</kirby-dropdown-item>
-          </kirby-dropdown-content>
+          <kirby-dropdown-content :dark="true" ref="settings" :options="options" @action="action" />
         </kirby-dropdown>
       </template>
 
@@ -87,7 +76,7 @@ export default {
       },
       icon: 'page',
       breadcrumb: [],
-      layout: []
+      layout: [],
     }
   },
   created () {
@@ -106,6 +95,9 @@ export default {
         next: this.page.next ? true : false,
         nextLabel: 'Next page'
       };
+    },
+    options () {
+      return window.panel.config.api + '/pages/' + this.page.id + '/options?not=preview,status';
     }
   },
   methods: {
