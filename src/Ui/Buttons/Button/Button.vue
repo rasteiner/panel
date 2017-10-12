@@ -11,10 +11,6 @@
     <kirby-icon v-if="icon" :type="icon" :alt="alt"></kirby-icon>
     <img v-else-if="image" class="kirby-button-image" :src="image" :alt="alt || ''">
     <span v-if="$slots.default" class="kirby-button-text"><slot /></span>
-    <input tabindex="-1" v-if="upload" type="file" ref="input"
-      :multiple="upload.multiple || false"
-      :accept="upload.accept || '*'"
-      @change="change">
   </button>
 </template>
 
@@ -26,7 +22,6 @@ export default {
     'icon',
     'image',
     'state',
-    'upload',
     'link',
     'disabled'
   ],
@@ -42,17 +37,11 @@ export default {
   },
   methods: {
     click: function () {
-      if (this.upload) {
-        // open the file dialog
-        this.$refs.input.value = ''
-        this.$refs.input.click()
-      } else if (this.link) {
+      if (this.link) {
         this.$router.push(this.link)
+      } else {
+        this.$emit('click')
       }
-      this.$emit('click')
-    },
-    change: function (event) {
-      this.$emit('upload')
     },
     tab: function ($event) {
       this.tabbed = true;
@@ -152,15 +141,6 @@ export default {
   .kirby-button-text {
     padding: 0;
   }
-}
-
-.kirby-button input[type="file"] {
-  position: absolute;
-  top: 0;
-  left: -5000px;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
 }
 
 .kirby-button-image {

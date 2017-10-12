@@ -1,6 +1,7 @@
 import DashboardView from '../Views/DashboardView/DashboardView.vue';
 import LoginView from '../Views/LoginView/LoginView.vue';
 import PageView from '../Views/PageView/PageView.vue';
+import CreatePageView from '../Views/CreatePageView/CreatePageView.vue';
 import TemplateView from '../Views/TemplateView/TemplateView.vue';
 import FileView from '../Views/FileView/FileView.vue';
 import UsersView from '../Views/UsersView/UsersView.vue';
@@ -45,6 +46,34 @@ export default [
     })
   },
   {
+    path: '/pages/new',
+    name: 'CreateMainPage',
+    component: CreatePageView,
+    beforeEnter: auth,
+    props: (route) => ({
+      path: '/'
+    })
+  },
+  {
+    path: '/pages/:path+/new',
+    name: 'CreatePage',
+    component: CreatePageView,
+    beforeEnter: auth,
+    props: (route) => ({
+      path: route.params.path
+    })
+  },
+  {
+    path: '/pages/:path+/files/:filename',
+    name: 'File',
+    component: FileView,
+    beforeEnter: auth,
+    props: (route) => ({
+      path: route.params.path,
+      filename: route.params.filename
+    })
+  },
+  {
     path: '/pages/:path+',
     name: 'Page',
     component: PageView,
@@ -57,15 +86,6 @@ export default [
     path: '/template/:path+',
     name: 'Template',
     component: TemplateView,
-    beforeEnter: auth,
-    props: (route) => ({
-      path: route.params.path
-    })
-  },
-  {
-    path: '/files/:path+',
-    name: 'File',
-    component: FileView,
     beforeEnter: auth,
     props: (route) => ({
       path: route.params.path

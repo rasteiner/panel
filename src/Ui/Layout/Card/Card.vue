@@ -109,6 +109,16 @@ export default {
 .kirby-card-options-button {
   padding: .6rem 1rem;
   line-height: 1.5em;
+  background: #fff;
+}
+.kirby-card-options-button::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1rem;
+  content: "";
+  left: -1rem;
+  background: -webkit-linear-gradient(left, rgba(#fff, 0), rgba(#fff, 1));
 }
 
 </style>

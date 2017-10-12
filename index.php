@@ -17,8 +17,9 @@
   <script>
     var panel = {
       config: {
-        api: '../api/',
-        assets: './assets'
+        api: '../api',
+        assets: './assets',
+        index: '../'
       }
     };
   </script>

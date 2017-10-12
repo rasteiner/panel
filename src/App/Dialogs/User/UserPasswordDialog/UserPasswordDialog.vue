@@ -21,9 +21,7 @@
 
 // components
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-
-// api
-import UserQuery from 'App/Api/UserQuery.js';
+import User from 'App/Api/User.js';
 
 export default {
   mixins: [DialogMixin],
@@ -34,13 +32,14 @@ export default {
   },
   methods: {
     open(email) {
-      UserQuery(email).then((user) => {
+      User.get(email).then((user) => {
         this.user = user;
         this.$refs.dialog.open();
       });
     },
     submit () {
       this.$store.dispatch('success', 'The password has been changed');
+      this.$emit('success');
     }
   }
 }

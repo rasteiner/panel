@@ -1,13 +1,11 @@
 <template>
   <section>
-    <kirby-headline>
-      <span>{{ headline }}</span>
-    </kirby-headline>
     <kirby-files-collection
+      :headline="headline"
       :layout="layout"
       :query="query"
       :pagination="pagination"
-  />
+    />
   </section>
 </template>
 
@@ -19,16 +17,17 @@ export default {
     'layout',
     'type',
     'parent',
-    'filter',
+    'page',
+    'filterBy',
     'pagination',
-    'sort'
+    'sortBy'
   ],
   computed: {
     query () {
       return {
-        parent: this.parent,
-        filter: this.filter,
-        sort: this.sort
+        parent: this.parent || this.page.id,
+        filterBy: this.filterBy,
+        sortBy: this.sortBy
       }
     }
   }

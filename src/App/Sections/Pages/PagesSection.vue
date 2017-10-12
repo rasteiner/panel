@@ -1,20 +1,14 @@
 <template>
   <section>
-    <kirby-headline>
-      {{ headline }}
-      <kirby-button-group slot="options">
-        <kirby-button icon="add" @click="$refs.create.open(parent)">Add</kirby-button>
-      </kirby-button-group>
-    </kirby-headline>
     <kirby-pages-collection
       ref="pages"
+      :headline="headline"
       :layout="layout"
       :query="query"
       :pagination="pagination"
       @remove="$refs.pages.fetch()"
       @url="$refs.pages.fetch()"
     />
-    <kirby-page-create-dialog ref="create" @success="$refs.pages.fetch()"></kirby-page-create-dialog>
   </section>
 </template>
 
@@ -25,16 +19,17 @@ export default {
     'headline',
     'layout',
     'parent',
-    'filter',
+    'page',
+    'filterBy',
     'pagination',
-    'sort',
+    'sortBy',
   ],
   computed: {
     query () {
       return {
-        parent: this.parent,
-        filter: this.filter,
-        sort: this.sort
+        parent: this.parent || this.page.id,
+        filterBy: this.filterBy,
+        sortBy: this.sortBy
       }
     }
   }

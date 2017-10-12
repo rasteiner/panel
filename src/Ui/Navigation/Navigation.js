@@ -7,6 +7,7 @@ import DropdownContent from './Dropdown/DropdownContent.vue'
 import DropdownItem from './Dropdown/DropdownItem.vue'
 import Menu from './Menu/Menu.vue'
 import Pagination from './Pagination/Pagination.vue'
+import PrevNext from './PrevNext/PrevNext.vue'
 
 Vue.component('kirby-breadcrumb', Breadcrumb);
 Vue.component('kirby-breadcrumb-item', BreadcrumbItem);
@@ -15,3 +16,4 @@ Vue.component('kirby-dropdown-content', DropdownContent);
 Vue.component('kirby-dropdown-item', DropdownItem);
 Vue.component('kirby-menu', Menu);
 Vue.component('kirby-pagination', Pagination);
+Vue.component('kirby-prev-next', PrevNext);

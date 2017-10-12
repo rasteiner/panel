@@ -4,8 +4,8 @@
 
 <script>
 
-import Query from 'App/Api/Query.js';
-import Props from '../../../Ui/Forms/Fields/Field.props.js';
+import User from 'App/Api/User.js';
+import Props from 'Ui/Forms/Fields/Field.props.js';
 
 export default {
   mixins: [Props],
@@ -31,25 +31,12 @@ export default {
   },
   methods: {
     fetch() {
-
-      Query(`
-        query($role: String) {
-          users(role: $role) {
-            items {
-              email,
-              firstName,
-              role
-            }
-          }
-        }
-      `, {role: this.role}).
-      then(response => {
-        this.options = response.users.items.map(user =>({
-          value: user.email,
-          text: `${user.email}`
+      User.list().then(response => {
+        this.options = response.items.map(user =>({
+          value: user.data.email,
+          text: user.data.email
         }))
       });
-
     }
   }
 }
