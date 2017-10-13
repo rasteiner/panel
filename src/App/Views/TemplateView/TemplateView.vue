@@ -145,12 +145,7 @@ export default {
     fetch () {
       Page.get(this.path).then((page) => {
         this.page       = page;
-        this.breadcrumb = page.parents.map((parent) => {
-          return {
-            label: parent.title,
-            link: '/pages/' + parent.id
-          }
-        });
+        this.breadcrumb = Page.breadcrumb(page);
       });
 
       /*

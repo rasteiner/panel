@@ -125,24 +125,12 @@ export default {
 
         this.file = file;
         this.name = file.name;
-
-        Page.get(this.path).then((page) => {
-
-          this.breadcrumb = page.parents.map((parent) => {
-            return {
-              label: parent.title,
-              link: '/pages/' + parent.id
-            }
-          });
-
-          this.breadcrumb.push({
-            label: page.title,
-            link: '/pages/' + page.id
-          });
-
+        File.breadcrumb(file).then((breadcrumb) => {
+          this.breadcrumb = breadcrumb;
         });
 
       }).catch(() => {
+        this.$store.dispatch('error', 'The file could not be found');
         this.$router.push('../');
       });
 
