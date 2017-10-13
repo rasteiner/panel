@@ -29,6 +29,7 @@ export default {
     },
     submit () {
       File.delete(this.parent, this.filename).then(() => {
+        this.$events.$emit('file');
         this.$store.dispatch('success', 'The file has been deleted');
         this.$emit('success');
       });

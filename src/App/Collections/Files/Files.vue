@@ -8,7 +8,8 @@
       </kirby-button-group>
     </kirby-headline>
 
-    <kirby-collection
+    <kirby-dropzone @drop="drop">
+      <kirby-collection
       :layout="layout"
       :items="items"
       :pagination="paginationOptions"
@@ -16,9 +17,10 @@
       @action="action"
     />
 
-    <kirby-box v-if="items.length === 0">
-      <kirby-button :upload="true" icon="upload">Upload</kirby-button>
+    <kirby-box v-if="items.length === 0" class="placeholder" :layout="layout">
+      <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
     </kirby-box>
+    </kirby-dropzone>
 
     <kirby-file-remove-dialog ref="remove" @success="fetch" />
 
@@ -34,6 +36,15 @@ import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [CollectionMixin],
+  mounted () {
+    this.$events.$on('file', this.fetch);
+    this.$refs.upload.params({
+      url: window.panel.config.api + '/pages/' + this.query.parent + '/files',
+    });
+  },
+  destroyed () {
+    this.$events.$off('file', this.fetch);
+  },
   methods: {
     fetch () {
 
@@ -46,7 +57,7 @@ export default {
         this.total = response.pagination.total;
         this.items = response.items.map((file) => ({
           id: file.filename,
-          image: {url: file.url},
+          image: { url: file.url },
           text: file.filename,
           filename: file.filename,
           url: file.url,
@@ -67,26 +78,49 @@ export default {
           this.$refs.remove.open(file.parent, file.filename);
           break;
         case 'replace':
-          this.$refs.upload.open({
-            url: window.panel.config.api + '/pages/' + this.query.parent + '/files/' + file.filename,
-            accept: file.mime,
-            multiple: false
-          });
+          this.replace();
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');
       }
     },
+    drop (files) {
+      this.$refs.upload.upload(files);
+    },
     upload() {
+      this.$refs.upload.open();
+    },
+    replace () {
       this.$refs.upload.open({
-        url: window.panel.config.api + '/pages/' + this.query.parent + '/files',
+        url: window.panel.config.api + '/pages/' + this.query.parent + '/files/' + file.filename,
+        accept: file.mime,
+        multiple: false
       });
     },
     uploaded () {
       this.fetch();
+      this.$events.$emit('file');
       this.$store.dispatch('success', 'The files have been uploaded');
     }
   }
 }
 
 </script>
+
+<style lang="scss">
+
+.kirby-files-collection > .placeholder[layout="cards"] {
+  position: relative;
+  padding-bottom: calc(66.66% + 34px);
+
+  & > .kirby-button {
+    position:   absolute;
+    top:        50%;
+    left:       0;
+    transform:  translateY(-50%);
+    text-align: center !important;
+  }
+}
+
+</style>
+

@@ -39,7 +39,8 @@ export default {
         title: null,
         parents: [],
       },
-      title: null
+      title: null,
+      breadcrumb: []
     }
   },
   created () {
@@ -51,30 +52,6 @@ export default {
   watch: {
     $route () {
       this.fetch();
-    }
-  },
-  computed: {
-    breadcrumb () {
-
-      let crumb = [];
-
-      if (this.site === false) {
-        crumb = this.page.parents.map((parent) => {
-          return {
-            label: parent.title,
-            link: '/pages/' + parent.id
-          }
-        });
-
-        crumb.push({
-          label: this.page.title,
-          link: '/pages/' + this.page.id
-        });
-
-      }
-
-      return crumb;
-
     }
   },
   methods: {
@@ -101,21 +78,26 @@ export default {
       this.title = title;
     },
     fetch() {
+
       if (!this.path || this.path === '/') {
 
         Blueprint.get('site').then((blueprint) => {
-          this.site = true;
-          this.page = {id: '_site', title: 'Site', url: '/'};
+          this.site       = true;
+          this.page       = {id: '_site', title: 'Site', url: '/'};
+          this.breadcrumb =  [];
         });
 
         return true;
       }
 
       Page.get(this.path).then((page) => {
+        this.breadcrumb = Page.breadcrumb(page, true);
+
         Blueprint.get(page.template, page).then((blueprint) => {
           this.site = false;
           this.page = page;
         });
+
       }).catch(() => {
         this.$store.dispatch('error', 'The parent page could not be found');
         this.$router.push('/pages');
