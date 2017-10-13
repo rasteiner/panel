@@ -134,7 +134,7 @@ export default {
           name: 'email',
           label: this.$t('email'),
           type: 'email',
-          placeholder: this.$t('email.placeholder')
+          placeholder: 'mail@example.com'
         },
         {
           name: 'website',
