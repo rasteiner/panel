@@ -34,6 +34,11 @@ import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [CollectionMixin],
+  mounted () {
+    this.$events.$on('file', () => {
+      this.fetch();
+    });
+  },
   methods: {
     fetch () {
 
@@ -84,6 +89,7 @@ export default {
     },
     uploaded () {
       this.fetch();
+      this.$events.$emit('file');
       this.$store.dispatch('success', 'The files have been uploaded');
     }
   }
