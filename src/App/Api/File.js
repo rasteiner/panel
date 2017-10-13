@@ -18,7 +18,17 @@ export default {
   },
   breadcrumb (file) {
     return Page.get(file.parent).then((page) => {
-      return Page.breadcrumb(page, true)
+      var breadcrumb = page.parents.map((parent) => ({
+        label: parent.title,
+        link: '/pages/' + parent.id
+      }));
+
+      breadcrumb.push({
+        label: page.title,
+        link: '/pages/' + page.id
+      });
+
+      return breadcrumb;
     });
   }
 };
