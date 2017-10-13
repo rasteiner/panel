@@ -35,9 +35,10 @@ import Page from 'App/Api/Page.js';
 export default {
   mixins: [CollectionMixin],
   mounted () {
-    this.$events.$on('file', () => {
-      this.fetch();
-    });
+    this.$events.$on('file', this.fetch);
+  },
+  destroyed () {
+    this.$events.$off('file', this.fetch);
   },
   methods: {
     fetch () {
