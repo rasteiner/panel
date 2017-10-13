@@ -18,8 +18,14 @@ export default {
     'page'
   ],
   data() {
+    var data = this.page.content;
+
+    if (!data || data.length === 0) {
+      data = {};
+    }
+
     return {
-      data: this.page.content
+      data:  data
     }
   },
   created: function () {

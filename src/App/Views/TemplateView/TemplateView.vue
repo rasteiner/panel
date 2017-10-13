@@ -22,7 +22,7 @@
     </kirby-header>
 
 
-    <kirby-blueprints-section v-if="!template" :for="page" @select="select"></kirby-blueprints-section>
+    <kirby-blueprints-section v-if="!template" :for="page" @select="select" @none="abort"></kirby-blueprints-section>
 
 
     <kirby-grid v-if="template" class="kirby-sections" gutter="small">
@@ -131,7 +131,12 @@ export default {
     },
     confirm () {
       // TODO: Update template
-      this.$router.push('/pages/' + this.path );
+      this.$store.dispatch('success', 'The template has been chanced');
+      this.cancel();
+    },
+    abort () {
+      this.$store.dispatch('error', `No other templates than "${this.page.template}" allowed`);
+      this.cancel();
     },
     cancel () {
       this.$router.push('/pages/' + this.path );

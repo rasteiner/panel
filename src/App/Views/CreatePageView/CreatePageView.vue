@@ -13,12 +13,26 @@
         :value="title"
         placeholder="Title …"
         tag="div"
-        @input="updateTitle" />
+        @input="updateTitle"
+        @blur="confirmTitle" />
 
     </kirby-header>
 
-    <kirby-headline :margin="true">Select a template</kirby-headline>
-    <kirby-blueprints-section :in="page" @select="select"></kirby-blueprints-section>
+    <div v-if="!layout">
+      <kirby-headline :margin="true">Select a template</kirby-headline>
+      <kirby-blueprints-section :in="page" @select="select" @single="preload"></kirby-blueprints-section>
+    </div>
+
+    <kirby-grid v-else class="kirby-sections" gutter="large">
+      <kirby-column v-for="(column, columnIndex) in layout" :key="page.id + 'column-' + columnIndex" :width="column.width">
+        <component
+          v-for="(section, sectionIndex) in column.sections"
+          :key="page.id + '-section-' + sectionIndex"
+          :is="'kirby-' + section.type + '-section'"
+          :page="page"
+          v-bind="section" />
+      </kirby-column>
+    </kirby-grid>
 
   </kirby-view>
 
@@ -40,6 +54,8 @@ export default {
         parents: [],
       },
       title: null,
+      template: null,
+      layout: null,
       breadcrumb: []
     }
   },
@@ -55,8 +71,7 @@ export default {
     }
   },
   methods: {
-    select(item) {
-
+    select (item) {
       if (this.title === null || this.title.length === 0) {
         this.$store.dispatch('error', 'Please enter a title');
         this.$refs.title.focus();
@@ -70,12 +85,26 @@ export default {
           title: this.title
         }
       }).then((page) => {
+        this.$store.dispatch('success', 'The page was created');
         this.$router.push('/pages/' + page.id);
+      }).catch(() => {
+        this.$store.dispatch('error', 'The page could not be created');
       });
 
     },
     updateTitle (title) {
-      this.title = title;
+      this.title = title.trim();
+    },
+    confirmTitle () {
+      if (this.template) {
+        this.select(this.template);
+      }
+    },
+    preload (template) {
+      Blueprint.get(template.id).then((blueprint) => {
+        this.template = template.id;
+        this.layout = blueprint.layout;
+      });
     },
     fetch() {
 

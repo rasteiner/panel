@@ -44,6 +44,7 @@ export default {
     },
     fetch () {
 
+      // TODO: Switch to real blureprints from API
       /*
        Blueprint.list().then((blueprints) => {
         this.items = blueprints.map((id) => {
@@ -101,6 +102,15 @@ export default {
       if (this.parent) {
 
       }
+
+      if (this.items.length === 1) {
+        this.$emit('single', this.items[0]);
+      }
+
+      if (!this.items || this.items.length === 0) {
+        this.$emit('none');
+      }
+
     }
   }
 };
