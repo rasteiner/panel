@@ -5,6 +5,7 @@ import CheckboxField from './CheckboxField/CheckboxField.vue'
 import CheckboxesField from './CheckboxesField/CheckboxesField.vue'
 import DateField from './DateField/DateField.vue'
 import EmailField from './EmailField/EmailField.vue'
+import HeadlineField from './HeadlineField/HeadlineField.vue'
 import NumberField from './NumberField/NumberField.vue'
 import PasswordField from './PasswordField/PasswordField.vue'
 import RadioField from './RadioField/RadioField.vue'
@@ -21,6 +22,7 @@ Vue.component('kirby-checkbox-field', CheckboxField);
 Vue.component('kirby-checkboxes-field', CheckboxesField);
 Vue.component('kirby-date-field', DateField);
 Vue.component('kirby-email-field', EmailField);
+Vue.component('kirby-headline-field', HeadlineField);
 Vue.component('kirby-number-field', NumberField);
 Vue.component('kirby-password-field', PasswordField);
 Vue.component('kirby-radio-field', RadioField);
