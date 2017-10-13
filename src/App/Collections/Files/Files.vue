@@ -17,7 +17,7 @@
       @action="action"
     />
 
-    <kirby-box v-if="items.length === 0">
+    <kirby-box v-if="items.length === 0" class="placeholder" :layout="layout">
       <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
     </kirby-box>
     </kirby-dropzone>
@@ -57,7 +57,7 @@ export default {
         this.total = response.pagination.total;
         this.items = response.items.map((file) => ({
           id: file.filename,
-          image: {url: file.url},
+          image: { url: file.url },
           text: file.filename,
           filename: file.filename,
           url: file.url,
@@ -78,11 +78,7 @@ export default {
           this.$refs.remove.open(file.parent, file.filename);
           break;
         case 'replace':
-          this.$refs.upload.open({
-            url: window.panel.config.api + '/pages/' + this.query.parent + '/files/' + file.filename,
-            accept: file.mime,
-            multiple: false
-          });
+          this.replace();
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');
@@ -94,6 +90,13 @@ export default {
     upload() {
       this.$refs.upload.open();
     },
+    replace () {
+      this.$refs.upload.open({
+        url: window.panel.config.api + '/pages/' + this.query.parent + '/files/' + file.filename,
+        accept: file.mime,
+        multiple: false
+      });
+    },
     uploaded () {
       this.fetch();
       this.$events.$emit('file');
@@ -103,3 +106,21 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+
+.kirby-files-collection > .placeholder[layout="cards"] {
+  position: relative;
+  padding-bottom: calc(66.66% + 34px);
+
+  & > .kirby-button {
+    position:   absolute;
+    top:        50%;
+    left:       0;
+    transform:  translateY(-50%);
+    text-align: center !important;
+  }
+}
+
+</style>
+
