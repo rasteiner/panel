@@ -1,6 +1,6 @@
 <template>
   <div class="kirby-dropzone">
-    <div v-show="dragging" class="kirby-dropzone-overlay">{{ command }}</div>
+    <div v-show="dragging" class="kirby-dropzone-overlay">{{ label }}</div>
     <slot />
   </div>
 </template>
@@ -9,9 +9,9 @@
 
 export default {
   props: {
-    command: {
+    label: {
       type: String,
-      default: 'Drop to upload'
+      default: 'Drop file here'
     }
   },
   data () {
