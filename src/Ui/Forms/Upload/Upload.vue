@@ -52,7 +52,7 @@ export default {
       });
     },
     select (e) {
-      this.uplad(e.target.files);
+      this.upload(e.target.files);
     },
     upload (files) {
 
