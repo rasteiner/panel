@@ -4,6 +4,7 @@ import Bar from './Bar/Bar.vue'
 import Box from './Box/Box.vue'
 import Card from './Card/Card.vue'
 import Cards from './Cards/Cards.vue'
+import Dropzone from './Dropzone/Dropzone.vue'
 import Grid from './Grid/Grid.vue'
 import Header from './Header/Header.vue'
 import Column from './Grid/Column.vue'
@@ -12,9 +13,10 @@ import Widget from './Widgets/Widget.vue'
 import Widgets from './Widgets/Widgets.vue'
 
 Vue.component('kirby-bar', Bar);
+Vue.component('kirby-box', Box);
 Vue.component('kirby-card', Card);
 Vue.component('kirby-cards', Cards);
-Vue.component('kirby-box', Box);
+Vue.component('kirby-dropzone', Dropzone);
 Vue.component('kirby-grid', Grid);
 Vue.component('kirby-header', Header);
 Vue.component('kirby-column', Column);

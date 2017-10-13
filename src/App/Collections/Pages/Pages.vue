@@ -64,7 +64,7 @@ export default {
         this.items = response.items.map((page) => ({
           id: page.id,
           image: page.image || {},
-          text: page.content.title,
+          text: page.title,
           link: '/pages/' + page.id,
           options: panel.config.api + '/pages/' + page.id + '/options'
         }));
