@@ -18,7 +18,7 @@
     </kirby-header>
 
     <kirby-headline :margin="true">Select a template</kirby-headline>
-    <kirby-collection layout="cards" @click="select" :items="blueprints"></kirby-collection>
+    <kirby-blueprints-section :in="page" @select="select"></kirby-blueprints-section>
 
   </kirby-view>
 
@@ -39,8 +39,7 @@ export default {
         title: null,
         parents: [],
       },
-      title: null,
-      blueprints: []
+      title: null
     }
   },
   created () {
@@ -98,45 +97,10 @@ export default {
       });
 
     },
-    image (blueprint) {
-      return window.panel.config.index + '/assets/blueprints/' + blueprint + '.png';
-    },
     updateTitle (title) {
       this.title = title;
     },
     fetch() {
-
-      this.blueprints = [
-        {
-          id:   'default',
-          text: 'Default',
-          info: 'Just a text block',
-          link: '#',
-          image: {
-            url: this.image('default')
-          }
-        },
-        {
-          id:   'article',
-          text: 'Article',
-          info: 'A blog article',
-          link: '#',
-          image: {
-            url: this.image('article')
-          }
-        },
-        {
-          id:   'project',
-          text: 'Project',
-          info: 'A portfolio Project',
-          link: '#',
-          image: {
-            url: this.image('project')
-          }
-        }
-      ];
-
-
       if (!this.path || this.path === '/') {
 
         Blueprint.get('site').then((blueprint) => {

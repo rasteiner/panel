@@ -22,7 +22,8 @@
     </kirby-header>
 
 
-    <kirby-collection v-if="!template" layout="cards" @click="select" :items="blueprints" class="kirby-template-select"></kirby-collection>
+    <kirby-blueprints-section v-if="!template" :for="page" @select="select"></kirby-blueprints-section>
+
 
     <kirby-grid v-if="template" class="kirby-sections" gutter="small">
       <kirby-column width="1/3">
@@ -32,7 +33,7 @@
             text: 'New template: ' + template,
             info: 'Old template: ' + page.template,
             image: {
-              url: image(template)
+              url: window.panel.config.index + '/assets/blueprints/' + template + '.png'
             }
           }
         ]"></kirby-collection>
@@ -69,7 +70,6 @@
       </kirby-column>
     </kirby-grid>
 
-
   </kirby-view>
 
 </template>
@@ -77,7 +77,6 @@
 <script>
 
 import Page from 'App/Api/Page.js';
-import Blueprint from 'App/Api/Blueprint.js';
 
 export default {
   props: ['path'],
@@ -87,7 +86,6 @@ export default {
         title: ''
       },
       breadcrumb: [],
-      blueprints: [],
       template: '',
       changes: []
     }
@@ -133,14 +131,10 @@ export default {
     },
     confirm () {
       // TODO: Update template
-
       this.$router.push('/pages/' + this.path );
     },
     cancel () {
       this.$router.push('/pages/' + this.path );
-    },
-    image (blueprint) {
-      return window.panel.config.index + '/assets/blueprints/' + blueprint + '.png';
     },
     fetch () {
       Page.get(this.path).then((page) => {
@@ -152,50 +146,6 @@ export default {
           }
         });
       });
-
-      /*
-      Blueprint.list().then((blueprints) => {
-        this.blueprints = blueprints.map((id) => {
-          return Blueprint.get(id).then((blueprint) => {
-            return {
-              id:   id,
-              text: blueprint.name,
-              info: blueprint.description,
-              image: {
-                url: this.image(id)
-              }
-            }
-          });
-        });
-      });
-      */
-
-      this.blueprints = [
-        {
-          id:   'default',
-          text: 'Default',
-          info: 'Just a text block',
-          image: {
-            url: this.image('default')
-          }
-        },
-        {
-          id:   'article',
-          text: 'Article',
-          info: 'A blog article',
-          image: {
-            url: this.image('article')
-          }
-        },
-        {
-          id:   'project',
-          text: 'Project',
-          info: 'A portfolio Project',
-          image: {
-            url: this.image('project')
-          }
-        }
-      ];
     }
   }
 }
@@ -219,10 +169,6 @@ export default {
   font-family: $font-family-mono;
   line-height: inherit;
   color:       $color-dark-grey;
-}
-
-.kirby-template-select .kirby-card {
-  cursor: pointer;
 }
 
 </style>
