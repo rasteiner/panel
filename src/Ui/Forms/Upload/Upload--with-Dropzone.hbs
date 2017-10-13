@@ -1,0 +1,6 @@
+<kirby-dropzone @drop="$refs.uploader.upload($event)">
+    <kirby-button @click="$refs.uploader.open()" icon="upload">Upload</kirby-button>
+</kirby-dropzone>
+
+<kirby-upload url="http://localhost/kirby/v3/starterkit/api/pages/projects/project-a/files" accept="image/*" ref="uploader"></kirby-upload>
+

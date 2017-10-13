@@ -1,6 +1,6 @@
 <template>
   <div class="kirby-upload">
-    <input ref="input" tabindex="-1" type="file" @change="upload" :accept="options.accept" :multiple="options.multiple">
+    <input ref="input" tabindex="-1" type="file" @change="select" :accept="options.accept" :multiple="options.multiple">
 
     <kirby-dialog ref="dialog">
       <template>
@@ -46,16 +46,19 @@ export default {
   },
   methods: {
     open(params) {
-      this.options = Object.assign({}, this.$props, params);
+      this.params(params);
       this.$nextTick(() => {
         this.$refs.input.click();
       });
     },
-    upload (e) {
+    select (e) {
+      this.uplad(e.target.files);
+    },
+    upload (files) {
 
       this.$refs.dialog.open();
 
-      this.files     = e.target.files;
+      this.files     = files;
       this.total     = 0;
       this.completed = {};
 
@@ -92,7 +95,9 @@ export default {
           this.$emit('success');
         }, 250);
       }
-
+    },
+    params (params) {
+      this.options = Object.assign({}, this.$props, params);
     }
   }
 }
@@ -101,22 +106,22 @@ export default {
 
 <style lang="scss">
 
-.kirby-upload input {
-  position: absolute;
-  top: 0;
-  left: -3000px;
-  width: 0;
-  height: 0;
-  visibility: hidden;
-}
+  .kirby-upload input {
+    position: absolute;
+    top: 0;
+    left: -3000px;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
 
-.kirby-upload-list {
-  font-family: $font-family-mono;
-  line-height: 1.5em;
-  font-size: $font-size-small;
-}
-.kirby-upload-list-filename {
-  color: $color-dark-grey;
-}
+  .kirby-upload-list {
+    font-family: $font-family-mono;
+    line-height: 1.5em;
+    font-size: $font-size-small;
+  }
+  .kirby-upload-list-filename {
+    color: $color-dark-grey;
+  }
 
 </style>
