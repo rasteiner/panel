@@ -18,7 +18,7 @@
     />
 
     <kirby-box v-if="items.length === 0">
-      <kirby-button :upload="true" icon="upload">Upload</kirby-button>
+      <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
     </kirby-box>
     </kirby-dropzone>
 
