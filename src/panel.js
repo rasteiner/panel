@@ -15,8 +15,19 @@ const router = new VueRouter({
 });
 
 
+/** Keyboard Shortcuts */
+import Shortcuts from 'App/Shortcuts/Shortcuts.js';
+
+
 /** Event bus */
-const Events = new Vue()
+const Events = new Vue({
+  created () {
+    window.addEventListener('keydown', Shortcuts.bind(this), false)
+  },
+  destroyed () {
+    window.removeEventListener('keydown', Shortcuts, false)
+  }
+});
 
 Object.defineProperties(Vue.prototype, {
   $events: {
@@ -24,7 +35,7 @@ Object.defineProperties(Vue.prototype, {
       return Events
     }
   }
-})
+});
 
 
 /** i18n */

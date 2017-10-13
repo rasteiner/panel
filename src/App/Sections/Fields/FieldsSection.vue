@@ -11,15 +11,6 @@
 
 import Page from 'App/Api/Page.js';
 
-const Shortcuts = function (e) {
-  if (e.metaKey || e.ctrlKey) {
-    if (e.code === 'KeyS') {
-      e.preventDefault();
-      this.save();
-    }
-  }
-}
-
 export default {
   props: [
     'fields',
@@ -32,10 +23,10 @@ export default {
     }
   },
   created: function () {
-    window.addEventListener('keydown', Shortcuts.bind(this), false)
+    this.$events.$on('key.save', this.save);
   },
   destroyed: function () {
-    window.removeEventListener('keydown', Shortcuts, false)
+    this.$events.$on('key.save', this.save);
   },
   methods: {
     save () {
