@@ -26,7 +26,7 @@ export default {
     this.$events.$on('key.save', this.save);
   },
   destroyed: function () {
-    this.$events.$on('key.save', this.save);
+    this.$events.$off('key.save', this.save);
   },
   methods: {
     save () {
