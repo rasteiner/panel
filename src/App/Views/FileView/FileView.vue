@@ -33,7 +33,7 @@
 
     </kirby-header>
 
-    <div class="kirby-file-details">
+    <kirby-dropzone label="Drop file to replace" @drop="$refs.upload.upload($event)" class="kirby-file-details">
       <kirby-grid>
 
         <kirby-column width="1/2">
@@ -69,11 +69,11 @@
           </dl>
         </kirby-column>
       </kirby-grid>
-    </div>
+    </kirby-dropzone>
 
     <kirby-file-remove-dialog ref="remove" />
 
-    <kirby-upload ref="upload" url="" :accept="file.mime" @success="uploaded" />
+    <kirby-upload ref="upload" url="" :accept="file.mime" :multiple="false" @success="uploaded" />
 
   </kirby-view>
 
@@ -125,24 +125,12 @@ export default {
 
         this.file = file;
         this.name = file.name;
-
-        Page.get(this.path).then((page) => {
-
-          this.breadcrumb = page.parents.map((parent) => {
-            return {
-              label: parent.title,
-              link: '/pages/' + parent.id
-            }
-          });
-
-          this.breadcrumb.push({
-            label: page.title,
-            link: '/pages/' + page.id
-          });
-
+        File.breadcrumb(file).then((breadcrumb) => {
+          this.breadcrumb = breadcrumb;
         });
 
       }).catch(() => {
+        this.$store.dispatch('error', 'The file could not be found');
         this.$router.push('../');
       });
 

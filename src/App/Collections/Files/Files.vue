@@ -8,7 +8,8 @@
       </kirby-button-group>
     </kirby-headline>
 
-    <kirby-collection
+    <kirby-dropzone @drop="drop">
+      <kirby-collection
       :layout="layout"
       :items="items"
       :pagination="paginationOptions"
@@ -17,8 +18,9 @@
     />
 
     <kirby-box v-if="items.length === 0" class="placeholder" :layout="layout">
-      <kirby-button :upload="true" icon="upload">Upload</kirby-button>
+      <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
     </kirby-box>
+    </kirby-dropzone>
 
     <kirby-file-remove-dialog ref="remove" @success="fetch" />
 
@@ -34,6 +36,11 @@ import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [CollectionMixin],
+  mounted () {
+    this.$refs.upload.params({
+      url: window.panel.config.api + '/pages/' + this.query.parent + '/files',
+    });
+  },
   methods: {
     fetch () {
 
@@ -73,16 +80,17 @@ export default {
           this.$store.dispatch('error', 'Not yet implemented');
       }
     },
+    drop (files) {
+      this.$refs.upload.upload(files);
+    },
+    upload() {
+      this.$refs.upload.open();
+    },
     replace () {
       this.$refs.upload.open({
         url: window.panel.config.api + '/pages/' + this.query.parent + '/files/' + file.filename,
         accept: file.mime,
         multiple: false
-      });
-    },
-    upload () {
-      this.$refs.upload.open({
-        url: window.panel.config.api + '/pages/' + this.query.parent + '/files',
       });
     },
     uploaded () {
