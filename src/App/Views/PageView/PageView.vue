@@ -119,12 +119,7 @@ export default {
         Blueprint.get(page.template, page).then((blueprint) => {
           this.site       = false;
           this.page       = page;
-          this.breadcrumb = page.parents.map((parent) => {
-            return {
-              label: parent.title,
-              link: '/pages/' + parent.id
-            }
-          });
+          this.breadcrumb = Page.breadcrumb(page);
           this.layout     = blueprint.layout;
         });
       }).catch(() => {

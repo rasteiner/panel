@@ -7,6 +7,7 @@
       @focus.native="select(tag)"
       @keydown.native.left="navigate('prev')"
       @keydown.native.right="navigate('next')"
+      @dblclick.native="edit(tag)"
       @remove="remove(tag)"
       :removable="true">
         {{ tag }}
@@ -67,37 +68,16 @@ export default {
 
   },
   methods: {
-    focus: function() {
+    focus () {
       this.$refs.input.focus();
     },
-    select: function(tag) {
+    select (tag) {
       this.selected = tag;
     },
-    remove: function(tag) {
-      var prev = this.get('prev');
-      var next = this.get('next');
-
-      this.tags.splice(this.index(tag), 1);
-
-      if(prev) {
-        prev.ref.focus();
-      } else if(next) {
-        this.$nextTick(() => {
-          var nextIndex  = this.tags.indexOf(next.tag);
-          var nextResult = this.get(nextIndex);
-          this.selected = nextResult.tag;
-          nextResult.ref.focus();
-        });
-      } else {
-        this.$refs.input.focus();
-      }
-
-      this.$emit('input', this.tags);
-    },
-    index: function(tag) {
+    index (tag) {
       return this.tags.indexOf(tag);
     },
-    add: function(tag) {
+    add (tag) {
 
       var tag = tag.trim();
 
@@ -118,7 +98,33 @@ export default {
 
       this.$emit('input', this.tags);
     },
-    get: function(method) {
+    edit (tag) {
+      this.$refs.input.value = tag;
+      this.$refs.input.select();
+      this.remove(tag);
+    },
+    remove (tag) {
+      var prev = this.get('prev');
+      var next = this.get('next');
+
+      this.tags.splice(this.index(tag), 1);
+
+      if(prev) {
+        prev.ref.focus();
+      } else if(next) {
+        this.$nextTick(() => {
+          var nextIndex  = this.tags.indexOf(next.tag);
+          var nextResult = this.get(nextIndex);
+          this.selected = nextResult.tag;
+          nextResult.ref.focus();
+        });
+      } else {
+        this.$refs.input.focus();
+      }
+
+      this.$emit('input', this.tags);
+    },
+    get (method) {
 
       switch(method) {
         case 'prev':
@@ -150,7 +156,7 @@ export default {
       }
 
     },
-    navigate: function(method) {
+    navigate (method) {
 
       var result = this.get(method);
 
@@ -163,7 +169,7 @@ export default {
       }
 
     },
-    leaveInput: function(e) {
+    leaveInput (e) {
 
       var position = e.target.selectionStart;
 
@@ -180,50 +186,50 @@ export default {
 
 <style lang="scss">
 
-.kirby-tags-input {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+  .kirby-tags-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
 
-  [dir="ltr"] & {
-    padding: 4px 0 0 4px;
+    [dir="ltr"] & {
+      padding: 4px 0 0 4px;
+    }
+    [dir="rtl"] & {
+      padding: 4px 4px 0 0;
+    }
   }
-  [dir="rtl"] & {
-    padding: 4px 4px 0 0;
-  }
-}
-.kirby-tags-input .kirby-tag {
-  margin-bottom: 4px;
+  .kirby-tags-input .kirby-tag {
+    margin-bottom: 4px;
 
-  [dir="ltr"] & {
-    margin-right: 4px;
+    [dir="ltr"] & {
+      margin-right: 4px;
+    }
+    [dir="rtl"] & {
+      margin-left: 4px;
+    }
   }
-  [dir="rtl"] & {
-    margin-left: 4px;
+  .kirby-tags-input .kirby-tag.sortable-ghost {
+    opacity: .2;
   }
-}
-.kirby-tags-input .kirby-tag.sortable-ghost {
-  opacity: .2;
-}
-.kirby-tags-input-element input {
-  display: inline-block;
-  min-width: 4rem;
-  padding: .4rem;
-  flex-grow: 1;
-  font: inherit;
-  border: 0;
-  outline: 0;
-  line-height: 1;
-  outline: 0;
-  margin-bottom: 4px;
-  border-radius: 3px;
+  .kirby-tags-input-element input {
+    display: inline-block;
+    min-width: 4rem;
+    padding: .4rem;
+    flex-grow: 1;
+    font: inherit;
+    border: 0;
+    outline: 0;
+    line-height: 1;
+    outline: 0;
+    margin-bottom: 4px;
+    border-radius: 3px;
 
-  [dir="ltr"] & {
-    margin-right: 4px;
+    [dir="ltr"] & {
+      margin-right: 4px;
+    }
+    [dir="rtl"] & {
+      margin-left: 4px;
+    }
   }
-  [dir="rtl"] & {
-    margin-left: 4px;
-  }
-}
 
 </style>
