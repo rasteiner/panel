@@ -23,12 +23,13 @@ export default {
   },
   data () {
     return {
-      parent: this.in || this.for.parent,
       items: []
     }
   },
-  created () {
-    this.fetch();
+  computed: {
+    parent () {
+      return this.in || this.for.parent;
+    }
   },
   watch: {
     for () {
@@ -44,7 +45,7 @@ export default {
     },
     fetch () {
 
-      // TODO: Switch to real blureprints from API
+      // TODO: Switch to real blueprints from API
       /*
        Blueprint.list().then((blueprints) => {
         this.items = blueprints.map((id) => {
@@ -100,14 +101,15 @@ export default {
 
       // TODO: only show templates allowed in parent blueprint
       if (this.parent) {
-
+        Blueprint.get(this.parent).then((blueprint) => {
+          console.log(blueprint);
+          return this.items = this.items.filter((item) => blueprint.pages.template.indexOf(item.id) !== -1)
+        });
       }
 
       if (this.items.length === 1) {
         this.$emit('single', this.items[0]);
-      }
-
-      if (!this.items || this.items.length === 0) {
+      } else if (!this.items || this.items.length === 0) {
         this.$emit('none');
       }
 
