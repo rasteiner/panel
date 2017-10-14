@@ -150,8 +150,8 @@ export default {
     },
     pagination () {
       return {
-        prev: this.user.prev ? true : false,
         prevLabel: this.$t('user.previous'),
+        prev: this.user.prev ? true : false,
         next: this.user.next ? true : false,
         nextLabel: this.$t('user.next')
       };
@@ -195,7 +195,9 @@ export default {
     },
     fetch () {
       User.get(this.email).then((user) => {
-        this.user = user.data;
+        this.user       = user.data;
+        this.user.prev  = user.prev;
+        this.user.next  = user.next;
         this.user.role  = user.role;
         this.user.image = user.image;
       });
