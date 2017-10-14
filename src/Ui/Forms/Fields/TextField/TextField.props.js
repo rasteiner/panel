@@ -5,5 +5,9 @@ import Field from '../Field.props.js';
 export default {
   mixins: [Input, Field],
   props: {
-  }
+    max: {
+      type: Number
+    }
+  },
+
 }
