@@ -110,7 +110,7 @@ export default {
 
       Page.create(this.path, {
         slug: slug(this.title || ''),
-        template: item.id,
+        template: item,
         content: {
           title: this.title
         }
