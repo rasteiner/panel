@@ -48,73 +48,42 @@ export default {
     },
     fetch () {
 
-      // TODO: Switch to real blueprints from API
-      /*
-       Blueprint.list().then((blueprints) => {
-        this.items = blueprints.map((id) => {
-          return Blueprint.get(id).then((blueprint) => {
-            return {
-              id:   id,
-              text: blueprint.name,
-              info: blueprint.description,
-              image: {
-                url: this.image(id)
-              }
-            }
-          });
-        });
-      });
-      */
+      // Fetch list of all blueprints
+      Blueprint.list().then((blueprints) => {
+        console.log(blueprints);
 
-      var items = [
-        {
-          id:   'default',
-          text: 'Default',
-          info: 'Just a text block',
-          link: '#',
-          image: {
-            url: this.image('default')
-          }
-        },
-        {
-          id:   'article',
-          text: 'Article',
-          info: 'A blog article',
-          link: '#',
-          image: {
-            url: this.image('article')
-          }
-        },
-        {
-          id:   'project',
-          text: 'Project',
-          info: 'A portfolio Project',
-          link: '#',
-          image: {
-            url: this.image('project')
-          }
-        }
-      ];
-
-      Blueprint.get(this.parent).then((blueprint) => {
         // filter current blueprint from list
         if (this.for) {
-          items = items.filter((item) => item.id !== this.for.template);
+          blueprints = blueprints.filter((item) => item.name !== this.for.template);
         }
 
         // Filter templates not allowed in parent blueprint
-        if (blueprint.pages && blueprint.pages.template) {
-          items = items.filter((item) => blueprint.pages.template.indexOf(item.id) !== -1);
-        }
+        Blueprint.get(this.parent).then((blueprint) => {
+          if (blueprint.pages && blueprint.pages.template) {
+            blueprints = blueprints.filter((item) => blueprint.pages.template.indexOf(item.name) !== -1);
+          }
 
-        // Emit feedback for parent compnents
-        if (items.length === 1) {
-          this.$emit('single', items[0]);
-        } else if (!items ||items.length === 0) {
-          this.$emit('none');
-        }
+          // Emit feedback for parent compnents
+          if (blueprints.length === 1) {
+            this.$emit('single', blueprints[0]);
+          } else if (!blueprints ||blueprints.length === 0) {
+            this.$emit('none');
+          }
 
-        this.items = items;
+          // Prepare for card collection
+          this.items = blueprints.map((item) => {
+            return {
+              id:   item.name,
+              text: item.name,
+              info: item.description || '',
+              image: {
+                url: this.image(item.name)
+              }
+            }
+          });;
+        });
+
+
       });
 
     }
