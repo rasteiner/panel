@@ -101,25 +101,24 @@ export default {
     }
   },
   methods: {
-    select (item) {
-      if (this.title === null || this.title.length === 0) {
-        this.$store.dispatch('error', 'Please enter a title');
-        this.$refs.title.focus();
-        return false;
+    fetch() {
+
+      if (!this.path || this.path === '/') {
+        Blueprint.get('site').then((blueprint) => {
+          this.site       = true;
+          this.page       = {id: '_site', title: 'Site', url: '/'};
+          this.breadcrumb =  [];
+        });
+        return true;
       }
 
-      Page.create(this.path, {
-        slug: slug(this.title || ''),
-        template: item,
-        content: {
-          title: this.title
-        }
-      }).then((page) => {
-        this.$store.dispatch('success', 'The page was created');
-        this.$router.push('/pages/' + page.id);
+      Page.get(this.path).then((page) => {
+        this.site = false;
+        this.page = page;
+        this.breadcrumb = Page.breadcrumb(page, true);
       }).catch(() => {
-        this.$store.dispatch('error', 'The page could not be created');
-        this.$router.push('/pages/' + this.page.id);
+        this.$store.dispatch('error', 'The parent page could not be found');
+        this.$router.push('/pages');
       });
 
     },
@@ -132,35 +131,30 @@ export default {
       }
     },
     preload (template) {
-      Blueprint.get(template.id).then((blueprint) => {
-        this.template = template.id;
+      Blueprint.get(template.name).then((blueprint) => {
+        this.template = blueprint.name;
         this.layout = blueprint.layout;
       });
     },
-    fetch() {
-
-      if (!this.path || this.path === '/') {
-
-        Blueprint.get('site').then((blueprint) => {
-          this.site       = true;
-          this.page       = {id: '_site', title: 'Site', url: '/'};
-          this.breadcrumb =  [];
-        });
-
-        return true;
+    select (item) {
+      if (this.title === null || this.title.length === 0) {
+        this.$store.dispatch('error', 'Please enter a title');
+        this.$refs.title.focus();
+        return false;
       }
 
-      Page.get(this.path).then((page) => {
-        this.breadcrumb = Page.breadcrumb(page, true);
-
-        Blueprint.get(page.template, page).then((blueprint) => {
-          this.site = false;
-          this.page = page;
-        });
-
+      Page.create(this.path, {
+        slug: slug(this.title || ''),
+        template: item.id,
+        content: {
+          title: this.title
+        }
+      }).then((page) => {
+        this.$store.dispatch('success', 'The page was created');
+        this.$router.push('/pages/' + page.id);
       }).catch(() => {
-        this.$store.dispatch('error', 'The parent page could not be found');
-        this.$router.push('/pages');
+        this.$store.dispatch('error', 'The page could not be created');
+        this.$router.push('/pages/' + this.page.id);
       });
 
     }

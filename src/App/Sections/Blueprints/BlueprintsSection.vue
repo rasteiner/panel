@@ -50,8 +50,6 @@ export default {
 
       // Fetch list of all blueprints
       Blueprint.list().then((blueprints) => {
-        console.log(blueprints);
-
         // filter current blueprint from list
         if (this.for) {
           blueprints = blueprints.filter((item) => item.name !== this.for.template);
@@ -74,7 +72,7 @@ export default {
           this.items = blueprints.map((item) => {
             return {
               id:   item.name,
-              text: item.name,
+              text: item.title || item.name,
               info: item.description || '',
               image: {
                 url: this.image(item.name)
