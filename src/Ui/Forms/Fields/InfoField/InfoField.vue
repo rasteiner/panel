@@ -15,14 +15,6 @@ export default {
       type: String,
       default: 'Info'
     },
-    name: {
-      type: String,
-      default: 'info'
-    },
-    type: {
-      type: String,
-      default: 'info'
-    },
     text: {
       type: String
     }

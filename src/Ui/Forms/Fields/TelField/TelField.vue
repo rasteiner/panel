@@ -1,13 +1,13 @@
 <template>
-  <kirby-text-field v-bind="$props" @input="input" />
+  <kirby-text-field v-bind="$props" v-model="data" />
 </template>
 
 <script>
 
-import Props from '../TextField/TextField.props.js';
+import Field from '../Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
     label: {
       default: 'Phone'

@@ -1,13 +1,19 @@
 <template>
-  <input v-bind="$props" @input="input">
+  <input v-bind="$props" v-model="data">
 </template>
 
 <script>
 
-import Props from './TextInput.props.js';
+import Input from '../Input.mixin.js';
 
 export default {
-  mixins: [Props]
+  mixins: [Input],
+  props: {
+    value: {
+      type: String
+    },
+    placeholder: {}
+  }
 }
 
 </script>

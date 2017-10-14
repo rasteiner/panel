@@ -1,16 +1,19 @@
 <template>
   <kirby-field v-bind="$props">
-    <input type="number" v-bind="$props" @input="$emit('input', $event.target.value)" />
+    <input type="number" v-bind="$props" v-model="data" />
   </kirby-field>
 </template>
 
 <script>
 
-import Props from '../TextField/TextField.props.js';
+import Field from '../Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
+    value: {
+      type: String
+    },
     label: {
       default: 'Number'
     },

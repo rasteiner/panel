@@ -6,10 +6,15 @@
 
 <script>
 
-import FieldProps from './TextField.props.js';
+import Field from '../Field.mixin.js';
 
 export default {
-  mixins: [FieldProps],
+  mixins: [Field],
+  props: {
+    placeholder: {
+      type: String
+    }
+  }
 }
 
 </script>

@@ -6,10 +6,10 @@
 
 <script>
 
-import Props from '../TextField/TextField.props.js';
+import Field from '../Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
     label: {
       default: 'Text'

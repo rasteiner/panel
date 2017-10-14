@@ -1,12 +1,15 @@
 
-import Input from '../Inputs/Input.props.js';
-
 export default {
-  mixin: [Input],
   props: {
+    value: {},
+    name: {
+      type: String,
+    },
+    type: {
+      type: String,
+    },
     label: {
       type: String,
-      default: ''
     },
     icon: {
       type: [Boolean, String],
@@ -16,7 +19,18 @@ export default {
       type: String,
       default: ''
     },
-    value: {}
+    required: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    autofocus: {
+      type: Boolean,
+      default: false
+    }
   },
   data () {
     return {
@@ -26,11 +40,6 @@ export default {
   watch: {
     data () {
       this.$emit('input', this.data)
-    }
-  },
-  methods: {
-    input (data) {
-      this.data = data
     }
   }
 }

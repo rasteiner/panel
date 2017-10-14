@@ -1,14 +1,14 @@
 <template>
-  <kirby-select-field :options="options" v-bind="$props" @input="input" />
+  <kirby-select-field :options="options" v-bind="$props" v-model="data" />
 </template>
 
 <script>
 
 import User from 'App/Api/User.js';
-import Props from 'Ui/Forms/Fields/Field.props.js';
+import Field from 'Ui/Forms/Fields/Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
     label: {
       default: 'User'
@@ -19,7 +19,9 @@ export default {
     icon: {
       default: 'user'
     },
-    role: {}
+    role: {
+      type: String
+    }
   },
   data() {
     return {
