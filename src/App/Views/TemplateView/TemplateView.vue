@@ -27,16 +27,7 @@
 
     <kirby-grid v-if="template" class="kirby-sections" gutter="small">
       <kirby-column width="1/3">
-        <kirby-collection layout="cards" @click="select" :items="[
-          {
-            id:   template,
-            text: 'New template: ' + template,
-            info: 'Old template: ' + page.template,
-            image: {
-              url: window.panel.config.index + '/assets/blueprints/' + template + '.png'
-            }
-          }
-        ]"></kirby-collection>
+        <kirby-collection layout="cards" @click="select" :items="preview"></kirby-collection>
       </kirby-column>
 
       <kirby-column width="2/3">
@@ -96,6 +87,16 @@ export default {
   computed: {
     task () {
       return !this.template ? 'Select a  template…' : 'Review and confirm changes…'
+    },
+    preview () {
+      return [{
+        id:   this.template,
+        text: 'New template: ' + this.template,
+        info: 'Old template: ' + this.page.template,
+        image: {
+          url: window.panel.config.index + '/assets/blueprints/' + this.template + '.png'
+        }
+      }];
     }
   },
   watch: {
@@ -135,7 +136,7 @@ export default {
       this.cancel();
     },
     abort () {
-      this.$store.dispatch('error', `No other templates than "${this.page.template}" allowed`);
+      this.$store.dispatch('error', `Only template "${this.page.template}" allowed`);
       this.cancel();
     },
     cancel () {
