@@ -28,7 +28,10 @@ export default {
   },
   computed: {
     parent () {
-      return this.in || this.for.parent;
+      if (this.in) {
+        return this.in.id
+      }
+      return this.for.parent;
     }
   },
   watch: {
@@ -63,7 +66,7 @@ export default {
       });
       */
 
-      this.items = [
+      var items = [
         {
           id:   'default',
           text: 'Default',
@@ -93,25 +96,26 @@ export default {
         }
       ];
 
+      Blueprint.get(this.parent).then((blueprint) => {
+        // filter current blueprint from list
+        if (this.for) {
+          items = items.filter((item) => item.id !== this.for.template);
+        }
 
-      // filter current blueprint from list
-      if (this.for) {
-        this.items = this.items.filter((item)  => item.id !== this.for.template);
-      }
+        // Filter templates not allowed in parent blueprint
+        if (blueprint.pages && blueprint.pages.template) {
+          items = items.filter((item) => blueprint.pages.template.indexOf(item.id) !== -1);
+        }
 
-      // TODO: only show templates allowed in parent blueprint
-      if (this.parent) {
-        Blueprint.get(this.parent).then((blueprint) => {
-          console.log(blueprint);
-          return this.items = this.items.filter((item) => blueprint.pages.template.indexOf(item.id) !== -1)
-        });
-      }
+        // Emit feedback for parent compnents
+        if (items.length === 1) {
+          this.$emit('single', items[0]);
+        } else if (!items ||items.length === 0) {
+          this.$emit('none');
+        }
 
-      if (this.items.length === 1) {
-        this.$emit('single', this.items[0]);
-      } else if (!this.items || this.items.length === 0) {
-        this.$emit('none');
-      }
+        this.items = items;
+      });
 
     }
   }

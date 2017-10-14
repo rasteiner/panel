@@ -4,7 +4,8 @@
 
     <kirby-header :label="$t('page.list')" link="/pages"
       icon="page"
-      :breadcrumb="breadcrumb">
+      :breadcrumb="breadcrumb"
+      :pagination="pagination">
 
       <kirby-fancy-input
         ref="title"
@@ -16,6 +17,27 @@
         @input="updateTitle"
         @blur="confirmTitle" />
 
+
+      <template slot="buttons-left" v-if="layout">
+        <kirby-button icon="preview">
+          {{ $t('page.preview') }}
+        </kirby-button>
+        <kirby-button icon="toggle-on">
+          Draft
+        </kirby-button>
+        <kirby-dropdown>
+          <kirby-button icon="cog">
+            {{ $t('settings') }}
+          </kirby-button>
+        </kirby-dropdown>
+      </template>
+
+      <template slot="buttons-right" v-if="layout">
+        <kirby-button icon="globe">
+          {{ $store.state.translation.toUpperCase() }}
+        </kirby-button>
+      </template>
+
     </kirby-header>
 
     <div v-if="!layout">
@@ -23,7 +45,7 @@
       <kirby-blueprints-section :in="page" @select="select" @single="preload"></kirby-blueprints-section>
     </div>
 
-    <kirby-grid v-else class="kirby-sections" gutter="large">
+    <kirby-grid v-else class="kirby-sections" gutter="large" @click.native.stop.prevent>
       <kirby-column v-for="(column, columnIndex) in layout" :key="page.id + 'column-' + columnIndex" :width="column.width">
         <component
           v-for="(section, sectionIndex) in column.sections"
@@ -59,6 +81,14 @@ export default {
       breadcrumb: []
     }
   },
+  computed: {
+    pagination () {
+      return this.layout ? {
+        prev: false,
+        next: false
+      } : null;
+    }
+  },
   created () {
     this.fetch();
   },
@@ -89,6 +119,7 @@ export default {
         this.$router.push('/pages/' + page.id);
       }).catch(() => {
         this.$store.dispatch('error', 'The page could not be created');
+        this.$router.push('/pages/' + this.page.id);
       });
 
     },
@@ -139,19 +170,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-.kirby-page-view .kirby-page-title {
-  padding-left: .5rem;
-  padding-right: .5rem;
-  width: calc(100% + 1rem);
-
-  [dir="ltr"] & {
-    margin-left: -.5rem;
-  }
-  [dir="rtl"] & {
-    margin-right: -.5rem;
-  }
-}
 
 .kirby-page-view .kirby-page-title:focus {
   @include focus-ring;
