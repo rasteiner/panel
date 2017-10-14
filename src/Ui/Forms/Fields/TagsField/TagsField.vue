@@ -1,6 +1,6 @@
 <template>
   <kirby-field class="kirby-tags-field" v-bind="$props">
-    <draggable v-model="data" :options="{disabled: !sortable}" class="kirby-tags-input">
+    <draggable v-model="data" :options="{disabled: !sortable}" class="kirby-tags-input" @click.native="focus">
       <kirby-tag v-for="tag in data"
         :ref="tag"
         :key="tag"
@@ -201,6 +201,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
+    cursor: text;
 
     [dir="ltr"] & {
       padding: 4px 0 0 4px;

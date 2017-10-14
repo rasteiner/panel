@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 import Api from './Api.js';
 
 export default {
@@ -12,5 +14,13 @@ export default {
   },
   delete (id) {
     return Api.delete('users/' + id);
+  },
+  breadcrumb (user) {
+    return [
+      {
+        link: '/users/role/' + user.role,
+        label: Vue.i18n.translate('user.role') + ': ' + user.role
+      }
+    ];
   }
 };
