@@ -86,7 +86,8 @@ export default {
         },
         prev: null,
         next: null
-      }
+      },
+      breadcrumb: null
     }
   },
   created () {
@@ -98,14 +99,6 @@ export default {
     }
   },
   computed: {
-    breadcrumb () {
-      return [
-        {
-          link: '/users/role/' + this.user.role,
-          label: this.$t('user.role') + ': ' + this.user.role
-        }
-      ];
-    },
     headline () {
       if (this.user.firstname) {
         return `${this.user.firstname} ${this.user.lastname}`;
@@ -198,6 +191,7 @@ export default {
         this.user = user.data;
         this.user.role  = user.role;
         this.user.image = user.image;
+        this.breadcrumb = User.breadcrumb(user);
       });
     }
   }
