@@ -19,7 +19,7 @@ export default {
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   data () {
