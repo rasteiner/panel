@@ -20,12 +20,6 @@
 
 <script>
 
-const PanelDialogEscapeListener = (e) => {
-  if (e.code === 'Escape') {
-    this.close()
-  }
-}
-
 export default {
   props: {
     'headline': {},
@@ -70,10 +64,10 @@ export default {
     }
   },
   created () {
-    window.addEventListener('keyup', PanelDialogEscapeListener.bind(this), false)
+    this.$events.$on('key.escape', this.close, false);
   },
   destroyed () {
-    window.removeEventListener('keyup', PanelDialogEscapeListener, false)
+    this.$events.$off('key.escape', this.close, false);
   }
 }
 

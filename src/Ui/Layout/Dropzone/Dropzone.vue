@@ -1,7 +1,6 @@
 <template>
   <div class="kirby-dropzone">
     <div v-show="dragging" class="overlay">{{ label }}</div>
-    <div v-show="error" class="error">{{ error }}</div>
     <slot />
   </div>
 </template>
@@ -26,60 +25,66 @@ export default {
   data () {
     return {
       files: [],
-      dragging: false,
-      error: ''
+      dragging: false
     }
   },
   mounted () {
     window.addEventListener('dragover', this.start, false);
 		window.addEventListener('dragleave', this.stop, false);
-    this.$el.addEventListener("drop", this.drop, false);
+    this.$el.addEventListener('drop', this.drop, false);
+    this.$events.$on('dropzone.drop', this.reset, false);
   },
   dstroyed () {
     window.removeEventListener('dragover', this.start, false);
 		window.removeEventListener('dragleave', this.stop, false);
-    this.$el.removeEventListener("drop", this.drop, false);
+    this.$el.removeEventListener('drop', this.drop, false);
+    this.$events.$off('dropzone.drop', this.reset, false);
   },
   methods: {
     prevent (e) {
       e.stopPropagation();
       e.preventDefault();
     },
+    reset () {
+      this.dragging = false;
+    },
     start (e) {
       this.prevent(e);
-      this.error = '';
       this.dragging = true;
     },
     stop (e) {
       this.prevent(e);
-      this.dragging = false;
+      this.reset();
     },
     drop (e) {
       this.prevent(e);
-      this.dragging = false;
+      this.$events.$emit('dropzone.drop');
 
       let files = e.target.files || e.dataTransfer.files;
-      this.validate(files);
+      let validate = this.validate(files);
 
-      if(this.error === '') {
-        this.files = files;
-        this.$emit('drop', files)
+      if (validate !== true) {
+        this.$store.dispatch('error', validate);
+        return false;
       }
+
+      this.files = files;
+      this.$emit('drop', files)
     },
     validate (files) {
       if (this.multiple === false && files.length > 1) {
-        this.error = 'Only one file allowed';
-        return false;
+        return 'Only one file allowed';
       }
 
       if (this.accept !== '*') {
         for (var i = 0; i < files.length; i++) {
           if (files[i].type !== this.accept) {
-            this.error = 'File type not allowed';
-            return false;
+            return 'File type not allowed';
           }
         }
       }
+
+      return true;
     }
   }
 }
@@ -92,8 +97,7 @@ export default {
     position: relative;
   }
 
-  .kirby-dropzone .overlay,
-  .kirby-dropzone .error {
+  .kirby-dropzone .overlay {
     position: absolute;
     top: 0;
     right: 0;
@@ -105,16 +109,7 @@ export default {
     pointer-events: none;
     background: rgba($color-white ,.75);
     z-index: z-index('dialog');
-  }
-
-  .kirby-dropzone .overlay {
     @include focus-ring;
-  }
-
-  .kirby-dropzone .error {
-    box-shadow: 0 0 0 2px $color-negative, 0 0 0 5px rgba($color-negative, .2);
-    outline: none;
-    border-radius: $border-radius;
   }
 
 </style>
