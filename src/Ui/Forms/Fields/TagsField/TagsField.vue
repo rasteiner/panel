@@ -181,9 +181,7 @@ export default {
     },
     leaveInput (e) {
 
-      var position = e.target.selectionStart;
-
-      if(position === 0) {
+      if(e.target.selectionStart === 0 && e.target.selectionStart === e.target.selectionEnd) {
         this.navigate('last');
         e.target.blur();
       }
