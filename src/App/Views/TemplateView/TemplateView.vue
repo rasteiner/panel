@@ -22,20 +22,12 @@
     </kirby-header>
 
 
-    <kirby-collection v-if="!template" layout="cards" @click="select" :items="blueprints" class="kirby-template-select"></kirby-collection>
+    <kirby-blueprints-section v-if="!template" :for="page" @select="select" @none="abort"></kirby-blueprints-section>
+
 
     <kirby-grid v-if="template" class="kirby-sections" gutter="small">
       <kirby-column width="1/3">
-        <kirby-collection layout="cards" @click="select" :items="[
-          {
-            id:   template,
-            text: 'New template: ' + template,
-            info: 'Old template: ' + page.template,
-            image: {
-              url: image(template)
-            }
-          }
-        ]"></kirby-collection>
+        <kirby-collection layout="cards" @click="select" :items="preview"></kirby-collection>
       </kirby-column>
 
       <kirby-column width="2/3">
@@ -69,7 +61,6 @@
       </kirby-column>
     </kirby-grid>
 
-
   </kirby-view>
 
 </template>
@@ -77,7 +68,6 @@
 <script>
 
 import Page from 'App/Api/Page.js';
-import Blueprint from 'App/Api/Blueprint.js';
 
 export default {
   props: ['path'],
@@ -87,7 +77,6 @@ export default {
         title: ''
       },
       breadcrumb: [],
-      blueprints: [],
       template: '',
       changes: []
     }
@@ -98,6 +87,16 @@ export default {
   computed: {
     task () {
       return !this.template ? 'Select a  template…' : 'Review and confirm changes…'
+    },
+    preview () {
+      return [{
+        id:   this.template,
+        text: 'New template: ' + this.template,
+        info: 'Old template: ' + this.page.template,
+        image: {
+          url: window.panel.config.index + '/assets/blueprints/' + this.template + '.png'
+        }
+      }];
     }
   },
   watch: {
@@ -133,64 +132,21 @@ export default {
     },
     confirm () {
       // TODO: Update template
-
-      this.$router.push('/pages/' + this.path );
+      this.$store.dispatch('success', 'The template has been chanced');
+      this.cancel();
+    },
+    abort () {
+      this.$store.dispatch('error', `Only template "${this.page.template}" allowed`);
+      this.cancel();
     },
     cancel () {
       this.$router.push('/pages/' + this.path );
-    },
-    image (blueprint) {
-      return window.panel.config.index + '/assets/blueprints/' + blueprint + '.png';
     },
     fetch () {
       Page.get(this.path).then((page) => {
         this.page       = page;
         this.breadcrumb = Page.breadcrumb(page);
       });
-
-      /*
-      Blueprint.list().then((blueprints) => {
-        this.blueprints = blueprints.map((id) => {
-          return Blueprint.get(id).then((blueprint) => {
-            return {
-              id:   id,
-              text: blueprint.name,
-              info: blueprint.description,
-              image: {
-                url: this.image(id)
-              }
-            }
-          });
-        });
-      });
-      */
-
-      this.blueprints = [
-        {
-          id:   'default',
-          text: 'Default',
-          info: 'Just a text block',
-          image: {
-            url: this.image('default')
-          }
-        },
-        {
-          id:   'article',
-          text: 'Article',
-          info: 'A blog article',
-          image: {
-            url: this.image('article')
-          }
-        },
-        {
-          id:   'project',
-          text: 'Project',
-          info: 'A portfolio Project',
-          image: {
-            url: this.image('project')
-          }
-        }
-      ];
     }
   }
 }
@@ -214,10 +170,6 @@ export default {
   font-family: $font-family-mono;
   line-height: inherit;
   color:       $color-dark-grey;
-}
-
-.kirby-template-select .kirby-card {
-  cursor: pointer;
 }
 
 </style>

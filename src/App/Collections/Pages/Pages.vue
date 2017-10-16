@@ -83,6 +83,9 @@ export default {
         case 'status':
           this.$refs.status.open(page.id);
           break;
+        case 'template':
+          this.$router.push('/template/' + page.id);
+          break;
         case 'remove':
           this.$refs.remove.open(page.id);
           break;
