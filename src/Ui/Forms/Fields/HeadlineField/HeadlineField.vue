@@ -1,5 +1,7 @@
 <template>
-  <kirby-headline class="kirby-headline-field">{{ label }}</kirby-headline>
+  <kirby-headline class="kirby-headline-field">
+    {{ label }}
+  </kirby-headline>
 </template>
 
 <script>

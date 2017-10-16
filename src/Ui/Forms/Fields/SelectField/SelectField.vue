@@ -6,11 +6,14 @@
 
 <script>
 
-import Props from '../Field.props.js';
+import Field from '../Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
+    value: {
+      type: [String, Number]
+    },
     label: {
       default: 'Select'
     },
@@ -21,10 +24,8 @@ export default {
       default: 'angle-down'
     },
     options: {
-      type: Array
-    },
-    value: {
-      type: String
+      type: Array,
+      default: []
     }
   }
 }

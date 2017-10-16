@@ -1,40 +1,33 @@
 <template>
-  <span class="kirby-checkbox-input">
+
+  <div class="kirby-checkbox-input">
     <input type="checkbox" v-model="data" :id="_uid" :checked="data" />
     <label :for="_uid">
-      <span class="kirby-checkbox-styled" aria-hidden="true">
+      <span class="checkbox" aria-hidden="true">
         <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 5l3.3 3L11 1" stroke-width="2" fill="none" fill-rule="evenodd" />
         </svg>
       </span>
-      {{ label }}
+      {{ text }}
     </label>
-  </span>
+  </div>
+
+
 </template>
 
 <script>
 
-import Props from '../Input.props.js';
+import Input from '../Input.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Input],
   props: {
-    label: {
-      type: String
-    },
     value: {
       type: Boolean,
       default: false
-    }
-  },
-  data () {
-    return {
-      data: this.value
-    }
-  },
-  watch: {
-    data (value) {
-      this.$emit('input', value);
+    },
+    text: {
+      type: String
     }
   }
 }
@@ -42,14 +35,14 @@ export default {
 </script>
 
 <style lang="scss">
+
 $color-checkbox-focus: #567896;
 $color-checkbox-border: #8b8e94;
 $checkbox-focus-outline: 0 0 0 3px rgba(108,166,217,0.25);
 
 $checkbox-width: 16px;
 $checkbox-height: 16px;
-$checkbox-offset-y: 6px;
-$checkbox-label-gap: 8px;
+$checkbox-label-gap: 10px;
 
 
 .kirby-checkbox-input {
@@ -68,19 +61,15 @@ $checkbox-label-gap: 8px;
   }
 }
 
-.kirby-checkbox-input input {
+.kirby-checkbox-input input,
+.kirby-checkbox-input .checkbox {
   position: absolute;
-  top: $checkbox-offset-y;
-  width: $checkbox-width + $checkbox-label-gap;
+  top: 50%;
+  margin-top: -1px;
+  transform: translateY(-50%);
   height: $checkbox-height;
   cursor: pointer;
 
-  /* remove default browser styling to make checkbox
-     resizeable */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  opacity: 0;
 
   [dir="ltr"] & {
     left: 0;
@@ -91,12 +80,19 @@ $checkbox-label-gap: 8px;
   }
 }
 
-.kirby-checkbox-styled {
-  position: absolute;
-  display: block;
-  top: $checkbox-offset-y;
+.kirby-checkbox-input input {
+  width: $checkbox-width + $checkbox-label-gap;
+
+  /* remove default browser styling to make checkbox
+     resizeable */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  opacity: 0;
+}
+
+.kirby-checkbox-input .checkbox {
   width: $checkbox-width;
-  height: $checkbox-height;
   background-color: $color-white;
 
   border: 2px solid $color-checkbox-border;
@@ -105,14 +101,6 @@ $checkbox-label-gap: 8px;
   transition:
     background-color .2s,
     border-color .2s;
-
-  [dir="ltr"] & {
-    left: 0;
-  }
-
-  [dir="rtl"] & {
-    right: 0;
-  }
 
   svg {
     position: absolute;
@@ -129,22 +117,33 @@ $checkbox-label-gap: 8px;
   }
 }
 
+
+.kirby-checkbox-input label {
+  display: block;
+  //font-size: $font-size-small;
+  //font-family: $font-family-mono;
+  line-height: 28px;
+  min-height: 28px;
+  cursor: pointer;
+}
+
+
 .kirby-checkbox-input input {
-  
+
   /* focus + active */
-  &:focus ~ label .kirby-checkbox-styled,
-  &:active ~ label .kirby-checkbox-styled {
+  &:focus ~ label .checkbox,
+  &:active ~ label .checkbox {
     box-shadow: $checkbox-focus-outline;
     border-color: $color-checkbox-focus;
   }
 
   /* unchecked active */
-  &:active ~ label .kirby-checkbox-styled {
+  &:active ~ label .checkbox {
     background-color: mix($color-checkbox-focus, $color-white, 30%);
   }
 
   /* checked */
-  &:checked ~ label .kirby-checkbox-styled {
+  &:checked ~ label .checkbox {
     background-color: $color-dark;
     border-color: $color-dark;
 
@@ -154,20 +153,10 @@ $checkbox-label-gap: 8px;
   }
 
   /* checked + active */
-  &:checked:active ~ label .kirby-checkbox-styled {
+  &:checked:active ~ label .checkbox {
     background-color: $color-checkbox-focus;
     border-color: $color-checkbox-focus;
   }
-}
-
-.kirby-checkbox-input label {
-  display: block;
-  //font-size: $font-size-small;
-  //font-family: $font-family-mono;
-  //margin-left: 24px;
-  line-height: 28px;
-  min-height: 28px;
-  cursor: pointer;
 }
 
 </style>

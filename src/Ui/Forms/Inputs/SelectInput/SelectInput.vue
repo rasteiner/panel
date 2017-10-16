@@ -14,30 +14,21 @@
       :disabled="option.disabled">{{ option.text }}</option>
 
     </select>
-    <label :for="id">{{ label }}</label>
+    <label :for="_uid">{{ label }}</label>
   </div>
 </template>
 
 <script>
 
+import Input from '../Input.mixin.js';
+
 export default {
+  mixins: [Input],
   props: {
-    id: {
-      default: this._uid
-    },
-    required: {},
-    autofocus: {},
     options: {
-      default () {
-        return [];
-      }
+      type: Array,
+      default: []
     },
-    value: {}
-  },
-  data () {
-    return {
-      data: this.value,
-    }
   },
   computed: {
     label () {
@@ -47,20 +38,15 @@ export default {
         label = this.options[0].text;
       }
 
-      return label
-    }
-  },
-  watch: {
-    data (value) {
-      this.$emit('input', value);
+      return label;
     }
   },
   methods: {
     focus () {
-      this.$refs.select.focus();
+      this.$refs.select.focus()
     },
     blur () {
-      this.$refs.select.blur();
+      this.$refs.select.blur()
     },
     text (value) {
       var text = '';

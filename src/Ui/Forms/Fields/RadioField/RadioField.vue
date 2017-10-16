@@ -8,17 +8,18 @@
 
 <script>
 
-import Props from '../Field.props.js';
+import Field from '../Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
-    options: {
-      type: Array
-    },
     name: {
       type: String,
       default: 'radio'
+    },
+    options: {
+      type: Array,
+      default: []
     }
   }
 }

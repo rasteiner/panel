@@ -1,17 +1,15 @@
 <template>
   <div class="kirby-radio-inputs">
-    <span
-    v-for="option in options"
+    <span v-for="option in options"
     :key="option.value"
     class="kirby-radio-input">
-      <input
-      type="radio"
-      :name="name"
+      <input type="radio"
+      :name="_uid"
       :value="option.value"
-      :id="name + '_' + option.value"
+      :id="_uid + '_' + option.value"
       v-model="data"
       class="kirby-radio-input" />
-      <label :for="name + '_' + option.value">
+      <label :for="_uid + '_' + option.value">
         {{ option.text }}
         <div v-if="option.info" class="kirby-radio-input-info">
           {{ option.info }}
@@ -23,29 +21,17 @@
 
 <script>
 
+import Input from '../Input.mixin.js';
+
 export default {
+  mixins: [Input],
   props: {
     options: {
       type: Array,
       default: []
     },
-    name: {
-      type: String,
-      default: 'radio'
-    },
     info: {
       type: String
-    },
-    value: {}
-  },
-  data() {
-    return {
-      data: this.value
-    }
-  },
-  watch: {
-    data (value) {
-      this.$emit('input', value)
     }
   }
 }
@@ -120,12 +106,12 @@ $radio-label-gap: 8px;
   top: $radio-offset-y;
   height: $radio-width;
   width: $radio-height;
-  
+
   background-color: $color-white;
   border: 2px solid $color-radio-border;
   border-radius: 50%;
   cursor: pointer;
-  
+
   transition:
     background-color .2s,
     border-color .2s;
