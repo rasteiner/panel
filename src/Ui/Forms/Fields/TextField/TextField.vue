@@ -18,6 +18,9 @@ export default {
   props: {
     placeholder: {
       type: String
+    },
+    max: {
+      type: Number
     }
   }
 }

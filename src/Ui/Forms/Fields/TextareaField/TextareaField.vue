@@ -23,6 +23,9 @@ export default {
     },
     icon: {
       default: 'text'
+    },
+    max: {
+      type: Number
     }
   }
 }
