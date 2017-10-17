@@ -1,14 +1,14 @@
 <template>
-  <kirby-select-field :options="options" v-bind="$props" @input="input" />
+  <kirby-select-field :options="options" v-bind="$props" v-model="data" />
 </template>
 
 <script>
 
-import Query from 'App/Api/Query.js';
-import Props from '../../../Ui/Forms/Fields/Field.props.js';
+import Language from 'App/Api/Language.js';
+import Field from 'Ui/Forms/Fields/Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
     label: {
       default: 'Language'
@@ -35,16 +35,8 @@ export default {
   methods: {
     fetch () {
 
-      Query(`
-        query {
-          languages {
-            name,
-            locale
-          }
-        }
-      `).
-      then(response => {
-        this.options = response.languages.map(lang =>({
+      Language.list().then(languages => {
+        this.options = languages.map(lang =>({
           value: lang.locale,
           text: lang.name
         }))

@@ -9,13 +9,20 @@
 
 <script>
 
-import Props from '../Field.props.js';
+import Field from '../Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
+    value: {
+      type: Boolean,
+      default: false
+    },
+    name: {
+      default: 'toggle'
+    },
     label: {
-      type: String
+      default: 'Toggle'
     },
     text: {
       type: String
@@ -25,14 +32,6 @@ export default {
     },
     off: {
       type: String
-    },
-    name: {
-      type: String,
-      default: 'toggle'
-    },
-    value: {
-      type: Boolean,
-      default: false
     }
   },
   computed: {

@@ -1,7 +1,7 @@
 <template>
   <div v-if="!loading" class="kirby-installation-view">
     <form @submit.prevent="install">
-      <kirby-fieldset :fields="fields" />
+      <kirby-fieldset :fields="fields" :values="user" />
       <kirby-button type="submit" icon="check">{{ $t("install") }}</kirby-button>
     </form>
   </div>
@@ -10,10 +10,15 @@
 
 <script>
 
+import User from 'App/Api/User.js';
+
 export default {
   data () {
     return {
-      loading: false
+      loading: false,
+      user: {
+        language: 'en'
+      }
     };
   },
   computed: {
@@ -43,11 +48,14 @@ export default {
     install () {
 
       this.loading = true;
-      setTimeout(() => {
+
+      User.create(this.user).then((user) => {
+        this.loading = false;
         this.$store.dispatch('login');
         this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.firstName }));
         this.$router.push('/');
-      }, 2000);
+      });
+
     }
   }
 }

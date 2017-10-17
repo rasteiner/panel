@@ -66,21 +66,20 @@
 
 <script>
 
+import Field from '../Field.mixin.js';
+
 export default {
-  data() {
-    return {
-      row: {},
-      form: {},
-    };
-  },
+  mixins: [Field],
   props: {
-    label: {
-      type: String,
-      default: 'Table'
+    value: {
+      type: Array,
+      default: []
     },
-    required: {
-      type: Boolean,
-      default: false
+    name: {
+      default: 'table'
+    },
+    label: {
+      default: 'Table'
     },
     columns: {
       type: Array,
@@ -89,11 +88,13 @@ export default {
     fields: {
       type: Array,
       default: []
-    },
-    value: {
-      type: Array,
-      default: []
     }
+  },
+  data() {
+    return {
+      row: {},
+      form: {},
+    };
   },
   methods: {
     prev() {

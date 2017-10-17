@@ -14,6 +14,30 @@ const router = new VueRouter({
   routes: Routes
 });
 
+
+/** Keyboard Shortcuts */
+import Shortcuts from 'App/Shortcuts/Shortcuts.js';
+
+
+/** Event bus */
+const Events = new Vue({
+  created () {
+    window.addEventListener('keydown', Shortcuts.bind(this), false)
+  },
+  destroyed () {
+    window.removeEventListener('keydown', Shortcuts, false)
+  }
+});
+
+Object.defineProperties(Vue.prototype, {
+  $events: {
+    get: function () {
+      return Events
+    }
+  }
+});
+
+
 /** i18n */
 Vue.use(VuexI18n.plugin, store);
 Vue.i18n.set(store.state.language);

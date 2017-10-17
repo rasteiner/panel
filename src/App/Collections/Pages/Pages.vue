@@ -1,5 +1,13 @@
 <template>
   <div class="kirby-pages-collection">
+
+    <kirby-headline>
+      {{ headline }}
+      <kirby-button-group slot="options">
+        <kirby-button icon="add" @click="add">Add</kirby-button>
+      </kirby-button-group>
+    </kirby-headline>
+
     <kirby-collection
       :layout="layout"
       :items="items"
@@ -7,7 +15,13 @@
       @paginate="paginate"
       @action="action"
     />
+
+    <kirby-box v-if="items.length === 0">
+      <kirby-button>No entries</kirby-button>
+    </kirby-box>
+
     <kirby-page-url-dialog ref="url" @success="$emit('url')" />
+    <kirby-page-status-dialog ref="status" @success="$emit('status')" />
     <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
   </div>
 </template>
@@ -15,28 +29,48 @@
 <script>
 
 import CollectionMixin from '../Collection.mixin.js';
-import ChildrenQuery from 'App/Api/ChildrenQuery.js';
+
+import Site from 'App/Api/Site.js';
+import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [CollectionMixin],
   methods: {
+    add () {
+      if (this.query.parent && this.query.parent !== '/') {
+        this.$router.push('/pages/' + this.query.parent + '/new');
+      } else {
+        this.$router.push('/pages/new');
+      }
+    },
     fetch () {
 
-      this.query.pagination = {
+      this.query.paginate = {
         page:  this.page,
         limit: this.pagination.limit
       };
 
-      ChildrenQuery(this.query).then((response) => {
+      let children;
+
+      if (this.query.parent && this.query.parent !== '/') {
+        children = Page.children(this.query.parent, this.query);
+      } else {
+        children = Site.children(this.query);
+      }
+
+      children.then((response) => {
+
         this.total = response.pagination.total;
-        this.items = response.pages.map((page) => ({
+        this.items = response.items.map((page) => ({
           id: page.id,
-          image: page.image,
+          image: page.image || {},
           text: page.title,
-          link: page.link,
-          options: panel.config.assets + '/options/page.json'
+          link: '/pages/' + page.id,
+          options: panel.config.api + '/pages/' + page.id + '/options'
         }));
+
       });
+
     },
     action(page, action) {
       switch(action) {
@@ -45,6 +79,12 @@ export default {
           break;
         case 'url':
           this.$refs.url.open(page.id);
+          break;
+        case 'status':
+          this.$refs.status.open(page.id);
+          break;
+        case 'template':
+          this.$router.push('/template/' + page.id);
           break;
         case 'remove':
           this.$refs.remove.open(page.id);

@@ -9,16 +9,7 @@
 
 <script>
 
-import UpdatePage from 'App/Api/UpdatePage.js';
-
-const Shortcuts = function (e) {
-  if (e.metaKey || e.ctrlKey) {
-    if (e.code === 'KeyS') {
-      e.preventDefault();
-      this.save();
-    }
-  }
-}
+import Page from 'App/Api/Page.js';
 
 export default {
   props: [
@@ -27,32 +18,27 @@ export default {
     'page'
   ],
   data() {
+    var data = this.page.content;
+
+    if (!data || data.length === 0) {
+      data = {};
+    }
+
     return {
-      data: this.values
+      data:  data
     }
   },
   created: function () {
-    window.addEventListener('keydown', Shortcuts.bind(this), false)
+    this.$events.$on('key.save', this.save);
   },
   destroyed: function () {
-    window.removeEventListener('keydown', Shortcuts, false)
+    this.$events.$off('key.save', this.save);
   },
   methods: {
     save () {
-
-      let content = [];
-
-      Object.keys(this.data || {}).forEach((key) => {
-        content.push({
-          key: key,
-          value: this.data[key]
-        });
-      });
-
-      UpdatePage({id: this.page.id, content: content}).then(() => {
+      Page.update(this.page.id, this.data).then(() => {
         this.$store.dispatch('success', 'Saved!');
       });
-
     }
   },
   /*

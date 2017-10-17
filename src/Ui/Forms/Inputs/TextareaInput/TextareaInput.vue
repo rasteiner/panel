@@ -3,7 +3,7 @@
     ref="textarea"
     spellcheck="false"
     class="kirby-textarea-input"
-    @input="$emit('input', $event.target.value)"
+    v-model="data"
     @keydown.delete="remove($event)"
     @keydown.enter="enter($event)"
     :placeholder="placeholder"
@@ -13,16 +13,22 @@
 
 <script>
 
+import Input from '../Input.mixin.js';
 import autosize from './TextareaInput.autosize.js';
 
 export default {
+  mixins: [Input],
   props: {
-    value: String,
+    value: {
+      type: String
+    },
+    placeholder: {
+      type: String
+    },
     autosize: {
       type: Boolean,
       default: true
     },
-    placeholder: String,
     multiline: {
       type: Boolean,
       default: true

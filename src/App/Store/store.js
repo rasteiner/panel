@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Query from 'App/Api/Query.js';
-
+import Language from 'App/Api/Language.js';
 
 Vue.use(Vuex);
 
@@ -70,16 +69,8 @@ export default new Vuex.Store({
         });
       }
 
-      // load language information from API
-      Query(`
-        query($locale: String) {
-          language(locale: $locale) {
-            direction
-          }
-        }
-      `, { locale: locale }).
-      then((response) => {
-        context.commit('direction', response.language.direction);
+      Language.get(locale).then((language) => {
+        context.commit('direction', language.direction);
       });
 
     },

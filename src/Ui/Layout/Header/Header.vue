@@ -12,7 +12,7 @@
         </kirby-breadcrumb>
       </template>
       <template slot="right">
-        <kirby-pagination v-if="pagination" v-bind="pagination" @paginate="paginate" />
+        <kirby-prev-next v-if="pagination" v-bind="pagination" @prev="$emit('prev')" @next="$emit('next')" />
       </template>
     </kirby-bar>
 
@@ -37,12 +37,7 @@ export default {
     'label',
     'breadcrumb',
     'pagination'
-  ],
-  methods: {
-    paginate (pagination) {
-      this.$emit('paginate', pagination)
-    }
-  }
+  ]
 }
 
 </script>

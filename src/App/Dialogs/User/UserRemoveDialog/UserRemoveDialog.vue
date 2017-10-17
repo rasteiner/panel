@@ -8,9 +8,7 @@
 
 // components
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-
-// api
-import UserQuery from 'App/Api/UserQuery.js';
+import User from 'App/Api/User.js';
 
 export default {
   mixins: [DialogMixin],
@@ -21,17 +19,22 @@ export default {
   },
   methods: {
     open(email) {
-      UserQuery(email).then((user) => {
+      User.get(email).then((user) => {
         this.user = user;
+        this.user.email = user.data.email;
         this.$refs.dialog.open();
       });
     },
     submit () {
-      this.$store.dispatch('success', 'The user has been deleted');
 
-      if (this.$route.name === 'User') {
-        this.$router.push('/users');
-      }
+      User.delete(this.user.email).then(() => {
+        this.$store.dispatch('success', 'The user has been deleted');
+        this.$emit('success');
+
+        if (this.$route.name === 'User') {
+          this.$router.push('/users');
+        }
+      });
 
     }
   }

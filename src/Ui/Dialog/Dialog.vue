@@ -5,26 +5,20 @@
         <div class="kirby-dialog-body">
           <slot />
         </div>
-        <footer class="kirby-dialog-footer">
-          <slot name="footer">
+        <slot name="footer">
+          <footer class="kirby-dialog-footer">
             <kirby-button-group>
               <kirby-button @click="cancel" icon="cancel">Cancel</kirby-button>
               <kirby-button @click="submit" :icon="icon" :state="state">{{ button }}</kirby-button>
             </kirby-button-group>
-          </slot>
-        </footer>
+          </footer>
+        </slot>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
-
-const PanelDialogEscapeListener = (e) => {
-  if (e.code === 'Escape') {
-    this.close()
-  }
-}
 
 export default {
   props: {
@@ -70,10 +64,10 @@ export default {
     }
   },
   created () {
-    window.addEventListener('keyup', PanelDialogEscapeListener.bind(this), false)
+    this.$events.$on('key.escape', this.close, false);
   },
   destroyed () {
-    window.removeEventListener('keyup', PanelDialogEscapeListener, false)
+    this.$events.$off('key.escape', this.close, false);
   }
 }
 

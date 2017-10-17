@@ -2,11 +2,11 @@
 
   <kirby-view class="kirby-user-view">
 
-    <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" @paginate="paginate">
+    <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
 
       {{ headline }}
 
-      <kirby-image v-if="user.image" class="kirby-user-view-image" ratio="1/1" :src="user.image.url" />
+      <kirby-image v-if="image" class="kirby-user-view-image" ratio="1/1" :src="image" />
 
       <template slot="buttons-left">
         <kirby-dropdown>
@@ -15,7 +15,7 @@
           </kirby-button>
           <kirby-dropdown-content ref="picture" :dark="true">
             <template v-if="user.image">
-              <kirby-dropdown-item icon="upload" :upload="true">
+              <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('change') }}
               </kirby-dropdown-item>
               <kirby-dropdown-item icon="trash" @click="action('picture.delete')">
@@ -23,7 +23,7 @@
               </kirby-dropdown-item>
             </template>
             <template v-else>
-              <kirby-dropdown-item icon="upload" :upload="true">
+              <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('upload') }}
               </kirby-dropdown-item>
               <kirby-dropdown-item icon="import" @click="action('picture.import')">
@@ -45,11 +45,16 @@
 
     </kirby-header>
 
-    <kirby-fieldset :fields="fields" :values="user" @input="input" />
+    <form @submit.prevent="save" method="POST">
+      <kirby-fieldset :fields="fields" :values="user" @input="input" @submit="save" />
+      <input type="submit" v-show="false">
+    </form>
 
-    <kirby-user-role-dialog ref="role" />
+    <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
+
+    <kirby-upload ref="upload" url="/" accept="image/*" :multiple="false" />
 
   </kirby-view>
 
@@ -58,8 +63,7 @@
 <script>
 
 // api
-import UserQuery from 'App/Api/UserQuery.js';
-import UsersQuery from 'App/Api/UsersQuery.js';
+import User from 'App/Api/User.js';
 
 export default {
   props: {
@@ -71,16 +75,19 @@ export default {
     return {
       id: this.email,
       user: {
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: '',
         language: 'en',
         website: '',
         role: '',
         image: {
           url: ''
-        }
-      }
+        },
+        prev: null,
+        next: null
+      },
+      breadcrumb: null
     }
   },
   created () {
@@ -92,27 +99,26 @@ export default {
     }
   },
   computed: {
-    breadcrumb () {
-      return [
-        {
-          link: '/users/role/' + this.user.role,
-          label: this.$t('user.role') + ': ' + this.user.role
-        }
-      ];
-    },
     headline () {
-      return `${this.user.firstName} ${this.user.lastName}`;
+      if (this.user.firstname) {
+        return `${this.user.firstname} ${this.user.lastname}`;
+      } else {
+        return this.user.email;
+      }
+    },
+    image () {
+      return this.user.image.url
     },
     fields() {
       return [
         {
-          name: 'firstName',
+          name: 'firstname',
           label: this.$t('user.firstname'),
           type: 'text',
           width: '1/2'
         },
         {
-          name: 'lastName',
+          name: 'lastname',
           label: this.$t('user.lastname'),
           type: 'text',
           width: '1/2'
@@ -121,7 +127,7 @@ export default {
           name: 'email',
           label: this.$t('email'),
           type: 'email',
-          placeholder: this.$t('email.placeholder')
+          placeholder: 'mail@example.com'
         },
         {
           name: 'website',
@@ -137,26 +143,25 @@ export default {
     },
     pagination () {
       return {
-        page: 1,
-        limit: 1,
-        total: 5,
-        pageLabel: this.$t('user'),
         prevLabel: this.$t('user.previous'),
+        prev: this.user.prev ? true : false,
+        next: this.user.next ? true : false,
         nextLabel: this.$t('user.next')
       };
     }
   },
   methods: {
     input (data) {
-      this.user.firstName = data.firstName;
-      this.user.lastName  = data.lastName;
-      this.user.email     = data.email;
-      this.user.language  = data.language;
 
       // if current panel user, switch language
       if(data.language && this.$store.state.user.email === this.user.email) {
         this.$store.dispatch('language', data.language);
       }
+    },
+    save () {
+      User.update(this.id, this.user).then(() => {
+        this.$store.dispatch('success', 'Saved!');
+      });
     },
     action (action) {
       switch (action) {
@@ -175,16 +180,20 @@ export default {
           break;
       }
     },
-    paginate (pagination) {
-      UsersQuery({
-        pagination: pagination
-      }).then((response) => {
-        this.id = response.users[0].email;
-      });
+    prev () {
+      this.$router.push('/users/' + this.user.prev);
+    },
+    next () {
+      this.$router.push('/users/' + this.user.next);
     },
     fetch () {
-      UserQuery(this.id).then((user) => {
-        this.user = user;
+      User.get(this.email).then((user) => {
+        this.user       = user.data;
+        this.user.prev  = user.prev;
+        this.user.next  = user.next;
+        this.user.role  = user.role;
+        this.user.image = user.image;
+        this.breadcrumb = User.breadcrumb(user);
       });
     }
   }

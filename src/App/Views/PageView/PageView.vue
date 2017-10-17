@@ -5,7 +5,9 @@
     <kirby-header :label="$t('page.list')" link="/pages"
       :icon="icon"
       :breadcrumb="breadcrumb"
-      :pagination="pagination">
+      :pagination="pagination"
+      @prev="prev"
+      @next="next">
 
       <kirby-fancy-input
         class="kirby-page-title"
@@ -27,18 +29,7 @@
           <kirby-button @click="$refs.settings.toggle()" icon="cog">
             {{ $t('settings') }}
           </kirby-button>
-          <kirby-dropdown-content :dark="true" ref="settings">
-            <kirby-dropdown-item icon="copy" @click="action('copy')">
-              {{ $t('copy') }}
-            </kirby-dropdown-item>
-            <kirby-dropdown-item icon="code" @click="action('template')">
-              {{ $t('page.template.change') }}
-            </kirby-dropdown-item>
-            <kirby-dropdown-item icon="chain" @click="action('url')">
-              {{ $t("page.url.change") }}
-            </kirby-dropdown-item>
-            <kirby-dropdown-item icon="trash" @click="action('remove')">{{ $t("delete") }}</kirby-dropdown-item>
-          </kirby-dropdown-content>
+          <kirby-dropdown-content :dark="true" ref="settings" :options="options" @action="action" />
         </kirby-dropdown>
       </template>
 
@@ -59,6 +50,7 @@
       </kirby-column>
     </kirby-grid>
 
+    <kirby-page-status-dialog ref="status"></kirby-page-status-dialog>
     <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
     <kirby-page-remove-dialog ref="remove"></kirby-page-remove-dialog>
 
@@ -68,10 +60,8 @@
 
 <script>
 
-
-import PageQuery from 'App/Api/PageQuery.js';
-import UpdatePage from 'App/Api/UpdatePage.js';
-import LayoutQuery from 'App/Api/LayoutQuery.js';
+import Page from 'App/Api/Page.js';
+import Blueprint from 'App/Api/Blueprint.js';
 
 export default {
   props: ['path'],
@@ -80,12 +70,13 @@ export default {
       site: false,
       page: {
         title: '',
-        id: ''
+        id: '',
+        prev: null,
+        next: null
       },
       icon: 'page',
       breadcrumb: [],
-      pagination: {},
-      layout: []
+      layout: [],
     }
   },
   created () {
@@ -96,56 +87,76 @@ export default {
       this.fetch();
     }
   },
+  computed: {
+    pagination () {
+      return {
+        prev: this.page.prev ? true : false,
+        prevLabel: 'Previous page',
+        next: this.page.next ? true : false,
+        nextLabel: 'Next page'
+      };
+    },
+    options () {
+      return window.panel.config.api + '/pages/' + this.page.id + '/options?not=preview,status';
+    }
+  },
   methods: {
     fetch() {
 
       if (!this.path || this.path === '/') {
-        this.site       = true;
-        this.page       = {id: '_site', title: 'Site', url: '/'};
-        this.breadcrumb = [];
-        this.layout     = LayoutQuery('site');
+
+        Blueprint.get('site').then((blueprint) => {
+          this.site       = true;
+          this.page       = {id: '_site', title: 'Site', url: '/'};
+          this.breadcrumb = [];
+          this.layout     = blueprint.layout;
+        });
+
         return true;
       }
 
-      PageQuery(this.path).then((page) => {
-        this.site       = false;
-        this.page       = page;
-        this.breadcrumb = page.breadcrumb;
-        this.layout     = LayoutQuery(this.page.template, this.page);
+      Page.get(this.path).then((page) => {
+        Blueprint.get(page.template, page).then((blueprint) => {
+          this.site       = false;
+          this.page       = page;
+          this.breadcrumb = Page.breadcrumb(page);
+          this.layout     = blueprint.layout;
+        });
+      }).catch(() => {
+        this.$store.dispatch('error', 'The page could not be found');
+        this.$router.push('../');
       });
 
     },
     updateTitle (title) {
       if (title !== this.page.title) {
-        this.page.title = title;
 
-        UpdatePage({
-          id: this.page.id,
-          content: [
-            {
-              key: 'title',
-              value: title
-            }
-          ]
-        }).then((page) => {
+        Page.update(this.page.id, {title: title}).then((page) => {
+          this.page.title = title;
           this.$store.dispatch('success', 'The page title has been updated');
         });
 
       }
+    },
+    prev () {
+      this.$router.push('/pages/' + this.page.prev);
+    },
+    next () {
+      this.$router.push('/pages/' + this.page.next);
     },
     action (action) {
       switch (action) {
         case 'preview':
           window.open(this.page.url);
           break;
+        case 'status':
+          this.$refs.status.open(this.page.id);
+          break;
         case 'url':
           this.$refs.url.open(this.page.id);
           break;
         case 'template':
-          this.$router.push({
-            name: 'Template',
-            params: { path: this.path }
-          });
+          this.$router.push('/template/' + this.path);
           break;
         case 'remove':
           this.$refs.remove.open(this.page.id);

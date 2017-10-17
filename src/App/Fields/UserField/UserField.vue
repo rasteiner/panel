@@ -1,14 +1,14 @@
 <template>
-  <kirby-select-field :options="options" v-bind="$props" @input="input" />
+  <kirby-select-field :options="options" v-bind="$props" v-model="data" />
 </template>
 
 <script>
 
-import Query from 'App/Api/Query.js';
-import Props from '../../../Ui/Forms/Fields/Field.props.js';
+import User from 'App/Api/User.js';
+import Field from 'Ui/Forms/Fields/Field.mixin.js';
 
 export default {
-  mixins: [Props],
+  mixins: [Field],
   props: {
     label: {
       default: 'User'
@@ -19,7 +19,9 @@ export default {
     icon: {
       default: 'user'
     },
-    role: {}
+    role: {
+      type: String
+    }
   },
   data() {
     return {
@@ -31,25 +33,12 @@ export default {
   },
   methods: {
     fetch() {
-
-      Query(`
-        query($role: String) {
-          users(role: $role) {
-            items {
-              email,
-              firstName,
-              role
-            }
-          }
-        }
-      `, {role: this.role}).
-      then(response => {
-        this.options = response.users.items.map(user =>({
-          value: user.email,
-          text: `${user.email}`
+      User.list().then(response => {
+        this.options = response.items.map(user =>({
+          value: user.data.email,
+          text: user.data.email
         }))
       });
-
     }
   }
 }
