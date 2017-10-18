@@ -1,7 +1,7 @@
 <template>
   <div v-if="!loading" class="kirby-login-view">
     <form @submit.prevent="login">
-      <kirby-fieldset :fields="fields" />
+      <kirby-fieldset :fields="fields" :values="user" />
       <kirby-button type="submit" icon="check">{{ $t("login") }}</kirby-button>
     </form>
   </div>
@@ -10,10 +10,16 @@
 
 <script>
 
+import Auth from 'App/Api/Auth.js';
+
 export default {
   data () {
     return {
-      loading: false
+      loading: false,
+      user: {
+        email: null,
+        password: null
+      }
     };
   },
   computed: {
@@ -28,9 +34,7 @@ export default {
         {
           name: 'password',
           label: this.$t('password'),
-          type: 'text',
-          icon: 'key',
-          placeholder: this.$t('password') + ' …'
+          type: 'password',
         }
       ]
     }
@@ -39,11 +43,17 @@ export default {
     login () {
 
       this.loading = true;
-      setTimeout(() => {
-        this.$store.dispatch('login');
-        this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.firstName }));
+
+      Auth.login(this.user).then((user) => {
+        this.loading = false;
+        this.$store.dispatch('user', user);
+        this.$store.dispatch('success', this.$t('notification.welcome', { name: user.data.firstname }));
         this.$router.push('/');
-      }, 2000);
+      }).catch((error) => {
+        this.loading = false;
+        this.$store.dispatch('error', 'Invalid email or password');
+      });
+
     }
   }
 }
@@ -58,9 +68,6 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 20rem;
-}
-.kirby-login-view .kirby-field-header {
-  display: none;
 }
 .kirby-login-view .kirby-button {
   display: block;

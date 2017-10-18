@@ -34,25 +34,20 @@ export default new Vuex.Store({
     notification (state, notification) {
       state.notification = notification;
     },
-    login (state) {
-      const user = {
-        email: 'bastian@getkirby.com',
-        firstName: 'Bastian',
-        language: 'en'
-      };
+    user (state, user) {
       state.user = user;
-    },
-    logout (state) {
-      state.user = null;
     }
   },
   actions: {
-    login (context) {
-      context.commit('login');
-      context.dispatch('language', context.state.user.language);
-    },
-    logout (context) {
-      context.commit('logout');
+    user (context, user) {
+      if (user === null) {
+        localStorage.removeItem('auth');
+        context.commit('user', null);
+      } else {
+        localStorage.setItem('auth', user.data.token);
+        context.commit('user', user);
+        context.dispatch('language', user.data.language);
+      }
     },
     language (context, locale) {
       // if language strings have already been loaded

@@ -1,5 +1,13 @@
 export default {
     request (path, options) {
+
+        const headers = new Headers();
+        headers.append('Authorization', localStorage.getItem('auth'));
+
+        options = Object.assign(options || {}, {
+            headers: headers
+        });
+
         return fetch(window.panel.config.api + '/' + path, options).then((response) => {
             return response.json();
         }).then((json) => {

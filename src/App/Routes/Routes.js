@@ -11,13 +11,17 @@ import UserView from '../Views/UserView/UserView.vue';
 
 /* store */
 import store from '../Store/store.js';
+import Auth from 'App/Api/Auth.js';
 
 const auth = (to, from, next) => {
-  if (store.state.user) {
+
+  Auth.validate().then((user) => {
+    store.dispatch('user', user);
     next();
-  } else {
+  }).catch(() => {
     next('/login');
-  }
+  });
+
 };
 
 export default [
@@ -41,7 +45,7 @@ export default [
     path: '/installation',
     component: InstallationView,
     beforeEnter: (to, from, next) => {
-      store.dispatch('logout');
+      store.dispatch('user', null);
       if (store.state.user !== null) {
         next('/');
       } else {
