@@ -38,6 +38,8 @@ export default {
     save () {
       Page.update(this.page.id, this.data).then(() => {
         this.$store.dispatch('success', 'Saved!');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     }
   },

@@ -19,7 +19,7 @@
         <kirby-button @click="$refs.menu.close()" link="/users/bastian@getkirby.com" icon="account">
           {{ $t('account') }}
         </kirby-button>
-        <kirby-button @click="logout" link="/logout" icon="logout">
+        <kirby-button @click="logout" icon="logout">
           {{ $t('logout') }}
         </kirby-button>
       </section>

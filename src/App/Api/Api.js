@@ -4,7 +4,7 @@ export default {
             return response.json();
         }).then((json) => {
             if (json.status && json.status !== 'ok') {
-                throw Error(json.status);
+                throw Error(json.message || json.status);
             }
 
             return json;
