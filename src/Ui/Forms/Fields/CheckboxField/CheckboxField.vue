@@ -1,6 +1,6 @@
 <template>
   <kirby-field class="kirby-checkbox-field" v-bind="$props">
-    <kirby-checkbox-input :text="text" v-model="data" />
+    <kirby-checkbox-input :text="text" v-model="data" v-bind="$props" />
   </kirby-field>
 </template>
 

@@ -1,6 +1,6 @@
 
 export default {
-  props: ['value'],
+  props: ['value', 'name'],
   data () {
     return {
       data: this.value

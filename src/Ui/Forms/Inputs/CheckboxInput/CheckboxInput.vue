@@ -1,8 +1,8 @@
 <template>
 
   <div class="kirby-checkbox-input">
-    <input type="checkbox" v-model="data" :id="_uid" :checked="data" />
-    <label :for="_uid">
+    <input :id="name" type="checkbox" v-model="data" :checked="data" />
+    <label :for="name">
       <span class="checkbox" aria-hidden="true">
         <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 5l3.3 3L11 1" stroke-width="2" fill="none" fill-rule="evenodd" />

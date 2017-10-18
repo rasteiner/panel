@@ -1,5 +1,6 @@
 <template>
   <textarea
+    :id="name"
     ref="textarea"
     spellcheck="false"
     class="kirby-textarea-input"

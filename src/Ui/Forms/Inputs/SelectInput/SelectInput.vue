@@ -1,6 +1,7 @@
 <template>
   <div v-if="options.length" class="kirby-select-input">
     <select
+    :id="name"
     ref="select"
     v-bind="$props"
     v-model="data"

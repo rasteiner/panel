@@ -1,5 +1,5 @@
 <template>
-  <input v-bind="$props" v-model="data">
+  <input :id="name" v-bind="$props" v-model="data">
 </template>
 
 <script>
