@@ -12,6 +12,7 @@ import UserView from '../Views/UserView/UserView.vue';
 /* store */
 import store from '../Store/store.js';
 import Auth from 'App/Api/Auth.js';
+import Panel from 'App/Api/Panel.js';
 
 const auth = (to, from, next) => {
 
@@ -34,11 +35,21 @@ export default [
     path: '/login',
     component: LoginView,
     beforeEnter: (to, from, next) => {
-      if (store.state.user !== null) {
-        next('/');
-      } else {
-        next();
-      }
+
+      Panel.system().then((system) => {
+
+        if (system.isInstalled === false) {
+          return next('/installation');
+        }
+
+        if (store.state.user !== null) {
+          return next('/');
+        }
+
+        return next();
+
+      });
+
     }
   },
   {

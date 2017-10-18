@@ -53,6 +53,7 @@
 
 <script>
 
+import Auth from 'App/Api/Auth.js';
 import Panel from 'App/Api/Panel.js';
 import User from 'App/Api/User.js';
 
@@ -119,10 +120,11 @@ export default {
       this.loading = true;
 
       User.create(this.user).then((user) => {
-        this.loading = false;
-        this.$store.dispatch('login');
-        this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.firstName }));
-        this.$router.push('/');
+        Auth.login(this.user).then((user) => {
+          this.$store.dispatch('user', user);
+          this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.firstName }));
+          this.$router.push('/');
+        });
       });
 
     }
