@@ -96,6 +96,14 @@ export default {
 .kirby-input-content > textarea:focus {
   outline: 0;
 }
+
+.kirby-input-content input:-webkit-autofill,
+.kirby-input-content input:-webkit-autofill:hover,
+.kirby-input-content input:-webkit-autofill:focus,
+.kirby-input-content input:-webkit-autofill:active {
+ -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
 .kirby-input-icon {
   width: 3rem;
   justify-content: center;
