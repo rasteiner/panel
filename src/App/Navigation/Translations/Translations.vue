@@ -1,5 +1,5 @@
 <template>
-  <kirby-dropdown class="kirby-translations">
+  <kirby-dropdown v-if="active" class="kirby-translations">
     <kirby-button icon="globe" alt="Switch Translation" @click="$refs.translations.toggle()">
       {{ $store.state.translation }}
     </kirby-button>
@@ -16,6 +16,7 @@
 export default {
   data () {
     return {
+      active: false,
       translations: ['en', 'de']
     }
   }
