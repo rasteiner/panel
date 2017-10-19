@@ -32,6 +32,7 @@ export default {
 
         this.$store.dispatch('success', 'The page has been deleted');
         this.$emit('success');
+        this.$refs.dialog.close();
 
         if (this.$route.path === '/pages/' + this.page.id) {
           if (this.page.parent) {

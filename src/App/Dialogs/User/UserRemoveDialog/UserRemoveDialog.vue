@@ -30,6 +30,7 @@ export default {
       User.delete(this.user.email).then(() => {
         this.$store.dispatch('success', 'The user has been deleted');
         this.$emit('success');
+        this.$refs.dialog.close();
 
         if (this.$route.name === 'User') {
           this.$router.push('/users');

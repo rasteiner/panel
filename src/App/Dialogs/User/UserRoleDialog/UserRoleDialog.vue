@@ -57,6 +57,7 @@ export default {
       User.update(this.id, {role: this.values.role}).then(() => {
         this.$store.dispatch('success', 'The role has been changed');
         this.$emit('success');
+        this.$refs.dialog.close();
       });
     }
   }

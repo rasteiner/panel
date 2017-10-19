@@ -40,6 +40,7 @@ export default {
     submit () {
       this.$store.dispatch('success', 'The password has been changed');
       this.$emit('success');
+      this.$refs.dialog.close();
     }
   }
 }

@@ -61,9 +61,9 @@ export default {
       }
 
       Page.slug(this.page.id, this.slug).then((page) => {
+        this.$refs.dialog.close();
         this.$router.push('/pages/' + page.id);
         this.$store.dispatch('success', 'The URL has been changed to: /' + page.id);
-        this.$refs.dialog.close();
       });
 
     }

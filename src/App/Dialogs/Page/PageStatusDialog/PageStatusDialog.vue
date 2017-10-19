@@ -52,6 +52,7 @@ export default {
     },
     submit () {
       this.$store.dispatch('success', 'The page is now public');
+      this.$refs.dialog.close();
     }
   }
 }
