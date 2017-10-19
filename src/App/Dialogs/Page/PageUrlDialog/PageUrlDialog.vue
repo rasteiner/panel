@@ -1,15 +1,17 @@
 <template>
   <kirby-dialog ref="dialog" headline="Change URL" state="positive" button="Change" @submit="submit">
-    <kirby-fieldset :fields="[
-      {
-        name: 'slug',
-        label: 'URL appendix',
-        type: 'text',
-        required: true,
-        icon: 'chain',
-        help: '/' + page.id
-      },
-    ]" :values="{slug: page.slug}" @input="sluggify($event.slug)" />
+    <form @submit.prevent="submit" method="post">
+      <kirby-fieldset :fields="[
+        {
+          name: 'slug',
+          label: 'URL appendix',
+          type: 'text',
+          required: true,
+          icon: 'chain',
+          help: '/' + url
+        },
+      ]" :values="{slug: slug}" @input="sluggify($event.slug)" />
+    </form>
   </kirby-dialog>
 </template>
 
@@ -23,22 +25,25 @@ export default {
   mixins: [DialogMixin],
   data () {
     return {
+      slug: null,
+      url: null,
       page: {
         id: null,
-        slug: null,
-        parent: {
-          id: null
-        }
+        parent: null
       }
     };
   },
   methods: {
     sluggify (input) {
+
+      this.slug = slug(input);
+
       if (this.page.parent) {
-        this.page.id = this.page.parent + '/' + slug(input);
+        this.url = this.page.parent + '/' + this.slug;
       } else {
-        this.page.id = slug(input);
+        this.url = this.slug;
       }
+
     },
     open (id) {
       Page.get(id).then((page) => {
@@ -48,7 +53,19 @@ export default {
       });
     },
     submit () {
-      this.$store.dispatch('success', 'The URL has been changed to: /' + this.page.id);
+
+      if (this.slug === this.page.slug) {
+        this.$refs.dialog.close();
+        this.$store.dispatch('success', 'The URL stayed the same');
+        return;
+      }
+
+      Page.slug(this.page.id, this.slug).then((page) => {
+        this.$router.push('/pages/' + page.id);
+        this.$store.dispatch('success', 'The URL has been changed to: /' + page.id);
+        this.$refs.dialog.close();
+      });
+
     }
   }
 }

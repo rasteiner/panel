@@ -28,6 +28,9 @@ export default {
   delete (id) {
     return Api.delete('pages/' + id);
   },
+  slug (id, slug) {
+    return Api.post('pages/' + id + '/slug', {slug: slug});
+  },
   breadcrumb (page, self = false) {
     var breadcrumb = page.parents.map((parent) => ({
       label: parent.title,

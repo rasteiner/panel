@@ -11,6 +11,7 @@ import NumberField from './NumberField/NumberField.vue'
 import PasswordField from './PasswordField/PasswordField.vue'
 import RadioField from './RadioField/RadioField.vue'
 import SelectField from './SelectField/SelectField.vue'
+import StructureField from './StructureField/StructureField.vue'
 import TableField from './TableField/TableField.vue'
 import TagsField from './TagsField/TagsField.vue'
 import TelField from './TelField/TelField.vue'
@@ -29,6 +30,7 @@ Vue.component('kirby-number-field', NumberField);
 Vue.component('kirby-password-field', PasswordField);
 Vue.component('kirby-radio-field', RadioField);
 Vue.component('kirby-select-field', SelectField);
+Vue.component('kirby-structure-field', StructureField);
 Vue.component('kirby-table-field', TableField);
 Vue.component('kirby-tags-field', TagsField);
 Vue.component('kirby-tel-field', TelField);
