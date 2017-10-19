@@ -17,7 +17,7 @@
     </kirby-header>
 
     <kirby-users-collection ref="users" :keys="true" :role="role" />
-    <kirby-user-create-dialog ref="create" />
+    <kirby-user-create-dialog ref="create" @success="$refs.users.fetch()" />
 
   </kirby-view>
 

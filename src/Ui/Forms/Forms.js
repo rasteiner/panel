@@ -5,6 +5,7 @@ import Blocks from './Blocks/Blocks.vue'
 import Calendar from './Calendar/Calendar.vue'
 import Field from './Field/Field.vue'
 import Fieldset from './Fieldset/Fieldset.vue'
+import Form from './Form/Form.vue'
 import Input from './Input/Input.vue'
 import Upload from './Upload/Upload.vue'
 
@@ -15,6 +16,7 @@ Vue.component('kirby-autocomplete', Autocomplete);
 Vue.component('kirby-calendar', Calendar);
 Vue.component('kirby-field', Field);
 Vue.component('kirby-fieldset', Fieldset);
+Vue.component('kirby-form', Form);
 Vue.component('kirby-input', Input);
 Vue.component('kirby-blocks', Blocks);
 Vue.component('kirby-upload', Upload);
