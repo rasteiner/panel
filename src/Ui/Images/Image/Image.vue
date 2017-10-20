@@ -5,7 +5,7 @@
         <img v-if="loaded" :src="src" :alt="alt || ''">
       </transition>
       <kirby-loader v-if="!loaded && !error" position="center" theme="light" />
-      <div class="kirby-image-error" v-if="error">×</div>
+      <kirby-icon class="kirby-image-error" v-if="error" type="cancel" />
     </span>
   </figure>
 </template>
@@ -69,6 +69,9 @@ export default {
   transform: translate(-50%, -50%);
   color: $color-white;
   font-size: .9em;
+}
+.kirby-image-error svg * {
+  fill: rgba($color-white, .3);
 }
 
 .kirby-image-transition-enter-active,
