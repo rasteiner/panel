@@ -7,27 +7,37 @@
 
 export default {
   props: ['type', 'alt'],
-  data() {
+  data () {
     return {
       svg: ''
     };
   },
   computed: {
-    className: function() {
+    className () {
       return 'kirby-icon'
     }
   },
-  created() {
+  created () {
 
-    fetch(window.panel.config.assets + '/icons/' + this.type + '.svg').then(function(response) {
+    if (this.$store.state.icons[this.type]) {
+      return this.$store.state.icons[this.type];
+    }
+
+    fetch(window.panel.config.assets + '/icons/' + this.type + '.svg').then((response) => {
+
       if(response.ok) {
         return response.text();
-      } else {
-        throw new Error('Network response was not ok.');
       }
-    }).then(function(result) {
+
+      throw new Error('Network response was not ok.');
+
+    }).then((result) => {
       this.svg = result;
-    }.bind(this)).catch(function () {
+      this.$store.dispatch('icon', {
+        type: this.type,
+        svg:  result
+      });
+    }).catch(() => {
       console.log('The icon could not be loaded');
     });
 
