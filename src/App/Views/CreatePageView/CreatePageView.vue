@@ -63,12 +63,16 @@
 <script>
 
 import Page from 'App/Api/Page.js';
+import Site from 'App/Api/Site.js';
 import Blueprint from 'App/Api/Blueprint.js';
 import slug from 'App/Helpers/slug.js';
 
 export default {
   props: ['path'],
   data () {
+
+    //console.log(this.$route.query.template);
+
     return {
       site: false,
       page: {
@@ -104,12 +108,17 @@ export default {
     fetch() {
 
       if (!this.path || this.path === '/') {
-        Blueprint.get('site').then((blueprint) => {
-          this.site       = true;
-          this.page       = {id: '_site', title: 'Site', url: '/'};
-          this.breadcrumb =  [];
+
+        Site.get().then((site) => {
+          Blueprint.get('site').then((blueprint) => {
+            this.site       = true;
+            this.page       = {id: '_site', title: site.title, url: site.url};
+            this.breadcrumb = [];
+          });
         });
+
         return true;
+
       }
 
       Page.get(this.path).then((page) => {
