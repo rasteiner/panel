@@ -8,6 +8,7 @@
         @focus.native="select(tag)"
         @keydown.native.left="navigate('prev')"
         @keydown.native.right="navigate('next')"
+        @click.native.stop
         @dblclick.native="edit(tag)"
         @remove="remove(tag)"
         :removable="true">
