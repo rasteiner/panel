@@ -31,6 +31,9 @@ export default {
   slug (id, slug) {
     return Api.post('pages/' + id + '/slug', {slug: slug});
   },
+  blueprints (id) {
+    return Api.get('pages/' + id + '/blueprints');
+  },
   breadcrumb (page, self = false) {
     var breadcrumb = page.parents.map((parent) => ({
       label: parent.title,

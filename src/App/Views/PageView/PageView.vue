@@ -12,7 +12,7 @@
       <kirby-fancy-input v-if="site === false"
         class="kirby-page-title"
         :key="page.id + '-title'"
-        :value="page.title"
+        :value="page.content.title"
         :placeholder="$t('page.title') + ' …'"
         tag="div"
         @blur="updateTitle($event.target.innerText)"
