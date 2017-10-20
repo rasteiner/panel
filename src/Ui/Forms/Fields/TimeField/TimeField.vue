@@ -3,11 +3,10 @@
     <div class="kirby-time-inputs">
       <kirby-select-input ref="hour" v-model="hour" :options="hours" />
       <kirby-select-input ref="minute" v-model="minute"  :options="minutes" />
-
-      <kirby-select-input v-if="mode === 12" ref="period" v-model="period" :options="[
+      <kirby-select-input class="kirby-time-field-switch" v-if="mode === 12" ref="period" v-model="period" :options="[
         { value: 'am', text: 'am' },
         { value: 'pm', text: 'pm' },
-      ]"></kirby-select-input>
+      ]" />
     </div>
   </kirby-field>
 </template>
@@ -26,11 +25,11 @@ export default {
       default: 'Time'
     },
     icon: {
-      default: 'calendar'
+      default: 'clock'
     },
     mode: {
       type: Number,
-      default: 24
+      default: 12
     },
     interval: {
       type: Number,
@@ -143,30 +142,27 @@ export default {
 </script>
 
 <style lang="scss">
-  .kirby-time-field .kirby-input-content {
-    padding: 0 .65rem;
-  }
 
-   .kirby-time-inputs {
-    position:   relative;
-    display:    flex;
-    background: $color-white;
-    padding-top:    .65rem;
-    padding-bottom: .65rem;
-    flex-grow: 1;
-  }
+.kirby-time-field .kirby-input-content {
+  padding: 0 .65rem;
+}
 
-  .kirby-time-inputs .kirby-select-input:first-child:after {
-    content: ':';
-  }
+.kirby-time-inputs {
+  position: relative;
+  display: flex;
+  background: $color-white;
+  padding-top: .65rem;
+  padding-bottom: .65rem;
+  flex-grow: 1;
+}
 
-  .kirby-time-inputs .kirby-select-input:last-child {
-    [dir="ltr"] & {
-      padding-left: .65rem;
-    }
-    [dir="rtl"] & {
-      padding-right: .65rem;
-    }
-  }
+.kirby-time-inputs .kirby-select-input:first-child:after {
+  content: ':';
+  padding: 0 .2rem;
+}
+
+.kirby-time-field-switch {
+  padding-left: .5rem;
+}
 
 </style>
