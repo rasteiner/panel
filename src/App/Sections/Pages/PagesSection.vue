@@ -23,16 +23,37 @@ export default {
     'filterBy',
     'pagination',
     'sortBy',
+    'template',
     'limit'
   ],
   computed: {
     query () {
       return {
         parent: this.parent || this.page.id,
-        filterBy: this.filterBy,
+        filterBy: this.filter,
         sortBy: this.sortBy,
         limit: this.limit
       }
+    },
+    filter () {
+
+      const filter = this.filterBy || [];
+
+      // filter by template
+      if (this.template) {
+
+        const operator = typeof this.template === 'object' ? 'in' : '==';
+
+        filter.push({
+          field: 'template',
+          operator: operator,
+          value: this.template
+        });
+
+      }
+
+      return filter;
+
     }
   }
 };
