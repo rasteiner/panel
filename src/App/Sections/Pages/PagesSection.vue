@@ -23,13 +23,15 @@ export default {
     'filterBy',
     'pagination',
     'sortBy',
+    'limit'
   ],
   computed: {
     query () {
       return {
         parent: this.parent || this.page.id,
         filterBy: this.filterBy,
-        sortBy: this.sortBy
+        sortBy: this.sortBy,
+        limit: this.limit
       }
     }
   }
