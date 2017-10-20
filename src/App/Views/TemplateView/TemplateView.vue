@@ -17,12 +17,12 @@
       <template slot="buttons-right">
         <kirby-button icon="check" state="positive" @click="confirm" v-if="template">Confirm</kirby-button>
         <kirby-button icon="edit" @click="template = ''" v-if="template">Re-select</kirby-button>
-        <kirby-button icon="cancel" @click="cancel">Cancel</kirby-button>
+        <kirby-button icon="cancel" @click="$router.push('/pages/' + path)">Cancel</kirby-button>
       </template>
     </kirby-header>
 
 
-    <kirby-blueprints-section v-if="!template" :for="page" @select="select" @none="abort"></kirby-blueprints-section>
+    <kirby-collection layout="cards" :items="blueprints" @click="select" />
 
 
     <kirby-grid v-if="template" class="kirby-sections" gutter="small">
@@ -78,6 +78,7 @@ export default {
       },
       breadcrumb: [],
       template: '',
+      blueprints: [],
       changes: []
     }
   },
@@ -94,7 +95,7 @@ export default {
         text: 'New template: ' + this.template,
         info: 'Old template: ' + this.page.template,
         image: {
-          url: window.panel.config.index + '/assets/blueprints/' + this.template + '.png'
+          url: image(this.template)
         }
       }];
     }
@@ -127,6 +128,9 @@ export default {
     }
   },
   methods: {
+    image (blueprint) {
+      return window.panel.config.index + '/assets/blueprints/' + blueprint + '.png';
+    },
     select (item) {
       this.template = item.id;
     },
@@ -135,19 +139,34 @@ export default {
       this.$store.dispatch('success', 'The template has been chanced');
       this.cancel();
     },
-    abort () {
-      this.$store.dispatch('error', `Only template "${this.page.template}" allowed`);
-      this.cancel();
-    },
-    cancel () {
-      this.$router.push('/pages/' + this.path );
-    },
     fetch () {
       Page.get(this.path).then((page) => {
         this.page       = page;
         this.breadcrumb = Page.breadcrumb(page);
+
+        Page.blueprints(this.page.parent).then((blueprints) => {
+
+          if (blueprints.length <= 1) {
+            this.$router.push('/pages/' + this.path );
+            this.$store.dispatch('error', 'You are not allowed to change the template');
+            return
+          }
+
+          this.blueprints = blueprints.map((blueprint) => {
+            return {
+              id:   blueprint.name,
+              text: blueprint.title || item.name,
+              info: blueprint.description || '',
+              image: {
+                url: this.image(blueprint.name)
+              }
+            }
+          });
+
+        });
       });
     }
+
   }
 }
 
@@ -170,6 +189,10 @@ export default {
   font-family: $font-family-mono;
   line-height: inherit;
   color:       $color-dark-grey;
+}
+
+.kirby-template-view .kirby-card {
+  cursor: pointer;
 }
 
 </style>
