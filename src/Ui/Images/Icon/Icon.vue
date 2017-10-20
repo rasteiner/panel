@@ -20,10 +20,10 @@ export default {
   created () {
 
     // Get icon from window.icons, if cached
-   if (this.cache()) {
-      return this.cache();
+    if (this.cache()) {
+      this.svg = this.cache();
+      return;
     }
-
 
     fetch(window.panel.config.assets + '/icons/' + this.type + '.svg').then((response) => {
 
