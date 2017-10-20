@@ -9,7 +9,7 @@
       @prev="prev"
       @next="next">
 
-      <kirby-fancy-input
+      <kirby-fancy-input v-if="site === false"
         class="kirby-page-title"
         :key="page.id + '-title'"
         :value="page.title"
@@ -17,6 +17,7 @@
         tag="div"
         @blur="updateTitle($event.target.innerText)"
         @enter="$event.target.blur()" />
+      <div v-else class="kirby-page-title">{{ page.title }}</div>
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">
@@ -60,6 +61,7 @@
 
 <script>
 
+import Site from 'App/Api/Site.js';
 import Page from 'App/Api/Page.js';
 import Blueprint from 'App/Api/Blueprint.js';
 
@@ -105,14 +107,17 @@ export default {
 
       if (!this.path || this.path === '/') {
 
-        Blueprint.get('site').then((blueprint) => {
-          this.site       = true;
-          this.page       = {id: '_site', title: 'Site', url: '/'};
-          this.breadcrumb = [];
-          this.layout     = blueprint.layout;
+        Site.get().then((site) => {
+          Blueprint.get('site').then((blueprint) => {
+            this.site       = true;
+            this.page       = {id: '_site', title: site.title, url: site.url};
+            this.breadcrumb = [];
+            this.layout     = blueprint.layout;
+          });
         });
 
         return true;
+
       }
 
       Page.get(this.path).then((page) => {
