@@ -169,16 +169,7 @@ export default {
 
     .kirby-table-header-cell {
       color: $color-dark-grey;
-      border-bottom: 2px solid $color-background;
-
-      &:not([data-type="button"]) {
-        [dir="ltr"] & {
-          border-left: 1px dashed $color-border;
-        }
-        [dir="rtl"] & {
-          border-right: 1px dashed $color-border;
-        }
-      }
+      border-bottom: 1px solid $color-background;
     }
 
   }

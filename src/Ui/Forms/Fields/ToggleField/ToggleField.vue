@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss">
   .kirby-toggle-field .kirby-input-content {
-    padding: .65rem;
+    padding: .5rem .65rem .75rem;
   }
 
   .kirby-toggle-input > input {
