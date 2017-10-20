@@ -9,6 +9,9 @@ export default {
   watch: {
     data () {
       this.$emit('input', this.data)
+    },
+    value () {
+      this.data = this.value;
     }
   }
 }
