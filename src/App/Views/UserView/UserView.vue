@@ -45,10 +45,11 @@
 
     </kirby-header>
 
-    <form @submit.prevent="save" method="POST">
-      <kirby-fieldset :fields="fields" :values="user" @input="input" @submit="save" />
-      <input type="submit" v-show="false">
-    </form>
+    <kirby-form
+      :fields="fields"
+      :values="user"
+      @submit="save"
+      @input="input" />
 
     <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
