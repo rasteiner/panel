@@ -16,7 +16,7 @@
         </kirby-button>
       </section>
       <section class="kirby-menu-section kirby-menu-section-bottom">
-        <kirby-button @click="$refs.menu.close()" link="/users/bastian@getkirby.com" icon="account">
+        <kirby-button @click="$refs.menu.close()" :link="currentUser" icon="account">
           {{ $t('account') }}
         </kirby-button>
         <kirby-button @click="logout" icon="logout">
@@ -44,6 +44,11 @@ export default {
   data () {
     return {
       menu: false
+    }
+  },
+  computed: {
+    currentUser () {
+      return '/users/' + this.$store.state.user.data.email;
     }
   },
   methods: {

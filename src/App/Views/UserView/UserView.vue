@@ -90,18 +90,10 @@ export default {
       breadcrumb: null
     }
   },
-  created () {
-    this.fetch()
-  },
-  watch: {
-    $route () {
-      this.fetch();
-    }
-  },
   computed: {
     headline () {
       if (this.user.firstname) {
-        return `${this.user.firstname} ${this.user.lastname}`;
+        return this.user.firstname + (this.user.lastname ? ' ' + this.user.lastname : '');
       } else {
         return this.user.email;
       }
@@ -150,6 +142,14 @@ export default {
       };
     }
   },
+  created () {
+    this.fetch();
+  },
+  watch: {
+    $route () {
+      this.fetch();
+    }
+  },
   methods: {
     input (data) {
 
@@ -157,6 +157,7 @@ export default {
       if(data.language && this.$store.state.user.email === this.user.email) {
         this.$store.dispatch('language', data.language);
       }
+
     },
     save () {
       User.update(this.id, this.user).then(() => {
@@ -194,6 +195,9 @@ export default {
         this.user.role  = user.role;
         this.user.image = user.image;
         this.breadcrumb = User.breadcrumb(user);
+      }).catch(() => {
+        this.$store.dispatch('error', 'The user could not be found');
+        this.$router.push('/users');
       });
     }
   }

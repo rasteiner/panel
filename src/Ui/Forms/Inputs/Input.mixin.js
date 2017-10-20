@@ -11,7 +11,7 @@ export default {
       this.$emit('input', this.data)
     },
     value () {
-      this.data = this.value
+      this.data = this.value;
     }
   }
 }
