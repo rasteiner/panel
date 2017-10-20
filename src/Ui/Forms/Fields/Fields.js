@@ -18,6 +18,7 @@ import TagsField from './TagsField/TagsField.vue'
 import TelField from './TelField/TelField.vue'
 import TextareaField from './TextareaField/TextareaField.vue'
 import TextField from './TextField/TextField.vue'
+import TimeField from './TimeField/TimeField.vue'
 import ToggleField from './ToggleField/ToggleField.vue'
 import UrlField from './UrlField/UrlField.vue'
 
@@ -38,5 +39,6 @@ Vue.component('kirby-tags-field', TagsField);
 Vue.component('kirby-tel-field', TelField);
 Vue.component('kirby-textarea-field', TextareaField);
 Vue.component('kirby-text-field', TextField);
+Vue.component('kirby-time-field', TimeField);
 Vue.component('kirby-toggle-field', ToggleField);
 Vue.component('kirby-url-field', UrlField);

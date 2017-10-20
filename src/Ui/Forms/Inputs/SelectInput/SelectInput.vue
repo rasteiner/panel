@@ -12,6 +12,7 @@
       v-for="option in options"
       :key="option.value"
       :value="option.value"
+      :selected="data === option.value"
       :disabled="option.disabled">{{ option.text }}</option>
 
     </select>
