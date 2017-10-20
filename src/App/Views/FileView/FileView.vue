@@ -96,7 +96,7 @@
 
     <kirby-file-remove-dialog ref="remove" />
 
-    <kirby-upload ref="upload" url="" :accept="file.mime" :multiple="false" @success="uploaded" />
+    <kirby-upload ref="upload" :url="uploadApi" :accept="file.mime" :multiple="false" @success="uploaded" />
 
   </kirby-view>
 
@@ -149,6 +149,9 @@ export default {
     }
   },
   computed: {
+    uploadApi () {
+      return window.panel.config.api + '/pages/' + this.path + '/files/' + this.filename;
+    },
     pagination() {
       return {
         prev: this.file.prev ? true : false,
