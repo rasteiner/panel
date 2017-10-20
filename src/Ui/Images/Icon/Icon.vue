@@ -19,9 +19,11 @@ export default {
   },
   created () {
 
-    if (this.$store.state.icons[this.type]) {
-      return this.$store.state.icons[this.type];
+    // Get icon from window.icons, if cached
+   if (this.cache()) {
+      return this.cache();
     }
+
 
     fetch(window.panel.config.assets + '/icons/' + this.type + '.svg').then((response) => {
 
@@ -33,14 +35,32 @@ export default {
 
     }).then((result) => {
       this.svg = result;
-      this.$store.dispatch('icon', {
-        type: this.type,
-        svg:  result
-      });
+      this.cache(result);
     }).catch(() => {
       console.log('The icon could not be loaded');
     });
 
+  },
+  methods: {
+    cache (svg) {
+
+      // initialize global cache
+      if (window.icons === undefined) {
+        window.icons = [];
+      }
+
+      // add to cache
+      if (svg) {
+        return window.icons[this.type] = svg;
+      }
+
+      // get from cache
+      if (window.icons[this.type]) {
+        return window.icons[this.type];
+      }
+
+      return false;
+    }
   }
 }
 

@@ -13,15 +13,11 @@ export default new Vuex.Store({
     direction: 'ltr',
     user: null,
     notification: null,
-    menu: false,
-    icons: []
+    menu: false
   },
   mutations: {
     menu (state, menu) {
       state.menu = menu;
-    },
-    icon (state, data) {
-      state.icons[data.type] = data.svg;
     },
     language (state, language) {
       state.language = language;
@@ -43,9 +39,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    icon (context, data) {
-      context.commit('icon', data);
-    },
     user (context, user) {
       if (user === null) {
         localStorage.removeItem('auth');
