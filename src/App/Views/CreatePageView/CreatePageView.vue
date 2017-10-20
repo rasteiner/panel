@@ -45,17 +45,6 @@ export default {
 
       Page.blueprints(this.path).then((blueprints) => {
 
-        this.blueprints = blueprints.map((blueprint) => {
-          return {
-            id:   blueprint.name,
-            text: blueprint.title || item.name,
-            info: blueprint.description || '',
-            image: {
-              url: this.image(blueprint.name)
-            }
-          }
-        });
-
         if (blueprints.length === 0) {
           this.$router.push('/pages/' + this.path);
           this.$store.dispatch('error', 'You are not allowed to add any subpages');
@@ -67,22 +56,36 @@ export default {
           return;
         }
 
+        this.blueprints = blueprints.map((blueprint) => {
+          return {
+            id:   blueprint.name,
+            text: blueprint.title || item.name,
+            info: blueprint.description || '',
+            image: {
+              url: this.image(blueprint.name)
+            }
+          }
+        });
+
         this.setup();
 
       });
 
     },
     setup () {
+
       if (!this.path || this.path === '/') {
         this.breadcrumb = [];
         this.complete   = true;
         return true;
+
       } else {
         Page.get(this.path).then((page) => {
           this.breadcrumb = Page.breadcrumb(page, true);
           this.complete   = true;
         });
       }
+
     },
     image (blueprint) {
       return window.panel.config.index + '/assets/blueprints/' + blueprint + '.png';
