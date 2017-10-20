@@ -6,7 +6,7 @@
 
       {{ headline }}
 
-      <kirby-image v-if="image" class="kirby-user-view-image" ratio="1/1" :src="image" />
+      <kirby-image v-if="image" back="black" class="kirby-user-view-image" ratio="1/1" :src="image" />
 
       <template slot="buttons-left">
         <kirby-dropdown>
