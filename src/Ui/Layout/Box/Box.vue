@@ -24,5 +24,8 @@
     text-align: right;
   }
 }
+.kirby-box > strong {
+  font-weight: 500;
+}
 
 </style>

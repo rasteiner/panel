@@ -1,9 +1,15 @@
 <template>
   <kirby-grid class="kirby-fieldset" gutter="medium">
     <kirby-column v-for="(field, index) in fields" :key="index" :width="field.width || '1/1'">
+
       <component v-if="exists(field.type)" :is="'kirby-' + field.type + '-field'" v-bind="field" :value="values[field.name]" @submit="$emit('submit')" @input="input(field.name, $event)" />
 
-      <kirby-box v-else>Invalid field type: {{ field.type }}</kirby-box>
+      <kirby-field v-else v-bind="field">
+        <kirby-box>
+          The field type: <strong>{{ field.type }}</strong> does not exist
+        </kirby-box>
+      </kirby-field>
+
     </kirby-column>
   </kirby-grid>
 </template>

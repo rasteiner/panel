@@ -12,7 +12,7 @@
       <kirby-fancy-input v-if="site === false"
         class="kirby-page-title"
         :key="page.id + '-title'"
-        :value="page.content.title"
+        :value="page.title"
         :placeholder="$t('page.title') + ' …'"
         tag="div"
         @blur="updateTitle($event.target.innerText)"
@@ -124,6 +124,7 @@ export default {
         Blueprint.get(page.template, page).then((blueprint) => {
           this.site       = false;
           this.page       = page;
+          this.page.title = page.content.title;
           this.breadcrumb = Page.breadcrumb(page);
           this.layout     = blueprint.layout;
         });
