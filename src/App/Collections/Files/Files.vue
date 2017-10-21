@@ -55,17 +55,25 @@ export default {
 
       Page.files(this.query.parent, this.query).then((response) => {
         this.total = response.pagination.total;
-        this.items = response.items.map((file) => ({
-          id: file.filename,
-          image: { url: file.url },
-          text: file.filename,
-          filename: file.filename,
-          url: file.url,
-          parent: file.parent,
-          mime: file.mime,
-          link: '/pages/' + file.parent + '/files/' + file.filename,
-          options: panel.config.assets + '/options/file.json'
-        }));
+        this.items = response.items.map((file) => {
+          var item = {
+            id: file.filename,
+            text: file.filename,
+            icon: file.type || 'document', // TODO: actual icon
+            filename: file.filename,
+            url: file.url,
+            parent: file.parent,
+            mime: file.mime,
+            link: '/pages/' + file.parent + '/files/' + file.filename,
+            options: panel.config.assets + '/options/file.json'
+          };
+
+          if (file.type === 'image') {
+            item.image = { url: file.url };
+          }
+
+          return item;
+        });
       });
 
     },

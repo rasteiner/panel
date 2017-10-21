@@ -50,6 +50,12 @@ export default {
   background: $color-dark;
 }
 
+.kirby-table-cell[data-type="image"] .kirby-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .kirby-table-cell[data-type="link"] {
   padding: 0;
 }

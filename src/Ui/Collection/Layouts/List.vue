@@ -4,7 +4,8 @@
       <kirby-table-row v-for="(item, index) in items" :key="item.id" @click.native="$emit('click', item)">
         <kirby-table-cell type="image" aria-hidden="true">
           <router-link :to="item.link" tabindex="-1">
-            <kirby-image :src="item.image.url" :cover="true" />
+            <kirby-image v-if="item.image && item.image.url" :src="item.image.url" :cover="true" />
+            <kirby-icon v-else :type="item.icon || 'document'" />
           </router-link>
         </kirby-table-cell>
         <kirby-table-cell type="link">

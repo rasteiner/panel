@@ -2,12 +2,13 @@
   <div class="kirby-card">
     <component :is="wrapper" :to="link">
       <kirby-image
-        v-if="image"
+        v-if="image && image.url"
         :src="image.url"
         :ratio="image.ratio || '3/2'"
         back="black"
         :cover="true">
       </kirby-image>
+      <kirby-icon v-else class="kirby-preview" :type="icon || 'document'" />
       <div class="kirby-card-content">
         <p class="kirby-card-text">{{ text }}</p>
         <p class="kirby-card-info">{{ info }}</p>
@@ -36,6 +37,7 @@
 export default {
   props: {
     image: Object,
+    icon: String,
     text: String,
     info: String,
     link: {},
@@ -74,10 +76,23 @@ export default {
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
 }
-.kirby-card .kirby-image {
+.kirby-card .kirby-image,
+.kirby-card .kirby-preview {
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
   overflow: hidden;
+}
+.kirby-card .kirby-preview {
+  display: block;
+  position: relative;
+  padding-bottom: 66.66%;
+  background-color: $color-white;
+}
+.kirby-card .kirby-preview > * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(3);
 }
 .kirby-card-text {
   font-weight: 400;
