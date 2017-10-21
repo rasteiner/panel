@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-field" :data-required="required" :data-error="error">
+  <div class="kirby-field" :required="required" :readonly="readonly" :error="error">
 
     <div v-if="$slots.label || $slots.options || label" class="kirby-field-header">
       <slot name="label">
@@ -27,6 +27,7 @@
 export default {
   props: [
     'required',
+    'readonly',
     'error',
     'label',
     'help',
@@ -55,10 +56,15 @@ export default {
   padding-top: 0;
   padding-bottom: 0;
 }
-.kirby-field[data-error] .kirby-field-header label {
+.kirby-field[readonly] .kirby-input {
+  opacity: .5;
+  cursor: default;
+  pointer-events: none;
+}
+.kirby-field[error] .kirby-field-header label {
   color: $color-negative;
 }
-.kirby-field[data-required] .kirby-field-header label:after {
+.kirby-field[required] .kirby-field-header label:after {
   content: "*";
   color: $color-focus;
 
@@ -69,7 +75,7 @@ export default {
     padding-right: .35rem;
   }
 }
-.kirby-field[data-required][data-error] .kirby-field-header label:after {
+.kirby-field[required][error] .kirby-field-header label:after {
   color: $color-negative;
 }
 
@@ -79,7 +85,7 @@ export default {
   font-family: $font-family-mono;
   color: $color-dark-grey;
 }
-.kirby-field[data-error] .kirby-field-help {
+.kirby-field[error] .kirby-field-help {
   color: $color-negative;
 }
 
