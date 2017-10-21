@@ -51,11 +51,6 @@ export default {
           return;
         }
 
-        if (blueprints.length === 1) {
-          this.create(this.blueprints[0]);
-          return;
-        }
-
         this.blueprints = blueprints.map((blueprint) => {
           return {
             id:   blueprint.name,
@@ -66,6 +61,11 @@ export default {
             }
           }
         });
+
+        if (blueprints.length === 1) {
+          this.create(this.blueprints[0]);
+          return;
+        }
 
         this.setup();
 
