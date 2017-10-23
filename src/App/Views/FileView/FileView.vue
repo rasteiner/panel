@@ -104,8 +104,6 @@
 
 <script>
 
-import File from 'App/Api/File.js';
-import Page from 'App/Api/Page.js';
 import slug from 'App/Helpers/slug.js';
 
 export default {
@@ -164,11 +162,11 @@ export default {
   methods: {
     fetch() {
 
-      File.get(this.path, this.filename).then((file) => {
+      this.$api.file.get(this.path, this.filename).then((file) => {
 
         this.file = file;
         this.name = file.name;
-        File.breadcrumb(file).then((breadcrumb) => {
+        this.$api.file.breadcrumb(file).then((breadcrumb) => {
           this.breadcrumb = breadcrumb;
         });
 
@@ -210,7 +208,7 @@ export default {
         return true;
       }
 
-      File.rename(this.path, this.file.filename, name).then((file) => {
+      this.$api.file.rename(this.path, this.file.filename, name).then((file) => {
         this.$router.push('/pages/' + this.path + '/files/' + file.filename);
         this.$store.dispatch('success', 'The file has been renamed');
       });
@@ -222,7 +220,7 @@ export default {
     },
     save () {
 
-      File.update(this.path, this.file.filename, this.file.meta).then((file) => {
+      this.$api.file.update(this.path, this.file.filename, this.file.meta).then((file) => {
         this.file.meta = file.meta;
         this.$store.dispatch('success', 'Saved!');
       });

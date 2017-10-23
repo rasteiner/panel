@@ -67,8 +67,6 @@
 
 <script>
 
-import Page from 'App/Api/Page.js';
-
 export default {
   props: ['path'],
   data () {
@@ -140,11 +138,11 @@ export default {
       this.cancel();
     },
     fetch () {
-      Page.get(this.path).then((page) => {
+      this.$api.page.get(this.path).then((page) => {
         this.page       = page;
-        this.breadcrumb = Page.breadcrumb(page);
+        this.breadcrumb = this.$api.page.breadcrumb(page);
 
-        Page.blueprints(this.page.parent).then((blueprints) => {
+        this.$api.page.blueprints(this.page.parent).then((blueprints) => {
 
           if (blueprints.length <= 1) {
             this.$router.push('/pages/' + this.path );

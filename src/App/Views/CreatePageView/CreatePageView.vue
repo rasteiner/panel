@@ -23,8 +23,6 @@
 
 <script>
 
-import Page from 'App/Api/Page.js';
-import Blueprint from 'App/Api/Blueprint.js';
 import slug from 'App/Helpers/slug.js';
 
 export default {
@@ -43,7 +41,7 @@ export default {
   methods: {
     fetch() {
 
-      Page.blueprints(this.path).then((blueprints) => {
+      this.$api.page.blueprints(this.path).then((blueprints) => {
 
         if (blueprints.length === 0) {
           this.$router.push('/pages/' + this.path);
@@ -80,8 +78,8 @@ export default {
         return true;
 
       } else {
-        Page.get(this.path).then((page) => {
-          this.breadcrumb = Page.breadcrumb(page, true);
+        this.$api.page.get(this.path).then((page) => {
+          this.breadcrumb = this.$api.page.breadcrumb(page, true);
           this.complete   = true;
         });
       }
@@ -92,7 +90,7 @@ export default {
     },
     create (blueprint) {
 
-      Page.create(this.path, {
+      this.$api.page.create(this.path, {
         slug: slug(this.title || 'untitled'),
         template: blueprint.id,
         content: {

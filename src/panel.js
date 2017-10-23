@@ -1,45 +1,27 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import VuexI18n from 'vuex-i18n';
+
+/** Routes */
+import Router from 'vue-router';
+import Routes from 'App/Routes/Routes.js';
+
+Vue.use(Router);
+
+const router = new Router({ routes: Routes });
 
 /** Store */
 import store from 'App/Store/store.js';
 
-/** Routes */
-import Routes from 'App/Routes/Routes.js';
-
-Vue.use(VueRouter);
-
-const router = new VueRouter({
-  routes: Routes
-});
-
-
-/** Keyboard Shortcuts */
-import Shortcuts from 'App/Shortcuts/Shortcuts.js';
-
+/** API */
+import Api from 'App/Api/Api.js';
+Vue.use(Api);
 
 /** Event bus */
-const Events = new Vue({
-  created () {
-    window.addEventListener('keydown', Shortcuts.bind(this), false)
-  },
-  destroyed () {
-    window.removeEventListener('keydown', Shortcuts, false)
-  }
-});
-
-Object.defineProperties(Vue.prototype, {
-  $events: {
-    get: function () {
-      return Events
-    }
-  }
-});
-
+import Events from 'App/Events/Events.js';
+Vue.use(Events);
 
 /** i18n */
-Vue.use(VuexI18n.plugin, store);
+import i18n from 'vuex-i18n';
+Vue.use(i18n.plugin, store);
 Vue.i18n.set(store.state.language);
 Vue.i18n.fallback(store.state.language);
 store.dispatch('language', store.state.language);
@@ -49,6 +31,7 @@ import 'Ui/Ui.js';
 
 /** App Stuff */
 import 'App/App.js';
+
 
 new Vue({
   el: 'main',

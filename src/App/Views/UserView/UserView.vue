@@ -63,9 +63,6 @@
 
 <script>
 
-// api
-import User from 'App/Api/User.js';
-
 export default {
   props: {
     email: {
@@ -161,7 +158,7 @@ export default {
 
     },
     save () {
-      User.update(this.id, this.user).then(() => {
+      this.$api.user.update(this.id, this.user).then(() => {
         this.$store.dispatch('success', 'Saved!');
       });
     },
@@ -189,13 +186,13 @@ export default {
       this.$router.push('/users/' + this.user.next);
     },
     fetch () {
-      User.get(this.email).then((user) => {
+      this.$api.user.get(this.email).then((user) => {
         this.user       = user.data;
         this.user.prev  = user.prev;
         this.user.next  = user.next;
         this.user.role  = user.role;
         this.user.image = user.image;
-        this.breadcrumb = User.breadcrumb(user);
+        this.breadcrumb = this.$api.user.breadcrumb(user);
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');
         this.$router.push('/users');

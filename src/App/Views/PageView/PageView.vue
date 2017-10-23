@@ -61,10 +61,6 @@
 
 <script>
 
-import Site from 'App/Api/Site.js';
-import Page from 'App/Api/Page.js';
-import Blueprint from 'App/Api/Blueprint.js';
-
 export default {
   props: ['path'],
   data () {
@@ -113,8 +109,8 @@ export default {
 
       if (!this.path || this.path === '/') {
 
-        Site.get().then((site) => {
-          Blueprint.get('site').then((blueprint) => {
+        this.$api.site.get().then((site) => {
+          this.$api.blueprint.get('site').then((blueprint) => {
             this.site       = true;
             this.page       = {id: '_site', title: site.title, url: site.url};
             this.breadcrumb = [];
@@ -126,12 +122,12 @@ export default {
 
       }
 
-      Page.get(this.path).then((page) => {
-        Blueprint.get(page.template, page).then((blueprint) => {
+      this.$api.page.get(this.path).then((page) => {
+        this.$api.blueprint.get(page.template, page).then((blueprint) => {
           this.site       = false;
           this.page       = page;
           this.page.title = page.content.title;
-          this.breadcrumb = Page.breadcrumb(page);
+          this.breadcrumb = this.$api.page.breadcrumb(page);
           this.layout     = blueprint.layout;
         });
       }).catch(() => {
@@ -143,7 +139,7 @@ export default {
     updateTitle (title) {
       if (title !== this.page.title) {
 
-        Page.update(this.page.id, {title: title}).then((page) => {
+        this.$api.page.update(this.page.id, {title: title}).then((page) => {
           this.page.title = title;
           this.$store.dispatch('success', 'The page title has been updated');
         });

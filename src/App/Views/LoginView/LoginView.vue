@@ -10,8 +10,6 @@
 
 <script>
 
-import Auth from 'App/Api/Auth.js';
-
 export default {
   data () {
     return {
@@ -44,7 +42,7 @@ export default {
 
       this.loading = true;
 
-      Auth.login(this.user).then((user) => {
+      this.$api.auth.login(this.user).then((user) => {
         this.loading = false;
         this.$store.dispatch('user', user);
         this.$store.dispatch('success', this.$t('notification.welcome', { name: user.data.firstname }));
