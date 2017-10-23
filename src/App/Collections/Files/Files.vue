@@ -82,6 +82,9 @@ export default {
         case 'show':
           window.open(file.url);
           break;
+        case 'edit':
+          this.$router.push('/pages/' + file.parent + '/files/' + file.filename);
+          break;
         case 'remove':
           this.$refs.remove.open(file.parent, file.filename);
           break;
