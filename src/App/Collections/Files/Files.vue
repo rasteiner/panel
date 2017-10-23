@@ -69,7 +69,7 @@ export default {
           };
 
           if (file.type === 'image') {
-            item.image = { url: file.url };
+            item.image = { url: file.url + '?v=' + file.modified };
           }
 
           return item;
