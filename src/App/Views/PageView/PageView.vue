@@ -91,12 +91,18 @@ export default {
   },
   computed: {
     pagination () {
+
+      if (this.site === true) {
+        return false;
+      }
+
       return {
         prev: this.page.prev ? true : false,
         prevLabel: 'Previous page',
         next: this.page.next ? true : false,
         nextLabel: 'Next page'
       };
+
     },
     options () {
       return window.panel.config.api + '/pages/' + this.page.id + '/options?not=preview,status';

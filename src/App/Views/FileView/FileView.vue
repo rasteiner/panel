@@ -40,7 +40,7 @@
           <kirby-headline><span>Preview</span></kirby-headline>
 
           <a :href="file.url" target="_blank">
-            <kirby-image v-if="file.url" :src="file.url + '?' + new Date()" back="black" ratio="1/1" />
+            <kirby-image v-if="file.url" :src="file.url + '?v=' + file.modified" back="black" ratio="1/1" />
           </a>
         </kirby-column>
         <kirby-column width="3/4">
@@ -217,6 +217,7 @@ export default {
 
     },
     uploaded () {
+      this.fetch();
       this.$store.dispatch('success', 'The file has been replaced');
     },
     save () {
