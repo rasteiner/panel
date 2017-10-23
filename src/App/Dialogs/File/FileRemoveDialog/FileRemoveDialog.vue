@@ -9,7 +9,6 @@
 <script>
 
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import File from 'App/Api/File.js';
 
 export default {
   mixins: [DialogMixin],
@@ -21,14 +20,14 @@ export default {
   },
   methods: {
     open (parent, filename) {
-      File.get(parent, filename).then((file) => {
+      this.$api.file.get(parent, filename).then((file) => {
         this.parent   = file.parent;
         this.filename = file.filename;
         this.$refs.dialog.open();
       });
     },
     submit () {
-      File.delete(this.parent, this.filename).then(() => {
+      this.$api.file.delete(this.parent, this.filename).then(() => {
         this.$events.$emit('file');
         this.$store.dispatch('success', 'The file has been deleted');
         this.$emit('success');

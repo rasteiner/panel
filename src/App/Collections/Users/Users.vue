@@ -14,7 +14,6 @@
 <script>
 
 import CollectionMixin from '../Collection.mixin.js';
-import User from 'App/Api/User.js';
 
 export default {
   mixins: [CollectionMixin],
@@ -44,7 +43,7 @@ export default {
         this.query.filterBy = [];
       }
 
-      User.list(this.query).then((response) => {
+      this.$api.user.list(this.query).then((response) => {
         this.total = response.pagination.total;
         this.items = response.items.map((user) => ({
           id: user.id,

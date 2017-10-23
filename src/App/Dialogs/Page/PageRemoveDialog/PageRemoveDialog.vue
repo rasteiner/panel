@@ -9,7 +9,6 @@
 <script>
 
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [DialogMixin],
@@ -22,13 +21,13 @@ export default {
   },
   methods: {
     open (id) {
-      Page.get(id).then((page) => {
+      this.$api.page.get(id).then((page) => {
         this.page = page;
         this.$refs.dialog.open();
       });
     },
     submit () {
-      Page.delete(this.page.id).then(() => {
+      this.$api.page.delete(this.page.id).then(() => {
 
         this.$store.dispatch('success', 'The page has been deleted');
         this.$emit('success');

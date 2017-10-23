@@ -18,7 +18,6 @@
 <script>
 
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import Page from 'App/Api/Page.js';
 import slug from 'App/Helpers/slug.js';
 
 export default {
@@ -46,7 +45,7 @@ export default {
 
     },
     open (id) {
-      Page.get(id).then((page) => {
+      this.$api.page.get(id).then((page) => {
         this.page = page;
         this.sluggify(this.page.slug);
         this.$refs.dialog.open();
@@ -60,7 +59,7 @@ export default {
         return;
       }
 
-      Page.slug(this.page.id, this.slug).then((page) => {
+      this.$api.page.slug(this.page.id, this.slug).then((page) => {
         this.$refs.dialog.close();
         this.$router.push('/pages/' + page.id);
         this.$store.dispatch('success', 'The URL has been changed to: /' + page.id);

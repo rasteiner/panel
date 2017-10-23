@@ -30,9 +30,6 @@
 
 import CollectionMixin from '../Collection.mixin.js';
 
-import Site from 'App/Api/Site.js';
-import Page from 'App/Api/Page.js';
-
 export default {
   mixins: [CollectionMixin],
   methods: {
@@ -53,9 +50,9 @@ export default {
       let children;
 
       if (this.query.parent && this.query.parent !== '/') {
-        children = Page.children(this.query.parent, this.query);
+        children = this.$api.page.children(this.query.parent, this.query);
       } else {
-        children = Site.children(this.query);
+        children = this.$api.site.children(this.query);
       }
 
       children.then((response) => {

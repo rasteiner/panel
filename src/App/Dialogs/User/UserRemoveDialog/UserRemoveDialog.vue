@@ -6,20 +6,18 @@
 
 <script>
 
-// components
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import User from 'App/Api/User.js';
 
 export default {
   mixins: [DialogMixin],
-  data() {
+  data () {
     return {
       user: {}
     }
   },
   methods: {
     open(email) {
-      User.get(email).then((user) => {
+      this.$api.user.get(email).then((user) => {
         this.user = user;
         this.user.email = user.data.email;
         this.$refs.dialog.open();
@@ -27,7 +25,7 @@ export default {
     },
     submit () {
 
-      User.delete(this.user.email).then(() => {
+      this.$api.user.delete(this.user.email).then(() => {
         this.$store.dispatch('success', 'The user has been deleted');
         this.$emit('success');
         this.$refs.dialog.close();

@@ -19,9 +19,7 @@
 
 <script>
 
-// components
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import User from 'App/Api/User.js';
 
 export default {
   mixins: [DialogMixin],
@@ -31,8 +29,8 @@ export default {
     }
   },
   methods: {
-    open(email) {
-      User.get(email).then((user) => {
+    open (email) {
+      this.$api.user.get(email).then((user) => {
         this.user = user;
         this.$refs.dialog.open();
       });

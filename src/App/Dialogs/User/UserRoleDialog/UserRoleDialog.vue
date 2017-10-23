@@ -33,11 +33,10 @@
 <script>
 
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import User from 'App/Api/User.js';
 
 export default {
   mixins: [DialogMixin],
-  data() {
+  data () {
     return {
       id: null,
       values: {
@@ -46,15 +45,15 @@ export default {
     }
   },
   methods: {
-    open(id) {
+    open (id) {
       this.id = id;
-      User.get(id).then((user) => {
+      this.$api.user.get(id).then((user) => {
         this.values.role = user.role;
         this.$refs.dialog.open();
       });
     },
     submit () {
-      User.update(this.id, {role: this.values.role}).then(() => {
+      this.$api.user.update(this.id, {role: this.values.role}).then(() => {
         this.$store.dispatch('success', 'The role has been changed');
         this.$emit('success');
         this.$refs.dialog.close();

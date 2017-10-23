@@ -9,8 +9,6 @@
 
 <script>
 
-import Page from 'App/Api/Page.js';
-
 export default {
   props: [
     'fields',
@@ -36,7 +34,7 @@ export default {
   },
   methods: {
     save () {
-      Page.update(this.page.id, this.data).then(() => {
+      this.$api.page.update(this.page.id, this.data).then(() => {
         this.$store.dispatch('success', 'Saved!');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);

@@ -32,7 +32,6 @@
 <script>
 
 import CollectionMixin from '../Collection.mixin.js';
-import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [CollectionMixin],
@@ -53,7 +52,7 @@ export default {
         limit: this.pagination.limit
       };
 
-      Page.files(this.query.parent, this.query).then((response) => {
+      this.$api.page.files(this.query.parent, this.query).then((response) => {
         this.total = response.pagination.total;
         this.items = response.items.map((file) => {
           var item = {

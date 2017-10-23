@@ -7,7 +7,6 @@
 <script>
 
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import User from 'App/Api/User.js';
 
 export default {
   mixins: [DialogMixin],
@@ -46,7 +45,7 @@ export default {
   },
   methods: {
     create () {
-      User.create(this.user).then((user) => {
+      this.$api.user.create(this.user).then((user) => {
 
         this.user = {
           email: '',
