@@ -161,9 +161,6 @@ export default {
         case 'url':
           this.$refs.url.open(this.page.id);
           break;
-        case 'template':
-          this.$router.push('/template/' + this.path);
-          break;
         case 'remove':
           this.$refs.remove.open(this.page.id);
           break;
