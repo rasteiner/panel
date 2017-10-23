@@ -86,7 +86,7 @@ export default {
           this.$refs.remove.open(file.parent, file.filename);
           break;
         case 'replace':
-          this.replace();
+          this.replace(file);
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');
@@ -96,9 +96,11 @@ export default {
       this.$refs.upload.upload(files);
     },
     upload() {
-      this.$refs.upload.open();
+      this.$refs.upload.open({
+        url: window.panel.config.api + '/pages/' + this.query.parent + '/files/',
+      });
     },
-    replace () {
+    replace (file) {
       this.$refs.upload.open({
         url: window.panel.config.api + '/pages/' + this.query.parent + '/files/' + file.filename,
         accept: file.mime,
