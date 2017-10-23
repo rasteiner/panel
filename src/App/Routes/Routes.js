@@ -28,8 +28,7 @@ const auth = (to, from, next) => {
 export default [
   {
     path: '/',
-    component: DashboardView,
-    beforeEnter: auth
+    redirect: '/pages'
   },
   {
     path: '/login',

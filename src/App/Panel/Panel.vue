@@ -2,13 +2,13 @@
   <div class="kirby-panel" v-if="$store.state.user" :data-menu="$store.state.menu">
     <kirby-menu ref="menu" :open="$store.state.menu" @close="$store.commit('menu', false)">
       <section class="kirby-menu-section">
-        <kirby-button @click="$refs.menu.close()" link="/" icon="dashboard">
+        <kirby-button @click="$store.dispatch('error', 'Not available yet')" icon="dashboard">
           {{ $t('dashboard') }}
         </kirby-button>
         <kirby-button @click="$refs.menu.close()" link="/pages" icon="page">
           {{ $t('site') }}
         </kirby-button>
-        <kirby-button @click="$refs.menu.close()" link="/settings" icon="cog">
+        <kirby-button @click="$store.dispatch('error', 'Not available yet')" icon="cog">
           {{ $t('settings') }}
         </kirby-button>
         <kirby-button @click="$refs.menu.close()" link="/users" icon="users">
