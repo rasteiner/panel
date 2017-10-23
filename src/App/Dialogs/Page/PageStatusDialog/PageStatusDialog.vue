@@ -1,6 +1,6 @@
 <template>
-  <kirby-dialog ref="dialog" headline="Status" state="positive" button="Change" @submit="submit">
-    <kirby-fieldset :fields="[
+  <kirby-dialog ref="dialog" headline="Status" state="positive" button="Change" @submit="$refs.form.submit()">
+    <kirby-form ref="form" :fields="[
       {
         name: 'status',
         label: 'Select a new status',
@@ -8,23 +8,18 @@
         required: true,
         options: [
           {
-            value: 'draft',
-            text: 'Draft',
-            info: 'The page is invisible'
-          },
-          {
             value: 'unlisted',
             text: 'Unlisted',
             info: 'The page is only accessible via URL'
           },
           {
-            value: 'public',
+            value: 'listed',
             text: 'Public',
             info: 'The page is public for anyone'
           }
         ]
       }
-    ]" :values="{status: 'draft'}" />
+    ]" :values="$data" @submit="submit" />
   </kirby-dialog>
 </template>
 
@@ -37,22 +32,24 @@ export default {
   mixins: [DialogMixin],
   data () {
     return {
-      page: {
-        id: null,
-        status: null
-      }
+      page: {id: null},
+      status: null
     };
   },
   methods: {
     open (id) {
       Page.get(id).then((page) => {
-        this.page = page;
+        this.page   = page;
+        this.status = page.isVisible ? 'listed' : 'unlisted';
         this.$refs.dialog.open();
       });
     },
     submit () {
-      this.$store.dispatch('success', 'The page is now public');
-      this.$refs.dialog.close();
+      this.$api.page.status(this.page.id, this.status, 1).then(() => {
+        this.$store.dispatch('success', 'The page is now ' + this.status);
+        this.$refs.dialog.close();
+        this.$emit('success');
+      });
     }
   }
 }

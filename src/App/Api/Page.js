@@ -31,6 +31,9 @@ export default {
   slug (id, slug) {
     return Api.post('pages/' + id + '/slug', {slug: slug});
   },
+  status (id, status, position) {
+    return Api.post('pages/' + id + '/status', {status: status, position: position});
+  },
   blueprints (id) {
     return Api.get('pages/' + id + '/blueprints');
   },

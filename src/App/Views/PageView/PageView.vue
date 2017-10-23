@@ -24,7 +24,7 @@
           {{ $t('page.preview') }}
         </kirby-button>
         <kirby-button v-if="!site" icon="toggle-on" @click="action('status')">
-          Draft
+          {{ status }}
         </kirby-button>
         <kirby-dropdown v-if="!site">
           <kirby-button @click="$refs.settings.toggle()" icon="cog">
@@ -51,7 +51,7 @@
       </kirby-column>
     </kirby-grid>
 
-    <kirby-page-status-dialog ref="status"></kirby-page-status-dialog>
+    <kirby-page-status-dialog ref="status" @success="fetch"></kirby-page-status-dialog>
     <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
     <kirby-page-remove-dialog ref="remove"></kirby-page-remove-dialog>
 
@@ -86,6 +86,9 @@ export default {
     }
   },
   computed: {
+    status () {
+      return this.page.isVisible ? 'Public' : 'Unlisted';
+    },
     pagination () {
 
       if (this.site === true) {
