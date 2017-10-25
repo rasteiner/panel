@@ -84,6 +84,7 @@ export default {
   font-size: $font-size-small;
   font-family: $font-family-mono;
   color: $color-dark-grey;
+  line-height: 1.5;
 }
 .kirby-field[error] .kirby-field-help {
   color: $color-negative;

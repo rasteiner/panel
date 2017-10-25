@@ -1,17 +1,6 @@
 <template>
-  <kirby-dialog ref="dialog" headline="Change URL" state="positive" button="Change" @submit="submit">
-    <form @submit.prevent="submit" method="post">
-      <kirby-fieldset :fields="[
-        {
-          name: 'slug',
-          label: 'URL appendix',
-          type: 'text',
-          required: true,
-          icon: 'chain',
-          help: '/' + url
-        },
-      ]" :values="{slug: slug}" @input="sluggify($event.slug)" />
-    </form>
+  <kirby-dialog ref="dialog" size="medium" state="positive" button="Change" @submit="$refs.form.submit()">
+    <kirby-form ref="form" :fields="fields" :values="{slug: slug}" @input="sluggify($event.slug)" @submit="submit" />
   </kirby-dialog>
 </template>
 
@@ -31,6 +20,20 @@ export default {
         parent: null
       }
     };
+  },
+  computed: {
+    fields () {
+      return [
+        {
+          name: 'slug',
+          label: 'URL appendix',
+          type: 'text',
+          required: true,
+          icon: 'chain',
+          help: '/' + this.url
+        }
+      ];
+    }
   },
   methods: {
     sluggify (input) {
@@ -56,6 +59,11 @@ export default {
       if (this.slug === this.page.slug) {
         this.$refs.dialog.close();
         this.$store.dispatch('success', 'The URL stayed the same');
+        return;
+      }
+
+      if (this.slug.length === 0) {
+        this.$store.dispatch('error', 'Please enter a valid URL appendix');
         return;
       }
 
