@@ -7,6 +7,7 @@ import Page from './Page.js';
 import Panel from './Panel.js';
 import Site from './Site.js';
 import User from './User.js';
+import Avatar from './Avatar.js';
 
 export default {
     install (Vue) {
@@ -18,7 +19,8 @@ export default {
         page: Page,
         panel: Panel,
         site: Site,
-        user: User
+        user: User,
+        avatar: Avatar
       };
     },
     request (path, options) {

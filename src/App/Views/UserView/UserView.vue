@@ -12,7 +12,9 @@
         @blur="updateName($event.target.innerText)"
         @enter="$event.target.blur()" />
 
-      <kirby-image v-if="image" back="black" :cover="true" class="kirby-user-view-image" ratio="1/1" :src="image" />
+      <kirby-button class="kirby-user-view-image" v-if="image" @click="$refs.upload.open()">
+        <kirby-image :cover="true" ratio="1/1" :src="image" />
+      </kirby-button>
 
       <template slot="buttons-left">
         <kirby-dropdown>
@@ -20,7 +22,7 @@
             {{ $t('user.image') }}
           </kirby-button>
           <kirby-dropdown-content ref="picture" :dark="true">
-            <template v-if="user.image">
+            <template v-if="image">
               <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('change') }}
               </kirby-dropdown-item>
@@ -61,7 +63,7 @@
     <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" />
 
-    <kirby-upload ref="upload" url="/" accept="image/*" :multiple="false" />
+    <kirby-upload ref="upload" :url="uploadApi" accept="image/jpeg" :multiple="false" @success="fetch" />
 
   </kirby-view>
 
@@ -82,15 +84,16 @@ export default {
         prev: null,
         next: null,
         language: 'en',
-        image: {}
+        image: {
+          url: null,
+          modified: null
+        }
       },
+      image: null,
       breadcrumb: null
     }
   },
   computed: {
-    image () {
-      return this.user.image.url
-    },
     fields() {
       return [
         {
@@ -111,6 +114,9 @@ export default {
           type: 'language'
         }
       ]
+    },
+    uploadApi () {
+      return window.panel.config.api + '/users/' + this.user.id + '/avatar';
     },
     pagination () {
       return {
@@ -155,8 +161,10 @@ export default {
     action (action) {
       switch (action) {
         case 'picture.delete':
-          this.$store.dispatch('success', this.$t('notification.image.deleted'));
-          this.user.image = false;
+          this.$api.avatar.delete(this.id).then(() => {
+            this.$store.dispatch('success', this.$t('notification.image.deleted'));
+            this.image = null;
+          });
           break;
         case 'role':
           this.$refs.role.open(this.user.id);
@@ -180,9 +188,17 @@ export default {
     },
     fetch () {
       this.$api.user.get(this.id).then((user) => {
+
         this.user       = user;
         this.values     = user.content;
         this.breadcrumb = this.$api.user.breadcrumb(user);
+
+        if (user.image.exists) {
+          this.image = user.image.url + '?v=' + user.image.modified;
+        } else {
+          this.image = null;
+        }
+
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');
         this.$router.push('/users');

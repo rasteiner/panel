@@ -48,7 +48,7 @@ export default {
         this.items = response.items.map((user) => ({
           id: user.id,
           image: user.image,
-          text: user.content.email,
+          text: user.content.name ? user.content.name : user.content.email,
           role: user.role,
           link: '/users/' + user.id,
           options: panel.config.assets + '/options/user.json'
