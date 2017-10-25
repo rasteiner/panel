@@ -33,6 +33,7 @@ export default {
   border-radius: $border-radius;
   font-family: $font-family-mono;
   font-size: $font-size-small;
+  z-index: z-index(notification);
 
   [dir="ltr"] & {
     right: 1.5rem;
