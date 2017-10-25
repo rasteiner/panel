@@ -4,7 +4,13 @@
 
     <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
 
-      {{ headline }}
+      <kirby-fancy-input class="kirby-page-title"
+        :key="user.id + '-headline'"
+        :value="user.content.name"
+        placeholder="Enter a name …"
+        tag="div"
+        @blur="updateName($event.target.innerText)"
+        @enter="$event.target.blur()" />
 
       <kirby-image v-if="image" back="black" :cover="true" class="kirby-user-view-image" ratio="1/1" :src="image" />
 
@@ -65,54 +71,39 @@
 
 export default {
   props: {
-    email: {
+    id: {
       type: String
     }
   },
   data () {
     return {
-      id: this.email,
       user: {
-        content: {
-          language: null
-        },
+        content: {},
         prev: null,
         next: null,
+        language: 'en',
         image: {}
       },
       breadcrumb: null
     }
   },
   computed: {
-    headline () {
-      if (this.user.content.name) {
-        return this.user.content.name;
-      } else {
-        return this.user.id;
-      }
-    },
     image () {
       return this.user.image.url
     },
     fields() {
       return [
         {
-          name: 'name',
-          label: 'Name',
-          type: 'text'
-        },
-        {
           name: 'email',
           label: this.$t('email'),
           type: 'email',
           placeholder: 'mail@example.com',
-          width: '1/2'
+          readonly: true
         },
         {
           name: 'website',
           label: this.$t('website'),
-          type: 'url',
-          width: '1/2'
+          type: 'url'
         },
         {
           name: 'language',
@@ -132,6 +123,10 @@ export default {
   },
   created () {
     this.fetch();
+    this.$events.$on('key.save', this.save);
+  },
+  destroyed: function () {
+    this.$events.$off('key.save', this.save);
   },
   watch: {
     $route () {
@@ -141,6 +136,10 @@ export default {
   methods: {
     input (data) {
 
+      if (data.language === this.user.language) {
+        return true;
+      }
+
       // if current panel user, switch language
       if(data.language && this.$store.state.user.id === this.user.id) {
         this.$store.dispatch('language', data.language);
@@ -148,7 +147,7 @@ export default {
 
     },
     save () {
-      this.$api.user.update(this.id, this.user).then(() => {
+      this.$api.user.update(this.id, this.user.content).then(() => {
         this.$store.dispatch('success', 'Saved!');
       });
     },
@@ -179,13 +178,26 @@ export default {
       this.$router.push('/users/' + this.user.next);
     },
     fetch () {
-      this.$api.user.get(this.email).then((user) => {
+      this.$api.user.get(this.id).then((user) => {
         this.user       = user;
+        this.values     = user.content;
         this.breadcrumb = this.$api.user.breadcrumb(user);
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');
         this.$router.push('/users');
       });
+    },
+    updateName (name) {
+
+      if (name === this.user.content.name) {
+        return true;
+      }
+
+      this.$api.user.update(this.id, {name: name}).then((user) => {
+        this.user = user;
+        this.$store.dispatch('success', 'The name has been saved!');
+      });
+
     }
   }
 }

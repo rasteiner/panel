@@ -134,12 +134,12 @@ export default [
     component: UsersView
   },
   {
-    path: '/users/:email',
+    path: '/users/:id',
     name: 'User',
     component: UserView,
     beforeEnter: auth,
     props: (route) => ({
-      email: route.params.email
+      id: route.params.id
     })
   },
   {

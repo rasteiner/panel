@@ -1,6 +1,6 @@
 <template>
   <form ref="form" class="kirby-form" method="POST" @submit.prevent="$emit('submit')">
-    <kirby-fieldset :fields="fields" :values="values" @input="$emit('input')" />
+    <kirby-fieldset :fields="fields" :values="data" @input="input" />
     <input ref="submitter" type="submit">
   </form>
 </template>
@@ -11,13 +11,13 @@ export default {
   props: {
     fields: {
       type: Array,
-      default() {
+      default () {
         return [];
       }
     },
     values: {
       type: Object,
-      default() {
+      default () {
         return {};
       }
     }
@@ -28,8 +28,11 @@ export default {
     }
   },
   methods: {
-    submit() {
+    submit () {
       this.$refs.submitter.click();
+    },
+    input () {
+      this.$emit('input', this.data);
     }
   }
 }

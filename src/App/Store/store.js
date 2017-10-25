@@ -50,6 +50,7 @@ export default new Vuex.Store({
       }
     },
     language (context, locale) {
+
       // if language strings have already been loaded
       if(Vue.i18n.localeExists(locale)) {
         context.commit('language', locale);
@@ -57,11 +58,11 @@ export default new Vuex.Store({
       // load language string json file
       } else {
         fetch(panel.config.assets + '/languages/' + locale + '/core.json').
-        then((resource) => resource.json()).
-        then((json) => {
-          Vue.i18n.add(locale, json);
-          context.commit('language', locale);
-        });
+          then((resource) => resource.json()).
+          then((json) => {
+            Vue.i18n.add(locale, json);
+            context.commit('language', locale);
+          });
       }
 
       Language.get(locale).then((language) => {
