@@ -6,7 +6,10 @@ import Routes from 'App/Routes/Routes.js';
 
 Vue.use(Router);
 
-const router = new Router({ routes: Routes });
+const router = new Router({
+  mode: 'history',
+  routes: Routes
+});
 
 /** Store */
 import store from 'App/Store/store.js';

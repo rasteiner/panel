@@ -40,7 +40,6 @@
 <script>
 
 export default {
-  props: ['assets', 'api'],
   data () {
     return {
       menu: false
