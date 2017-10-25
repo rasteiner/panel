@@ -44,9 +44,9 @@ export default new Vuex.Store({
         localStorage.removeItem('auth');
         context.commit('user', null);
       } else {
-        localStorage.setItem('auth', user.data.token);
+        localStorage.setItem('auth', user.content.token);
         context.commit('user', user);
-        context.dispatch('language', user.data.language);
+        context.dispatch('language', user.content.language);
       }
     },
     language (context, locale) {

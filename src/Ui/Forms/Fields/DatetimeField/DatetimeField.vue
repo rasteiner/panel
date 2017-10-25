@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     datetime () {
-      return date.data + ' ' + time.data;
+      return this.date.data + ' ' + this.time.data;
     }
   },
   watch: {

@@ -87,7 +87,7 @@
 
         <kirby-column width="1/1">
           <form @submit.prevent="save" method="post">
-            <kirby-fieldset :fields="fields" :values="file.meta" @submit="save" />
+            <kirby-fieldset :fields="fields" :values="file.content" @submit="save" />
           </form>
         </kirby-column>
 
@@ -117,7 +117,7 @@ export default {
         prev: null,
         next: null,
         mime: null,
-        meta: {}
+        content: {}
       },
       fields: [
         {

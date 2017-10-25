@@ -3,7 +3,15 @@ import Page from './Page.js';
 
 export default {
   get (page, filename) {
-    return Api.get('pages/' + page + '/files/' + filename);
+    return Api.get('pages/' + page + '/files/' + filename).then((file) => {
+
+      if (Array.isArray(file.content) === true) {
+        file.content = {};
+      }
+
+      return file;
+
+    });
   },
   update (page, filename, data) {
     return Api.post('pages/' + page + '/files/' + filename, data);

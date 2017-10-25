@@ -69,6 +69,7 @@ export default {
       page: {
         title: '',
         id: '',
+        content: {},
         prev: null,
         next: null
       },
@@ -115,7 +116,7 @@ export default {
         this.$api.site.get().then((site) => {
           this.$api.blueprint.get('site').then((blueprint) => {
             this.site       = true;
-            this.page       = {id: '_site', title: site.title, url: site.url};
+            this.page       = {id: '_site', title: site.title, url: site.url, content: {}};
             this.breadcrumb = [];
             this.layout     = blueprint.layout;
           });

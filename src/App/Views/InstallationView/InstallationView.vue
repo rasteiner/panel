@@ -68,7 +68,8 @@ export default {
         files: false
       },
       user: {
-        language: 'en'
+        language: 'en',
+        role: 'admin'
       }
     };
   },
@@ -116,7 +117,7 @@ export default {
       this.loading = true;
 
       this.$api.user.create(this.user).then((user) => {
-        Auth.login(this.user).then((user) => {
+        this.$api.auth.login(this.user).then((user) => {
           this.$store.dispatch('user', user);
           this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.firstName }));
           this.$router.push('/');

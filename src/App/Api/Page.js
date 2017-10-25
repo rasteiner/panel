@@ -11,7 +11,15 @@ export default {
 
   },
   get (id) {
-    return Api.get('pages/' + id);
+    return Api.get('pages/' + id).then((page) => {
+
+      if (Array.isArray(page.content) === true) {
+        page.content = {};
+      }
+
+      return page;
+
+    });
   },
   options (id) {
     return Api.get('pages/' + id + '/options');

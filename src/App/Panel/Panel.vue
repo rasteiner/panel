@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     currentUser () {
-      return '/users/' + this.$store.state.user.data.email;
+      return '/users/' + this.$store.state.user.id;
     }
   },
   methods: {

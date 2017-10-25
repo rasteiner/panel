@@ -25,7 +25,7 @@
           }
         ]
       }
-    ]" :values="values" />
+    ]" :values="user" />
 
   </kirby-dialog>
 </template>
@@ -38,9 +38,9 @@ export default {
   mixins: [DialogMixin],
   data () {
     return {
-      id: null,
-      values: {
-        role: null
+      user: {
+        id: null,
+        role: 'visitor'
       }
     }
   },
@@ -48,12 +48,12 @@ export default {
     open (id) {
       this.id = id;
       this.$api.user.get(id).then((user) => {
-        this.values.role = user.role;
+        this.user = user;
         this.$refs.dialog.open();
       });
     },
     submit () {
-      this.$api.user.update(this.id, {role: this.values.role}).then(() => {
+      this.$api.user.update(this.user.id, {role: this.user.role}).then(() => {
         this.$store.dispatch('success', 'The role has been changed');
         this.$emit('success');
         this.$refs.dialog.close();

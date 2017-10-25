@@ -6,7 +6,7 @@
 
       {{ headline }}
 
-      <kirby-image v-if="image" back="black" class="kirby-user-view-image" ratio="1/1" :src="image" />
+      <kirby-image v-if="image" back="black" :cover="true" class="kirby-user-view-image" ratio="1/1" :src="image" />
 
       <template slot="buttons-left">
         <kirby-dropdown>
@@ -38,7 +38,7 @@
         <kirby-button icon="key" @click="action('password')">
           {{ $t('password') }}
         </kirby-button>
-        <kirby-button icon="trash" @click="$refs.remove.open(user.email)">
+        <kirby-button icon="trash" @click="action('remove')">
           {{ $t('delete') }}
         </kirby-button>
       </template>
@@ -47,7 +47,7 @@
 
     <kirby-form
       :fields="fields"
-      :values="user"
+      :values="user.content"
       @submit="save"
       @input="input" />
 
@@ -73,27 +73,22 @@ export default {
     return {
       id: this.email,
       user: {
-        firstname: '',
-        lastname: '',
-        email: '',
-        language: 'en',
-        website: '',
-        role: '',
-        image: {
-          url: ''
+        content: {
+          language: null
         },
         prev: null,
-        next: null
+        next: null,
+        image: {}
       },
       breadcrumb: null
     }
   },
   computed: {
     headline () {
-      if (this.user.firstname) {
-        return this.user.firstname + (this.user.lastname ? ' ' + this.user.lastname : '');
+      if (this.user.content.name) {
+        return this.user.content.name;
       } else {
-        return this.user.email;
+        return this.user.id;
       }
     },
     image () {
@@ -102,27 +97,22 @@ export default {
     fields() {
       return [
         {
-          name: 'firstname',
-          label: this.$t('user.firstname'),
-          type: 'text',
-          width: '1/2'
-        },
-        {
-          name: 'lastname',
-          label: this.$t('user.lastname'),
-          type: 'text',
-          width: '1/2'
+          name: 'name',
+          label: 'Name',
+          type: 'text'
         },
         {
           name: 'email',
           label: this.$t('email'),
           type: 'email',
-          placeholder: 'mail@example.com'
+          placeholder: 'mail@example.com',
+          width: '1/2'
         },
         {
           name: 'website',
           label: this.$t('website'),
-          type: 'url'
+          type: 'url',
+          width: '1/2'
         },
         {
           name: 'language',
@@ -152,7 +142,7 @@ export default {
     input (data) {
 
       // if current panel user, switch language
-      if(data.language && this.$store.state.user.email === this.user.email) {
+      if(data.language && this.$store.state.user.id === this.user.id) {
         this.$store.dispatch('language', data.language);
       }
 
@@ -169,10 +159,13 @@ export default {
           this.user.image = false;
           break;
         case 'role':
-          this.$refs.role.open(this.user.email);
+          this.$refs.role.open(this.user.id);
           break;
         case 'password':
-          this.$refs.password.open(this.user.email);
+          this.$refs.password.open(this.user.id);
+          break;
+        case 'remove':
+          this.$refs.remove.open(this.user.id);
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');
@@ -187,11 +180,7 @@ export default {
     },
     fetch () {
       this.$api.user.get(this.email).then((user) => {
-        this.user       = user.data;
-        this.user.prev  = user.prev;
-        this.user.next  = user.next;
-        this.user.role  = user.role;
-        this.user.image = user.image;
+        this.user       = user;
         this.breadcrumb = this.$api.user.breadcrumb(user);
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');

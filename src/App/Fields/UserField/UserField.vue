@@ -35,8 +35,8 @@ export default {
     fetch() {
       User.list().then(response => {
         this.options = response.items.map(user =>({
-          value: user.data.email,
-          text: user.data.email
+          value: user.content.email,
+          text: user.content.email
         }))
       });
     }

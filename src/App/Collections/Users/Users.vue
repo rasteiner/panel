@@ -48,10 +48,9 @@ export default {
         this.items = response.items.map((user) => ({
           id: user.id,
           image: user.image,
-          text: user.data.email,
-          email: user.data.email,
+          text: user.content.email,
           role: user.role,
-          link: '/users/' + user.data.email,
+          link: '/users/' + user.id,
           options: panel.config.assets + '/options/user.json'
         }));
       });
@@ -60,10 +59,10 @@ export default {
     action(user, action) {
       switch(action) {
         case 'edit':
-          this.$router.push('/users/' + user.email);
+          this.$router.push('/users/' + user.id);
           break;
         case 'remove':
-          this.$refs.remove.open(user.email);
+          this.$refs.remove.open(user.id);
           break;
       }
     }

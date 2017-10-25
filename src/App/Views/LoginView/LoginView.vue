@@ -45,7 +45,7 @@ export default {
       this.$api.auth.login(this.user).then((user) => {
         this.loading = false;
         this.$store.dispatch('user', user);
-        this.$store.dispatch('success', this.$t('notification.welcome', { name: user.data.firstname }));
+        this.$store.dispatch('success', this.$t('notification.welcome', { name: user.content.firstname }));
         this.$router.push('/');
       }).catch((error) => {
         this.loading = false;

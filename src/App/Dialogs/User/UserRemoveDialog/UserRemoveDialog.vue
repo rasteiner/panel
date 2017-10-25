@@ -1,6 +1,6 @@
 <template>
   <kirby-dialog ref="dialog" headline="Delete user" state="negative" icon="trash" button="Delete" @submit="submit">
-    <kirby-txt>Do you really want to delete <strong>{{ user.email }}</strong>?</kirby-txt>
+    <kirby-txt>Do you really want to delete <strong>{{ user.id }}</strong>?</kirby-txt>
   </kirby-dialog>
 </template>
 
@@ -12,20 +12,21 @@ export default {
   mixins: [DialogMixin],
   data () {
     return {
-      user: {}
+      user: {
+        content: {}
+      }
     }
   },
   methods: {
-    open(email) {
-      this.$api.user.get(email).then((user) => {
+    open(id) {
+      this.$api.user.get(id).then((user) => {
         this.user = user;
-        this.user.email = user.data.email;
         this.$refs.dialog.open();
       });
     },
     submit () {
 
-      this.$api.user.delete(this.user.email).then(() => {
+      this.$api.user.delete(this.user.id).then(() => {
         this.$store.dispatch('success', 'The user has been deleted');
         this.$emit('success');
         this.$refs.dialog.close();
