@@ -94,7 +94,7 @@
       </kirby-grid>
     </kirby-dropzone>
 
-    <kirby-file-remove-dialog ref="remove" />
+    <kirby-file-remove-dialog ref="remove" @success="$router.push('/pages/' + path)" />
 
     <kirby-upload ref="upload" :url="uploadApi" :accept="file.mime" :multiple="false" @success="uploaded" />
 

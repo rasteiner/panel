@@ -18,30 +18,36 @@ export default {
     }
   },
   created () {
-
-    // Get icon from window.icons, if cached
-    if (this.cache()) {
-      this.svg = this.cache();
-      return;
+    this.fetch();
+  },
+  watch: {
+    type () {
+      this.fetch();
     }
-
-    fetch(window.panel.config.assets + '/icons/' + this.type + '.svg').then((response) => {
-
-      if(response.ok) {
-        return response.text();
-      }
-
-      throw new Error('Network response was not ok.');
-
-    }).then((result) => {
-      this.svg = result;
-      this.cache(result);
-    }).catch(() => {
-      console.log('The icon could not be loaded');
-    });
-
   },
   methods: {
+    fetch () {
+      // Get icon from window.icons, if cached
+      if (this.cache()) {
+        this.svg = this.cache();
+        return;
+      }
+
+      fetch(window.panel.config.assets + '/icons/' + this.type + '.svg').then((response) => {
+
+        if(response.ok) {
+          return response.text();
+        }
+
+        throw new Error('Network response was not ok.');
+
+      }).then((result) => {
+        this.svg = result;
+        this.cache(result);
+      }).catch(() => {
+        console.log('The icon could not be loaded');
+      });
+    },
     cache (svg) {
 
       // initialize global cache

@@ -12,7 +12,7 @@ import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
 
 export default {
   mixins: [DialogMixin],
-  data() {
+  data () {
     return {
       parent: null,
       filename: null
