@@ -9,5 +9,8 @@ export default {
     },
     children (query) {
         return Api.post('site/children/search', query);
+    },
+    blueprints () {
+        return Api.get('site/blueprints');
     }
-};
+ };

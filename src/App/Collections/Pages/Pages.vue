@@ -62,6 +62,7 @@ export default {
           id: page.id,
           image: page.image || {},
           text: page.title,
+          url: page.url,
           link: '/pages/' + page.id,
           options: panel.config.api + '/pages/' + page.id + '/options'
         }));

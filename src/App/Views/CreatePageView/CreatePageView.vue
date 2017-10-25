@@ -10,7 +10,8 @@
         key="create-page-title"
         :value="title"
         placeholder="Title …"
-        tag="div" />
+        tag="div"
+        @input="updateTitle" />
 
     </kirby-header>
 
@@ -38,10 +39,18 @@ export default {
   created () {
     this.fetch();
   },
+  computed: {
+    model () {
+      return (!this.path || this.path === '/') ? 'site' : 'page';
+    }
+  },
   methods: {
+    updateTitle (title) {
+      this.title = title;
+    },
     fetch() {
 
-      this.$api.page.blueprints(this.path).then((blueprints) => {
+      this.$api[this.model].blueprints(this.path).then((blueprints) => {
 
         if (blueprints.length === 0) {
           this.$router.push('/pages/' + this.path);
@@ -72,11 +81,9 @@ export default {
     },
     setup () {
 
-      if (!this.path || this.path === '/') {
+      if (this.model === 'site') {
         this.breadcrumb = [];
         this.complete   = true;
-        return true;
-
       } else {
         this.$api.page.get(this.path).then((page) => {
           this.breadcrumb = this.$api.page.breadcrumb(page, true);
