@@ -32,6 +32,8 @@ export default {
         this.$store.dispatch('success', 'The file has been deleted');
         this.$emit('success');
         this.$refs.dialog.close();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     }
   }

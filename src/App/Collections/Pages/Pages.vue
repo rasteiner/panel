@@ -20,6 +20,7 @@
       <kirby-button>No entries</kirby-button>
     </kirby-box>
 
+    <kirby-page-create-dialog ref="create" @success="$emit('create')" />
     <kirby-page-url-dialog ref="url" @success="$emit('url')" />
     <kirby-page-status-dialog ref="status" @success="$emit('status')" />
     <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
@@ -34,11 +35,7 @@ export default {
   mixins: [CollectionMixin],
   methods: {
     add () {
-      if (this.query.parent && this.query.parent !== '/') {
-        this.$router.push('/pages/' + this.query.parent + '/new');
-      } else {
-        this.$router.push('/pages/new');
-      }
+      this.$refs.create.open(this.query.parent);
     },
     fetch () {
 
