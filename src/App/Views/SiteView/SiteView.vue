@@ -1,5 +1,5 @@
 <template>
-  <kirby-view class="kirby-site-view">
+  <kirby-view key="site-view" class="kirby-site-view">
     <kirby-header :label="$t('page.list')" link="/pages" icon="page">
       {{ site.title }}
       <template slot="buttons-left">

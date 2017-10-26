@@ -41,6 +41,8 @@ export default {
           }
         }
 
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     }
   }

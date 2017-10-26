@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     create () {
+
       this.$api.user.create(this.user).then((user) => {
 
         this.user = {
@@ -56,7 +57,10 @@ export default {
         this.$store.dispatch('success', 'The user has been created');
         this.$emit('success');
         this.$refs.dialog.close();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
+
     }
   }
 }

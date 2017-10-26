@@ -49,6 +49,8 @@ export default {
         this.$store.dispatch('success', 'The page is now ' + this.status);
         this.$refs.dialog.close();
         this.$emit('success');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     }
   }

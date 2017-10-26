@@ -106,9 +106,12 @@ export default {
       }).then((page) => {
         this.$store.dispatch('success', 'The page was created');
         this.$router.push('/pages/' + page.id);
-      }).catch(() => {
-        this.$store.dispatch('error', 'The page could not be created');
-        this.$router.push('/pages/' + this.path);
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
+
+        if (this.blueprints.length === 1) {
+          this.$router.push('/pages/' + this.path);
+        }
       });
 
     }

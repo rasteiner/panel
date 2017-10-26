@@ -18,6 +18,12 @@ export default {
   delete (id) {
     return Api.delete('users/' + id);
   },
+  changePassword (id, password) {
+    return Api.post('users/' + id + '/password', { password: password });
+  },
+  changeRole (id, role) {
+    return Api.post('users/' + id + '/role', { role: role });
+  },
   breadcrumb (user) {
     return [
       {

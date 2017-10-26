@@ -53,10 +53,12 @@ export default {
       });
     },
     submit () {
-      this.$api.user.update(this.user.id, {role: this.user.role}).then(() => {
+      this.$api.user.changeRole(this.user.id, this.user.role).then(() => {
         this.$store.dispatch('success', 'The role has been changed');
         this.$emit('success');
         this.$refs.dialog.close();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     }
   }

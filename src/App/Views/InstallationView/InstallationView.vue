@@ -119,9 +119,12 @@ export default {
       this.$api.user.create(this.user).then((user) => {
         this.$api.auth.login(this.user).then((user) => {
           this.$store.dispatch('user', user);
-          this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.firstName }));
+          this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.name }));
           this.$router.push('/');
         });
+      }).catch((error) => {
+        this.loading = false;
+        this.$store.dispatch('error', error.message);
       });
 
     }

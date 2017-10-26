@@ -34,6 +34,8 @@ export default {
         if (this.$route.name === 'User') {
           this.$router.push('/users');
         }
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     }

@@ -52,10 +52,12 @@ export default {
         return false;
       }
 
-      this.$api.user.update(this.user.id, {password: this.values.password}).then(() => {
+      this.$api.user.changePassword(this.user.id, this.values.password).then(() => {
         this.$store.dispatch('success', 'The password has been changed');
         this.$emit('success');
         this.$refs.dialog.close();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     }
