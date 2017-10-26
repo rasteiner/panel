@@ -163,9 +163,9 @@ export default {
     fetch() {
 
       this.$api.file.get(this.path, this.filename).then((file) => {
-
-        this.file = file;
-        this.name = file.name;
+        this.file     = file;
+        this.file.url = file.url + '?v=' + file.modified;
+        this.name     = file.name;
         this.$api.file.breadcrumb(file).then((breadcrumb) => {
           this.breadcrumb = breadcrumb;
         });

@@ -60,11 +60,11 @@ export default {
             text: file.filename,
             icon: file.type || 'document', // TODO: actual icon
             filename: file.filename,
-            url: file.url,
+            url: file.url + '?v=' + file.modified,
             parent: file.parent,
             mime: file.mime,
             link: '/pages/' + file.parent + '/files/' + file.filename,
-            options: panel.config.assets + '/options/file.json'
+            options: panel.config.api + '/pages/' + file.parent + '/files/' + file.filename + '/options'
           };
 
           if (file.type === 'image') {
@@ -78,17 +78,17 @@ export default {
     },
     action (file, action) {
       switch (action) {
-        case 'show':
-          window.open(file.url);
-          break;
         case 'edit':
           this.$router.push('/pages/' + file.parent + '/files/' + file.filename);
           break;
-        case 'remove':
-          this.$refs.remove.open(file.parent, file.filename);
+        case 'download':
+          window.open(file.url);
           break;
         case 'replace':
           this.replace(file);
+          break;
+        case 'remove':
+          this.$refs.remove.open(file.parent, file.filename);
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');
