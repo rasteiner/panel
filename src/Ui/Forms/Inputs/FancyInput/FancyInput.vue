@@ -5,6 +5,7 @@
     class="kirby-fancy-input"
     spellcheck="false"
     v-once
+    :data-type="type"
     :placeholder="placeholder"
     @input="input"
     @blur="$emit('blur', $event)"
@@ -19,6 +20,9 @@ export default {
     tag: {
       type: String,
       default: 'div'
+    },
+    type: {
+      type: String
     },
     value: {
       type: String
@@ -76,6 +80,22 @@ export default {
   content: attr(placeholder);
   display: block;
   color: $color-light-grey;
+}
+.kirby-fancy-input[data-type="headline"] {
+  padding-left: .5rem;
+  padding-right: .5rem;
+  width: calc(100% + 1rem);
+
+  [dir="ltr"] & {
+    margin-left: -.5rem;
+  }
+  [dir="rtl"] & {
+    margin-right: -.5rem;
+  }
+}
+.kirby-fancy-input[data-type="headline"]:focus {
+  @include focus-ring;
+  background: #fff;
 }
 
 </style>

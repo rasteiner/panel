@@ -10,11 +10,11 @@
       @next="next">
 
       <kirby-fancy-input
-        class="kirby-page-title"
+        type="headline"
+        tag="div"
         :key="page.id + '-title'"
         :value="page.title"
         :placeholder="$t('page.title') + ' …'"
-        tag="div"
         @blur="updateTitle($event.target.innerText)"
         @enter="$event.target.blur()" />
 
@@ -169,24 +169,6 @@ export default {
 
 .kirby-page-view .kirby-column section:not(:last-child) {
   margin-bottom: 1.5rem;
-}
-
-.kirby-page-view .kirby-page-title {
-  padding-left: .5rem;
-  padding-right: .5rem;
-  width: calc(100% + 1rem);
-
-  [dir="ltr"] & {
-    margin-left: -.5rem;
-  }
-  [dir="rtl"] & {
-    margin-right: -.5rem;
-  }
-}
-
-.kirby-page-view .kirby-page-title:focus {
-  @include focus-ring;
-  background: #fff;
 }
 
 </style>
