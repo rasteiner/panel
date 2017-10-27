@@ -158,14 +158,18 @@ export default {
     save () {
       this.$api.user.update(this.id, this.user.content).then(() => {
         this.$store.dispatch('success', 'Saved!');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
-    },
+  },
     action (action) {
       switch (action) {
         case 'picture.delete':
           this.$api.avatar.delete(this.id).then(() => {
             this.$store.dispatch('success', this.$t('notification.image.deleted'));
             this.image = null;
+          }).catch((error) => {
+            this.$store.dispatch('error', error.message);
           });
           break;
         case 'role':
@@ -215,6 +219,8 @@ export default {
       this.$api.user.update(this.id, {name: name}).then((user) => {
         this.user = user;
         this.$store.dispatch('success', 'The name has been saved!');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     }

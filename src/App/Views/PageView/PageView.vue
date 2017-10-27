@@ -131,6 +131,8 @@ export default {
         this.$api.page.update(this.page.id, {title: title}).then((page) => {
           this.page.title = title;
           this.$store.dispatch('success', 'The page title has been updated');
+        }).catch((error) => {
+          this.$store.dispatch('error', error.message);
         });
 
       }

@@ -33,69 +33,72 @@
 
     </kirby-header>
 
-    <kirby-dropzone label="Drop file to replace" @drop="$refs.upload.upload($event)" class="kirby-file-details">
-      <kirby-grid gutter="large">
+    <kirby-grid gutter="large">
 
-        <kirby-column width="1/4">
-          <kirby-headline><span>Preview</span></kirby-headline>
+      <kirby-column width="1/4">
+        <kirby-headline><span>Preview</span></kirby-headline>
 
-          <a :href="file.url" target="_blank">
-            <kirby-image v-if="file.url" :src="file.url + '?v=' + file.modified" back="black" ratio="1/1" />
-          </a>
-        </kirby-column>
-        <kirby-column width="3/4">
+        <a :href="file.url" target="_blank">
+          <kirby-image v-if="file.url" :src="file.url + '?v=' + file.modified" back="black" ratio="1/1" />
+        </a>
+      </kirby-column>
+      <kirby-column width="3/4">
 
-          <kirby-headline><span>Details</span></kirby-headline>
+        <kirby-headline><span>Details</span></kirby-headline>
 
-          <kirby-grid gutter="large" class="kirby-file-view-details">
+        <kirby-grid gutter="large" class="kirby-file-view-details">
 
-            <kirby-column width="1/2">
-              <dl>
-                <template v-if="file.mime">
-                  <dt>Type</dt>
-                  <dd>{{ file.mime }}</dd>
-                </template>
+          <kirby-column width="1/2">
+            <dl>
+              <template v-if="file.mime">
+                <dt>Type</dt>
+                <dd>{{ file.mime }}</dd>
+              </template>
 
-                <dt>URL</dt>
-                <dd><a :href="file.url" target="__blank">/{{ file.id }}</a></dd>
+              <dt>URL</dt>
+              <dd><a :href="file.url" target="__blank">/{{ file.id }}</a></dd>
 
-                <template v-if="file.niceSize">
-                  <dt>Size</dt>
-                  <dd>{{ file.niceSize }}</dd>
-                </template>
+              <template v-if="file.niceSize">
+                <dt>Size</dt>
+                <dd>{{ file.niceSize }}</dd>
+              </template>
 
-              </dl>
-            </kirby-column>
+            </dl>
+          </kirby-column>
 
-            <kirby-column width="1/2">
-              <dl>
-                <template v-if="file.dimensions">
-                  <dt>Dimensions</dt>
-                  <dd>{{ file.dimensions }}</dd>
-                </template>
+          <kirby-column width="1/2">
+            <dl>
+              <template v-if="file.dimensions">
+                <dt>Dimensions</dt>
+                <dd>{{ file.dimensions }}</dd>
+              </template>
 
-                <template v-if="file.created">
-                  <dt>Uploaded</dt>
-                  <dd>{{ file.created }}</dd>
-                </template>
-              </dl>
-            </kirby-column>
+              <template v-if="file.created">
+                <dt>Uploaded</dt>
+                <dd>{{ file.created }}</dd>
+              </template>
 
-          </kirby-grid>
+              <template v-if="file.content.group">
+                <dt>Group</dt>
+                <dd>{{ file.content.group }}</dd>
+              </template>
 
-        </kirby-column>
+            </dl>
+          </kirby-column>
 
-        <kirby-column width="1/1">
-          <form @submit.prevent="save" method="post">
-            <kirby-fieldset :fields="fields" :values="file.content" @submit="save" />
-          </form>
-        </kirby-column>
+        </kirby-grid>
 
-      </kirby-grid>
-    </kirby-dropzone>
+      </kirby-column>
+
+      <kirby-column width="1/1">
+        <form @submit.prevent="save" method="post">
+          <kirby-fieldset :fields="fields" :values="file.content" @submit="save" />
+        </form>
+      </kirby-column>
+
+    </kirby-grid>
 
     <kirby-file-remove-dialog ref="remove" @success="$router.push('/pages/' + path)" />
-
     <kirby-upload ref="upload" :url="uploadApi" :accept="file.mime" :multiple="false" @success="uploaded" />
 
   </kirby-view>
@@ -211,6 +214,8 @@ export default {
       this.$api.file.rename(this.path, this.file.filename, name).then((file) => {
         this.$router.push('/pages/' + this.path + '/files/' + file.filename);
         this.$store.dispatch('success', 'The file has been renamed');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     },
@@ -223,6 +228,8 @@ export default {
       this.$api.file.update(this.path, this.file.filename, this.file.meta).then((file) => {
         this.file.meta = file.meta;
         this.$store.dispatch('success', 'Saved!');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     }

@@ -47,9 +47,15 @@ export default {
       type: String,
       default: '*'
     },
+    attributes: {
+      type: Object
+    },
     multiple: {
       type: Boolean,
       default: true
+    },
+    max: {
+      type: Number
     }
   },
   data () {
@@ -75,20 +81,21 @@ export default {
 
       this.$refs.dialog.open();
 
-      this.files     = files;
-      this.total     = 0;
+      this.files     = [...files];
       this.completed = {};
       this.errors    = [];
       this.hasErrors = false;
 
-      for (var i = 0; i < this.files.length; i++) {
+      if (this.options.max) {
+        this.files = this.files.slice(0, this.options.max);
+      }
 
-        let file = this.files[i];
-
-        this.total++;
+      this.total = this.files.length;
+      this.files.forEach((file) => {
 
         uploadFile(file, {
           url: this.options.url,
+          attributes: this.options.attributes,
           progress: (xhr, file, progress) => {
             this.$refs[file.name][0].set(progress);
           },
@@ -101,7 +108,7 @@ export default {
           }
         });
 
-      }
+      });
 
     },
     complete (file) {

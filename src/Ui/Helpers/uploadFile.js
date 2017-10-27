@@ -1,20 +1,22 @@
 export default (file, params) => {
 
   const defaults = {
-    url      : '/',
-    field    : 'file',
-    method   : 'POST',
-    accept   : 'text',
-    complete : function() {},
-    error    : function() {},
-    success  : function() {},
-    progress : function() {}
+    url:        '/',
+    field:      'file',
+    method:     'POST',
+    accept:     'text',
+    attributes: {},
+    complete:   function() {},
+    error:      function() {},
+    success:    function() {},
+    progress:   function() {}
   };
 
   const options  = Object.assign(defaults, params);
   const formData = new FormData();
 
   formData.append(options.field, file);
+  formData.append('attributes', JSON.stringify(options.attributes));
 
   const xhr = new XMLHttpRequest();
 

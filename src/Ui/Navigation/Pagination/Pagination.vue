@@ -1,5 +1,5 @@
 <template>
-  <kirby-button-group class="kirby-pagination" v-if="total > 1" :data-align="align">
+  <kirby-button-group class="kirby-pagination" v-if="show" :data-align="align">
     <kirby-button :disabled="!hasPrev" @click="prev" icon="angle-left" :alt="prevLabel"></kirby-button>
     <kirby-dropdown v-if="details">
       <kirby-button @click="$refs.dropdown.toggle()" :disabled="!hasPages">
@@ -71,6 +71,9 @@ export default {
     }
   },
   computed: {
+    show () {
+      return this.pages > 1;
+    },
     start() {
       return (this.currentPage - 1) * this.limit + 1;
     },

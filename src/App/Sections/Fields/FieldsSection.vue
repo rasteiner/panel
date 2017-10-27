@@ -1,9 +1,6 @@
 <template>
   <section class="kirby-fields-section">
-    <form @submit.prevent="save">
-      <kirby-fieldset :fields="fields" :values="data" @submit="save" />
-      <input type="submit">
-    </form>
+    <kirby-form @submit="save" :fields="fields" :values="data" />
   </section>
 </template>
 

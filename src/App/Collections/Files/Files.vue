@@ -3,13 +3,12 @@
 
     <kirby-headline>
       <span>{{ headline }}</span>
-      <kirby-button-group slot="options">
+      <kirby-button-group slot="options" v-if="more && items.length !== 0">
         <kirby-button icon="upload" @click="upload"></kirby-button>
       </kirby-button-group>
     </kirby-headline>
 
-    <kirby-dropzone @drop="drop">
-      <kirby-collection
+    <kirby-collection
       :layout="layout"
       :items="items"
       :pagination="paginationOptions"
@@ -20,7 +19,6 @@
     <kirby-box v-if="items.length === 0" class="placeholder" :layout="layout">
       <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
     </kirby-box>
-    </kirby-dropzone>
 
     <kirby-file-remove-dialog ref="remove" @success="fetch" />
 
@@ -35,6 +33,15 @@ import CollectionMixin from '../Collection.mixin.js';
 
 export default {
   mixins: [CollectionMixin],
+  props: {
+    group: {
+      type: String
+    },
+    max: {
+      type: Number,
+      default: 1000
+    }
+  },
   mounted () {
     this.$events.$on('file', this.fetch);
     this.$refs.upload.params({
@@ -44,6 +51,53 @@ export default {
   destroyed () {
     this.$events.$off('file', this.fetch);
   },
+  computed: {
+    more () {
+
+      if (!this.max) {
+        return true;
+      }
+
+      if (this.max > this.total) {
+        return true;
+      }
+
+      return false;
+
+    },
+    multiple () {
+
+      if (!this.max) {
+        return true;
+      }
+
+      if (this.max === 1) {
+        return false;
+      }
+
+      if ((this.max - this.total) <= 1) {
+        return false;
+      }
+
+      return true;
+
+    },
+    maxToGo () {
+
+      if (!this.max) {
+        return null;
+      }
+
+      let max = this.max - this.total;
+
+      if (max < 0) {
+        max = 0;
+      }
+
+      return max;
+
+    }
+  },
   methods: {
     fetch () {
 
@@ -52,7 +106,20 @@ export default {
         limit: this.pagination.limit
       };
 
+      if (this.group) {
+        if (Array.isArray(this.query.filterBy) === false) {
+          this.query.filterBy = [];
+        }
+
+        this.query.filterBy.push({
+          field:    'group',
+          operator: '==',
+          value:    this.group
+        })
+      }
+
       this.$api.page.files(this.query.parent, this.query).then((response) => {
+
         this.total = response.pagination.total;
         this.items = response.items.map((file) => {
           var item = {
@@ -100,6 +167,9 @@ export default {
     upload() {
       this.$refs.upload.open({
         url: window.panel.config.api + '/pages/' + this.query.parent + '/files/',
+        attributes: {group: this.group},
+        multiple: this.multiple,
+        max: this.maxToGo
       });
     },
     replace (file) {
