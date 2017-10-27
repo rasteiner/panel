@@ -79,8 +79,12 @@ export default {
     },
     submit () {
 
+      if (!this.page.template) {
+        this.page.template = this.options[0].value;
+      }
+
       const data = {
-        template: 'default',
+        template: this.page.template,
         slug: slug(this.page.title),
         content: {
           title: this.page.title
