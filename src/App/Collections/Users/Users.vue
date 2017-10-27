@@ -47,14 +47,26 @@ export default {
 
       this.$api.user.list(this.query).then((response) => {
         this.total = response.pagination.total;
-        this.items = response.items.map((user) => ({
-          id: user.id,
-          image: user.image,
-          text: user.content.name ? user.content.name : user.content.email,
-          role: user.role,
-          link: '/users/' + user.id,
-          options: panel.config.api + '/users/' + user.id + '/options'
-        }));
+        this.items = response.items.map((user) => {
+          let item = {
+            id: user.id,
+            preview: { icon: 'user' },
+            text: user.content.name ? user.content.name : user.content.email,
+            role: user.role,
+            link: '/users/' + user.id,
+            options: panel.config.api + '/users/' + user.id + '/options',
+            image: null
+          };
+
+          if (user.image.exists === true) {
+            item.image = {
+              url: user.image.url + '?v=' + user.image.modified
+            };
+          }
+
+          return item;
+
+        });
       });
 
     },
