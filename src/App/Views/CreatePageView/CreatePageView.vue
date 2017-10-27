@@ -88,6 +88,7 @@ export default {
         this.$api.page.get(this.path).then((page) => {
           this.breadcrumb = this.$api.page.breadcrumb(page, true);
           this.complete   = true;
+          this.$store.dispatch('isLoading', false);
         });
       }
 

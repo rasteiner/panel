@@ -26,6 +26,14 @@
 <script>
 
 export default {
+  created () {
+    this.$store.dispatch('isLoading', false);
+  },
+  watch: {
+    $route () {
+      this.$store.dispatch('isLoading', false);
+    }
+  },
   computed: {
     role () {
       return this.$route.params.role;

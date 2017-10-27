@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading" class="kirby-login-view">
+  <div v-if="$store.state.isLoading === false" class="kirby-login-view">
     <form @submit.prevent="login">
       <kirby-fieldset :fields="fields" :values="user" />
       <kirby-button type="submit" icon="check">{{ $t("login") }}</kirby-button>
@@ -40,7 +40,7 @@ export default {
   methods: {
     login () {
 
-      this.loading = true;
+      this.$store.dispatch('isLoading', true);
 
       this.$api.auth.login(this.user).then((user) => {
         this.$store.dispatch('user', user);

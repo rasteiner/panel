@@ -118,6 +118,7 @@ export default {
           this.page.title = page.content.title;
           this.breadcrumb = this.$api.page.breadcrumb(page);
           this.layout     = blueprint.layout;
+          this.$store.dispatch('isLoading', false);
         });
       }).catch(() => {
         this.$store.dispatch('error', 'The page could not be found');

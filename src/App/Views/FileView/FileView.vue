@@ -172,6 +172,8 @@ export default {
           this.blueprint = blueprint;
         });
 
+        this.$store.dispatch('isLoading', false);
+
       }).catch(() => {
         this.$store.dispatch('error', 'The file could not be found');
         this.$router.push('../');

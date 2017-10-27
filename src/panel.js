@@ -14,6 +14,12 @@ const router = new Router({
 /** Store */
 import store from 'App/Store/store.js';
 
+router.beforeEach((to, from, next) => {
+  store.dispatch('isLoading', true);
+  next();
+});
+
+
 /** API */
 import Api from 'App/Api/Api.js';
 Vue.use(Api);

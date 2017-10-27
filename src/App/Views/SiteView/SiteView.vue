@@ -42,6 +42,7 @@ export default {
         this.$api.site.blueprint().then((blueprint) => {
           this.site   = site;
           this.layout = blueprint.layout;
+          this.$store.dispatch('isLoading', false);
         });
       });
     },

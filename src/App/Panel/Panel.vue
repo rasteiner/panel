@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-panel" v-if="$store.state.user" :data-menu="$store.state.menu">
+  <div class="kirby-panel" v-if="$store.state.user" :data-loading="$store.state.isLoading" :data-menu="$store.state.menu">
     <kirby-menu ref="menu" :open="$store.state.menu" @close="$store.commit('menu', false)">
       <section class="kirby-menu-section">
         <kirby-button @click="$store.dispatch('error', 'Not yet implemented')" icon="dashboard">
@@ -25,12 +25,18 @@
       </section>
     </kirby-menu>
     <router-view class="kirby-panel-view"></router-view>
+
     <transition name="fade">
       <kirby-notification v-if="$store.state.notification" v-bind="$store.state.notification" />
     </transition>
+
+    <transition name="fade">
+      <kirby-loader v-if="$store.state.isLoading" class="kirby-panel-loader" />
+    </transition>
+
   </div>
   <div v-else>
-    <router-view></router-view>
+    <router-view v-if="$store.state.isLoading === false"></router-view>
     <transition name="fade">
       <kirby-notification v-if="$store.state.notification" v-bind="$store.state.notification" />
     </transition>
@@ -72,6 +78,16 @@ export default {
 .kirby-panel-view {
   position: relative;
   left: 0;
+}
+
+.kirby-panel[data-loading] {
+  pointer-events: none;
+}
+
+.kirby-panel-loader {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
 }
 
 @media screen and (max-width: $breakpoint-menu) {

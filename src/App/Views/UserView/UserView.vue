@@ -82,10 +82,11 @@ export default {
   data () {
     return {
       user: {
-        content: {},
+        content: {
+          language: 'en',
+        },
         prev: null,
         next: null,
-        language: 'en',
         image: {
           url: null,
           modified: null
@@ -204,6 +205,8 @@ export default {
         } else {
           this.image = null;
         }
+
+        this.$store.dispatch('isLoading', false);
 
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');
