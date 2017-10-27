@@ -52,6 +52,8 @@ export default {
         this.page = page;
         this.sluggify(this.page.slug);
         this.$refs.dialog.open();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     },
     submit () {

@@ -72,6 +72,8 @@ export default {
 
         this.$refs.dialog.open();
 
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     },

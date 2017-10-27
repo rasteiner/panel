@@ -24,6 +24,8 @@ export default {
         this.parent   = file.parent;
         this.filename = file.filename;
         this.$refs.dialog.open();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     },
     submit () {

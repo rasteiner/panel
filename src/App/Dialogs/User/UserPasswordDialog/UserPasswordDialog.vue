@@ -38,6 +38,8 @@ export default {
       this.$api.user.get(id).then((user) => {
         this.user = user;
         this.$refs.dialog.open();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     },
     submit () {

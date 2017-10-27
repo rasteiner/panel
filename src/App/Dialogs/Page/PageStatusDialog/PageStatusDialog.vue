@@ -26,7 +26,6 @@
 <script>
 
 import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
-import Page from 'App/Api/Page.js';
 
 export default {
   mixins: [DialogMixin],
@@ -38,10 +37,12 @@ export default {
   },
   methods: {
     open (id) {
-      Page.get(id).then((page) => {
+      this.$api.page.get(id).then((page) => {
         this.page   = page;
         this.status = page.isVisible ? 'listed' : 'unlisted';
         this.$refs.dialog.open();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     },
     submit () {
