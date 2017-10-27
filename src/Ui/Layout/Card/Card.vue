@@ -105,6 +105,7 @@ export default {
   fill: rgba($color-white, .5);
 }
 .kirby-card-text {
+  display: block;
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;

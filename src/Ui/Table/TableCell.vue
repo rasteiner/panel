@@ -4,7 +4,7 @@
     :data-state="state"
     :data-width="width"
     :data-align="align">
-    <slot />
+    <span><slot /></span>
   </td>
 </template>
 
