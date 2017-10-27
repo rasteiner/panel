@@ -54,6 +54,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: $color-dark;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.kirby-table-cell[data-type="image"] .kirby-icon svg * {
+  fill: rgba($color-white, .5);
 }
 
 .kirby-table-cell[data-type="link"] {

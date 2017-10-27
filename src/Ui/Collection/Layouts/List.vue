@@ -5,7 +5,7 @@
         <kirby-table-cell type="image" aria-hidden="true">
           <router-link :to="item.link" tabindex="-1">
             <kirby-image v-if="item.image && item.image.url" :src="item.image.url" :cover="true" />
-            <kirby-icon v-else :type="item.icon || 'document'" />
+            <kirby-icon v-else :type="preview(item)" :style="background(item)" />
           </router-link>
         </kirby-table-cell>
         <kirby-table-cell type="link">
@@ -38,7 +38,21 @@
 <script>
 
 export default {
-  props: ['items']
+  props: ['items'],
+  methods: {
+    preview (item) {
+      if (item.preview && item.preview.icon) {
+        return item.preview.icon;
+      } else {
+        return 'file';
+      }
+    },
+    background (item) {
+      if (item.preview && item.preview.color) {
+        return { backgroundColor: item.preview.color };
+      }
+    }
+  }
 };
 
 </script>

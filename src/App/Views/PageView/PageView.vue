@@ -112,7 +112,7 @@ export default {
     fetch() {
 
       this.$api.page.get(this.path).then((page) => {
-        this.$api.blueprint.get(page.template, page).then((blueprint) => {
+        this.$api.page.blueprint(page.id).then((blueprint) => {
           this.site       = false;
           this.page       = page;
           this.page.title = page.content.title;

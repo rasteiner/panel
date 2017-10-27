@@ -125,7 +125,7 @@ export default {
           var item = {
             id: file.filename,
             text: file.filename,
-            icon: file.type || 'document', // TODO: actual icon
+            preview: this.$api.file.preview(file),
             filename: file.filename,
             url: file.url + '?v=' + file.modified,
             parent: file.parent,

@@ -39,7 +39,7 @@ export default {
   methods: {
     fetch() {
       this.$api.site.get().then((site) => {
-        this.$api.blueprint.get('site').then((blueprint) => {
+        this.$api.site.blueprint().then((blueprint) => {
           this.site   = site;
           this.layout = blueprint.layout;
         });

@@ -1,6 +1,5 @@
 
 import Auth from './Auth.js';
-import Blueprint from './Blueprint.js';
 import File from './File.js';
 import Language from './Language.js';
 import Page from './Page.js';
@@ -13,7 +12,6 @@ export default {
     install (Vue) {
       Vue.prototype.$api = {
         auth: Auth,
-        blueprint: Blueprint,
         file: File,
         language: Language,
         page: Page,

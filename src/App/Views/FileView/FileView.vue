@@ -39,7 +39,8 @@
         <kirby-headline><span>Preview</span></kirby-headline>
 
         <a :href="file.url" target="_blank">
-          <kirby-image v-if="file.url" :src="file.url + '?v=' + file.modified" back="black" ratio="1/1" />
+          <kirby-image v-if="preview.image" :src="preview.image" back="black" ratio="1/1" />
+          <kirby-icon class="kirby-file-view-preview" v-else :style="{ backgroundColor: preview.color }" :type="preview.icon || 'document'" />
         </a>
       </kirby-column>
       <kirby-column width="3/4">
@@ -91,9 +92,7 @@
       </kirby-column>
 
       <kirby-column width="1/1">
-        <form @submit.prevent="save" method="post">
-          <kirby-fieldset :fields="fields" :values="file.content" @submit="save" />
-        </form>
+        <kirby-form :fields="fields" :values="file.content" @submit="save" />
       </kirby-column>
 
     </kirby-grid>
@@ -114,6 +113,7 @@ export default {
   data () {
     return {
       name: '',
+      preview: {},
       file: {
         filename: '',
         url: '',
@@ -122,18 +122,7 @@ export default {
         mime: null,
         content: {}
       },
-      fields: [
-        {
-          name: 'alt',
-          label: 'Alternative Text',
-          type: 'text'
-        },
-        {
-          name: 'caption',
-          label: 'Caption',
-          type: 'textarea'
-        }
-      ],
+      blueprint: {},
       breadcrumb: []
     }
   },
@@ -160,17 +149,27 @@ export default {
         next: this.file.next ? true : false,
         nextLabel: 'Next File',
       };
+    },
+    fields () {
+      return this.blueprint.fields || [];
     }
   },
   methods: {
     fetch() {
 
       this.$api.file.get(this.path, this.filename).then((file) => {
+
         this.file     = file;
         this.file.url = file.url + '?v=' + file.modified;
         this.name     = file.name;
+        this.preview  = this.$api.file.preview(file);
+
         this.$api.file.breadcrumb(file).then((breadcrumb) => {
           this.breadcrumb = breadcrumb;
+        });
+
+        this.$api.file.blueprint(this.path, this.filename).then((blueprint) => {
+          this.blueprint = blueprint;
         });
 
       }).catch(() => {
@@ -256,10 +255,26 @@ export default {
   margin-right: -.5rem;
 }
 
-
 .kirby-file-view .kirby-image {
   border-radius: $border-radius;
   overflow: hidden;
+}
+.kirby-file-view-preview {
+  position: relative;
+  display: block;
+  padding-bottom: 100%;
+  background: $color-black;
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+.kirby-file-view-preview svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(4);
+}
+.kirby-file-view-preview svg * {
+  fill: rgba($color-white, .5);
 }
 
 .kirby-file-view-section {
