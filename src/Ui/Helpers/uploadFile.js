@@ -55,6 +55,8 @@ export default (file, params) => {
   });
 
   xhr.open('POST', options.url, true);
+  // TODO: make this more configurable
+  xhr.setRequestHeader('Authorization', localStorage.getItem('auth'));
   xhr.send(formData);
 
 };

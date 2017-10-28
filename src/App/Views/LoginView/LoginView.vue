@@ -37,6 +37,14 @@ export default {
       ]
     }
   },
+  created () {
+    this.$store.dispatch('isLoading', false);
+  },
+  watch: {
+    $route () {
+      this.$store.dispatch('isLoading', false);
+    }
+  },
   methods: {
     login () {
 
@@ -47,7 +55,7 @@ export default {
         this.$store.dispatch('success', 'Welcome!');
         this.$router.push('/');
       }).catch((error) => {
-        this.loading = false;
+        this.$store.dispatch('isLoading', false);
         this.$store.dispatch('error', 'Invalid email or password');
       });
 

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading" class="kirby-installation-view">
+  <div v-if="!$store.state.isLoading" class="kirby-installation-view">
     <form v-if="ok" @submit.prevent="install">
       <kirby-fieldset :fields="fields" :values="user" />
       <kirby-button type="submit" icon="check">{{ $t("install") }}</kirby-button>
@@ -57,7 +57,7 @@ export default {
   data () {
     return {
       loading: false,
-      ok: false,
+      ok: true,
       status: {
         php: false,
         server: false,
@@ -107,24 +107,26 @@ export default {
           this.$router.push('/');
         }
 
-        this.ok     = system.isOk;
-        this.status = system.details;
+        this.ok       = system.isOk;
+        this.status   = system.details;
+
+        this.$store.dispatch('isLoading', false);
 
       });
     },
     install () {
 
-      this.loading = true;
+      this.$store.dispatch('isLoading', true);
 
       this.$api.user.create(this.user).then((user) => {
         this.$api.auth.login(this.user).then((user) => {
           this.$store.dispatch('user', user);
-          this.$store.dispatch('success', this.$t('notification.welcome', { name: this.$store.state.user.name }));
+          this.$store.dispatch('success', 'Welcome!');
           this.$router.push('/');
         });
       }).catch((error) => {
-        this.loading = false;
         this.$store.dispatch('error', error.message);
+        this.$store.dispatch('isLoading', false);
       });
 
     }
