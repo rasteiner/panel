@@ -226,8 +226,8 @@ export default {
     },
     save () {
 
-      this.$api.file.update(this.path, this.file.filename, this.file.meta).then((file) => {
-        this.file.meta = file.meta;
+      this.$api.file.update(this.path, this.file.filename, this.file.content).then((file) => {
+        this.file.content = file.content;
         this.$store.dispatch('success', 'Saved!');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
