@@ -1,5 +1,11 @@
 import Vue from 'vue';
 
+/** Error Tracking */
+// import Raven from 'raven-js';
+// import RavenVue from 'raven-js/plugins/vue';
+
+// Raven.config('https://b279326197d741d1b1013baef2c5f93e@sentry.io/235642').addPlugin(RavenVue, Vue).install();
+
 /** Routes */
 import Router from 'vue-router';
 import Routes from 'App/Routes/Routes.js';
