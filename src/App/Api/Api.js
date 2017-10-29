@@ -24,7 +24,7 @@ export default {
     request (path, options) {
 
       const headers = new Headers();
-      headers.append('Authorization', localStorage.getItem('auth'));
+      headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth'));
 
       options = Object.assign(options || {}, {
         headers: headers
