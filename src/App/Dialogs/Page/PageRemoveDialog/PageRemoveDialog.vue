@@ -8,7 +8,7 @@
 
 <script>
 
-import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
+import DialogMixin from 'App/Dialogs/Dialogs.mixin.js';
 
 export default {
   mixins: [DialogMixin],
@@ -31,10 +31,6 @@ export default {
     submit () {
       this.$api.page.delete(this.page.id).then(() => {
 
-        this.$store.dispatch('success', 'The page has been deleted');
-        this.$emit('success');
-        this.$refs.dialog.close();
-
         if (this.$route.path === '/pages/' + this.page.id) {
           if (this.page.parent) {
             this.$router.push('/pages/' + this.page.parent);
@@ -42,6 +38,11 @@ export default {
             this.$router.push('/pages');
           }
         }
+
+        this.success({
+          message: 'The page has been deleted',
+          event: 'page.delete'
+        });
 
       }).catch((error) => {
         this.$store.dispatch('error', error.message);

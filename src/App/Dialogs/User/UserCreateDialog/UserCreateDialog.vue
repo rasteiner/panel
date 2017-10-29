@@ -6,7 +6,7 @@
 
 <script>
 
-import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
+import DialogMixin from 'App/Dialogs/Dialogs.mixin.js';
 
 export default {
   mixins: [DialogMixin],
@@ -51,9 +51,11 @@ export default {
           role: 'admin'
         };
 
-        this.$store.dispatch('success', 'The user has been created');
-        this.$emit('success');
-        this.$refs.dialog.close();
+        this.success({
+          message: 'The user has been created',
+          event: 'user.create'
+        });
+
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

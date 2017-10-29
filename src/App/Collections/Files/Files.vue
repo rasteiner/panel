@@ -8,21 +8,29 @@
       </kirby-button-group>
     </kirby-headline>
 
-    <kirby-collection
-      :layout="layout"
-      :items="items"
-      :pagination="paginationOptions"
-      @paginate="paginate"
-      @action="action"
-    />
+    <template v-if="isLoading">
+        <template>
+          <kirby-skeleton type="list" />
+        </template>
+      </template>
+    <template v-else>
 
-    <kirby-box v-if="items.length === 0" class="kirby-files-collection-placeholder" :data-layout="layout">
-      <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
-    </kirby-box>
+      <kirby-collection
+        :layout="layout"
+        :items="items"
+        :pagination="paginationOptions"
+        @paginate="paginate"
+        @action="action"
+      />
 
-    <kirby-file-remove-dialog ref="remove" @success="fetch" />
+      <kirby-box v-if="items.length === 0" class="kirby-files-collection-placeholder" :data-layout="layout">
+        <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
+      </kirby-box>
 
-    <kirby-upload ref="upload" @success="uploaded" />
+      <kirby-file-remove-dialog ref="remove" @success="fetch" />
+      <kirby-upload ref="upload" @success="uploaded" />
+
+    </template>
 
   </div>
 </template>
@@ -43,13 +51,10 @@ export default {
     }
   },
   mounted () {
-    this.$events.$on('file', this.fetch);
-    this.$refs.upload.params({
-      url: window.panel.config.api + '/pages/' + this.query.parent + '/files',
-    });
+    this.$events.$on('file.create', this.fetch);
   },
   destroyed () {
-    this.$events.$off('file', this.fetch);
+    this.$events.$off('file.create', this.fetch);
   },
   computed: {
     more () {
@@ -137,9 +142,11 @@ export default {
           if (file.type === 'image') {
             item.image = { url: file.url + '?v=' + file.modified };
           }
-
           return item;
         });
+
+        this.isLoading = false;
+
       });
 
     },
@@ -181,7 +188,7 @@ export default {
     },
     uploaded () {
       this.fetch();
-      this.$events.$emit('file');
+      this.$events.$emit('file.create');
       this.$store.dispatch('success', 'The files have been uploaded');
     }
   }

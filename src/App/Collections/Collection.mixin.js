@@ -27,7 +27,8 @@ export default {
     return {
       items: [],
       page: this.pagination.page,
-      total: 0
+      total: 0,
+      isLoading: true
     };
   },
   created() {
@@ -49,7 +50,6 @@ export default {
   },
   methods: {
     fetch () {
-
     },
     paginate (pagination) {
       this.page = pagination.page;

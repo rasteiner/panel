@@ -6,7 +6,7 @@
 
 <script>
 
-import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
+import DialogMixin from 'App/Dialogs/Dialogs.mixin.js';
 import slug from 'App/Helpers/slug.js';
 
 export default {
@@ -92,9 +92,13 @@ export default {
       };
 
       this.$api.page.create(this.parent, data).then((page) => {
-        this.$refs.dialog.close();
-        this.$router.push('/pages/' + page.id);
-        this.$store.dispatch('success', 'The page has been create');
+
+        this.success({
+          route: '/pages/' + page.id,
+          message: 'The page has been created',
+          event: 'page.create'
+        });
+
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

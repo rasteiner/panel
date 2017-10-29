@@ -30,8 +30,8 @@ export default {
     },
     submit () {
       this.$api.file.delete(this.parent, this.filename).then(() => {
-        this.$events.$emit('file');
         this.$store.dispatch('success', 'The file has been deleted');
+        this.$events.$emit('file.delete');
         this.$emit('success');
         this.$refs.dialog.close();
       }).catch((error) => {

@@ -6,7 +6,7 @@
 
 <script>
 
-import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
+import DialogMixin from 'App/Dialogs/Dialogs.mixin.js';
 
 export default {
   mixins: [DialogMixin],
@@ -43,9 +43,10 @@ export default {
     },
     submit () {
       this.$api.user.changeRole(this.user.id, this.user.role).then(() => {
-        this.$store.dispatch('success', 'The role has been changed');
-        this.$emit('success');
-        this.$refs.dialog.close();
+        this.success({
+          message: 'The has been changed to: ' + this.user.role,
+          event: 'user.change.role'
+        });
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

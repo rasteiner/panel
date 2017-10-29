@@ -4,26 +4,36 @@
     <kirby-headline>
       {{ headline }}
       <kirby-button-group slot="options">
-        <kirby-button icon="add" @click="add">Add</kirby-button>
+        <kirby-button v-show="!isLoading" icon="add" @click="add">Add</kirby-button>
       </kirby-button-group>
     </kirby-headline>
 
-    <kirby-collection
-      :layout="layout"
-      :items="items"
-      :pagination="paginationOptions"
-      @paginate="paginate"
-      @action="action"
-    />
+    <template v-if="isLoading">
+      <template>
+        <kirby-skeleton type="list" />
+      </template>
+    </template>
+    <template v-else>
 
-    <kirby-box v-if="items.length === 0">
-      <kirby-button>No entries</kirby-button>
-    </kirby-box>
+      <kirby-collection
+        :layout="layout"
+        :items="items"
+        :pagination="paginationOptions"
+        @paginate="paginate"
+        @action="action"
+      />
 
-    <kirby-page-create-dialog ref="create" @success="$emit('create')" />
-    <kirby-page-url-dialog ref="url" @success="$emit('url')" />
-    <kirby-page-status-dialog ref="status" @success="$emit('status')" />
-    <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
+      <kirby-box v-if="items.length === 0">
+        <kirby-button>No entries</kirby-button>
+      </kirby-box>
+
+      <kirby-page-create-dialog ref="create" @success="$emit('create')" />
+      <kirby-page-url-dialog ref="url" @success="$emit('url')" />
+      <kirby-page-status-dialog ref="status" @success="$emit('status')" />
+      <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
+
+    </template>
+
   </div>
 </template>
 
@@ -33,6 +43,12 @@ import CollectionMixin from '../Collection.mixin.js';
 
 export default {
   mixins: [CollectionMixin],
+  mounted () {
+    this.$events.$on('page.change.status', this.fetch);
+  },
+  destroyed () {
+    this.$events.$off('page.change.status', this.fetch);
+  },
   methods: {
     add () {
       this.$refs.create.open(this.query.parent);
@@ -64,6 +80,8 @@ export default {
           options: panel.config.api + '/pages/' + page.id + '/options'
         }));
 
+        this.isLoading = false;
+
       });
 
     },
@@ -90,7 +108,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-pages .kirby-image img[src*=".svg"] {
   object-fit: none;
