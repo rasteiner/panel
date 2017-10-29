@@ -1,10 +1,11 @@
+import config from './panel.config.js';
 import Vue from 'vue';
 
 /** Error Tracking */
-// import Raven from 'raven-js';
-// import RavenVue from 'raven-js/plugins/vue';
+import Raven from 'raven-js';
+import RavenVue from 'raven-js/plugins/vue';
 
-// Raven.config('https://b279326197d741d1b1013baef2c5f93e@sentry.io/235642').addPlugin(RavenVue, Vue).install();
+Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
 
 /** Routes */
 import Router from 'vue-router';
@@ -24,7 +25,6 @@ router.beforeEach((to, from, next) => {
   store.dispatch('isLoading', true);
   next();
 });
-
 
 /** API */
 import Api from 'App/Api/Api.js';
