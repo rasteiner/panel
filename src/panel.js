@@ -3,7 +3,7 @@ import Vue from 'vue';
 
 /** Error Handling */
 Vue.config.errorHandler = function (err, vm) {
-  vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a Bug, it has been reported!');
+  vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a bug, it has been reported!');
 };
 
 /** Error Tracking */
