@@ -1,6 +1,6 @@
 <template>
   <kirby-field v-bind="$props">
-    <input type="number" v-bind="$props" v-model="data" />
+    <input type="number" v-bind="$props" v-model.number="data" />
   </kirby-field>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   mixins: [Field],
   props: {
     value: {
-      type: String
+      type: Number
     },
     label: {
       default: 'Number'

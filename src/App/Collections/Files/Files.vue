@@ -3,13 +3,12 @@
 
     <kirby-headline>
       <span>{{ headline }}</span>
-      <kirby-button-group slot="options">
+      <kirby-button-group slot="options" v-if="more && items.length !== 0">
         <kirby-button icon="upload" @click="upload"></kirby-button>
       </kirby-button-group>
     </kirby-headline>
 
-    <kirby-dropzone @drop="drop">
-      <kirby-collection
+    <kirby-collection
       :layout="layout"
       :items="items"
       :pagination="paginationOptions"
@@ -17,10 +16,9 @@
       @action="action"
     />
 
-    <kirby-box v-if="items.length === 0" class="placeholder" :layout="layout">
+    <kirby-box v-if="items.length === 0" class="kirby-files-collection-placeholder" :data-layout="layout">
       <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
     </kirby-box>
-    </kirby-dropzone>
 
     <kirby-file-remove-dialog ref="remove" @success="fetch" />
 
@@ -35,6 +33,15 @@ import CollectionMixin from '../Collection.mixin.js';
 
 export default {
   mixins: [CollectionMixin],
+  props: {
+    group: {
+      type: String
+    },
+    max: {
+      type: Number,
+      default: 1000
+    }
+  },
   mounted () {
     this.$events.$on('file', this.fetch);
     this.$refs.upload.params({
@@ -44,6 +51,53 @@ export default {
   destroyed () {
     this.$events.$off('file', this.fetch);
   },
+  computed: {
+    more () {
+
+      if (!this.max) {
+        return true;
+      }
+
+      if (this.max > this.total) {
+        return true;
+      }
+
+      return false;
+
+    },
+    multiple () {
+
+      if (!this.max) {
+        return true;
+      }
+
+      if (this.max === 1) {
+        return false;
+      }
+
+      if ((this.max - this.total) <= 1) {
+        return false;
+      }
+
+      return true;
+
+    },
+    maxToGo () {
+
+      if (!this.max) {
+        return null;
+      }
+
+      let max = this.max - this.total;
+
+      if (max < 0) {
+        max = 0;
+      }
+
+      return max;
+
+    }
+  },
   methods: {
     fetch () {
 
@@ -52,19 +106,32 @@ export default {
         limit: this.pagination.limit
       };
 
+      if (this.group) {
+        if (Array.isArray(this.query.filterBy) === false) {
+          this.query.filterBy = [];
+        }
+
+        this.query.filterBy.push({
+          field:    'group',
+          operator: '==',
+          value:    this.group
+        })
+      }
+
       this.$api.page.files(this.query.parent, this.query).then((response) => {
+
         this.total = response.pagination.total;
         this.items = response.items.map((file) => {
           var item = {
             id: file.filename,
             text: file.filename,
-            icon: file.type || 'document', // TODO: actual icon
+            preview: this.$api.file.preview(file),
             filename: file.filename,
-            url: file.url,
+            url: file.url + '?v=' + file.modified,
             parent: file.parent,
             mime: file.mime,
             link: '/pages/' + file.parent + '/files/' + file.filename,
-            options: panel.config.assets + '/options/file.json'
+            options: panel.config.api + '/pages/' + file.parent + '/files/' + file.filename + '/options'
           };
 
           if (file.type === 'image') {
@@ -78,17 +145,17 @@ export default {
     },
     action (file, action) {
       switch (action) {
-        case 'show':
-          window.open(file.url);
-          break;
         case 'edit':
           this.$router.push('/pages/' + file.parent + '/files/' + file.filename);
           break;
-        case 'remove':
-          this.$refs.remove.open(file.parent, file.filename);
+        case 'download':
+          window.open(file.url);
           break;
         case 'replace':
           this.replace(file);
+          break;
+        case 'remove':
+          this.$refs.remove.open(file.parent, file.filename);
           break;
         default:
           this.$store.dispatch('error', 'Not yet implemented');
@@ -100,6 +167,9 @@ export default {
     upload() {
       this.$refs.upload.open({
         url: window.panel.config.api + '/pages/' + this.query.parent + '/files/',
+        attributes: {group: this.group},
+        multiple: this.multiple,
+        max: this.maxToGo
       });
     },
     replace (file) {
@@ -121,17 +191,15 @@ export default {
 
 <style lang="scss">
 
-.kirby-files-collection > .placeholder[layout="cards"] {
-  position: relative;
-  padding-bottom: calc(66.66% + 34px);
+.kirby-files-collection-placeholder {
 
   & > .kirby-button {
-    position:   absolute;
-    top:        50%;
-    left:       0;
-    transform:  translateY(-50%);
     text-align: center !important;
   }
+
+}
+.kirby-files-collection-placeholder[data-layout="cards"] > .kirby-button {
+  padding: 33.33% 0;
 }
 
 </style>

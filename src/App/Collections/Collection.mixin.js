@@ -16,7 +16,10 @@ export default {
     pagination: {
       type: Object,
       default() {
-        return {};
+        return {
+          page: 1,
+          limit: 20
+        };
       }
     }
   },

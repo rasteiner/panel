@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading" class="kirby-login-view">
+  <div v-if="$store.state.isLoading === false" class="kirby-login-view">
     <form @submit.prevent="login">
       <kirby-fieldset :fields="fields" :values="user" />
       <kirby-button type="submit" icon="check">{{ $t("login") }}</kirby-button>
@@ -37,18 +37,25 @@ export default {
       ]
     }
   },
+  created () {
+    this.$store.dispatch('isLoading', false);
+  },
+  watch: {
+    $route () {
+      this.$store.dispatch('isLoading', false);
+    }
+  },
   methods: {
     login () {
 
-      this.loading = true;
+      this.$store.dispatch('isLoading', true);
 
       this.$api.auth.login(this.user).then((user) => {
-        this.loading = false;
         this.$store.dispatch('user', user);
-        this.$store.dispatch('success', this.$t('notification.welcome', { name: user.content.firstname }));
+        this.$store.dispatch('success', 'Welcome!');
         this.$router.push('/');
       }).catch((error) => {
-        this.loading = false;
+        this.$store.dispatch('isLoading', false);
         this.$store.dispatch('error', 'Invalid email or password');
       });
 

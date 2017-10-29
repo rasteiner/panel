@@ -4,11 +4,13 @@
 
     <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
 
-      <kirby-fancy-input class="kirby-page-title"
-        :key="user.id + '-headline'"
-        :value="user.content.name"
+      <kirby-fancy-input
+        class="kirby-user-view-name"
         placeholder="Enter a name …"
         tag="div"
+        type="headline"
+        :key="user.id + '-headline'"
+        :value="user.content.name"
         @blur="updateName($event.target.innerText)"
         @enter="$event.target.blur()" />
 
@@ -80,10 +82,11 @@ export default {
   data () {
     return {
       user: {
-        content: {},
+        content: {
+          language: 'en',
+        },
         prev: null,
         next: null,
-        language: 'en',
         image: {
           url: null,
           modified: null
@@ -156,14 +159,18 @@ export default {
     save () {
       this.$api.user.update(this.id, this.user.content).then(() => {
         this.$store.dispatch('success', 'Saved!');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
-    },
+  },
     action (action) {
       switch (action) {
         case 'picture.delete':
           this.$api.avatar.delete(this.id).then(() => {
             this.$store.dispatch('success', this.$t('notification.image.deleted'));
             this.image = null;
+          }).catch((error) => {
+            this.$store.dispatch('error', error.message);
           });
           break;
         case 'role':
@@ -199,6 +206,8 @@ export default {
           this.image = null;
         }
 
+        this.$store.dispatch('isLoading', false);
+
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');
         this.$router.push('/users');
@@ -213,6 +222,8 @@ export default {
       this.$api.user.update(this.id, {name: name}).then((user) => {
         this.user = user;
         this.$store.dispatch('success', 'The name has been saved!');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     }
@@ -225,23 +236,23 @@ export default {
 
 .kirby-headline {
   position: relative;
+  padding-right: 5rem;
 }
-
 .kirby-user-view-image {
-  display: inline-block;
   position: absolute;
   top: 50%;
   width: 3rem;
-  margin-top: -1.5rem;
   border-radius: 50%;
+  margin-top: -1.5rem;
   overflow: hidden;
+  z-index: 0;
 
   [dir="ltr"] & {
-    right: 0;
+    right: .6rem;
     margin-right: -.2rem;
   }
   [dir="rtl"] & {
-    left: 0;
+    left: .6rem;
     margin-left: -.2rem;
   }
 }

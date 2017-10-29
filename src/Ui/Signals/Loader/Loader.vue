@@ -15,7 +15,7 @@ export default {
 .kirby-loader div {
   width: 2rem;
   height: 2rem;
-  border: 2px solid $color-dark;
+  border: 3px solid $color-dark;
   border-radius: 100%;
   animation: sk-scaleout 1.0s infinite ease-in-out;
 }
@@ -28,7 +28,7 @@ export default {
 }
 .kirby-loader[data-theme="light"] div {
   border-color: $color-white;
-  opacity: .5;
+  opacity: 1;
 }
 
 @-webkit-keyframes sk-scaleout {

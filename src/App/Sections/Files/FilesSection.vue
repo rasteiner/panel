@@ -1,9 +1,12 @@
 <template>
   <section>
     <kirby-files-collection
+      :key="group"
       :headline="headline"
       :layout="layout"
       :query="query"
+      :group="group"
+      :max="max"
       :pagination="pagination"
     />
   </section>
@@ -19,9 +22,11 @@ export default {
     'parent',
     'page',
     'filterBy',
+    'group',
     'pagination',
     'sortBy',
-    'offset'
+    'offset',
+    'max'
   ],
   computed: {
     query () {

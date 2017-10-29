@@ -1,6 +1,5 @@
 
 import Auth from './Auth.js';
-import Blueprint from './Blueprint.js';
 import File from './File.js';
 import Language from './Language.js';
 import Page from './Page.js';
@@ -13,7 +12,6 @@ export default {
     install (Vue) {
       Vue.prototype.$api = {
         auth: Auth,
-        blueprint: Blueprint,
         file: File,
         language: Language,
         page: Page,
@@ -26,7 +24,7 @@ export default {
     request (path, options) {
 
       const headers = new Headers();
-      headers.append('Authorization', localStorage.getItem('auth'));
+      headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth'));
 
       options = Object.assign(options || {}, {
         headers: headers

@@ -24,6 +24,8 @@ export default {
       this.$api.page.get(id).then((page) => {
         this.page = page;
         this.$refs.dialog.open();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     },
     submit () {
@@ -41,6 +43,8 @@ export default {
           }
         }
 
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     }
   }

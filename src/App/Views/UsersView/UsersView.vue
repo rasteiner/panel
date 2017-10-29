@@ -11,7 +11,7 @@
       </template>
 
       <template slot="buttons-right">
-        <kirby-button icon="search">{{ $t('search') }}</kirby-button>
+        <kirby-button icon="search" @click="$store.dispatch('error', 'Not yet implemented')">{{ $t('search') }}</kirby-button>
       </template>
 
     </kirby-header>
@@ -26,6 +26,14 @@
 <script>
 
 export default {
+  created () {
+    this.$store.dispatch('isLoading', false);
+  },
+  watch: {
+    $route () {
+      this.$store.dispatch('isLoading', false);
+    }
+  },
   computed: {
     role () {
       return this.$route.params.role;

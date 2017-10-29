@@ -8,7 +8,7 @@
         back="black"
         :cover="true">
       </kirby-image>
-      <kirby-icon v-else class="kirby-preview" :type="icon || 'document'" />
+      <kirby-icon v-else class="kirby-preview" :style="{ backgroundColor: preview.color }" :type="preview.icon || 'document'" />
       <div class="kirby-card-content">
         <p class="kirby-card-text">{{ text }}</p>
         <p class="kirby-card-info">{{ info }}</p>
@@ -37,7 +37,14 @@
 export default {
   props: {
     image: Object,
-    icon: String,
+    preview: {
+      type: Object,
+      default () {
+        return {
+          icon: 'file'
+        }
+      }
+    },
     text: String,
     info: String,
     link: {},
@@ -86,7 +93,7 @@ export default {
   display: block;
   position: relative;
   padding-bottom: 66.66%;
-  background-color: $color-white;
+  background-color: $color-dark;
 }
 .kirby-card .kirby-preview > * {
   position: absolute;
@@ -94,7 +101,11 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%) scale(3);
 }
+.kirby-card .kirby-preview svg * {
+  fill: rgba($color-white, .5);
+}
 .kirby-card-text {
+  display: block;
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;

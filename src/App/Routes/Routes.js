@@ -3,6 +3,7 @@ import FileView from '../Views/FileView/FileView.vue';
 import InstallationView from '../Views/InstallationView/InstallationView.vue';
 import LoginView from '../Views/LoginView/LoginView.vue';
 import PageView from '../Views/PageView/PageView.vue';
+import SiteView from '../Views/SiteView/SiteView.vue';
 import SettingsView from '../Views/SettingsView/SettingsView.vue';
 import CreatePageView from '../Views/CreatePageView/CreatePageView.vue';
 import TemplateView from '../Views/TemplateView/TemplateView.vue';
@@ -66,11 +67,8 @@ export default [
   {
     path: '/pages',
     name: 'Site',
-    component: PageView,
-    beforeEnter: auth,
-    props: (route) => ({
-      path: '/'
-    })
+    component: SiteView,
+    beforeEnter: auth
   },
   {
     path: '/pages/new',

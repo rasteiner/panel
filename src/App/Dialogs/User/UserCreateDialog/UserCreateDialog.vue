@@ -1,5 +1,5 @@
 <template>
-  <kirby-dialog ref="dialog" headline="Create a new user" state="positive" button="Create" @submit="$refs.form.submit()">
+  <kirby-dialog ref="dialog" size="medium" state="positive" button="Create" @submit="$refs.form.submit()">
     <kirby-form ref="form" :fields="fields" :values="user" @submit="create" />
   </kirby-dialog>
 </template>
@@ -33,18 +33,16 @@ export default {
         {
           name: 'role',
           label: 'Role',
-          type: 'select',
+          type: 'radio',
           required: true,
-          options: [
-            {value: 'admin', text: 'Admin'},
-            {value: 'editor', text: 'Editor'},
-          ]
+          options: this.$api.user.roles()
         }
       ]
     };
   },
   methods: {
     create () {
+
       this.$api.user.create(this.user).then((user) => {
 
         this.user = {
@@ -56,7 +54,10 @@ export default {
         this.$store.dispatch('success', 'The user has been created');
         this.$emit('success');
         this.$refs.dialog.close();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
+
     }
   }
 }

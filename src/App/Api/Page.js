@@ -42,6 +42,9 @@ export default {
   status (id, status, position) {
     return Api.post('pages/' + id + '/status', {status: status, position: position});
   },
+  blueprint (id) {
+    return Api.get('pages/' + id + '/blueprint');
+  },
   blueprints (id) {
     return Api.get('pages/' + id + '/blueprints');
   },

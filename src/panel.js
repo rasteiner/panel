@@ -12,10 +12,19 @@ import Routes from 'App/Routes/Routes.js';
 
 Vue.use(Router);
 
-const router = new Router({ routes: Routes });
+const router = new Router({
+  mode: 'history',
+  routes: Routes
+});
 
 /** Store */
 import store from 'App/Store/store.js';
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('isLoading', true);
+  next();
+});
+
 
 /** API */
 import Api from 'App/Api/Api.js';

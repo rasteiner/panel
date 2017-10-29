@@ -33,69 +33,71 @@
 
     </kirby-header>
 
-    <kirby-dropzone label="Drop file to replace" @drop="$refs.upload.upload($event)" class="kirby-file-details">
-      <kirby-grid gutter="large">
+    <kirby-grid gutter="large">
 
-        <kirby-column width="1/4">
-          <kirby-headline><span>Preview</span></kirby-headline>
+      <kirby-column width="1/4">
+        <kirby-headline><span>Preview</span></kirby-headline>
 
-          <a :href="file.url" target="_blank">
-            <kirby-image v-if="file.url" :src="file.url + '?v=' + file.modified" back="black" ratio="1/1" />
-          </a>
-        </kirby-column>
-        <kirby-column width="3/4">
+        <a :href="file.url" target="_blank">
+          <kirby-image v-if="preview.image" :src="preview.image" back="black" ratio="1/1" />
+          <kirby-icon class="kirby-file-view-preview" v-else :style="{ backgroundColor: preview.color }" :type="preview.icon || 'document'" />
+        </a>
+      </kirby-column>
+      <kirby-column width="3/4">
 
-          <kirby-headline><span>Details</span></kirby-headline>
+        <kirby-headline><span>Details</span></kirby-headline>
 
-          <kirby-grid gutter="large" class="kirby-file-view-details">
+        <kirby-grid gutter="large" class="kirby-file-view-details">
 
-            <kirby-column width="1/2">
-              <dl>
-                <template v-if="file.mime">
-                  <dt>Type</dt>
-                  <dd>{{ file.mime }}</dd>
-                </template>
+          <kirby-column width="1/2">
+            <dl>
+              <template v-if="file.mime">
+                <dt>Type</dt>
+                <dd>{{ file.mime }}</dd>
+              </template>
 
-                <dt>URL</dt>
-                <dd><a :href="file.url" target="__blank">/{{ file.id }}</a></dd>
+              <dt>URL</dt>
+              <dd><a :href="file.url" target="__blank">/{{ file.id }}</a></dd>
 
-                <template v-if="file.niceSize">
-                  <dt>Size</dt>
-                  <dd>{{ file.niceSize }}</dd>
-                </template>
+              <template v-if="file.niceSize">
+                <dt>Size</dt>
+                <dd>{{ file.niceSize }}</dd>
+              </template>
 
-              </dl>
-            </kirby-column>
+            </dl>
+          </kirby-column>
 
-            <kirby-column width="1/2">
-              <dl>
-                <template v-if="file.dimensions">
-                  <dt>Dimensions</dt>
-                  <dd>{{ file.dimensions }}</dd>
-                </template>
+          <kirby-column width="1/2">
+            <dl>
+              <template v-if="file.dimensions">
+                <dt>Dimensions</dt>
+                <dd>{{ file.dimensions }}</dd>
+              </template>
 
-                <template v-if="file.created">
-                  <dt>Uploaded</dt>
-                  <dd>{{ file.created }}</dd>
-                </template>
-              </dl>
-            </kirby-column>
+              <template v-if="file.created">
+                <dt>Uploaded</dt>
+                <dd>{{ file.created }}</dd>
+              </template>
 
-          </kirby-grid>
+              <template v-if="file.content.group">
+                <dt>Group</dt>
+                <dd>{{ file.content.group }}</dd>
+              </template>
 
-        </kirby-column>
+            </dl>
+          </kirby-column>
 
-        <kirby-column width="1/1">
-          <form @submit.prevent="save" method="post">
-            <kirby-fieldset :fields="fields" :values="file.content" @submit="save" />
-          </form>
-        </kirby-column>
+        </kirby-grid>
 
-      </kirby-grid>
-    </kirby-dropzone>
+      </kirby-column>
 
-    <kirby-file-remove-dialog ref="remove" />
+      <kirby-column width="1/1">
+        <kirby-form :fields="fields" :values="file.content" @submit="save" />
+      </kirby-column>
 
+    </kirby-grid>
+
+    <kirby-file-remove-dialog ref="remove" @success="$router.push('/pages/' + path)" />
     <kirby-upload ref="upload" :url="uploadApi" :accept="file.mime" :multiple="false" @success="uploaded" />
 
   </kirby-view>
@@ -111,6 +113,7 @@ export default {
   data () {
     return {
       name: '',
+      preview: {},
       file: {
         filename: '',
         url: '',
@@ -119,18 +122,7 @@ export default {
         mime: null,
         content: {}
       },
-      fields: [
-        {
-          name: 'alt',
-          label: 'Alternative Text',
-          type: 'text'
-        },
-        {
-          name: 'caption',
-          label: 'Caption',
-          type: 'textarea'
-        }
-      ],
+      blueprint: {},
       breadcrumb: []
     }
   },
@@ -157,6 +149,9 @@ export default {
         next: this.file.next ? true : false,
         nextLabel: 'Next File',
       };
+    },
+    fields () {
+      return this.blueprint.fields || [];
     }
   },
   methods: {
@@ -164,11 +159,20 @@ export default {
 
       this.$api.file.get(this.path, this.filename).then((file) => {
 
-        this.file = file;
-        this.name = file.name;
+        this.file     = file;
+        this.file.url = file.url + '?v=' + file.modified;
+        this.name     = file.name;
+        this.preview  = this.$api.file.preview(file);
+
         this.$api.file.breadcrumb(file).then((breadcrumb) => {
           this.breadcrumb = breadcrumb;
         });
+
+        this.$api.file.blueprint(this.path, this.filename).then((blueprint) => {
+          this.blueprint = blueprint;
+        });
+
+        this.$store.dispatch('isLoading', false);
 
       }).catch(() => {
         this.$store.dispatch('error', 'The file could not be found');
@@ -211,6 +215,8 @@ export default {
       this.$api.file.rename(this.path, this.file.filename, name).then((file) => {
         this.$router.push('/pages/' + this.path + '/files/' + file.filename);
         this.$store.dispatch('success', 'The file has been renamed');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     },
@@ -220,9 +226,11 @@ export default {
     },
     save () {
 
-      this.$api.file.update(this.path, this.file.filename, this.file.meta).then((file) => {
-        this.file.meta = file.meta;
+      this.$api.file.update(this.path, this.file.filename, this.file.content).then((file) => {
+        this.file.content = file.content;
         this.$store.dispatch('success', 'Saved!');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
 
     }
@@ -249,10 +257,26 @@ export default {
   margin-right: -.5rem;
 }
 
-
 .kirby-file-view .kirby-image {
   border-radius: $border-radius;
   overflow: hidden;
+}
+.kirby-file-view-preview {
+  position: relative;
+  display: block;
+  padding-bottom: 100%;
+  background: $color-black;
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+.kirby-file-view-preview svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(4);
+}
+.kirby-file-view-preview svg * {
+  fill: rgba($color-white, .5);
 }
 
 .kirby-file-view-section {

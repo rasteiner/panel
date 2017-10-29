@@ -13,7 +13,8 @@ export default new Vuex.Store({
     direction: 'ltr',
     user: null,
     notification: null,
-    menu: false
+    menu: false,
+    isLoading: false
   },
   mutations: {
     menu (state, menu) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     user (state, user) {
       state.user = user;
+    },
+    isLoading (state, loading) {
+      state.isLoading = loading;
     }
   },
   actions: {
@@ -90,6 +94,9 @@ export default new Vuex.Store({
         message,
         type: 'error'
       });
+    },
+    isLoading (context, loading) {
+      context.commit('isLoading', loading);
     }
   }
 });

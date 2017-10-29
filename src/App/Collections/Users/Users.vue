@@ -7,6 +7,8 @@
       @paginate="paginate"
       @action="action"
     />
+    <kirby-user-role-dialog ref="role" @success="fetch" />
+    <kirby-user-password-dialog ref="password" />
     <kirby-user-remove-dialog ref="remove" @success="fetch" />
   </div>
 </template>
@@ -45,14 +47,26 @@ export default {
 
       this.$api.user.list(this.query).then((response) => {
         this.total = response.pagination.total;
-        this.items = response.items.map((user) => ({
-          id: user.id,
-          image: user.image,
-          text: user.content.name ? user.content.name : user.content.email,
-          role: user.role,
-          link: '/users/' + user.id,
-          options: panel.config.assets + '/options/user.json'
-        }));
+        this.items = response.items.map((user) => {
+          let item = {
+            id: user.id,
+            preview: { icon: 'user' },
+            text: user.content.name ? user.content.name : user.content.email,
+            role: user.role,
+            link: '/users/' + user.id,
+            options: panel.config.api + '/users/' + user.id + '/options',
+            image: null
+          };
+
+          if (user.image.exists === true) {
+            item.image = {
+              url: user.image.url + '?v=' + user.image.modified
+            };
+          }
+
+          return item;
+
+        });
       });
 
     },
@@ -60,6 +74,12 @@ export default {
       switch(action) {
         case 'edit':
           this.$router.push('/users/' + user.id);
+          break;
+        case 'role':
+          this.$refs.role.open(user.id);
+          break;
+        case 'password':
+          this.$refs.password.open(user.id);
           break;
         case 'remove':
           this.$refs.remove.open(user.id);

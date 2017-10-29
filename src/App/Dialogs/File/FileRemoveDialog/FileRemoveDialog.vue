@@ -12,7 +12,7 @@ import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
 
 export default {
   mixins: [DialogMixin],
-  data() {
+  data () {
     return {
       parent: null,
       filename: null
@@ -24,6 +24,8 @@ export default {
         this.parent   = file.parent;
         this.filename = file.filename;
         this.$refs.dialog.open();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     },
     submit () {
@@ -32,6 +34,8 @@ export default {
         this.$store.dispatch('success', 'The file has been deleted');
         this.$emit('success');
         this.$refs.dialog.close();
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
       });
     }
   }

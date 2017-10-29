@@ -9,33 +9,28 @@
       @prev="prev"
       @next="next">
 
-      <kirby-fancy-input v-if="site === false"
-        class="kirby-page-title"
+      <kirby-fancy-input
+        type="headline"
+        tag="div"
         :key="page.id + '-title'"
         :value="page.title"
         :placeholder="$t('page.title') + ' …'"
-        tag="div"
         @blur="updateTitle($event.target.innerText)"
         @enter="$event.target.blur()" />
-      <div v-else class="kirby-page-title">{{ page.title }}</div>
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">
           {{ $t('page.preview') }}
         </kirby-button>
-        <kirby-button v-if="!site" icon="toggle-on" @click="action('status')">
-          {{ status }}
+        <kirby-button :icon="status.icon" @click="action('status')">
+          {{ status.text }}
         </kirby-button>
-        <kirby-dropdown v-if="!site">
+        <kirby-dropdown>
           <kirby-button @click="$refs.settings.toggle()" icon="cog">
             {{ $t('settings') }}
           </kirby-button>
           <kirby-dropdown-content :dark="true" ref="settings" :options="options" @action="action" />
         </kirby-dropdown>
-      </template>
-
-      <template slot="buttons-right">
-        <kirby-translations></kirby-translations>
       </template>
 
     </kirby-header>
@@ -65,13 +60,12 @@ export default {
   props: ['path'],
   data () {
     return {
-      site: false,
       page: {
         title: '',
         id: '',
         content: {},
         prev: null,
-        next: null
+        next: null,
       },
       icon: 'page',
       breadcrumb: [],
@@ -88,21 +82,27 @@ export default {
   },
   computed: {
     status () {
-      return this.page.isVisible ? 'Public' : 'Unlisted';
-    },
-    pagination () {
 
-      if (this.site === true) {
-        return false;
+      if (this.page.isVisible) {
+        return {
+          icon: 'toggle-on',
+          text: 'Public'
+        };
+      } else {
+        return {
+          icon: 'toggle-off',
+          text: 'Unlisted'
+        };
       }
 
+    },
+    pagination () {
       return {
         prev: this.page.prev ? true : false,
         prevLabel: 'Previous page',
         next: this.page.next ? true : false,
         nextLabel: 'Next page'
       };
-
     },
     options () {
       return window.panel.config.api + '/pages/' + this.page.id + '/options?not=preview,status';
@@ -111,28 +111,14 @@ export default {
   methods: {
     fetch() {
 
-      if (!this.path || this.path === '/') {
-
-        this.$api.site.get().then((site) => {
-          this.$api.blueprint.get('site').then((blueprint) => {
-            this.site       = true;
-            this.page       = {id: '_site', title: site.title, url: site.url, content: {}};
-            this.breadcrumb = [];
-            this.layout     = blueprint.layout;
-          });
-        });
-
-        return true;
-
-      }
-
       this.$api.page.get(this.path).then((page) => {
-        this.$api.blueprint.get(page.template, page).then((blueprint) => {
+        this.$api.page.blueprint(page.id).then((blueprint) => {
           this.site       = false;
           this.page       = page;
           this.page.title = page.content.title;
           this.breadcrumb = this.$api.page.breadcrumb(page);
           this.layout     = blueprint.layout;
+          this.$store.dispatch('isLoading', false);
         });
       }).catch(() => {
         this.$store.dispatch('error', 'The page could not be found');
@@ -146,6 +132,8 @@ export default {
         this.$api.page.update(this.page.id, {title: title}).then((page) => {
           this.page.title = title;
           this.$store.dispatch('success', 'The page title has been updated');
+        }).catch((error) => {
+          this.$store.dispatch('error', error.message);
         });
 
       }
@@ -184,24 +172,6 @@ export default {
 
 .kirby-page-view .kirby-column section:not(:last-child) {
   margin-bottom: 1.5rem;
-}
-
-.kirby-page-view .kirby-page-title {
-  padding-left: .5rem;
-  padding-right: .5rem;
-  width: calc(100% + 1rem);
-
-  [dir="ltr"] & {
-    margin-left: -.5rem;
-  }
-  [dir="rtl"] & {
-    margin-right: -.5rem;
-  }
-}
-
-.kirby-page-view .kirby-page-title:focus {
-  @include focus-ring;
-  background: #fff;
 }
 
 </style>
