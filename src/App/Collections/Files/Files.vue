@@ -16,7 +16,7 @@
       @action="action"
     />
 
-    <kirby-box v-if="items.length === 0" class="placeholder" :layout="layout">
+    <kirby-box v-if="items.length === 0" class="kirby-files-collection-placeholder" :data-layout="layout">
       <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
     </kirby-box>
 
@@ -191,17 +191,15 @@ export default {
 
 <style lang="scss">
 
-.kirby-files-collection > .placeholder[layout="cards"] {
-  position: relative;
-  padding-bottom: calc(66.66% + 34px);
+.kirby-files-collection-placeholder {
 
   & > .kirby-button {
-    position:   absolute;
-    top:        50%;
-    left:       0;
-    transform:  translateY(-50%);
     text-align: center !important;
   }
+
+}
+.kirby-files-collection-placeholder[data-layout="cards"] > .kirby-button {
+  padding: 33.33% 0;
 }
 
 </style>
