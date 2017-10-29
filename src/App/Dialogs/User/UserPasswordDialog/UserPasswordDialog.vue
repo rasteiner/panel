@@ -6,7 +6,7 @@
 
 <script>
 
-import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
+import DialogMixin from 'App/Dialogs/Dialogs.mixin.js';
 
 export default {
   mixins: [DialogMixin],
@@ -55,9 +55,10 @@ export default {
       }
 
       this.$api.user.changePassword(this.user.id, this.values.password).then(() => {
-        this.$store.dispatch('success', 'The password has been changed');
-        this.$emit('success');
-        this.$refs.dialog.close();
+        this.success({
+          message: 'The password has been changed',
+          event: 'user.change.password'
+        });
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

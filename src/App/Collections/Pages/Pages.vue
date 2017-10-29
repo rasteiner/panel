@@ -43,6 +43,12 @@ import CollectionMixin from '../Collection.mixin.js';
 
 export default {
   mixins: [CollectionMixin],
+  mounted () {
+    this.$events.$on('page.change.status', this.fetch);
+  },
+  destroyed () {
+    this.$events.$off('page.change.status', this.fetch);
+  },
   methods: {
     add () {
       this.$refs.create.open(this.query.parent);

@@ -6,7 +6,7 @@
 
 <script>
 
-import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
+import DialogMixin from 'App/Dialogs/Dialogs.mixin.js';
 
 export default {
   mixins: [DialogMixin],
@@ -29,13 +29,16 @@ export default {
     submit () {
 
       this.$api.user.delete(this.user.id).then(() => {
-        this.$store.dispatch('success', 'The user has been deleted');
-        this.$emit('success');
-        this.$refs.dialog.close();
+
+        this.success({
+          message: 'The user has been deleted',
+          event: 'user.delete'
+        });
 
         if (this.$route.name === 'User') {
           this.$router.push('/users');
         }
+
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

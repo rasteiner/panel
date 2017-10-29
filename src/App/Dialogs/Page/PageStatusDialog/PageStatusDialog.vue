@@ -6,7 +6,7 @@
 
 <script>
 
-import DialogMixin from 'Ui/Dialog/Dialog.mixin.js';
+import DialogMixin from 'App/Dialogs/Dialogs.mixin.js';
 
 export default {
   mixins: [DialogMixin],
@@ -79,14 +79,17 @@ export default {
 
       this.$api.page.status(this.page.id, this.status, this.position).then(() => {
 
+        let message = 'The page is now ' + this.status;
+
         if (this.status === 'listed') {
-          this.$store.dispatch('success', 'The page is now at position ' + this.position);
-        } else {
-          this.$store.dispatch('success', 'The page is now ' + this.status);
+          message = 'The page is now at position ' + this.position;
         }
 
-        this.$refs.dialog.close();
-        this.$emit('success');
+        this.success({
+          message: message,
+          event: 'page.change.status',
+        });
+
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });
