@@ -52,9 +52,11 @@ export default {
   },
   mounted () {
     this.$events.$on('file.create', this.fetch);
+    this.$events.$on('file.delete', this.fetch);
   },
   destroyed () {
     this.$events.$off('file.create', this.fetch);
+    this.$events.$off('file.delete', this.fetch);
   },
   computed: {
     more () {
