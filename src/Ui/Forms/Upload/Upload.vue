@@ -70,9 +70,7 @@ export default {
   methods: {
     open(params) {
       this.params(params);
-      this.$nextTick(() => {
-        this.$refs.input.click();
-      });
+      this.$refs.input.click();
     },
     select (e) {
       this.upload(e.target.files);
@@ -146,9 +144,6 @@ export default {
     position: absolute;
     top: 0;
     left: -3000px;
-    width: 0;
-    height: 0;
-    visibility: hidden;
   }
 
   .kirby-upload-list,
