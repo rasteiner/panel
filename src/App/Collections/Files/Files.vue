@@ -127,6 +127,8 @@ export default {
 
       this.$api.page.files(this.query.parent, this.query).then((response) => {
 
+        this.isLoading = false;
+
         this.total = response.pagination.total;
         this.items = response.items.map((file) => {
           var item = {
@@ -146,8 +148,6 @@ export default {
           }
           return item;
         });
-
-        this.isLoading = false;
 
       });
 
