@@ -2,18 +2,21 @@ import config from './panel.config.js';
 import Vue from 'vue';
 
 /** Error Handling */
-
-if (config.enableErrorTracking) {
-  Vue.config.errorHandler = function (err, vm) {
+Vue.config.errorHandler = function (err, vm) {
+  if(config.enableErrorTracking) {
     vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a Bug, it has been reported!');
-  };
-}
+  } else {
+    vm.$store.dispatch('error', 'Something went wrong. See the console for more information.');
+  }
+};
 
 /** Error Tracking */
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 
-Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
+if (config.enableErrorTracking) {
+  Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
+}
 
 /** Routes */
 import Router from 'vue-router';
