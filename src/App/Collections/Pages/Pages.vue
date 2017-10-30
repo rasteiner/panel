@@ -69,7 +69,6 @@ export default {
       }
 
       this.isLoading = true;
-      this.$store.dispatch('isLoading', true);
 
       children.then((response) => {
 
@@ -84,8 +83,10 @@ export default {
         }));
 
         this.isLoading = false;
-        this.$store.dispatch('isLoading', false);
 
+      }).catch((error) => {
+        this.isLoading = false;
+        this.$store.dispatch('error', error.message);
       });
 
     },

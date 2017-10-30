@@ -149,6 +149,9 @@ export default {
           return item;
         });
 
+      }).catch((error) => {
+        this.isLoading = false;
+        this.$store.dispatch('error', error.message);
       });
 
     },
