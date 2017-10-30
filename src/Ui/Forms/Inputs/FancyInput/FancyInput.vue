@@ -4,13 +4,12 @@
     contenteditable="true"
     class="kirby-fancy-input"
     spellcheck="false"
-    v-once
     :data-type="type"
     :placeholder="placeholder"
     @input="input"
     @blur="$emit('blur', $event)"
     @keydown.enter="enter"
-    @keydown.delete="remove" v-html="value" />
+    @keydown.delete="remove" v-html="val" />
 </template>
 
 <script>
@@ -36,9 +35,14 @@ export default {
       default: false
     }
   },
+  data () {
+    return {
+      val: this.value
+    }
+  },
   methods: {
     input (e) {
-      this.$emit('input', e.target.innerText);
+      this.$emit('input', this.val);
     },
     focus () {
       this.$refs.input.focus();
@@ -54,7 +58,7 @@ export default {
 
     },
     remove (e) {
-      if (window.getSelection().baseOffset <= 1 && this.$el.innerText.length === 0) {
+      if (window.getSelection().baseOffset <= 1 && this.val.length === 0) {
         e.preventDefault();
         this.$emit('empty');
       }

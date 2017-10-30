@@ -9,5 +9,6 @@ yarn-error.log
 package-lock.json
 
 /assets/js/panel.js
+/assets/js/panel.map.js
 /kirby/vendor
 /kirby/composer.lock
