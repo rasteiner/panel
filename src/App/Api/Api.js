@@ -38,7 +38,7 @@ export default {
           }
 
         return json;
-      }).catch(err => console.log(err));
+      });
     },
     get (path, options) {
       return this.request(path, Object.assign(options || {}, { method: 'GET' }));
