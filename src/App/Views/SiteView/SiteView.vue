@@ -8,16 +8,7 @@
         </kirby-button>
       </template>
     </kirby-header>
-    <kirby-grid class="kirby-sections" v-if="site" gutter="large">
-      <kirby-column v-for="(column, columnIndex) in layout" :key="'site-column-' + columnIndex" :width="column.width">
-        <component
-          v-for="(section, sectionIndex) in column.sections"
-          :key="'site-section-' + sectionIndex"
-          :is="'kirby-' + section.type + '-section'"
-          :site="site"
-          v-bind="section" />
-      </kirby-column>
-    </kirby-grid>
+    <kirby-sections v-if="site" :model="site" :layout="layout" />
   </kirby-view>
 </template>
 

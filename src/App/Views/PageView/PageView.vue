@@ -35,16 +35,7 @@
 
     </kirby-header>
 
-    <kirby-grid class="kirby-sections" v-if="page" gutter="large">
-      <kirby-column v-for="(column, columnIndex) in layout" :key="page.id + '-column-' + columnIndex" :width="column.width">
-        <component
-          v-for="(section, sectionIndex) in column.sections"
-          :key="page.id + '-section-' + sectionIndex"
-          :is="'kirby-' + section.type + '-section'"
-          :page="page"
-          v-bind="section" />
-      </kirby-column>
-    </kirby-grid>
+    <kirby-sections v-if="page" :model="page" :layout="layout" />
 
     <kirby-page-status-dialog ref="status" @success="fetch"></kirby-page-status-dialog>
     <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
