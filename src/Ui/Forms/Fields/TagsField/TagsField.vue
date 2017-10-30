@@ -1,6 +1,6 @@
 <template>
   <kirby-field class="kirby-tags-field" v-bind="$props" @click.native="focus">
-    <draggable v-model="data" :options="{disabled: !sortable}" class="kirby-tags-input">
+    <draggable v-model="data" :options="{disabled: disabled}" class="kirby-tags-input">
       <kirby-tag v-for="tag in data"
         :ref="tag"
         :key="tag"
@@ -82,6 +82,11 @@ export default {
       selected: null
     }
 
+  },
+  computed: {
+    disabled () {
+      return this.sortable === false || this.data.length === 0;
+    }
   },
   methods: {
     focus () {
