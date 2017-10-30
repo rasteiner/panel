@@ -30,13 +30,15 @@ export default {
         headers: headers
       });
 
-      return fetch(window.panel.config.api + '/' + path, options).then((response) => response.json()).then((json) => {
-        if (json.status && json.status !== 'ok') {
-          throw Error(json.message || json.status);
-        }
+      return fetch(window.panel.config.api + '/' + path, options)
+        .then((response) => response.json())
+        .then((json) => {
+          if (json.status && json.status !== 'ok') {
+            throw Error(json.message || json.status);
+          }
 
         return json;
-      });
+      }).catch(err => console.log(err));
     },
     get (path, options) {
       return this.request(path, Object.assign(options || {}, { method: 'GET' }));
