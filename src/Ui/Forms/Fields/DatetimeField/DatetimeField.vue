@@ -1,7 +1,7 @@
 <template>
   <kirby-field class="kirby-datetime-field" v-bind="$props">
-    <kirby-date-input v-bind="date" v-model="date.data" />
-    <kirby-time-input v-bind="time" v-model="time.data" />
+    <kirby-date-input v-bind="date" :value="data.date" @input="setDate" />
+    <kirby-time-input v-bind="time" :value="data.time" @input="setTime" />
   </kirby-field>
 </template>
 
@@ -21,27 +21,27 @@ export default {
     icon: {
       default: 'calendar'
     },
-    date: {
-      type: Object,
-      default: () => ({
-        data: null
-      })
+    date: {},
+    time: {}
+  },
+  data () {
+
+    return {
+      data: {
+        date: this.value ? this.value.date : null,
+        time: this.value ? this.value.time : null
+      }
+    }
+
+  },
+  methods: {
+    setDate (date) {
+      this.data.date = date;
+      this.$emit('input', this.data)
     },
-    time: {
-      type: Object,
-      default: () => ({
-        data: null
-      })
-    }
-  },
-  computed: {
-    datetime () {
-      return this.date.data + ' ' + this.time.data;
-    }
-  },
-  watch: {
-    datetime () {
-      this.$input('input', this.datetime)
+    setTime(time) {
+      this.data.time = time;
+      this.$emit('input', this.data)
     }
   }
 }
