@@ -15,16 +15,20 @@ export default {
   props: {
     value: {},
     mode: {
-      type: Number
+      type: Number,
+      default: 12
     },
     interval: {
-      type: Number
+      type: Number,
+      default: 5
     },
     now: {
-      type: Boolean
+      type: Boolean,
+      default: true
     },
     override: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -54,12 +58,12 @@ export default {
 
   },
   mounted () {
-     this.minute = this.getMinute(this.minute);
+    this.minute = this.getMinute(this.minute);
   },
   computed: {
     time () {
       if (this.mode === 12) {
-        return `${this.hour}:${this.minute}  ${this.period}`;
+        return `${this.hour}:${this.minute} ${this.period}`;
       }
 
       return `${this.hour}:${this.minute}`;
