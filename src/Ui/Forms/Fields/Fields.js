@@ -26,7 +26,7 @@ import UrlField from './UrlField/UrlField.vue'
 Vue.component('kirby-checkbox-field', CheckboxField);
 Vue.component('kirby-checkboxes-field', CheckboxesField);
 Vue.component('kirby-date-field', DateField);
-Vue.component('kirby-datetime-field', DatetimeField);
+// Vue.component('kirby-datetime-field', DatetimeField);
 Vue.component('kirby-email-field', EmailField);
 Vue.component('kirby-headline-field', HeadlineField);
 Vue.component('kirby-info-field', InfoField);
@@ -41,6 +41,6 @@ Vue.component('kirby-tags-field', TagsField);
 Vue.component('kirby-tel-field', TelField);
 Vue.component('kirby-textarea-field', TextareaField);
 Vue.component('kirby-text-field', TextField);
-Vue.component('kirby-time-field', TimeField);
+// Vue.component('kirby-time-field', TimeField);
 Vue.component('kirby-toggle-field', ToggleField);
 Vue.component('kirby-url-field', UrlField);
