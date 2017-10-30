@@ -1,3 +1,3 @@
 export default {
-    ravenKey: 'https://b279326197d741d1b1013baef2c5f93e@sentry.io/235642'
+    ravenKey: 'https://c4b255dc455147f890b03fd925c5f8fa@sentry.io/230262'
 };
