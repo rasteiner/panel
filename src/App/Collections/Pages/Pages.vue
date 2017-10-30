@@ -68,6 +68,9 @@ export default {
         children = this.$api.site.children(this.query);
       }
 
+      this.isLoading = true;
+      this.$store.dispatch('isLoading', true);
+
       children.then((response) => {
 
         this.total = response.pagination.total;
@@ -81,6 +84,7 @@ export default {
         }));
 
         this.isLoading = false;
+        this.$store.dispatch('isLoading', false);
 
       });
 
