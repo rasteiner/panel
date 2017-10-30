@@ -49,7 +49,6 @@
 
     </div>
   </div>
-  <kirby-loader v-else position="center" theme="dark" />
 </template>
 
 <script>
