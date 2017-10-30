@@ -111,8 +111,8 @@ export default {
           this.layout     = blueprint.layout;
           this.$store.dispatch('isLoading', false);
         });
-      }).catch(() => {
-        this.$store.dispatch('error', 'The page could not be found');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
         this.$router.push('../');
       });
 
