@@ -145,5 +145,13 @@ export default [
     name: 'Settings',
     beforeEnter: auth,
     component: SettingsView
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    beforeEnter: (to, from, next) => {
+      store.dispatch('error', 'This view does not exist');
+      next('/');
+    }
   }
 ]
