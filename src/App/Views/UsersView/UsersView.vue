@@ -4,10 +4,16 @@
 
     <kirby-header icon="users" link="/users">
 
-      {{ headline }}
+      <template v-if="role">
+        {{ $t('user.role')}}: <kirby-select-input class="kirby-users-role-select" :options="roles" :value="role" @input="$router.push('/users/role/' + $event)" />
+      </template>
+      <template v-else>
+        {{ $t('users') }}
+      </template>
 
       <template slot="buttons-left">
         <kirby-button icon="add" @click="$refs.create.open()">{{ $t('user.add') }}</kirby-button>
+        <kirby-button v-if="!role" icon="funnel" @click="$router.push('/users/role/admin')">Filter by role</kirby-button>
       </template>
 
       <template slot="buttons-right">
@@ -38,10 +44,27 @@ export default {
     role () {
       return this.$route.params.role;
     },
-    headline () {
-      return !this.role ? this.$t('users') : this.$t('user.role') + ': ' + this.role
+    roles () {
+      // TODO: get actual roles from API
+      return [
+        { value: 'admin', text: 'admin' },
+        { value: 'editor', text: 'editor' },
+        { value: 'visitor', text: 'visitor' }
+      ];
     }
   }
 }
 
 </script>
+
+<style lang="scss">
+
+  .kirby-users-role-select {
+    display: inline-block;
+  }
+
+  .kirby-users-role-select > label {
+    color: $color-dark-grey;
+  }
+
+</style>
