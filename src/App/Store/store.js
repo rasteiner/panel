@@ -14,7 +14,10 @@ export default new Vuex.Store({
     user: null,
     notification: null,
     menu: false,
-    isLoading: false
+    isLoading: false,
+
+    // navigation
+    afterLogin: null
   },
   mutations: {
     menu (state, menu) {
@@ -40,6 +43,11 @@ export default new Vuex.Store({
     },
     isLoading (state, loading) {
       state.isLoading = loading;
+    },
+
+    // navigation
+    afterLogin (state, url) {
+      state.afterLogin = url;
     }
   },
   actions: {
