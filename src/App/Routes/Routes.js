@@ -21,6 +21,7 @@ const auth = (to, from, next) => {
     store.dispatch('user', user);
     next();
   }).catch(() => {
+    store.commit('afterLogin', to.path);
     next('/login');
   });
 

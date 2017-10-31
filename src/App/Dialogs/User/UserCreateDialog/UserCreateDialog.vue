@@ -15,6 +15,8 @@ export default {
       user: {
         email: '',
         password: '',
+        language: 'en',
+        // TODO: change to config default user role
         role: 'admin'
       },
       fields: [
@@ -48,6 +50,8 @@ export default {
         this.user = {
           email: '',
           password: '',
+          language: 'en',
+          // TODO: change to config default user role
           role: 'admin'
         };
 
