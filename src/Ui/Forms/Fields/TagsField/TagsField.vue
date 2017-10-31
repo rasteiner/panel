@@ -29,6 +29,7 @@
         <input v-else :id="_uid" ref="input"
           @keydown.enter="add($event.target.value)"
           @keydown.tab="add($event.target.value)"
+          @keydown.separator.prevent="add($event.target.value)"
           @keydown.left="leaveInput"
           @keydown.delete="leaveInput">
       </span>

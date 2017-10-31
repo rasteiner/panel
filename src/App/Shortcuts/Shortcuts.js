@@ -1,4 +1,11 @@
 
+import Vue from 'vue';
+
+Vue.config.keyCodes = {
+  separator: [188, 190]
+}
+
+
 export default function (e) {
   if (e.code === 'Escape') {
     this.$emit('key.escape');
