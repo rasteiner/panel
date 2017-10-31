@@ -1,10 +1,7 @@
 
 <template>
-  <kirby-field v-bind="$props" class="kirby-select-field">
-    <kirby-select-input v-model="data" :name="name" :options="fieldoptions" />
-  </kirby-field>
+  <ui-select-field v-model="data" v-bind="$props" :options="fieldoptions" />
 </template>
-
 
 <script>
 
@@ -13,7 +10,10 @@ import Fieldoptions from '../Fieldoptions.mixin.js';
 
 export default {
   extends: SelectField,
-  mixins: [Fieldoptions]
+  mixins: [Fieldoptions],
+  components: {
+    'ui-select-field': SelectField
+  }
 }
 
 </script>

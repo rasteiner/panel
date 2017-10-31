@@ -1,10 +1,7 @@
 
 <template>
-  <kirby-field class="kirby-radio-field" v-bind="$props">
-    <kirby-radio-input v-model="data" :name="name" :options="fieldoptions" />
-  </kirby-field>
+  <ui-radio-field v-model="data" v-bind="$props" :options="fieldoptions" />
 </template>
-
 
 <script>
 
@@ -13,7 +10,10 @@ import Fieldoptions from '../Fieldoptions.mixin.js';
 
 export default {
   extends: RadioField,
-  mixins: [Fieldoptions]
+  mixins: [Fieldoptions],
+  components: {
+    'ui-radio-field': RadioField
+  }
 }
 
 </script>
