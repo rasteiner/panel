@@ -14,8 +14,7 @@
 
 <script>
 
-
-import CheckboxesField from '../../../Ui/Forms/Fields/CheckboxesField/CheckboxesField.vue'
+import CheckboxesField from 'Ui/Forms/Fields/CheckboxesField/CheckboxesField.vue'
 import Fieldoptions from '../Fieldoptions.mixin.js';
 
 export default {

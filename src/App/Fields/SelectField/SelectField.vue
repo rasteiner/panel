@@ -8,8 +8,7 @@
 
 <script>
 
-
-import SelectField from '../../../Ui/Forms/Fields/SelectField/SelectField.vue'
+import SelectField from 'Ui/Forms/Fields/SelectField/SelectField.vue'
 import Fieldoptions from '../Fieldoptions.mixin.js';
 
 export default {

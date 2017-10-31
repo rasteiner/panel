@@ -8,8 +8,7 @@
 
 <script>
 
-
-import RadioField from '../../../Ui/Forms/Fields/RadioField/RadioField.vue'
+import RadioField from 'Ui/Forms/Fields/RadioField/RadioField.vue'
 import Fieldoptions from '../Fieldoptions.mixin.js';
 
 export default {
