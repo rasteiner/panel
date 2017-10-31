@@ -54,8 +54,10 @@ export default {
         case 'query':
           data.page = this.fieldoptionsPage(this.query.page);
           data.fetch = this.query.fetch;
+          data.template = this.query.template;
           data.value = this.query.value;
           data.text = this.query.text;
+          data.flip = this.query.flip;
           break;
 
         default:
