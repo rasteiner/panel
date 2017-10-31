@@ -71,11 +71,17 @@ export default {
 
       this.$api.page.slug(this.page.id, this.slug).then((page) => {
 
-        this.success({
+        const payload = {
           message: 'The URL has been changed to: /' + page.id,
-          event: 'page.change.slug',
-          route: '/pages/' + page.id
-        });
+          event: 'page.change.slug'
+        };
+
+        // if in PageView, redirect
+        if (this.page.id === this.$route.params.path) {
+          payload.route = '/pages/' + page.id;
+        }
+
+        this.success(payload);
 
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
