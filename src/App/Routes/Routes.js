@@ -11,7 +11,7 @@ import UsersView from '../Views/UsersView/UsersView.vue';
 import UserView from '../Views/UserView/UserView.vue';
 
 /* store */
-import store from '../Store/store.js';
+import store from '../Store/Store.js';
 import Auth from 'App/Api/Auth.js';
 import Panel from 'App/Api/Panel.js';
 

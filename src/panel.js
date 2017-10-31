@@ -12,6 +12,9 @@ import RavenVue from 'raven-js/plugins/vue';
 
 Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
 
+/** Store */
+import store from 'App/Store/Store.js';
+
 /** Routes */
 import Router from 'vue-router';
 import Routes from 'App/Routes/Routes.js';
@@ -20,15 +23,11 @@ Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  routes: Routes
-});
-
-/** Store */
-import store from 'App/Store/store.js';
-
-router.beforeEach((to, from, next) => {
-  store.dispatch('isLoading', true);
-  next();
+  routes: Routes,
+  beforeEach: (to, from, next) => {
+    store.dispatch('isLoading', true);
+    next();
+  }
 });
 
 /** API */
