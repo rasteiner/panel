@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     input (value, index) {
-      let option = this.fieldoptions[index].value;
+      let option = this.options[index].value;
       if (value === true) {
         this.data.push(option)
       } else {
