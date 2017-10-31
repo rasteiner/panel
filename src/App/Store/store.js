@@ -72,13 +72,15 @@ export default new Vuex.Store({
       }
     },
     language (context, locale) {
-      Language.get(locale).then((language) => {
+      if (locale) {
+        Language.get(locale).then((language) => {
           Vue.i18n.replace(locale, language.strings);
           context.commit('language', {
             locale: language.locale,
             direction: language.direction
           });
         });
+      }
     },
 
     // UI
