@@ -61,7 +61,7 @@ export default new Vuex.Store({
 
       // load language string json file
       } else {
-        fetch(panel.config.assets + '/languages/' + locale + '/core.json').
+        fetch(window.panel.config.assets + '/languages/' + locale + '/core.json').
           then((resource) => resource.json()).
           then((json) => {
             Vue.i18n.add(locale, json);

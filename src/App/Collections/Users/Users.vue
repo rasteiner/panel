@@ -54,7 +54,7 @@ export default {
             text: user.content.name ? user.content.name : user.content.email,
             role: user.role,
             link: '/users/' + user.id,
-            options: panel.config.api + '/users/' + user.id + '/options',
+            options: window.panel.config.api + '/users/' + user.id + '/options',
             image: null
           };
 

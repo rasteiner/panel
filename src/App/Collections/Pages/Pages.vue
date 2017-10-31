@@ -79,7 +79,7 @@ export default {
           text: page.title,
           url: page.url,
           link: '/pages/' + page.id,
-          options: panel.config.api + '/pages/' + page.id + '/options'
+          options: window.panel.config.api + '/pages/' + page.id + '/options'
         }));
 
         this.isLoading = false;

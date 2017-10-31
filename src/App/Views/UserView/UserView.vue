@@ -166,7 +166,7 @@ export default {
     action (action) {
       switch (action) {
         case 'picture.delete':
-          this.$api.avatar.delete(this.id).then(() => {
+          this.$api.user.deleteAvatar(this.id).then(() => {
             this.$store.dispatch('success', this.$t('notification.image.deleted'));
             this.image = null;
           }).catch((error) => {

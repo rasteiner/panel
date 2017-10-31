@@ -140,7 +140,7 @@ export default {
             parent: file.parent,
             mime: file.mime,
             link: '/pages/' + file.parent + '/files/' + file.filename,
-            options: panel.config.api + '/pages/' + file.parent + '/files/' + file.filename + '/options'
+            options: window.panel.config.api + '/pages/' + file.parent + '/files/' + file.filename + '/options'
           };
 
           if (file.type === 'image') {
