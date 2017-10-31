@@ -42,9 +42,8 @@ Vue.use(Events);
 /** i18n */
 import i18n from 'vuex-i18n';
 Vue.use(i18n.plugin, store);
-Vue.i18n.set(store.state.language);
-Vue.i18n.fallback(store.state.language);
-store.dispatch('language', store.state.language);
+Vue.i18n.fallback(store.state.language.locale);
+store.dispatch('language', store.state.language.locale);
 
 /** Ui Kit */
 import 'Ui/Ui.js';
