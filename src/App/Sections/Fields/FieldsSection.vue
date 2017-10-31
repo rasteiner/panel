@@ -33,6 +33,7 @@ export default {
     save () {
       this.$api.page.update(this.page.id, this.data).then(() => {
         this.$store.dispatch('success', 'Saved!');
+        this.$events.$emit('page.update');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

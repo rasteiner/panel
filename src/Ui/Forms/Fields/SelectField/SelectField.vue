@@ -1,15 +1,16 @@
 <template>
   <kirby-field v-bind="$props" class="kirby-select-field">
-    <kirby-select-input v-model="data" v-bind="$props" />
+    <kirby-select-input v-model="data" :name="name" :options="fieldoptions" />
   </kirby-field>
 </template>
 
 <script>
 
 import Field from '../Field.mixin.js';
+import Fieldoptions from '../Fieldoptions.mixin.js';
 
 export default {
-  mixins: [Field],
+  mixins: [Field, Fieldoptions],
   props: {
     value: {
       type: [String, Number]
@@ -22,10 +23,6 @@ export default {
     },
     icon: {
       default: 'angle-down'
-    },
-    options: {
-      type: Array,
-      default: []
     }
   }
 }
