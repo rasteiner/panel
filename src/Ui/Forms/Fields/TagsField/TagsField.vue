@@ -10,6 +10,7 @@
         @keydown.native.right="navigate('next')"
         @click.native.stop
         @dblclick.native="edit(tag)"
+        @keydown.native.delete="remove(tag)"
         @remove="remove(tag)"
         :removable="true">
           {{ tag }}
