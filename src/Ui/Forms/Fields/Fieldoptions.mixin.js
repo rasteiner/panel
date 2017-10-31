@@ -1,4 +1,6 @@
 
+const path = require('path')
+
 export default {
   props: {
     options: {
@@ -40,7 +42,7 @@ export default {
 
       switch (this.options) {
         case 'field':
-          data.page = this.field.page;
+          data.page = this.fieldoptionsPage(this.field.page);
           data.field = this.field.name;
           data.separator = this.field.separator;
           break;
@@ -50,7 +52,7 @@ export default {
           break;
 
         case 'query':
-          data.page = this.query.page;
+          data.page = this.fieldoptionsPage(this.query.page);
           data.fetch = this.query.fetch;
           data.value = this.query.value;
           data.text = this.query.text;
@@ -58,7 +60,7 @@ export default {
 
         default:
           type = 'query';
-          // data.page = '.'
+          data.page = this.fieldoptionsPage()
           data.fetch = this.options
           break;
       }
@@ -67,6 +69,15 @@ export default {
         this.fieldoptions = options;
       })
 
+    },
+    fieldoptionsPage(page) {
+      if (!page) {
+        return this.$route.params.path;
+      }
+      if (page.startsWith('.')) {
+        return path.join(this.$route.params.path, page);
+      }
+      return page;
     }
   }
 }
