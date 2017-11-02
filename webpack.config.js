@@ -3,11 +3,14 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    'panel': './src/panel.js'
+    'ui': './src/Ui/Ui.js',
+    'panel': './src/panel.js',
+    'ui-kit': './src/ui.js'
   },
   output: {
     path: path.resolve(__dirname, './assets/js/'),
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: './panel/assets/js/'
   },
   module: {
     rules: [
@@ -50,6 +53,13 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: ['ui', 'panel'],
+      minChunks: (m) => /node_modules/.test(m.context)
+    })
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',

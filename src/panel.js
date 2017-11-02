@@ -44,12 +44,8 @@ Vue.use(i18n.plugin, store);
 Vue.i18n.fallback(store.state.language.locale);
 store.dispatch('language', store.state.language.locale);
 
-/** Ui Kit */
-import 'Ui/Ui.js';
-
 /** App Stuff */
 import 'App/App.js';
-
 
 new Vue({
   el: 'main',
