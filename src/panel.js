@@ -31,7 +31,7 @@ const router = new Router({
 });
 
 /** API */
-import Api from 'App/Api/Api.js';
+import Api from 'Api/Api.js';
 Vue.use(Api);
 
 /** Event bus */

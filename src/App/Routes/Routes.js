@@ -45,8 +45,8 @@ const UserView = () => import(
 
 /* store */
 import store from '../Store/Store.js';
-import Auth from 'App/Api/Auth.js';
-import Panel from 'App/Api/Panel.js';
+import Auth from 'Api/Auth.js';
+import Panel from 'Api/Panel.js';
 
 const auth = (to, from, next) => {
 
