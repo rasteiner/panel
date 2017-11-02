@@ -57,7 +57,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      chunks: ['ui', 'panel'],
+      chunks: ['ui', 'panel', 'file-view'],
       minChunks: (m) => /node_modules/.test(m.context)
     })
   ],
