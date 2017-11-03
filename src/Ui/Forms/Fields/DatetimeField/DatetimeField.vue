@@ -1,7 +1,7 @@
 <template>
   <kirby-field class="kirby-datetime-field" v-bind="$props">
-    <kirby-date-input v-bind="date" :value="selDate" @input="setDate" ref="date" />
-    <kirby-time-input v-bind="time" :value="selTime" @input="setTime" ref="time" />
+    <kirby-date-input v-bind="date" :value="value ? value.date : null" @input="$emit('input', datetime)" ref="date" />
+    <kirby-time-input v-bind="time" :value="value ? value.time : null" @input="$emit('input', datetime)" ref="time" />
   </kirby-field>
 </template>
 
@@ -24,53 +24,31 @@ export default {
     date: {},
     time: {}
   },
-  data () {
-
-    return {
-      selDate: this.value ? this.value.date : null,
-      selTime: this.value ? this.value.time : null
-    }
-
-  },
   computed: {
     datetime () {
+      const date = this.$refs.date.date;
+      var time = this.$refs.time.time;
+      const mode = time.split(' ');
 
-      const mode = this.selTime.split(' ');
+      // am/pm mode
       if (mode.length > 1) {
-        var hour = mode[0].split(':')[0];
-        var minute = mode[0].split(':')[1];
-
-        if (mode[1] === 'pm') {
-          if (hour < 12) {
-            hour = parseInt(hour) + 12;
-          }
-        } else {
-          if (hour === 12) {
-            hour = 0
-          }
-        }
-
-      } else {
-        var hour = this.selTime.split(':')[0];
-        var minute = this.selTime.split(':')[1];
+        time = mode[0];
       }
 
-      return new Date(this.selDate.getFullYear(), this.selDate.getMonth(), this.selDate.getDate(), hour, minute);
+      // split hours and minutes
+      time = time.split(':');
 
-    }
-  },
-  mounted () {
-    this.selDate = this.$refs.date.date;
-    this.selTime = this.$refs.date.time;
-  },
-  methods: {
-    setDate (date) {
-      this.selDate = date;
-      this.$emit('input', this.datetime)
-    },
-    setTime(time) {
-      this.selTime = time;
-      this.$emit('input', this.datetime)
+      // convert hour to 24h format
+      if (mode.length > 1) {
+        if (mode[1] === 'pm' && time[0] < 12) {
+            time[0] = parseInt(time[0]) + 12;
+        } else if (mode[1] === 'am' && time[0] === 12) {
+            time[0] = 0
+        }
+      }
+
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate(), time[0], time[1]);
+
     }
   }
 }
