@@ -1,7 +1,7 @@
 <template>
   <kirby-field class="kirby-datetime-field" v-bind="$props">
-    <kirby-date-input v-bind="date" :value="data.date" @input="setDate" />
-    <kirby-time-input v-bind="time" :value="data.time" @input="setTime" />
+    <kirby-date-input v-bind="date" :value="selDate" @input="setDate" ref="date" />
+    <kirby-time-input v-bind="time" :value="selTime" @input="setTime" ref="time" />
   </kirby-field>
 </template>
 
@@ -27,21 +27,50 @@ export default {
   data () {
 
     return {
-      data: {
-        date: this.value ? this.value.date : null,
-        time: this.value ? this.value.time : null
-      }
+      selDate: this.value ? this.value.date : null,
+      selTime: this.value ? this.value.time : null
     }
 
   },
+  computed: {
+    datetime () {
+
+      const mode = this.selTime.split(' ');
+      if (mode.length > 1) {
+        var hour = mode[0].split(':')[0];
+        var minute = mode[0].split(':')[1];
+
+        if (mode[1] === 'pm') {
+          if (hour < 12) {
+            hour = parseInt(hour) + 12;
+          }
+        } else {
+          if (hour === 12) {
+            hour = 0
+          }
+        }
+
+      } else {
+        var hour = this.selTime.split(':')[0];
+        var minute = this.selTime.split(':')[1];
+      }
+
+      return new Date(this.selDate.getFullYear(), this.selDate.getMonth(), this.selDate.getDate(), hour, minute);
+
+    }
+  },
+  mounted () {
+    this.selDate = this.$refs.date.date;
+    this.selTime = this.$refs.date.time;
+  },
   methods: {
     setDate (date) {
-      this.data.date = date;
-      this.$emit('input', this.data)
+      this.selDate = date;
+      this.$emit('input', this.datetime)
     },
     setTime(time) {
-      this.data.time = time;
-      this.$emit('input', this.data)
+      this.selTime = time;
+      this.$emit('input', this.datetime)
     }
   }
 }
