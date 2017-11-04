@@ -9,7 +9,7 @@
 
     <kirby-autocomplete v-else
       ref="input"
-      url="http://localhost:8888/api/users"
+      :url="api"
       :map="{
           value: 'id',
           text: 'id',
@@ -46,8 +46,12 @@ export default {
       user: null
     };
   },
+  computed: {
+    api () {
+      return window.panel.config.api + '/users'
+    }
+  },
   mounted () {
-    console.log(this.value);
     if (this.value) {
       this.select(this.value);
     }
