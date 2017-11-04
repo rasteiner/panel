@@ -34,17 +34,18 @@ export default {
     value: {},
     icon: {},
     ignore: {
-      default: function() {
-        return [];
-      },
+      default: () => {
+        return []
+      }
     },
     map: {
-      default: function() {
+      default () {
         return {
           value: 'value',
           text: 'text',
           icon: false,
-          image: false
+          image: false,
+          json: false
         };
       }
     },
@@ -52,7 +53,8 @@ export default {
       default: 5
     }
   },
-  data: function() {
+  data () {
+
     return {
       source: [],
       items: [],
@@ -62,27 +64,29 @@ export default {
   },
   mounted: function() {
 
-    fetch(this.url).then(function(response) {
-      return response.json();
-    }).then(function(json) {
+    fetch(this.url).
+      then((response)  => response.json()).
+      then((json) => {
 
-      json.forEach(function(item) {
+        if (this.map.json) {
+          json = json[this.map.json]
+        }
 
-        this.source.push({
-          value: item[this.map.value],
-          text: item[this.map.text],
-          icon: item[this.map.icon],
-          image: item[this.map.image],
-          original: item
+
+        json.forEach((item) => {
+          this.source.push({
+            value: item[this.map.value],
+            text: item[this.map.text],
+            icon: item[this.map.icon],
+            image: item[this.map.image],
+            original: item
+          });
         });
-
-      }.bind(this));
-
-    }.bind(this));
+      });
 
   },
   methods: {
-    search: function(value) {
+    search (value) {
 
       if(value === '') {
         this.items = [];
@@ -92,7 +96,7 @@ export default {
 
       var regex = new RegExp('^' + value, 'i');
 
-      this.items = this.source.filter(function(item) {
+      this.items = this.source.filter((item) => {
 
         if(this.ignore.indexOf(item.text) !== -1) {
           return false;
@@ -102,13 +106,13 @@ export default {
           return false;
         }
 
-      }.bind(this));
+      });
 
       this.items = this.items.slice(0, this.limit);
       this.$refs.items.open();
 
     },
-    keydown: function(event) {
+    keydown (event) {
       if(this.items[this.selected]) {
         this.select(null);
         event.preventDefault();
@@ -127,7 +131,7 @@ export default {
 
       }
     },
-    select: function(value) {
+    select (value) {
 
       if(value === null && this.items[this.selected]) {
         value = this.items[this.selected].value;
@@ -140,17 +144,17 @@ export default {
       this.close();
 
     },
-    clear: function() {
+    clear () {
       this.$refs.input.value = '';
     },
-    close: function() {
+    close () {
       this.$refs.items.close();
       this.selected = -1;
     },
-    focus: function() {
+    focus () {
       this.$refs.input.focus();
     },
-    navigate: function(direction) {
+    navigate (direction) {
 
       this.selected = this.selected + direction;
 
