@@ -16,14 +16,16 @@
         :icon="item.icon"
         :image="item.image"
         :class="(selected === index) ? 'is-selected' : ''"
-        @click="select(item.value)"> 
-          {{ item.text }}
+        @click="select(item.value)"
+        v-html="item.text"> 
       </kirby-dropdown-item>
     </kirby-dropdown-content>
   </kirby-dropdown>
 </template>
 
 <script>
+
+import resolve from 'Ui/Helpers/resolveObjectPath.js';
 
 export default {
   props: {
@@ -45,7 +47,7 @@ export default {
           text: 'text',
           icon: false,
           image: false,
-          json: false
+          items: false
         };
       }
     },
@@ -68,17 +70,16 @@ export default {
       then((response)  => response.json()).
       then((json) => {
 
-        if (this.map.json) {
-          json = json[this.map.json]
+        if (this.map.items) {
+          json = resolve(json, this.map.items);
         }
-
 
         json.forEach((item) => {
           this.source.push({
-            value: item[this.map.value],
-            text: item[this.map.text],
-            icon: item[this.map.icon],
-            image: item[this.map.image],
+            value: resolve(item, this.map.value),
+            text: resolve(item, this.map.text) || resolve(item, this.map.value),
+            icon: resolve(item, this.map.icon),
+            image: resolve(item, this.map.image),
             original: item
           });
         });
