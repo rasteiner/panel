@@ -1,19 +1,27 @@
 <template>
-  <kirby-field class="kirby-user-field" v-bind="$props">
+  <kirby-field ref="field" class="kirby-user-field" v-bind="$props" :icon="button">
     <template v-if="user">
-      <kirby-button class="kirby-user-field-image" v-if="user.image.exists" @click="clear">
-        <kirby-image :cover="true" ratio="1/1" :src="user.image.url" />
+      <kirby-button class="kirby-user-field-image" v-if="user.image.exists">
+        <kirby-image
+          :cover="true"
+          ratio="1/1"
+          :src="user.image.url" />
       </kirby-button>
-      <kirby-text-input class="kirby-user-field-name" :readonly="true" :value="user.content.name || user.id" @click.native="clear" />
+      <kirby-text-input
+        class="kirby-user-field-name"
+        :readonly="true"
+        :value="user.content.name || user.id"
+        @keydown.native.delete="clear" />
     </template>
 
     <kirby-autocomplete v-else
       ref="input"
       :url="api"
       :map="{
+          items: 'items',
           value: 'id',
-          text: 'id',
-          json: 'items'
+          text: 'content.name',
+          image: 'image.url'
         }"
       @enter="function(value) { select(value) }"
       @select="function(item) { select(item.value) }">
@@ -49,12 +57,16 @@ export default {
   computed: {
     api () {
       return window.panel.config.api + '/users'
+    },
+    button () {
+      return this.user ? 'cancel' : this.icon;
     }
   },
   mounted () {
     if (this.value) {
       this.select(this.value);
     }
+    this.$el.querySelector('.kirby-input-icon').addEventListener("click", this.clear, false);
   },
   methods: {
     select (id) {
@@ -65,6 +77,7 @@ export default {
     },
     clear () {
       this.user = null;
+      this.$emit('input', null);
       this.$nextTick(() => {
         this.$refs.input.focus()
       })
@@ -84,6 +97,7 @@ export default {
 .kirby-input-content > .kirby-user-field-image {
   display: inline-block;
   width: 3.2rem;
+  cursor: default;
 }
 
 .kirby-input-content > .kirby-user-field-name {
