@@ -15,9 +15,8 @@
         :key="index"
         :icon="item.icon"
         :image="item.image"
-        :class="(selected === index) ? 'is-selected' : ''"
-        @click="select(item.value)"
-        v-html="item.text"> 
+        :class="(selected === index) ? 'is-selected' : ''">
+        {{ item.text }} 
       </kirby-dropdown-item>
     </kirby-dropdown-content>
   </kirby-dropdown>
@@ -56,7 +55,6 @@ export default {
     }
   },
   data () {
-
     return {
       source: [],
       items: [],
@@ -64,7 +62,7 @@ export default {
       selected: -1
     };
   },
-  mounted: function() {
+  mounted () {
 
     fetch(this.url).
       then((response)  => response.json()).
