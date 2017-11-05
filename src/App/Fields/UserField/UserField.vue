@@ -96,7 +96,7 @@ export default {
 
 .kirby-input-content > .kirby-user-field-image {
   display: inline-block;
-  width: 3.2rem;
+  width: 3.15rem;
   cursor: default;
 }
 
