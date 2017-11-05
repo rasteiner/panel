@@ -15,7 +15,8 @@
         :key="index"
         :icon="item.icon"
         :image="item.image"
-        :class="(selected === index) ? 'is-selected' : ''">
+        :class="(selected === index) ? 'is-selected' : ''"
+        @click="select(item.value)">
         <span v-html="item.matched"></span>
       </kirby-dropdown-item>
     </kirby-dropdown-content>
