@@ -4,11 +4,11 @@
       type="text"
       ref="input"
       :id="id"
+      v-model="query"
       @keydown.tab="keydown"
       @keydown.enter="keydown"
       @keydown.up.prevent="navigate(-1)"
-      @keydown.down.prevent="navigate(1)"
-      @input="search($event.target.value)" />
+      @keydown.down.prevent="navigate(1)" />
     <kirby-dropdown-content :dark="true" ref="items">
       <kirby-dropdown-item v-for="(item, index) in items"
         tabindex="-1"
@@ -16,7 +16,7 @@
         :icon="item.icon"
         :image="item.image"
         :class="(selected === index) ? 'is-selected' : ''">
-        {{ item.text }} 
+        <span v-html="item.matched"></span>
       </kirby-dropdown-item>
     </kirby-dropdown-content>
   </kirby-dropdown>
@@ -52,6 +52,10 @@ export default {
     },
     limit: {
       default: 5
+    },
+    matchValues: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -59,8 +63,14 @@ export default {
       source: [],
       items: [],
       val: this.value,
-      selected: -1
+      selected: -1,
+      query: null
     };
+  },
+  watch: {
+    query () {
+      this.search(this.query);
+    }
   },
   mounted () {
 
@@ -73,9 +83,12 @@ export default {
         }
 
         json.forEach((item) => {
+          let text = resolve(item, this.map.text) || resolve(item, this.map.value);
+
           this.source.push({
             value: resolve(item, this.map.value),
-            text: resolve(item, this.map.text) || resolve(item, this.map.value),
+            text: text,
+            matched: text,
             icon: resolve(item, this.map.icon),
             image: resolve(item, this.map.image),
             original: item
@@ -93,13 +106,15 @@ export default {
         return;
       }
 
-      var regex = new RegExp('^' + value, 'i');
+      const regex = new RegExp(value, 'ig');
 
       this.items = this.source.filter((item) => {
 
         if(this.ignore.indexOf(item.text) !== -1) {
           return false;
         } else if(item.text.match(regex)) {
+          return true;
+        } else if(this.matchValues && item.value.match(regex)) {
           return true;
         } else {
           return false;
@@ -108,8 +123,15 @@ export default {
       });
 
       this.items = this.items.slice(0, this.limit);
+      this.highlight()
       this.$refs.items.open();
 
+    },
+    highlight () {
+      const regex = new RegExp(`(${this.query})`, 'i');
+      this.items.forEach((item) => {
+        item.matched = item.text.replace(regex, '<b>$1</b>')
+      });
     },
     keydown (event) {
       if(this.items[this.selected]) {
