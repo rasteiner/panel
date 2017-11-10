@@ -162,7 +162,8 @@ export default {
   }
 }
 
-.kirby-button-text span {
+.kirby-button-text span,
+.kirby-button-text b {
   vertical-align: baseline;
 }
 

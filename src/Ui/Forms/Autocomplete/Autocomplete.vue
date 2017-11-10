@@ -4,11 +4,11 @@
       type="text"
       ref="input"
       :id="id"
+      v-model="query"
       @keydown.tab="keydown"
       @keydown.enter="keydown"
       @keydown.up.prevent="navigate(-1)"
-      @keydown.down.prevent="navigate(1)"
-      @input="search($event.target.value)" />
+      @keydown.down.prevent="navigate(1)" />
     <kirby-dropdown-content :dark="true" ref="items">
       <kirby-dropdown-item v-for="(item, index) in items"
         tabindex="-1"
@@ -16,14 +16,16 @@
         :icon="item.icon"
         :image="item.image"
         :class="(selected === index) ? 'is-selected' : ''"
-        @click="select(item.value)"> 
-          {{ item.text }}
+        @click="select(item.value)">
+        <span v-html="item.matched"></span>
       </kirby-dropdown-item>
     </kirby-dropdown-content>
   </kirby-dropdown>
 </template>
 
 <script>
+
+import resolve from 'Ui/Helpers/resolveObjectPath.js';
 
 export default {
   props: {
@@ -34,55 +36,70 @@ export default {
     value: {},
     icon: {},
     ignore: {
-      default: function() {
-        return [];
-      },
+      default: () => {
+        return []
+      }
     },
     map: {
-      default: function() {
+      default () {
         return {
           value: 'value',
           text: 'text',
           icon: false,
-          image: false
+          image: false,
+          items: false
         };
       }
     },
     limit: {
       default: 5
+    },
+    matchValues: {
+      type: Boolean,
+      default: true
     }
   },
-  data: function() {
+  data () {
     return {
       source: [],
       items: [],
       val: this.value,
-      selected: -1
+      selected: -1,
+      query: null
     };
   },
-  mounted: function() {
+  watch: {
+    query () {
+      this.search(this.query);
+    }
+  },
+  mounted () {
 
-    fetch(this.url).then(function(response) {
-      return response.json();
-    }).then(function(json) {
+    fetch(this.url).
+      then((response)  => response.json()).
+      then((json) => {
 
-      json.forEach(function(item) {
+        if (this.map.items) {
+          json = resolve(json, this.map.items);
+        }
 
-        this.source.push({
-          value: item[this.map.value],
-          text: item[this.map.text],
-          icon: item[this.map.icon],
-          image: item[this.map.image],
-          original: item
+        json.forEach((item) => {
+          let text = resolve(item, this.map.text) || resolve(item, this.map.value);
+
+          this.source.push({
+            value: resolve(item, this.map.value),
+            text: text,
+            matched: text,
+            icon: resolve(item, this.map.icon),
+            image: resolve(item, this.map.image),
+            original: item
+          });
         });
-
-      }.bind(this));
-
-    }.bind(this));
+      });
 
   },
   methods: {
-    search: function(value) {
+    search (value) {
 
       if(value === '') {
         this.items = [];
@@ -90,25 +107,34 @@ export default {
         return;
       }
 
-      var regex = new RegExp('^' + value, 'i');
+      const regex = new RegExp(value, 'ig');
 
-      this.items = this.source.filter(function(item) {
+      this.items = this.source.filter((item) => {
 
         if(this.ignore.indexOf(item.text) !== -1) {
           return false;
         } else if(item.text.match(regex)) {
           return true;
+        } else if(this.matchValues && item.value.match(regex)) {
+          return true;
         } else {
           return false;
         }
 
-      }.bind(this));
+      });
 
       this.items = this.items.slice(0, this.limit);
+      this.highlight()
       this.$refs.items.open();
 
     },
-    keydown: function(event) {
+    highlight () {
+      const regex = new RegExp(`(${this.query})`, 'i');
+      this.items.forEach((item) => {
+        item.matched = item.text.replace(regex, '<b>$1</b>')
+      });
+    },
+    keydown (event) {
       if(this.items[this.selected]) {
         this.select(null);
         event.preventDefault();
@@ -127,7 +153,7 @@ export default {
 
       }
     },
-    select: function(value) {
+    select (value) {
 
       if(value === null && this.items[this.selected]) {
         value = this.items[this.selected].value;
@@ -140,17 +166,17 @@ export default {
       this.close();
 
     },
-    clear: function() {
+    clear () {
       this.$refs.input.value = '';
     },
-    close: function() {
+    close () {
       this.$refs.items.close();
       this.selected = -1;
     },
-    focus: function() {
+    focus () {
       this.$refs.input.focus();
     },
-    navigate: function(direction) {
+    navigate (direction) {
 
       this.selected = this.selected + direction;
 
