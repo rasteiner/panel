@@ -4,7 +4,7 @@
 
 <script>
 
-import Language from 'App/Api/Language.js';
+import Language from 'Api/Language.js';
 import Field from 'Ui/Forms/Fields/Field.mixin.js';
 
 export default {

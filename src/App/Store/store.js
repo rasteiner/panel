@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Language from 'App/Api/Language.js';
+import Language from 'Api/Language.js';
 
 Vue.use(Vuex);
 

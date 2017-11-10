@@ -31,7 +31,7 @@ const router = new Router({
 });
 
 /** API */
-import Api from 'App/Api/Api.js';
+import Api from 'Api/Api.js';
 Vue.use(Api);
 
 /** Event bus */
@@ -44,12 +44,8 @@ Vue.use(i18n.plugin, store);
 Vue.i18n.fallback(store.state.language.locale);
 store.dispatch('language', store.state.language.locale);
 
-/** Ui Kit */
-import 'Ui/Ui.js';
-
 /** App Stuff */
 import 'App/App.js';
-
 
 new Vue({
   el: 'main',
