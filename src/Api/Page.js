@@ -25,7 +25,7 @@ export default {
     return Api.get('pages/' + id + '/options');
   },
   update (id, data) {
-  return Api.post('pages/' + id, data);
+    return Api.post('pages/' + id, data);
   },
   children (id, query) {
     return Api.post('pages/' + id + '/children/search', query);
@@ -37,10 +37,13 @@ export default {
     return Api.delete('pages/' + id);
   },
   slug (id, slug) {
-    return Api.post('pages/' + id + '/slug', {slug: slug});
+    return Api.post('pages/' + id + '/slug', { slug: slug });
   },
   status (id, status, position) {
-    return Api.post('pages/' + id + '/status', {status: status, position: position});
+    return Api.post('pages/' + id + '/status', {
+      status: status,
+      position: position
+    });
   },
   blueprint (id) {
     return Api.get('pages/' + id + '/blueprint');

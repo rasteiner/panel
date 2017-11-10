@@ -242,6 +242,7 @@ export default {
     outline: 0;
     margin-bottom: 4px;
     border-radius: 3px;
+    background: transparent;
 
     [dir="ltr"] & {
       margin-right: 4px;

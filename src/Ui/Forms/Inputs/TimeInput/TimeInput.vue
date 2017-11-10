@@ -13,6 +13,7 @@
 
 export default {
   props: {
+    value: {},
     mode: {
       type: Number,
       default: 12
@@ -23,7 +24,7 @@ export default {
     },
     now: {
       type: Boolean,
-      default: false
+      default: true
     },
     override: {
       type: Boolean,
@@ -32,73 +33,49 @@ export default {
   },
   data () {
 
-    var date = new Date();
+    var time = {
+      hour: 0,
+      minute: 0
+    }
 
-    if (this.value) {
-      date = new Date(this.value);
+    if (this.now) {
+      const now = new Date();
+      time = {
+        hour: now.getHours(),
+        minute: now.getMinutes(),
+      };
+    }
+
+    if (this.value && !this.override) {
+      time = this.value;
     }
 
     return {
-      date: date,
-      hour: this.getHours(date),
-      minute: date.getMinutes(),
-      period: this.getPeriod(date)
+      hour: this.getHour(parseInt(time.hour)),
+      minute: time.minute,
+      period: this.getPeriod(parseInt(time.hour))
     }
 
   },
   mounted () {
-    this.minute = this.getMinutes(this.date);
+    this.minute = this.getMinute(this.minute);
   },
   computed: {
     time () {
-      return `${this.hour}:${this.minute} ${this.period}`;
-    }
-  },
-  watch: {
-    time (time) {
-      this.$emit('input', time);
-    }
-  },
-  methods: {
-    focus () {
-      this.$refs.hour.focus();
-    },
-    getHours (date) {
-      if (this.mode === 24) {
-        return date.getHours();
+      if (this.mode === 12) {
+        return `${this.hour}:${this.minute} ${this.period}`;
       }
-      return date.getHours() <= 12 ? date.getHours() : date.getHours() - 12;
+
+      return `${this.hour}:${this.minute}`;
     },
-    getMinutes (date) {
-      return this.closest(date.getMinutes());
-    },
-    getPeriod (date) {
-      return date.getHours() > 12 ? 'pm' : 'am';
-    },
-    select (date) {
-      this.hour   = this.getHours(date);
-      this.minute = this.getMinutes(date);
-      this.period = this.getPeriod(date);
-    },
-    closest(minute) {
-      var value, last;
-      this.minutes.some((item) => {
-          var delta = Math.abs(minute - item.value);
-          if (delta >= last) {
-              return true;
-          }
-          value = item.value;
-          last = delta;
-      });
-      return value;
-    }
-  },
-  computed: {
     hours () {
 
       var options = [];
 
-      for (var i = 1; i <= (this.mode === 24 ? 23 : 12); i++) {
+      const first = this.mode === 24 ? 0 : 1;
+      const last = this.mode === 24 ? 23 : 12;
+
+      for (var i = first; i <= last; i++) {
         options.push({
           value: i,
           text:  i.padZero()
@@ -121,6 +98,54 @@ export default {
 
       return options;
 
+    }
+  },
+  watch: {
+    hour () {
+      this.$emit('input', this.time);
+    },
+    minute () {
+      this.$emit('input', this.time);
+    },
+    period () {
+      this.$emit('input', this.time);
+    }
+  },
+  methods: {
+    focus () {
+      this.$refs.hour.focus();
+    },
+    getHour (hour) {
+      if (this.mode === 24) {
+        return hour;
+      }
+
+      if (hour > 12) {
+        hour -= 12;
+      }
+
+      return hour === 0 ? 12 : hour;
+    },
+    getMinute (minute) {
+
+      var value, last;
+
+      this.minutes.some((item) => {
+          var delta = Math.abs(minute - item.value);
+
+          if (delta >= last) {
+              return true;
+          }
+
+          value = item.value;
+          last = delta;
+      });
+
+      return value;
+
+    },
+    getPeriod (hours) {
+      return hours >= 12 ? 'pm' : 'am';
     }
   }
 }

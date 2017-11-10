@@ -56,10 +56,12 @@ export default {
   padding-top: 0;
   padding-bottom: 0;
 }
-.kirby-field[readonly] .kirby-input {
-  opacity: .5;
+.kirby-field[readonly] {
   cursor: default;
   pointer-events: none;
+}
+.kirby-field[readonly] .kirby-input {
+  background: $color-background;
 }
 .kirby-field[error] .kirby-field-header label {
   color: $color-negative;

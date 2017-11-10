@@ -19,7 +19,7 @@
 
 <script>
 
-import Page from 'App/Api/Page.js'
+import Page from 'Api/Page.js'
 
 export default {
   data () {

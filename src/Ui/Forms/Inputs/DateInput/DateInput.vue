@@ -1,8 +1,8 @@
 <template>
   <div class="kirby-date-inputs">
-    <kirby-select-input @input="setDay" ref="day" :value="day" :options="days" />
-    <kirby-select-input @input="setMonth" :value="month" :options="months" />
-    <kirby-select-input @input="setYear" :value="year" :options="years" />
+    <kirby-select-input v-model="day" ref="day" :options="days" />
+    <kirby-select-input v-model="month" :options="months" />
+    <kirby-select-input v-model="year" :options="years" />
   </div>
 </template>
 
@@ -29,6 +29,11 @@ export default {
       year: date.getFullYear()
     }
 
+  },
+  mounted () {
+    document.addEventListener('click', () => {
+      this.open = false;
+    });
   },
   computed: {
     date () {
@@ -79,10 +84,16 @@ export default {
 
     }
   },
-  mounted () {
-    document.addEventListener('click', () => {
-      this.open = false;
-    });
+  watch: {
+    year () {
+      this.$emit('input', this.date);
+    },
+    month () {
+      this.$emit('input', this.date);
+    },
+    day () {
+      this.$emit('input', this.date);
+    }
   },
   methods: {
     focus () {
@@ -93,18 +104,6 @@ export default {
       this.month = date.getMonth() + 1;
       this.year  = date.getFullYear();
       this.open  = false;
-    },
-    setDay (day) {
-      this.day = day;
-      this.$emit('input', this.date);
-    },
-    setMonth (month) {
-      this.month = month;
-      this.$emit('input', this.date);
-    },
-    setYear (year) {
-      this.year = year;
-      this.$emit('input', this.date);
     }
   }
 }
