@@ -19,6 +19,10 @@ export default {
     },
     icon: {
       default: 'calendar'
+    },
+    range: {
+      type: [Boolean, Number],
+      default: 10
     }
   }
 }

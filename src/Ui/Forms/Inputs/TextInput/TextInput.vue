@@ -1,5 +1,5 @@
 <template>
-  <input :id="name" v-bind="$props" autocomplete="off" v-model="data">
+  <input :id="name" v-bind="$props" autocomplete="off" v-model="data" class="kirby-text-input">
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
   mixins: [Input],
   props: {
     value: {
-      type: String
+      type: [String, Number]
     },
     placeholder: {}
   }

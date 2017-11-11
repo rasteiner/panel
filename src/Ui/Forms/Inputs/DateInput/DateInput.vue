@@ -2,7 +2,8 @@
   <div class="kirby-date-inputs">
     <kirby-select-input v-model="day" ref="day" :options="days" />
     <kirby-select-input v-model="month" :options="months" />
-    <kirby-select-input v-model="year" :options="years" />
+    <kirby-select-input v-if="range !== false" v-model="year" :options="years" />
+    <kirby-text-input v-else v-model.number="year" />
   </div>
 </template>
 
@@ -12,7 +13,11 @@ import Dates from './DateInput.dates.js';
 
 export default {
   props: {
-    value: {}
+    value: {},
+    range: {
+      type: [Boolean, Number],
+      default: 10
+    }
   },
   data () {
 
@@ -73,12 +78,15 @@ export default {
 
       var options = [];
 
-      Dates.years(this.date.getFullYear(), 10, 10).forEach((year, index) => {
-        options.push({
-          value: year,
-          text: year
+      if (this.range) {
+        Dates.years(this.date.getFullYear(), this.range, this.range, 10).forEach((year, index) => {
+          options.push({
+            value: year,
+            text: year
+          });
         });
-      });
+      }
+
 
       return options;
 
@@ -141,6 +149,11 @@ export default {
   display: none;
 }
 
+.kirby-date-inputs .kirby-text-input {
+  font-size: 100%;
+  border: 0;
+  outline: none;
+}
 
 </style>
 
