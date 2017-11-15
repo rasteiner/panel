@@ -43,17 +43,11 @@ export default {
     },
     insert (text) {
 
-      const area  = this.$refs.textarea;
-      const start = area.selectionStart;
-      const end   = area.selectionEnd;
-      const value = area.value;
+      const area = this.$refs.textarea;
 
-      area.value = value.substring(0, start) + text + value.substring(end, value.length);
+      document.execCommand('insertText', false, text);
+
       area.focus();
-
-      area.selectionStart = start + text.length;
-      area.selectionEnd   = start + text.length;
-
       this.resize();
 
     },
