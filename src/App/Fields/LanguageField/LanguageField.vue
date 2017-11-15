@@ -36,15 +36,18 @@ export default {
     fetch () {
 
       Language.list().then(languages => {
+
         this.options = languages.map(lang =>({
           value: lang.locale,
           text: lang.name
         }))
+
         this.options.unshift({
           value: '',
           text: 'Please select a language…',
           disabled: true
          })
+
       });
 
     }

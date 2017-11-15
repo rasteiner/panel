@@ -107,11 +107,6 @@ export default {
           readonly: true
         },
         {
-          name: 'website',
-          label: this.$t('website'),
-          type: 'url'
-        },
-        {
           name: 'language',
           label: this.$t('user.language'),
           type: 'language'
