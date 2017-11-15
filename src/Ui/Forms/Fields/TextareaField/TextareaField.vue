@@ -4,7 +4,7 @@
       <kirby-counter :value="data" :max="max"></kirby-counter>
     </template>
 
-    <kirby-textarea-input ref="input" v-bind="$props" v-model="data" @submit="$emit('submit', $event)" />
+    <kirby-textarea-input ref="input" v-bind="$props" @focus="addShortcuts" @blur="removeShortcuts" v-model="data" @submit="$emit('submit', $event)" />
 
     <div v-if="buttons" class="kirby-format-buttons">
       <div class="kirby-format-buttons-group">
@@ -16,8 +16,8 @@
             <kirby-dropdown-item @click="prefix('###')" icon="title">Headline 3</kirby-dropdown-item>
           </kirby-dropdown-content>
         </kirby-dropdown>
-        <kirby-button class="kirby-format-button" @click="wrap('**')" icon="bold" />
-        <kirby-button class="kirby-format-button" @click="wrap('*')" icon="italic" />
+        <kirby-button class="kirby-format-button" @click="bold" icon="bold" />
+        <kirby-button class="kirby-format-button" @click="italic" icon="italic" />
       </div>
       <div class="kirby-format-buttons-group">
         <kirby-button class="kirby-format-button" @click="openLinkModal" icon="chain" />
@@ -105,7 +105,6 @@ export default {
     };
   },
   methods: {
-
     prefix (prefix) {
 
       const input     = this.$refs.input;
@@ -120,6 +119,12 @@ export default {
       const tag   = token + input.selection() + token;
 
       input.insert(tag);
+    },
+    bold () {
+      this.wrap('**');
+    },
+    italic () {
+      this.wrap('*');
     },
     openLinkModal () {
       this.linkValue.text = this.$refs.input.selection();
@@ -171,15 +176,24 @@ export default {
       this.$refs.emailModal.close();
 
     },
-    image () {
-
-    },
     toggle () {
       this.fullscreen = !this.fullscreen;
       this.$nextTick(() => {
         this.$refs.input.resize();
         this.$refs.input.focus();
       });
+    },
+    addShortcuts () {
+      this.$events.$on('key.cmd+b', this.bold);
+      this.$events.$on('key.cmd+i', this.italic);
+      this.$events.$on('key.cmd+u', this.openLinkModal);
+      this.$events.$on('key.cmd+e', this.openEmailModal);
+    },
+    removeShortcuts () {
+      this.$events.$off('key.cmd+b', this.bold);
+      this.$events.$off('key.cmd+i', this.italic);
+      this.$events.$off('key.cmd+u', this.openLinkModal);
+      this.$events.$off('key.cmd+e', this.openEmailModal);
     }
   }
 }

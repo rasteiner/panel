@@ -5,6 +5,8 @@
     spellcheck="false"
     class="kirby-textarea-input"
     v-model="data"
+    @focus="$emit('focus')"
+    @blur="$emit('blur')"
     @keydown.delete="remove($event)"
     @keydown.enter="enter($event)"
     :placeholder="placeholder"
