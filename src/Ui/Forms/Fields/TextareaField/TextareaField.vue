@@ -1,5 +1,5 @@
 <template>
-  <kirby-field v-bind="$props">
+  <kirby-field class="kirby-textarea-field" v-bind="$props" :data-fullscreen="fullscreen">
     <template slot="options" v-if="max">
       <kirby-counter :value="data" :max="max"></kirby-counter>
     </template>
@@ -28,41 +28,44 @@
         <kirby-button class="kirby-format-button" @click="prefix('-')" icon="list-bullet" />
         <kirby-button class="kirby-format-button" @click="prefix('1.')" icon="list-numbers" />
       </div>
-
-      <kirby-dialog ref="linkModal" button="Insert" @cancel="$refs.input.focus()" @submit="$refs.linkForm.submit()">
-        <kirby-form ref="linkForm" @submit="link" :values="linkValue" :fields="[
-          {
-            name: 'url',
-            label: 'Link',
-            type: 'text',
-            icon: 'chain'
-          },
-          {
-            name: 'text',
-            label: 'Link Text',
-            type: 'text'
-          }
-        ]" />
-      </kirby-dialog>
-
-      <kirby-dialog ref="emailModal" button="Insert" @cancel="$refs.input.focus()" @submit="$refs.emailForm.submit()">
-        <kirby-form ref="emailForm" @submit="email" :values="emailValue" :fields="[
-          {
-            name: 'email',
-            label: 'Email',
-            type: 'email'
-          },
-          {
-            name: 'text',
-            label: 'Email Link Text',
-            type: 'text'
-          }
-        ]" />
-      </kirby-dialog>
-
-      <kirby-upload ref="upload" />
+      <div class="kirby-format-buttons-group">
+        <kirby-button class="kirby-format-button" @click="toggle()" :icon="fullscreen ? 'collapse' : 'expand'" />
+      </div>
 
     </div>
+
+    <kirby-dialog ref="linkModal" button="Insert" @cancel="$refs.input.focus()" @submit="$refs.linkForm.submit()">
+      <kirby-form ref="linkForm" @submit="link" :values="linkValue" :fields="[
+        {
+          name: 'url',
+          label: 'Link',
+          type: 'text',
+          icon: 'chain'
+        },
+        {
+          name: 'text',
+          label: 'Link Text',
+          type: 'text'
+        }
+      ]" />
+    </kirby-dialog>
+
+    <kirby-dialog ref="emailModal" button="Insert" @cancel="$refs.input.focus()" @submit="$refs.emailForm.submit()">
+      <kirby-form ref="emailForm" @submit="email" :values="emailValue" :fields="[
+        {
+          name: 'email',
+          label: 'Email',
+          type: 'email'
+        },
+        {
+          name: 'text',
+          label: 'Email Link Text',
+          type: 'text'
+        }
+      ]" />
+    </kirby-dialog>
+
+    <kirby-upload ref="upload" />
 
   </kirby-field>
 </template>
@@ -90,6 +93,7 @@ export default {
   },
   data () {
     return {
+      fullscreen: false,
       linkValue: {
         url: null,
         text: null
@@ -169,6 +173,13 @@ export default {
     },
     image () {
 
+    },
+    toggle () {
+      this.fullscreen = !this.fullscreen;
+      this.$nextTick(() => {
+        this.$refs.input.autosize();
+        this.$refs.input.focus();
+      });
     }
   }
 }
@@ -190,8 +201,36 @@ export default {
 .kirby-format-buttons-group {
   margin-right: 1.5rem;
 }
+
 .kirby-format-button {
   padding: .5rem;
 }
+
+.kirby-textarea-field[data-fullscreen] {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: z-index(focusmode);
+  background: $color-white;
+  padding: 3rem;
+  overflow: auto;
+}
+.kirby-textarea-field[data-fullscreen] > .kirby-field-header {
+  display: none;
+}
+.kirby-textarea-field[data-fullscreen] > .kirby-input {
+  max-width: 40rem;
+  margin: 3rem auto;
+  border: 0;
+  box-shadow: none;
+}
+.kirby-textarea-field[data-fullscreen] > .kirby-input .kirby-format-buttons {
+  position: fixed;
+  top: 0;
+}
+
+
 
 </style>
