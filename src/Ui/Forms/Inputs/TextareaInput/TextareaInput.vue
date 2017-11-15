@@ -52,10 +52,10 @@ export default {
       area.selectionStart = start + text.length;
       area.selectionEnd   = start + text.length;
 
-      this.autosize();
+      this.resize();
 
     },
-    autosize () {
+    resize () {
       autosize.update(this.$refs.textarea);
     },
     selection () {

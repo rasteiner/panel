@@ -177,7 +177,7 @@ export default {
     toggle () {
       this.fullscreen = !this.fullscreen;
       this.$nextTick(() => {
-        this.$refs.input.autosize();
+        this.$refs.input.resize();
         this.$refs.input.focus();
       });
     }
