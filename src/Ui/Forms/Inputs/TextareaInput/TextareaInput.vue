@@ -39,6 +39,31 @@ export default {
     focus () {
       this.$refs.textarea.focus();
     },
+    insert (text) {
+
+      const area  = this.$refs.textarea;
+      const start = area.selectionStart;
+      const end   = area.selectionEnd;
+      const value = area.value;
+
+      area.value = value.substring(0, start) + text + value.substring(end, value.length);
+      area.focus();
+
+      area.selectionStart = start + text.length;
+      area.selectionEnd   = start + text.length;
+
+      autosize.update(area);
+
+    },
+    selection () {
+
+      const area  = this.$refs.textarea;
+      const start = area.selectionStart;
+      const end   = area.selectionEnd;
+
+      return area.value.substring(start, end);
+
+    },
     enter (e) {
       this.$emit('enter', e);
 
