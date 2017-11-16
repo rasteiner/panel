@@ -27,6 +27,9 @@ export default {
   deleteAvatar (id) {
     return Api.delete('users/' + id + '/avatar');
   },
+  blueprint (id) {
+    return Api.get('users/' + id + '/blueprint');
+  },
   breadcrumb (user) {
     return [
       {
