@@ -1,6 +1,6 @@
 <template>
   <section class="kirby-fields-section">
-    <kirby-form @submit="save" :fields="fields" :values="data" />
+    <kirby-form @submit="submit" :fields="fields" :values="formData" />
   </section>
 </template>
 
@@ -10,44 +10,24 @@ export default {
   props: [
     'fields',
     'values',
-    'page'
+    'model'
   ],
   data() {
-    var data = this.page.content;
-
-    if (!data || data.length === 0) {
-      data = {};
-    }
-
     return {
-      data:  data
+      formData: this.values
     }
   },
   created: function () {
-    this.$events.$on('key.save', this.save);
+    this.$events.$on('key.save', this.submit);
   },
   destroyed: function () {
-    this.$events.$off('key.save', this.save);
+    this.$events.$off('key.save', this.submit);
   },
   methods: {
-    save () {
-      this.$api.page.update(this.page.id, this.data).then(() => {
-        this.$store.dispatch('success', 'Saved!');
-        this.$events.$emit('page.update');
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
+    submit () {
+      this.$emit('submit', this.formData);
     }
-  },
-  /*
-  created() {
-    this.interval = window.setInterval(() => {
-      this.save();
-    }, 10000);
-  },
-  destroyed() {
-    window.clearInterval(this.interval);
-  }*/
+  }
 };
 
 </script>

@@ -20,7 +20,7 @@ export default {
     'layout',
     'type',
     'parent',
-    'page',
+    'model',
     'filterBy',
     'group',
     'pagination',
@@ -31,7 +31,7 @@ export default {
   computed: {
     query () {
       return {
-        parent: this.parent || this.page.id,
+        parent: this.parent || this.model.id,
         filterBy: this.filterBy,
         sortBy: this.sortBy,
         offset: this.offset

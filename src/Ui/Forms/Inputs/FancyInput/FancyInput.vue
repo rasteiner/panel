@@ -6,8 +6,9 @@
     spellcheck="false"
     :data-type="type"
     :placeholder="placeholder"
-    @input="input"
-    @blur="$emit('blur', $event)"
+    @input="$emit('input', $event.target.innerText)"
+    @focus="focusInput"
+    @blur="blurInput"
     @keydown.enter="enter"
     @keydown.delete="remove" v-html="val" />
 </template>
@@ -41,12 +42,14 @@ export default {
     }
   },
   methods: {
-    input (e) {
-      this.$emit('input', this.val);
-    },
     focus () {
       this.$refs.input.focus();
-      this.$emit('focus');
+    },
+    focusInput (event) {
+      this.$emit('focus', event);
+    },
+    blurInput (event) {
+      this.$emit('blur', event);
     },
     enter (e) {
 

@@ -9,10 +9,12 @@
         placeholder="Enter a name …"
         tag="div"
         type="headline"
+        ref="name"
         :key="user.id + '-headline'"
-        :value="user.content.name"
-        @blur="updateName($event.target.innerText)"
-        @enter="$event.target.blur()" />
+        :value="name"
+        @input="updateName"
+        @blur="saveName"
+        @enter="saveName" />
 
       <kirby-button class="kirby-user-view-image" v-if="image" @click="$refs.upload.open()">
         <kirby-image :cover="true" ratio="1/1" :src="image" />
@@ -42,24 +44,22 @@
             </template>
           </kirby-dropdown-content>
         </kirby-dropdown>
-        <kirby-button icon="bolt" @click="action('role')">
-          {{ $t('user.role') }}
-        </kirby-button>
-        <kirby-button icon="key" @click="action('password')">
-          {{ $t('password') }}
-        </kirby-button>
-        <kirby-button icon="trash" @click="action('remove')">
-          {{ $t('delete') }}
-        </kirby-button>
+
+        <kirby-dropdown>
+          <kirby-button @click="$refs.settings.toggle()" icon="cog">
+            Settings
+          </kirby-button>
+          <kirby-dropdown-content ref="settings" :dark="true" :options="options" @action="action" />
+        </kirby-dropdown>
       </template>
 
     </kirby-header>
 
-    <kirby-form
-      :fields="fields"
-      :values="user.content"
-      @submit="save"
-      @input="input" />
+    <kirby-sections v-if="user && layout" :model="user" :values="user.content" :layout="layout" @submit="save" />
+
+    <kirby-box v-else>
+      You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role}}.yml</strong>
+    </kirby-box>
 
     <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
@@ -81,38 +81,23 @@ export default {
   },
   data () {
     return {
+      options: window.panel.config.api + '/users/' + this.id + '/options?not=edit',
+      layout: null,
+      name: null,
       user: {
+        role: null,
+        name: null,
         content: {
           language: 'en',
         },
         prev: null,
         next: null,
-        image: {
-          url: null,
-          modified: null
-        }
       },
       image: null,
       breadcrumb: null
     }
   },
   computed: {
-    fields() {
-      return [
-        {
-          name: 'email',
-          label: this.$t('email'),
-          type: 'email',
-          placeholder: 'mail@example.com',
-          readonly: true
-        },
-        {
-          name: 'language',
-          label: this.$t('user.language'),
-          type: 'language'
-        }
-      ]
-    },
     uploadApi () {
       return window.panel.config.api + '/users/' + this.user.id + '/avatar';
     },
@@ -151,13 +136,21 @@ export default {
       }
 
     },
-    save () {
-      this.$api.user.update(this.id, this.user.content).then(() => {
+    save (data) {
+
+      this.saveName();
+
+      if (data === undefined) {
+        return false;
+      }
+
+      this.$api.user.update(this.id, data).then(() => {
         this.$store.dispatch('success', 'Saved!');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });
-  },
+
+    },
     action (action) {
       switch (action) {
         case 'picture.delete':
@@ -189,32 +182,42 @@ export default {
       this.$router.push('/users/' + this.user.next);
     },
     fetch () {
+
       this.$api.user.get(this.id).then((user) => {
 
-        this.user       = user;
-        this.values     = user.content;
-        this.breadcrumb = this.$api.user.breadcrumb(user);
+        this.$api.user.blueprint(this.id).then((blueprint) => {
 
-        if (user.image.exists) {
-          this.image = user.image.url + '?v=' + user.image.modified;
-        } else {
-          this.image = null;
-        }
+          this.user       = user;
+          this.name       = user.content.name;
+          this.breadcrumb = this.$api.user.breadcrumb(user);
+          this.layout     = blueprint.layout;
 
-        this.$store.dispatch('isLoading', false);
+          if (user.image.exists) {
+            this.image = user.image.url + '?v=' + user.image.modified;
+          } else {
+            this.image = null;
+          }
+
+          this.$store.dispatch('isLoading', false);
+
+        });
 
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');
         this.$router.push('/users');
       });
+
     },
     updateName (name) {
+      this.name = name;
+    },
+    saveName () {
 
-      if (name === this.user.content.name) {
+      if (this.name === this.user.content.name) {
         return true;
       }
 
-      this.$api.user.update(this.id, {name: name}).then((user) => {
+      this.$api.user.update(this.id, {name: this.name}).then((user) => {
         this.user = user;
         this.$store.dispatch('success', 'The name has been saved!');
       }).catch((error) => {

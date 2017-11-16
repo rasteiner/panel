@@ -19,7 +19,7 @@ export default {
     'headline',
     'layout',
     'parent',
-    'page',
+    'model',
     'filterBy',
     'pagination',
     'sortBy',
@@ -29,7 +29,7 @@ export default {
   computed: {
     query () {
       return {
-        parent: this.parent || this.page.id,
+        parent: this.parent || this.model.id,
         filterBy: this.filter,
         sortBy: this.sortBy,
         limit: this.limit
