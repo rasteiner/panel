@@ -1,5 +1,5 @@
 <template>
-  <button type="button" ref="button" class="kirby-tag" @keydown.8="remove" :data-size="size">
+  <button type="button" ref="button" class="kirby-tag" @keydown.delete="remove" :data-size="size">
     <span class="kirby-tag-body">
       <span class="kirby-tag-text"><slot /></span>
       <span class="kirby-tag-toggle" v-if="removable" @click.stop="remove"><span>&times;</span></span>
