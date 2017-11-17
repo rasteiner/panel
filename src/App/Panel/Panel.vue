@@ -16,6 +16,9 @@
         </kirby-button>
       </section>
       <section class="kirby-menu-section kirby-menu-section-bottom">
+        <kirby-button @click="preview" icon="preview">
+          Open site
+        </kirby-button>
         <kirby-button @click="$refs.menu.close()" :link="currentUser" icon="account">
           {{ $t('account') }}
         </kirby-button>
@@ -53,6 +56,9 @@ export default {
     }
   },
   methods: {
+    preview () {
+      window.open(window.panel.config.index)
+    },
     logout () {
       this.$store.dispatch('user', null);
       this.$router.push('/login');
