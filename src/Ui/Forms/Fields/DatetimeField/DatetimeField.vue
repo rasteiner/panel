@@ -1,7 +1,7 @@
 <template>
   <kirby-field class="kirby-datetime-field" v-bind="$props">
-    <kirby-date-input v-bind="date" v-model="date.data" />
-    <kirby-time-input v-bind="time" v-model="time.data" />
+    <kirby-date-input v-bind="date" :value="value ? value.date : null" @input="$emit('input', datetime)" ref="date" />
+    <kirby-time-input v-bind="time" :value="value ? value.time : null" @input="$emit('input', datetime)" ref="time" />
   </kirby-field>
 </template>
 
@@ -21,27 +21,34 @@ export default {
     icon: {
       default: 'calendar'
     },
-    date: {
-      type: Object,
-      default: () => ({
-        data: null
-      })
-    },
-    time: {
-      type: Object,
-      default: () => ({
-        data: null
-      })
-    }
+    date: {},
+    time: {}
   },
   computed: {
     datetime () {
-      return this.date.data + ' ' + this.time.data;
-    }
-  },
-  watch: {
-    datetime () {
-      this.$input('input', this.datetime)
+      const date = this.$refs.date.date;
+      var time = this.$refs.time.time;
+      const mode = time.split(' ');
+
+      // am/pm mode
+      if (mode.length > 1) {
+        time = mode[0];
+      }
+
+      // split hours and minutes
+      time = time.split(':');
+
+      // convert hour to 24h format
+      if (mode.length > 1) {
+        if (mode[1] === 'pm' && time[0] < 12) {
+            time[0] = parseInt(time[0]) + 12;
+        } else if (mode[1] === 'am' && time[0] === 12) {
+            time[0] = 0
+        }
+      }
+
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate(), time[0], time[1]);
+
     }
   }
 }

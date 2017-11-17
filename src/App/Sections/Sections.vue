@@ -5,8 +5,10 @@
         <component
           v-if="exists(section.type)"
           :key="model.id + '-section-' + sectionIndex"
+          :values="values"
           :is="'kirby-' + section.type + '-section'"
-          :page="model"
+          :model="model"
+          @submit="$emit('submit', $event)"
           v-bind="section" />
         <template v-else>
           <kirby-box>
@@ -25,6 +27,7 @@ import Vue from 'vue';
 export default {
   props: {
     model: Object,
+    values: Object,
     layout: Array
   },
   methods: {

@@ -6,7 +6,6 @@ import Page from './Page.js';
 import Panel from './Panel.js';
 import Site from './Site.js';
 import User from './User.js';
-import Avatar from './Avatar.js';
 
 export default {
     install (Vue) {
@@ -17,8 +16,7 @@ export default {
         page: Page,
         panel: Panel,
         site: Site,
-        user: User,
-        avatar: Avatar
+        user: User
       };
     },
     request (path, options) {
@@ -38,7 +36,7 @@ export default {
           }
 
         return json;
-      }).catch(err => console.log(err));
+      });
     },
     get (path, options) {
       return this.request(path, Object.assign(options || {}, { method: 'GET' }));

@@ -69,7 +69,6 @@ export default {
       }
 
       this.isLoading = true;
-      this.$store.dispatch('isLoading', true);
 
       children.then((response) => {
 
@@ -80,12 +79,14 @@ export default {
           text: page.title,
           url: page.url,
           link: '/pages/' + page.id,
-          options: panel.config.api + '/pages/' + page.id + '/options'
+          options: window.panel.config.api + '/pages/' + page.id + '/options'
         }));
 
         this.isLoading = false;
-        this.$store.dispatch('isLoading', false);
 
+      }).catch((error) => {
+        this.isLoading = false;
+        this.$store.dispatch('error', error.message);
       });
 
     },

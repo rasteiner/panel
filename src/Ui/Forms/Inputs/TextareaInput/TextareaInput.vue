@@ -5,6 +5,8 @@
     spellcheck="false"
     class="kirby-textarea-input"
     v-model="data"
+    @focus="$emit('focus')"
+    @blur="$emit('blur')"
     @keydown.delete="remove($event)"
     @keydown.enter="enter($event)"
     :placeholder="placeholder"
@@ -38,6 +40,28 @@ export default {
   methods: {
     focus () {
       this.$refs.textarea.focus();
+    },
+    insert (text) {
+
+      const area = this.$refs.textarea;
+
+      document.execCommand('insertText', false, text);
+
+      area.focus();
+      this.resize();
+
+    },
+    resize () {
+      autosize.update(this.$refs.textarea);
+    },
+    selection () {
+
+      const area  = this.$refs.textarea;
+      const start = area.selectionStart;
+      const end   = area.selectionEnd;
+
+      return area.value.substring(start, end);
+
     },
     enter (e) {
       this.$emit('enter', e);

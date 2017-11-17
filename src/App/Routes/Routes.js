@@ -1,19 +1,52 @@
-import DashboardView from '../Views/DashboardView/DashboardView.vue';
-import FileView from '../Views/FileView/FileView.vue';
-import InstallationView from '../Views/InstallationView/InstallationView.vue';
-import LoginView from '../Views/LoginView/LoginView.vue';
-import PageView from '../Views/PageView/PageView.vue';
-import SiteView from '../Views/SiteView/SiteView.vue';
-import SettingsView from '../Views/SettingsView/SettingsView.vue';
-import CreatePageView from '../Views/CreatePageView/CreatePageView.vue';
-import TemplateView from '../Views/TemplateView/TemplateView.vue';
-import UsersView from '../Views/UsersView/UsersView.vue';
-import UserView from '../Views/UserView/UserView.vue';
+const CreatePageView = () => import(
+  /* webpackChunkName: "create-page-view" */
+  '../Views/CreatePageView/CreatePageView.vue'
+);
+const DashboardView = () => import(
+  /* webpackChunkName: "dashboard-view" */
+  '../Views/DashboardView/DashboardView.vue'
+);
+const FileView = () => import(
+  /* webpackChunkName: "file-view" */
+  '../Views/FileView/FileView.vue'
+);
+const InstallationView = () => import(
+  /* webpackChunkName: "installation-view" */
+  '../Views/InstallationView/InstallationView.vue'
+);
+const LoginView = () => import(
+  /* webpackChunkName: "login-view" */
+  '../Views/LoginView/LoginView.vue'
+);
+const PageView = () => import(
+  /* webpackChunkName: "page-view" */
+  '../Views/PageView/PageView.vue'
+);
+const SettingsView = () => import(
+  /* webpackChunkName: "settings-view" */
+  '../Views/SettingsView/SettingsView.vue'
+);
+const SiteView = () => import(
+  /* webpackChunkName: "site-view" */
+  '../Views/SiteView/SiteView.vue'
+);
+const TemplateView = () => import(
+  /* webpackChunkName: "template-view" */
+  '../Views/TemplateView/TemplateView.vue'
+);
+const UsersView = () => import(
+  /* webpackChunkName: "users-view" */
+  '../Views/UsersView/UsersView.vue'
+);
+const UserView = () => import(
+  /* webpackChunkName: "user-view" */
+  '../Views/UserView/UserView.vue'
+);
 
 /* store */
-import store from '../Store/store.js';
-import Auth from 'App/Api/Auth.js';
-import Panel from 'App/Api/Panel.js';
+import store from '../Store/Store.js';
+import Auth from 'Api/Auth.js';
+import Panel from 'Api/Panel.js';
 
 const auth = (to, from, next) => {
 
@@ -21,6 +54,7 @@ const auth = (to, from, next) => {
     store.dispatch('user', user);
     next();
   }).catch(() => {
+    store.commit('afterLogin', to.path);
     next('/login');
   });
 
@@ -145,5 +179,13 @@ export default [
     name: 'Settings',
     beforeEnter: auth,
     component: SettingsView
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    beforeEnter: (to, from, next) => {
+      store.dispatch('error', 'This view does not exist');
+      next('/');
+    }
   }
 ]

@@ -53,7 +53,14 @@ export default {
       this.$api.auth.login(this.user).then((user) => {
         this.$store.dispatch('user', user);
         this.$store.dispatch('success', 'Welcome!');
-        this.$router.push('/');
+
+        if (this.$store.state.afterLogin) {
+          this.$router.push(this.$store.state.afterLogin);
+          this.$store.commit('afterLogin', null);
+        } else {
+          this.$router.push('/');
+        }
+
       }).catch((error) => {
         this.$store.dispatch('isLoading', false);
         this.$store.dispatch('error', 'Invalid email or password');

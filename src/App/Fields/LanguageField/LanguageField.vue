@@ -4,7 +4,7 @@
 
 <script>
 
-import Language from 'App/Api/Language.js';
+import Language from 'Api/Language.js';
 import Field from 'Ui/Forms/Fields/Field.mixin.js';
 
 export default {
@@ -36,15 +36,18 @@ export default {
     fetch () {
 
       Language.list().then(languages => {
+
         this.options = languages.map(lang =>({
           value: lang.locale,
           text: lang.name
         }))
+
         this.options.unshift({
           value: '',
           text: 'Please select a language…',
           disabled: true
          })
+
       });
 
     }

@@ -127,6 +127,8 @@ export default {
 
       this.$api.page.files(this.query.parent, this.query).then((response) => {
 
+        this.isLoading = false;
+
         this.total = response.pagination.total;
         this.items = response.items.map((file) => {
           var item = {
@@ -138,7 +140,7 @@ export default {
             parent: file.parent,
             mime: file.mime,
             link: '/pages/' + file.parent + '/files/' + file.filename,
-            options: panel.config.api + '/pages/' + file.parent + '/files/' + file.filename + '/options'
+            options: window.panel.config.api + '/pages/' + file.parent + '/files/' + file.filename + '/options'
           };
 
           if (file.type === 'image') {
@@ -147,8 +149,9 @@ export default {
           return item;
         });
 
+      }).catch((error) => {
         this.isLoading = false;
-
+        this.$store.dispatch('error', error.message);
       });
 
     },

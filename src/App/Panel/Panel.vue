@@ -24,7 +24,9 @@
         </kirby-button>
       </section>
     </kirby-menu>
-    <router-view class="kirby-panel-view"></router-view>
+    <div class="kirby-panel-view">
+      <router-view />
+    </div>
 
     <transition name="fade">
       <kirby-notification v-if="$store.state.notification" v-bind="$store.state.notification" />

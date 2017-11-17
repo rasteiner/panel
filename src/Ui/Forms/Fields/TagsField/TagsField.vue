@@ -1,6 +1,6 @@
 <template>
   <kirby-field class="kirby-tags-field" v-bind="$props" @click.native="focus">
-    <draggable v-model="data" :options="{disabled: !sortable}" class="kirby-tags-input">
+    <draggable v-model="data" :options="{disabled: disabled}" class="kirby-tags-input">
       <kirby-tag v-for="tag in data"
         :ref="tag"
         :key="tag"
@@ -10,6 +10,7 @@
         @keydown.native.right="navigate('next')"
         @click.native.stop
         @dblclick.native="edit(tag)"
+        @keydown.native.delete="remove(tag)"
         @remove="remove(tag)"
         :removable="true">
           {{ tag }}
@@ -29,6 +30,7 @@
         <input v-else :id="_uid" ref="input"
           @keydown.enter="add($event.target.value)"
           @keydown.tab="add($event.target.value)"
+          @keydown.separator.prevent="add($event.target.value)"
           @keydown.left="leaveInput"
           @keydown.delete="leaveInput">
       </span>
@@ -82,6 +84,11 @@ export default {
       selected: null
     }
 
+  },
+  computed: {
+    disabled () {
+      return this.sortable === false || this.data.length === 0;
+    }
   },
   methods: {
     focus () {
@@ -235,6 +242,7 @@ export default {
     outline: 0;
     margin-bottom: 4px;
     border-radius: 3px;
+    background: transparent;
 
     [dir="ltr"] & {
       margin-right: 4px;

@@ -6,6 +6,4 @@ import './Fields/Fields.js';
 import './Navigation/Navigation.js';
 import './Panel/Panel.js';
 import './Sections/Sections.js';
-import './Skeleton/Skeleton.js';
-import './Views/Views.js';
 

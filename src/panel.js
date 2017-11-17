@@ -18,6 +18,9 @@ if (config.enableErrorTracking) {
   Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
 }
 
+/** Store */
+import store from 'App/Store/Store.js';
+
 /** Routes */
 import Router from 'vue-router';
 import Routes from 'App/Routes/Routes.js';
@@ -26,19 +29,15 @@ Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  routes: Routes
-});
-
-/** Store */
-import store from 'App/Store/store.js';
-
-router.beforeEach((to, from, next) => {
-  store.dispatch('isLoading', true);
-  next();
+  routes: Routes,
+  beforeEach: (to, from, next) => {
+    store.dispatch('isLoading', true);
+    next();
+  }
 });
 
 /** API */
-import Api from 'App/Api/Api.js';
+import Api from 'Api/Api.js';
 Vue.use(Api);
 
 /** Event bus */
@@ -48,16 +47,11 @@ Vue.use(Events);
 /** i18n */
 import i18n from 'vuex-i18n';
 Vue.use(i18n.plugin, store);
-Vue.i18n.set(store.state.language);
-Vue.i18n.fallback(store.state.language);
-store.dispatch('language', store.state.language);
-
-/** Ui Kit */
-import 'Ui/Ui.js';
+Vue.i18n.fallback(store.state.language.locale);
+store.dispatch('language', store.state.language.locale);
 
 /** App Stuff */
 import 'App/App.js';
-
 
 new Vue({
   el: 'main',

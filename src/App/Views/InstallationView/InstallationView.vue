@@ -7,48 +7,48 @@
     <div v-else>
       <kirby-headline :margin="true">The panel cannot be installed</kirby-headline>
 
-      <dl class="kirby-installation-issues">
-        <template v-if="status.php === false">
-          <dt>PHP Version</dt>
-          <dd>Make sure to use PHP 7+</dd>
-        </template>
+      <ul class="kirby-installation-issues">
+        <li v-if="status.php === false">
+          <kirby-icon type="cancel" />
+          Make sure to use <code>PHP 7+</code>
+        </li>
 
-        <template v-if="status.server === false">
-          <dt>Server</dt>
-          <dd>Kirby requires Apache or Nginx</dd>
-        </template>
+        <li v-if="status.server === false">
+          <kirby-icon type="cancel" />
+          Kirby requires <code>Apache</code> or <code>Nginx</code>
+        </li>
 
-        <template v-if="status.mbstring === false">
-          <dt>MB String</dt>
-          <dd>The MB String extension is required</dd>
-        </template>
+        <li v-if="status.mbstring === false">
+          <kirby-icon type="cancel" />
+          The <code>MB String</code> extension is required
+        </li>
 
-        <template v-if="status.curl === false">
-          <dt>CURL</dt>
-          <dd>The CURL extension is required</dd>
-        </template>
+        <li v-if="status.curl === false">
+          <kirby-icon type="cancel" />
+          The <code>CURL</code> extension is required
+        </li>
 
-        <template v-if="status.accounts === false">
-          <dt>Accounts</dt>
-          <dd>The /site/accounts folder must be writable</dd>
-        </template>
+        <li v-if="status.accounts === false">
+          <kirby-icon type="cancel" />
+          The <code>/site/accounts</code> folder does not exist or is not writable
+        </li>
 
-        <template v-if="status.content === false">
-          <dt>Content</dt>
-          <dd>The /content folder must be writable</dd>
-        </template>
+        <li v-if="status.content === false">
+          <kirby-icon type="cancel" />
+          The <code>/content</code> folder does not exist or is not writable
+        </li>
 
-        <template v-if="status.files === false">
-          <dt>Thumbs</dt>
-          <dd>The /thumbs folder must be writable</dd>
-        </template>
-      </dl>
+        <li v-if="status.media === false">
+          <kirby-icon type="cancel" />
+          The <code>/media</code> folder does not exist or is not writable
+        </li>
+
+      </ul>
 
       <kirby-button icon="refresh" @click="check">Try again</kirby-button>
 
     </div>
   </div>
-  <kirby-loader v-else position="center" theme="dark" />
 </template>
 
 <script>
@@ -65,7 +65,7 @@ export default {
         curl: false,
         accounts: false,
         content: false,
-        files: false
+        media: false
       },
       user: {
         language: 'en',
@@ -107,8 +107,8 @@ export default {
           this.$router.push('/');
         }
 
-        this.ok       = system.isOk;
-        this.status   = system.details;
+        this.ok     = system.isOk;
+        this.status = system.details;
 
         this.$store.dispatch('isLoading', false);
 
@@ -157,11 +157,24 @@ export default {
   border-radius: $border-radius;
   padding: 1.5rem;
 }
-.kirby-installation-issues dt {
-  color: $color-negative;
+.kirby-installation-issues li {
+  position: relative;
+  padding-left: 2rem;
 }
-.kirby-installation-issues dd:not(:last-child) {
+.kirby-installation-issues .kirby-icon {
+  position: absolute;
+  top: 2px;
+  left: 0;
+}
+.kirby-installation-issues .kirby-icon svg * {
+  fill: $color-negative;
+}
+.kirby-installation-issues li:not(:last-child) {
   margin-bottom: 1.5rem;
+}
+.kirby-installation-issues li code {
+  font: inherit;
+  color: $color-negative;
 }
 
 </style>

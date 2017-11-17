@@ -35,7 +35,11 @@
 
     </kirby-header>
 
-    <kirby-sections v-if="page" :model="page" :layout="layout" />
+    <kirby-sections v-if="page"
+      :model="page"
+      :values="page.content"
+      :layout="layout"
+      @submit="save" />
 
     <kirby-page-status-dialog ref="status" @success="fetch"></kirby-page-status-dialog>
     <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
@@ -111,11 +115,18 @@ export default {
           this.layout     = blueprint.layout;
           this.$store.dispatch('isLoading', false);
         });
-      }).catch(() => {
-        this.$store.dispatch('error', 'The page could not be found');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
         this.$router.push('../');
       });
 
+    },
+    save (data) {
+      this.$api.page.update(this.page.id, data).then(() => {
+        this.$store.dispatch('success', 'Saved!');
+      }).catch((error) => {
+        this.$store.dispatch('error', error.message);
+      });
     },
     updateTitle (title) {
       if (title !== this.page.title) {

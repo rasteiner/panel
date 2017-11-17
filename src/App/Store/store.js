@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Language from 'App/Api/Language.js';
+import Language from 'Api/Language.js';
 
 Vue.use(Vuex);
 
@@ -8,41 +8,59 @@ let notificationTimeout = null;
 
 export default new Vuex.Store({
   state: {
+    // content
     translation: 'en',
-    language: 'en',
-    direction: 'ltr',
+
+    // user
     user: null,
+    language: {
+      locale: 'en',
+      direction: 'ltr'
+    },
+
+    // UI
     notification: null,
     menu: false,
-    isLoading: false
+    isLoading: false,
+
+    // navigation
+    afterLogin: null
   },
   mutations: {
-    menu (state, menu) {
-      state.menu = menu;
-    },
-    language (state, language) {
-      state.language = language;
-      document.documentElement.lang = language;
-      Vue.i18n.set(language);
-    },
-    direction (state, direction) {
-      state.direction = direction;
-      document.dir = direction;
-    },
+    // content
     translation (state, translation) {
       state.translation = translation;
     },
-    notification (state, notification) {
-      state.notification = notification;
-    },
+
+    // user
     user (state, user) {
       state.user = user;
     },
+    language (state, language) {
+      state.language = language;
+      document.documentElement.lang = language.locale;
+      Vue.i18n.set(language.locale);
+      document.dir = language.direction;
+    },
+
+    // UI
+    notification (state, notification) {
+      state.notification = notification;
+    },
+    menu (state, menu) {
+      state.menu = menu;
+    },
     isLoading (state, loading) {
       state.isLoading = loading;
+    },
+
+    // navigation
+    afterLogin (state, url) {
+      state.afterLogin = url;
     }
   },
   actions: {
+    // user
     user (context, user) {
       if (user === null) {
         localStorage.removeItem('auth');
@@ -54,26 +72,18 @@ export default new Vuex.Store({
       }
     },
     language (context, locale) {
-
-      // if language strings have already been loaded
-      if(Vue.i18n.localeExists(locale)) {
-        context.commit('language', locale);
-
-      // load language string json file
-      } else {
-        fetch(panel.config.assets + '/languages/' + locale + '/core.json').
-          then((resource) => resource.json()).
-          then((json) => {
-            Vue.i18n.add(locale, json);
-            context.commit('language', locale);
+      if (locale) {
+        Language.get(locale).then((language) => {
+          Vue.i18n.replace(locale, language.strings);
+          context.commit('language', {
+            locale: language.locale,
+            direction: language.direction
           });
+        });
       }
-
-      Language.get(locale).then((language) => {
-        context.commit('direction', language.direction);
-      });
-
     },
+
+    // UI
     notification (context, notification) {
       context.commit('notification', notification);
 
