@@ -2,11 +2,13 @@ import config from './panel.config.js';
 import Vue from 'vue';
 
 /** Error Handling */
-Vue.config.errorHandler = function (err, vm) {
-  if(config.enableErrorTracking) {
-    vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a Bug, it has been reported!');
+console.log(config.enableErrorTracking);
+Vue.config.errorHandler = (err, vm) => {
+  if (config.enableErrorTracking) {
+    vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a bug, it has been reported!');
   } else {
     vm.$store.dispatch('error', 'Something went wrong. See the console for more information.');
+    console.error(err);
   }
 };
 
