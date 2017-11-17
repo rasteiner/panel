@@ -1,8 +1,7 @@
-import config from './panel.config.js';
 import Vue from 'vue';
+import config from './panel.config.js';
 
 /** Error Handling */
-console.log(config.enableErrorTracking);
 Vue.config.errorHandler = (err, vm) => {
   if (config.enableErrorTracking) {
     vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a bug, it has been reported!');
