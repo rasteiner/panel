@@ -53,6 +53,7 @@ export default {
           data.query = this.source.query;
           data.value = this.source.value;
           data.text = this.source.text;
+          data.flip = this.source.flip;
           break;
 
         default:
