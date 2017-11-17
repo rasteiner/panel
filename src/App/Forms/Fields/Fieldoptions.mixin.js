@@ -42,17 +42,19 @@ export default {
 
         case 'source':
           data.query = this.source.query;
-          data.model = this.$route.name;
-          data.path = this.$route.params.path;
+          data.page = this.$route.params.path;
+          data.file = this.$route.params.filename;
+          data.user = this.$route.params.id;
           data.value = this.source.value;
           data.text = this.source.text;
           break;
 
         default:
           type = 'source';
-          data.query = this.$route.name.toLowerCase() + '.' + this.options;
-          data.model = this.$route.name;
-          data.path = this.$route.params.path;
+          data.query = this.options;
+          data.page = this.$route.params.path;
+          data.file = this.$route.params.filename;
+          data.user = this.$route.params.id;
           break;
       }
 
