@@ -20,9 +20,11 @@ export default {
   mounted () {
     this.fetchOptions();
     this.$events.$on('page.update', this.fetchOptions);
+    this.$events.$on('user.update', this.fetchOptions);
   },
   destroyed: function () {
     this.$events.$off('page.update', this.fetchOptions);
+    this.$events.$off('user.update', this.fetchOptions);
   },
   methods: {
     fetchOptions () {
