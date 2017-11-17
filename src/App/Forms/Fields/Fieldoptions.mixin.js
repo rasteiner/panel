@@ -1,16 +1,11 @@
 
-const path = require('path')
-
 export default {
   props: {
     options: {
       type: [Array, String],
       default: []
     },
-    field: {
-      type: Object
-    },
-    query: {
+    source: {
       type: Object
     },
     url: {
@@ -41,29 +36,23 @@ export default {
       const data = {};
 
       switch (this.options) {
-        case 'field':
-          data.page = this.fieldoptionsPage(this.field.page);
-          data.field = this.field.name;
-          data.separator = this.field.separator;
-          break;
-
         case 'url':
           data.url = this.url;
           break;
 
-        case 'query':
-          data.page = this.fieldoptionsPage(this.query.page);
-          data.fetch = this.query.fetch;
-          data.template = this.query.template;
-          data.value = this.query.value;
-          data.text = this.query.text;
-          data.flip = this.query.flip;
+        case 'source':
+          data.query = this.source.query;
+          data.model = this.$route.name;
+          data.path = this.$route.params.path;
+          data.value = this.source.value;
+          data.text = this.source.text;
           break;
 
         default:
-          type = 'query';
-          data.page = this.fieldoptionsPage()
-          data.fetch = this.options
+          type = 'source';
+          data.query = this.$route.name.toLowerCase() + '.' + this.options;
+          data.model = this.$route.name;
+          data.path = this.$route.params.path;
           break;
       }
 
@@ -73,12 +62,6 @@ export default {
 
     },
     fieldoptionsPage(page) {
-      if (!page) {
-        return this.$route.params.path;
-      }
-      if (page.startsWith('.')) {
-        return path.join(this.$route.params.path, page);
-      }
       return page;
     }
   }
