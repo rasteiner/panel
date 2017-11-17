@@ -70,6 +70,8 @@ export default {
 }
 .kirby-card a {
   display: block;
+  height: 100%;
+  background: $color-white;
   border-radius: $border-radius;
 }
 .kirby-card a:focus {
@@ -77,7 +79,6 @@ export default {
   box-shadow: $box-shadow-focus-full;
 }
 .kirby-card-content {
-  background: #fff;
   padding: .5rem 1rem;
   line-height: 1.5em;
   border-bottom-left-radius: $border-radius;

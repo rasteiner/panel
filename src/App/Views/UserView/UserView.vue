@@ -55,7 +55,7 @@
 
     </kirby-header>
 
-    <kirby-sections v-if="user && layout" :model="user" :values="user.content" :layout="layout" @submit="save" />
+    <kirby-sections v-if="user && layout" :model="user" :self="self" :values="user.content" :layout="layout" @submit="save" />
 
     <kirby-box v-else>
       You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role}}.yml</strong>
@@ -98,6 +98,9 @@ export default {
     }
   },
   computed: {
+    self () {
+      return 'kirby.users.find("' + this.user.id + '")';
+    },
     uploadApi () {
       return window.panel.config.api + '/users/' + this.user.id + '/avatar';
     },
@@ -204,7 +207,6 @@ export default {
 
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');
-        this.$router.push('/users');
       });
 
     },

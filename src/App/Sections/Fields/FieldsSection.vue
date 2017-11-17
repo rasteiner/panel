@@ -8,13 +8,14 @@
 
 export default {
   props: [
-    'fields',
+    'config',
     'values',
     'model'
   ],
   data() {
     return {
-      formData: this.values
+      formData: this.values,
+      fields:   this.config.fields
     }
   },
   created: function () {

@@ -15,8 +15,9 @@
         :key="page.id + '-title'"
         :value="page.title"
         :placeholder="$t('page.title') + ' …'"
-        @blur="updateTitle($event.target.innerText)"
-        @enter="$event.target.blur()" />
+        @input="updateTitle"
+        @blur="saveTitle"
+        @enter="saveTitle" />
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">
@@ -35,11 +36,7 @@
 
     </kirby-header>
 
-    <kirby-sections v-if="page"
-      :model="page"
-      :values="page.content"
-      :layout="layout"
-      @submit="save" />
+    <kirby-sections v-if="page" :self="self" :model="page" :values="page.content" :layout="layout" @submit="save" />
 
     <kirby-page-status-dialog ref="status" @success="fetch"></kirby-page-status-dialog>
     <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
@@ -57,7 +54,7 @@ export default {
     return {
       page: {
         title: '',
-        id: '',
+        id: null,
         content: {},
         prev: null,
         next: null,
@@ -76,6 +73,12 @@ export default {
     }
   },
   computed: {
+    self () {
+      return 'site.find("' + this.page.id + '")';
+    },
+    options () {
+      return window.panel.config.api + '/pages/' + this.page.id + '/options?not=preview,status';
+    },
     status () {
 
       if (this.page.isVisible) {
@@ -98,9 +101,6 @@ export default {
         next: this.page.next ? true : false,
         nextLabel: 'Next page'
       };
-    },
-    options () {
-      return window.panel.config.api + '/pages/' + this.page.id + '/options?not=preview,status';
     }
   },
   methods: {
@@ -108,7 +108,6 @@ export default {
 
       this.$api.page.get(this.path).then((page) => {
         this.$api.page.blueprint(page.id).then((blueprint) => {
-          this.site       = false;
           this.page       = page;
           this.page.title = page.content.title;
           this.breadcrumb = this.$api.page.breadcrumb(page);
@@ -117,28 +116,32 @@ export default {
         });
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
-        this.$router.push('../');
       });
 
     },
     save (data) {
+
+      // always store the latest title
+      data.title = this.page.title;
+
       this.$api.page.update(this.page.id, data).then(() => {
         this.$store.dispatch('success', 'Saved!');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });
+
     },
     updateTitle (title) {
-      if (title !== this.page.title) {
+      this.page.title = title;
+    },
+    saveTitle () {
 
-        this.$api.page.update(this.page.id, {title: title}).then((page) => {
-          this.page.title = title;
-          this.$store.dispatch('success', 'The page title has been updated');
-        }).catch((error) => {
-          this.$store.dispatch('error', error.message);
-        });
-
+      if (this.page.title === this.page.content.title) {
+        return true;
       }
+
+      this.save({ title: this.page.title });
+
     },
     prev () {
       this.$router.push('/pages/' + this.page.prev);

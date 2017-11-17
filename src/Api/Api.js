@@ -4,6 +4,7 @@ import File from './File.js';
 import Language from './Language.js';
 import Page from './Page.js';
 import Panel from './Panel.js';
+import Section from './Section.js';
 import Site from './Site.js';
 import User from './User.js';
 
@@ -16,7 +17,8 @@ export default {
         page: Page,
         panel: Panel,
         site: Site,
-        user: User
+        user: User,
+        section: Section
       };
     },
     request (path, options) {

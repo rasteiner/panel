@@ -8,7 +8,7 @@
         </kirby-button>
       </template>
     </kirby-header>
-    <kirby-sections v-if="site" :model="site" :layout="layout" />
+    <kirby-sections v-if="site" :layout="layout" :model="site" />
   </kirby-view>
 </template>
 
@@ -18,6 +18,7 @@ export default {
   data () {
     return {
       site: {
+        id: null,
         title: null,
         content: {}
       },
