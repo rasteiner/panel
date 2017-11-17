@@ -146,6 +146,7 @@ export default {
 
       this.$api.user.update(this.id, data).then(() => {
         this.$store.dispatch('success', 'Saved!');
+        this.$events.$emit('user.update');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

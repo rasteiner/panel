@@ -124,6 +124,7 @@ export default {
     save (data) {
       this.$api.page.update(this.page.id, data).then(() => {
         this.$store.dispatch('success', 'Saved!');
+        this.$events.$emit('page.update');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });
