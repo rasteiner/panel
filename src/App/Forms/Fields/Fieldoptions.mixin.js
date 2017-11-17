@@ -33,7 +33,12 @@ export default {
       }
 
       var type = this.options;
-      const data = {};
+      const data = {
+        page: this.$route.params.path,
+        file: this.$route.params.filename,
+        user: this.$route.params.id
+
+      };
 
       switch (this.options) {
         case 'url':
@@ -42,9 +47,6 @@ export default {
 
         case 'source':
           data.query = this.source.query;
-          data.page = this.$route.params.path;
-          data.file = this.$route.params.filename;
-          data.user = this.$route.params.id;
           data.value = this.source.value;
           data.text = this.source.text;
           break;
@@ -52,9 +54,6 @@ export default {
         default:
           type = 'source';
           data.query = this.options;
-          data.page = this.$route.params.path;
-          data.file = this.$route.params.filename;
-          data.user = this.$route.params.id;
           break;
       }
 
