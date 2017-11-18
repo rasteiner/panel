@@ -5,7 +5,6 @@
       <kirby-button type="submit" icon="check">{{ $t("login") }}</kirby-button>
     </form>
   </div>
-  <kirby-loader v-else position="center" theme="dark" />
 </template>
 
 <script>

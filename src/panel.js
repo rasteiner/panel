@@ -30,11 +30,12 @@ Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  routes: Routes,
-  beforeEach: (to, from, next) => {
-    store.dispatch('isLoading', true);
-    next();
-  }
+  routes: Routes
+});
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('isLoading', true);
+  next();
 });
 
 /** API */
