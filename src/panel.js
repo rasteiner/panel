@@ -52,6 +52,10 @@ Vue.use(i18n.plugin, store);
 Vue.i18n.fallback(store.state.language.locale);
 store.dispatch('language', store.state.language.locale);
 
+/* moment.js */
+import moment from 'vue-moment'
+Vue.use(moment);
+
 /** App Stuff */
 import 'App/App.js';
 
