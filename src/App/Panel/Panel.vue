@@ -87,7 +87,7 @@ export default {
 }
 
 .kirby-panel[data-loading] .kirby-panel-view  {
-  opacity: 0;
+  opacity: .25;
 }
 
 .kirby-panel-loader {
