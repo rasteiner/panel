@@ -119,11 +119,14 @@ export default {
         this.query.self = this.self;
       }
 
+      this.$store.dispatch('isLoading', true);
+
       this.$api.section(this.query.type, this.query).then((response) => {
         this.items      = response.items;
         this.pagination = response.pagination;
         this.layout     = response.layout || 'list';
         this.isLoading  = false;
+        this.$store.dispatch('isLoading', false);
       });
 
     },
