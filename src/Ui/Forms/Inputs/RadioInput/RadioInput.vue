@@ -1,21 +1,26 @@
 <template>
   <div class="kirby-radio-inputs">
-    <span v-for="option in options"
-    :key="option.value"
-    class="kirby-radio-input">
-      <input type="radio"
-      :name="_uid"
-      :value="option.value"
-      :id="_uid + '_' + option.value"
-      v-model="data"
-      class="kirby-radio-input" />
-      <label :for="_uid + '_' + option.value">
-        {{ option.text }}
-        <div v-if="option.info" class="kirby-radio-input-info">
-          {{ option.info }}
-        </div>
-      </label>
-    </span>
+    <template v-if="hasOptions">
+      <span v-for="option in options"
+      :key="option.value"
+      class="kirby-radio-input">
+        <input type="radio"
+        :name="_uid"
+        :value="option.value"
+        :id="_uid + '_' + option.value"
+        v-model="data"
+        class="kirby-radio-input" />
+        <label :for="_uid + '_' + option.value">
+          {{ option.text }}
+          <div v-if="option.info" class="kirby-radio-input-info">
+            {{ option.info }}
+          </div>
+        </label>
+      </span>
+    </template>
+     <template v-else>
+      <span class="empty">No options available</span>
+    </template>
   </div>
 </template>
 
@@ -32,6 +37,11 @@ export default {
     },
     info: {
       type: String
+    }
+  },
+  computed: {
+    hasOptions () {
+      return this.options && this.options.length > 0;
     }
   }
 }
@@ -203,6 +213,11 @@ $radio-label-gap: 8px;
 .kirby-radio-input-info {
   font-size: .8em;
   line-height: 1.2;
+  color: $color-light-grey;
+}
+
+
+.kirby-radio-inputs .empty {
   color: $color-light-grey;
 }
 

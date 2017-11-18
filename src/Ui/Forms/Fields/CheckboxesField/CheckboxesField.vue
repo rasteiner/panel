@@ -1,12 +1,17 @@
 <template>
   <kirby-field class="kirby-checkboxes-field" v-bind="$props">
-    <kirby-checkbox-input
-    v-for="(option, index) in options"
-    :key="index"
-    :value="data.indexOf(option.value) !== -1"
-    :text="option.text"
-    @input="input($event, index)"
-    />
+    <template v-if="hasOptions">
+      <kirby-checkbox-input
+      v-for="(option, index) in options"
+      :key="index"
+      :value="data.indexOf(option.value) !== -1"
+      :text="option.text"
+      @input="input($event, index)"
+      />
+    </template>
+    <template v-else>
+      <span class="empty">No options available</span>
+    </template>
   </kirby-field>
 </template>
 
@@ -29,6 +34,11 @@ export default {
       default: []
     }
   },
+  computed: {
+    hasOptions () {
+      return this.options && this.options.length > 0;
+    }
+  },
   methods: {
     input (value, index) {
       let option = this.options[index].value;
@@ -43,7 +53,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .kirby-checkboxes-field .kirby-input-content {
   padding: .65rem;
@@ -51,6 +61,10 @@ export default {
 
 .kirby-checkboxes-field > * + * {
   margin-top: 4px;
+}
+
+.kirby-checkboxes-field .empty {
+  color: $color-light-grey;
 }
 
 </style>
