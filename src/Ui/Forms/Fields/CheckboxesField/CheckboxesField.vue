@@ -10,7 +10,9 @@
       />
     </template>
     <template v-else>
-      <span class="empty">No options available</span>
+      <kirby-box state="empty">
+        No options available
+      </kirby-box>
     </template>
   </kirby-field>
 </template>
@@ -61,10 +63,6 @@ export default {
 
 .kirby-checkboxes-field > * + * {
   margin-top: 4px;
-}
-
-.kirby-checkboxes-field .empty {
-  color: $color-light-grey;
 }
 
 </style>

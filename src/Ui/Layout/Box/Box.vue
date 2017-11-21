@@ -1,8 +1,20 @@
 <template>
-  <div class="kirby-box">
+  <div class="kirby-box" :state="state">
     <slot />
   </div>
 </template>
+
+<script>
+
+export default {
+  props: {
+    state: {
+      type: String
+    }
+  }
+}
+
+</script>
 
 <style lang="scss">
 
@@ -12,6 +24,11 @@
   padding: .75rem 1rem;
   line-height: 1.5;
 }
+
+.kirby-box[state="empty"] {
+  color: $color-light-grey;
+}
+
 .kirby-box .kirby-button {
   border: 1px solid transparent;
   line-height: 1;
@@ -25,6 +42,7 @@
     text-align: right;
   }
 }
+
 .kirby-box > strong {
   font-weight: 500;
 }

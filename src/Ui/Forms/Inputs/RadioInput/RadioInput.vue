@@ -19,7 +19,9 @@
       </span>
     </template>
      <template v-else>
-      <span class="empty">No options available</span>
+      <kirby-box state="empty">
+        No options available
+      </kirby-box>
     </template>
   </div>
 </template>
@@ -213,11 +215,6 @@ $radio-label-gap: 8px;
 .kirby-radio-input-info {
   font-size: .8em;
   line-height: 1.2;
-  color: $color-light-grey;
-}
-
-
-.kirby-radio-inputs .empty {
   color: $color-light-grey;
 }
 
