@@ -90,8 +90,8 @@ export default {
           this.$store.dispatch('error', 'Not yet implemented');
       }
     },
-    paginate(pagination) {
-      Object.assign(this.query.pagination || {}, pagination);
+    paginate (pagination) {
+      this.query.pagination = Object.assign(this.query.pagination || {}, pagination);
       this.fetch();
     }
   }

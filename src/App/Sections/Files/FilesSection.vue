@@ -169,7 +169,7 @@ export default {
       this.$store.dispatch('success', 'The files have been uploaded');
     },
     paginate (pagination) {
-      Object.assign(this.query.pagination || {}, pagination);
+      this.query.pagination = Object.assign(this.query.pagination || {}, pagination);
       this.fetch();
     }
   }
