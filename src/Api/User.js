@@ -34,7 +34,11 @@ export default {
     return [
       {
         link: '/users/role/' + user.role,
-        label: Vue.i18n.translate('user.role') + ': ' + user.role
+        label: Vue.i18n.translate('user.role').toLowerCase() + ':' + user.role
+      },
+      {
+        link: '/users/' + user.id,
+        label: user.id
       }
     ];
   },
