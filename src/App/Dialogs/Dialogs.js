@@ -14,7 +14,7 @@ Vue.component('kirby-page-status-dialog', () => import(
 ));
 Vue.component('kirby-page-remove-dialog', () => import(
   /* webpackChunkName: "page-remove-dialog" */
-  './Page/PageUrlDialog/PageUrlDialog.vue'
+  './Page/PageRemoveDialog/PageRemoveDialog.vue'
 ));
 
 Vue.component('kirby-file-remove-dialog', () => import(

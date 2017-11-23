@@ -6,18 +6,18 @@
       <kirby-dropdown-content ref="dropdown" :dark="true">
         <div class="kirby-block-options-group">
           <h2>Insert</h2>
-          <kirby-dropdown-item icon="header" @click="$emit('append', 'headline')">Headline</kirby-dropdown-item>
-          <kirby-dropdown-item icon="font" @click="$emit('append', 'subheadline')">Subheadline</kirby-dropdown-item>
-          <kirby-dropdown-item icon="align-left" @click="$emit('append', 'text')">Text</kirby-dropdown-item>
-          <kirby-dropdown-item icon="file-image-o" @click="$emit('append', 'image')">Image</kirby-dropdown-item>
-          <kirby-dropdown-item icon="list" @click="$emit('append', 'list', {tag: 'ul'})">Unordered list</kirby-dropdown-item>
-          <kirby-dropdown-item icon="list" @click="$emit('append', 'list', {tag: 'ol'})">Ordered list</kirby-dropdown-item>
-          <kirby-dropdown-item icon="quote-left" @click="$emit('append', 'quote')">Quote</kirby-dropdown-item>
+          <kirby-dropdown-item icon="title" @click="$emit('append', 'headline')">Headline</kirby-dropdown-item>
+          <kirby-dropdown-item icon="title" @click="$emit('append', 'subheadline')">Subheadline</kirby-dropdown-item>
+          <kirby-dropdown-item icon="text" @click="$emit('append', 'text')">Text</kirby-dropdown-item>
+          <kirby-dropdown-item icon="image" @click="$emit('append', 'image')">Image</kirby-dropdown-item>
+          <kirby-dropdown-item icon="list-bullet" @click="$emit('append', 'list', {tag: 'ul'})">Unordered list</kirby-dropdown-item>
+          <kirby-dropdown-item icon="list-numbers" @click="$emit('append', 'list', {tag: 'ol'})">Ordered list</kirby-dropdown-item>
+          <kirby-dropdown-item icon="quote" @click="$emit('append', 'quote')">Quote</kirby-dropdown-item>
           <kirby-dropdown-item icon="code" @click="$emit('append', 'code')">Code</kirby-dropdown-item>
         </div>
         <div class="kirby-block-options-group">
           <h2>Options</h2>
-          <kirby-dropdown-item icon="trash-o" @click="$emit('remove')">Delete</kirby-dropdown-item>
+          <kirby-dropdown-item icon="trash" @click="$emit('remove')">Delete</kirby-dropdown-item>
         </div>
       </kirby-dropdown-content>
     </kirby-dropdown>
@@ -29,6 +29,9 @@
 <script>
 
 export default {
+  props: {
+    options: Array
+  }
 }
 
 </script>
@@ -38,6 +41,16 @@ export default {
 .kirby-block {
   position: relative;
   padding: 0 1.5rem;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.kirby-block-options {
+  opacity: 0;
+  transition: opacity .3s;
+}
+.kirby-block:hover .kirby-block-options {
+  opacity: 1;
 }
 .kirby-block-options.kirby-dropdown {
   position: absolute;
@@ -54,6 +67,7 @@ export default {
   border-bottom: 0 !important;
   padding-top: .5rem;
   padding-bottom: .5rem;
+  margin-left: .5rem;
 }
 .kirby-block-options.kirby-dropdown h2 {
   padding: .5rem 1.5rem .5rem;
@@ -64,7 +78,6 @@ export default {
 }
 .kirby-block-options-group {
   padding: .5rem 0 .75rem;
-  border-bottom: 1px solid rgba(#fff, .1);
 }
 .kirby-block-options-group:last-child {
   border-bottom: 0;

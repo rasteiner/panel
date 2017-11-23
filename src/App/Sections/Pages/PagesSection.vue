@@ -4,7 +4,9 @@
     <kirby-headline>
       {{ headline }}
       <kirby-button-group slot="options">
-        <kirby-button v-show="!isLoading" icon="add" @click="action(null, 'create')">Add</kirby-button>
+        <template v-show="!isLoading">
+          <kirby-button v-if="add" icon="add" @click="action(null, 'create')">Add</kirby-button>
+        </template>
       </kirby-button-group>
     </kirby-headline>
 
@@ -24,10 +26,10 @@
         <kirby-button>No entries</kirby-button>
       </kirby-box>
 
-      <kirby-page-create-dialog ref="create" @success="$emit('create')" />
-      <kirby-page-url-dialog    ref="url"    @success="$emit('url')" />
-      <kirby-page-status-dialog ref="status" @success="$emit('status')" />
-      <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
+      <kirby-page-create-dialog ref="create" />
+      <kirby-page-url-dialog    ref="url"    @success="fetch" />
+      <kirby-page-status-dialog ref="status" @success="fetch" />
+      <kirby-page-remove-dialog ref="remove" @success="fetch" />
 
     </template>
 
@@ -43,11 +45,12 @@ export default {
   },
   data () {
     return {
+      add: null,
       layout: 'list',
       items: [],
       pagination: {},
       query: this.config,
-      headline: this.config.headline,
+      headline: null,
       isLoading: true
     }
   },
@@ -64,18 +67,26 @@ export default {
       this.$store.dispatch('isLoading', true);
 
       this.$api.section(this.query.type, this.query).then((response) => {
+        this.add        = response.add;
         this.items      = response.items;
         this.pagination = response.pagination;
+        this.headline   = response.headline;
         this.layout     = response.layout || 'list';
         this.isLoading  = false;
         this.$store.dispatch('isLoading', false);
       });
 
     },
+    update (event) {
+
+    },
     action (page, action) {
       switch (action) {
         case 'preview':
           window.open(page.url);
+          break;
+        case 'create':
+          this.$refs.create.open(this.add);
           break;
         case 'url':
           this.$refs.url.open(page.id);
