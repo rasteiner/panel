@@ -13,6 +13,12 @@
     <template v-if="isLoading">
       <kirby-skeleton type="list" />
     </template>
+    <template v-else-if="error">
+      <kirby-box>
+        <strong>The section could not be loaded:</strong>
+        {{ error }}
+      </kirby-box>
+    </template>
     <template v-else>
 
       <kirby-collection
@@ -51,7 +57,8 @@ export default {
       pagination: {},
       query: this.config,
       headline: null,
-      isLoading: true
+      isLoading: true,
+      error: null
     }
   },
   created () {
@@ -73,6 +80,10 @@ export default {
         this.headline   = response.headline;
         this.layout     = response.layout || 'list';
         this.isLoading  = false;
+        this.$store.dispatch('isLoading', false);
+      }).catch((error) => {
+        this.isLoading = false;
+        this.error     = error.message;
         this.$store.dispatch('isLoading', false);
       });
 
