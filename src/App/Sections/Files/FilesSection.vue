@@ -3,7 +3,7 @@
 
     <kirby-headline>
       <span>{{ headline }}</span>
-      <kirby-button-group slot="options" v-if="more && items.length !== 0">
+      <kirby-button-group slot="options" v-if="add && items.length !== 0">
         <kirby-button icon="upload" @click="upload"></kirby-button>
       </kirby-button-group>
     </kirby-headline>
@@ -43,6 +43,7 @@ export default {
     return {
       layout: 'list',
       items: [],
+      add: null,
       max: this.config.max,
       query: this.config,
       pagination: {
@@ -50,7 +51,7 @@ export default {
         limit: 10,
         total: 0
       },
-      headline: this.config.headline,
+      headline: null,
       isLoading: true
     }
   },
@@ -65,53 +66,6 @@ export default {
     this.$events.$off('file.create', this.fetch);
     this.$events.$off('file.delete', this.fetch);
   },
-  computed: {
-    more() {
-
-      if (!this.max) {
-        return true;
-      }
-
-      if (this.max > this.pagination.total) {
-        return true;
-      }
-
-      return false;
-
-    },
-    multiple() {
-
-      if (!this.max) {
-        return true;
-      }
-
-      if (this.max === 1) {
-        return false;
-      }
-
-      if ((this.max - this.pagination.total) <= 1) {
-        return false;
-      }
-
-      return true;
-
-    },
-    maxToGo() {
-
-      if (!this.max) {
-        return null;
-      }
-
-      let max = this.max - this.pagination.total;
-
-      if (max < 0) {
-        max = 0;
-      }
-
-      return max;
-
-    }
-  },
   methods: {
     fetch () {
 
@@ -122,6 +76,8 @@ export default {
       this.$store.dispatch('isLoading', true);
 
       this.$api.section(this.query.type, this.query).then((response) => {
+        this.headline   = response.headline;
+        this.add        = response.add;
         this.items      = response.items;
         this.pagination = response.pagination;
         this.layout     = response.layout || 'list';
@@ -149,16 +105,11 @@ export default {
       }
     },
     upload () {
-      this.$refs.upload.open({
-        url: window.panel.config.api + '/pages/' + this.model.id + '/files/',
-        attributes: { group: this.group },
-        multiple: this.multiple,
-        max: this.maxToGo
-      });
+      this.$refs.upload.open(this.add);
     },
     replace (file) {
       this.$refs.upload.open({
-        url: window.panel.config.api + '/pages/' + this.query.parent + '/files/' + file.filename,
+        url: this.add.url + '/' + file.filename,
         accept: file.mime,
         multiple: false
       });
