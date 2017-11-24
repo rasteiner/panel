@@ -62,6 +62,7 @@ export default {
   color: rgba(255,255,255, .7);
   width: 2rem;
 
+
   [dir="ltr"] & {
     border-left: 1px solid rgba(255,255,255, .3);
   }
@@ -88,7 +89,6 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin-top: -1px;
   font-size: 1.1em;
   color: inherit;
 
