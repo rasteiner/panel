@@ -127,19 +127,6 @@ export default {
     }
   },
   methods: {
-    input (data) {
-
-      if (data.language === this.user.language) {
-        return true;
-      }
-
-      // if current panel user, switch language
-      if(data.language && this.$store.state.user.id === this.user.id) {
-        this.user.language = data.language;
-        this.$store.dispatch('language', data.language);
-      }
-
-    },
     save (data) {
 
       this.saveName();

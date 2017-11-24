@@ -12,7 +12,7 @@
           <kirby-button icon="funnel" @click="$refs.roles.toggle()">Role: {{ role ? role : 'all' }}</kirby-button>
           <kirby-dropdown-content ref="roles" :dark="true">
             <kirby-dropdown-item @click="filter(false)" icon="bolt">all</kirby-dropdown-item>
-            <kirby-dropdown-item v-for="role in roles" @click="filter(role.value)" icon="bolt">{{ role.text }}</kirby-dropdown-item>
+            <kirby-dropdown-item v-for="role in roles" :key="role.value" @click="filter(role.value)" icon="bolt">{{ role.text }}</kirby-dropdown-item>
           </kirby-dropdown-content>
         </kirby-dropdown>
       </template>

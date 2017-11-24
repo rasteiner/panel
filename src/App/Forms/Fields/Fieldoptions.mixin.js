@@ -28,6 +28,11 @@ export default {
     this.$events.$off('file.update', this.fetchOptions);
     this.$events.$off('user.update', this.fetchOptions);
   },
+  watch: {
+    options () {
+      this.fetchOptions();
+    }
+  },
   methods: {
     fetchOptions () {
 

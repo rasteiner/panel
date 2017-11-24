@@ -9,7 +9,7 @@
     </template>
   </kirby-bar>
 
-  <h2 v-else class="kirby-headline" :data-margin="margin" :data-size="size"><slot /></h2>
+  <h2 v-else class="kirby-headline" :data-margin="margin" :data-size="size"><span><slot /></span></h2>
 
 </template>
 

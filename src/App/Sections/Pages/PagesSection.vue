@@ -29,7 +29,8 @@
         @action="action" />
 
       <kirby-box v-if="items.length === 0">
-        <kirby-button>No entries</kirby-button>
+        <kirby-button v-if="add" @click="action(null, 'create')">No entries</kirby-button>
+        <kirby-txt v-else>No entries</kirby-txt>
       </kirby-box>
 
       <kirby-page-create-dialog ref="create" />
