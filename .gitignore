@@ -12,6 +12,8 @@ package-lock.json
 /assets/js/ui.js
 /assets/js/ui-kit.js
 /assets/js/panel.js
+/assets/js/*.js.map
+
 /assets/js/chunks/*.js
 /assets/js/chunks/*.js.map
 
