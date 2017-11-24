@@ -52,9 +52,15 @@ Vue.use(i18n.plugin, store);
 Vue.i18n.fallback(store.state.language.locale);
 store.dispatch('language', store.state.language.locale);
 
-/* moment.js */
-import moment from 'vue-moment'
-Vue.use(moment);
+/** Date formating */
+import { DateTime } from 'luxon';
+
+Vue.filter('date', function(value, output) {
+  let dt = Array.isArray(value) ? DateTime.fromString(value[0], value[1]) : DateTime.fromString(value);
+  return dt.
+          setLocale(store.state.language.locale).
+          toLocaleString(typeof output === 'string' ? DateTime[output] : output)
+});
 
 /** Plugins */
 import 'App/Plugins/Plugins.js';

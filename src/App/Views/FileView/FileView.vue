@@ -76,7 +76,7 @@
 
               <template v-if="file.created">
                 <dt>Uploaded</dt>
-                <dd>{{ [file.created, 'D.M.YYYY - H:m:s'] | moment('L LTS') }}</dd>
+                <dd>{{ [file.created, 'dd.MM.yyyy - HH:mm:ss'] | date('DATETIME_SHORT_WITH_SECONDS') }}</dd>
               </template>
 
               <template v-if="file.content.group">
