@@ -16,10 +16,10 @@
     "start": "npm-run-all --parallel dev fractal api"
   },
   "dependencies": {
+    "luxon": "^0.2.0",
     "raven-js": "^3.19.1",
     "slugify": "^1.2.1",
     "vue": "^2.5.2",
-    "vue-moment": "^3.0.0",
     "vue-router": "^3.0.1",
     "vuedraggable": "^2.14.1",
     "vuex": "^3.0.0",
