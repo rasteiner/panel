@@ -6,7 +6,17 @@
 <script>
 
 export default {
-  props: ['type', 'alt'],
+  props: {
+    type: {
+      type: String
+    },
+    alt: {
+      type: String
+    },
+    source: {
+      type: String
+    }
+  },
   data () {
     return {
       svg: ''
@@ -33,7 +43,7 @@ export default {
         return;
       }
 
-      fetch(window.panel.config.assets + '/icons/' + this.type + '.svg').then((response) => {
+      fetch(`${this.source}/${this.type}.svg`).then((response) => {
 
         if(response.ok) {
           return response.text();
