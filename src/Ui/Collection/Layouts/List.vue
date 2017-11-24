@@ -5,7 +5,7 @@
         <kirby-image v-if="item.image && item.image.url" :src="item.image.url" :cover="true" />
         <kirby-icon v-else :type="preview(item)" :style="background(item)" />
       </router-link>
-      <router-link class="kirby-list-collection-text" v-tab :to="item.link">{{ item.text }}</router-link>
+      <router-link class="kirby-list-collection-text" v-tab :to="item.link"><em>{{ item.text }}</em> <small v-if="item.info">{{ item.info }}</small></router-link>
       <div class="kirby-list-collection-options">
         <kirby-dropdown>
           <kirby-button class="kirby-list-collection-toggle"
@@ -102,7 +102,26 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-right: 3rem;
+  display: flex;
+  align-items: baseline;
 }
+.kirby-list-collection-text em {
+  font-style: normal;
+  margin-right: 1rem;
+  flex-grow: 1;
+}
+
+.kirby-list-collection-text small {
+  color: $color-light-grey;
+  font-size: .9em;
+  display: none;
+
+  @media screen and (min-width: $breakpoint-medium) {
+    display: block;
+  }
+
+}
+
 .kirby-list-collection-options {
   position: absolute;
   right: 0;
