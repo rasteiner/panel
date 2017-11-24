@@ -29,6 +29,11 @@ export default {
   destroyed: function () {
     this.$events.$off('page.update', this.fetchOptions);
   },
+  watch: {
+    options () {
+      this.fetchOptions();
+    }
+  },
   methods: {
     fetchOptions () {
 
