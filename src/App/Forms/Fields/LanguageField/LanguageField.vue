@@ -48,6 +48,8 @@ export default {
           disabled: true
          })
 
+         console.log(this.options);
+
       });
 
     }

@@ -63,9 +63,10 @@
 
     <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
+    <kirby-user-language-dialog ref="language" />
     <kirby-user-remove-dialog ref="remove" />
 
-    <kirby-upload ref="upload" :url="uploadApi" accept="image/jpeg" :multiple="false" @success="fetch" />
+    <kirby-upload ref="upload" :url="uploadApi" accept="image/jpeg" :multiple="false" @success="uploadedAvatar" />
 
   </kirby-view>
 
@@ -171,6 +172,9 @@ export default {
         case 'password':
           this.$refs.password.open(this.user.id);
           break;
+        case 'language':
+          this.$refs.language.open(this.user.id);
+          break;
         case 'remove':
           this.$refs.remove.open(this.user.id);
           break;
@@ -227,6 +231,10 @@ export default {
         this.$store.dispatch('error', error.message);
       });
 
+    },
+    uploadedAvatar () {
+      this.$store.dispatch('success', 'The image has been uploaded!');
+      this.fetch();
     }
   }
 }

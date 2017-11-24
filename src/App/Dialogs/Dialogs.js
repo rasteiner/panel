@@ -14,7 +14,7 @@ Vue.component('kirby-page-status-dialog', () => import(
 ));
 Vue.component('kirby-page-remove-dialog', () => import(
   /* webpackChunkName: "page-remove-dialog" */
-  './Page/PageUrlDialog/PageUrlDialog.vue'
+  './Page/PageRemoveDialog/PageRemoveDialog.vue'
 ));
 
 Vue.component('kirby-file-remove-dialog', () => import(
@@ -33,6 +33,10 @@ Vue.component('kirby-user-role-dialog', () => import(
 Vue.component('kirby-user-password-dialog', () => import(
   /* webpackChunkName: "user-password-dialog" */
   './User/UserPasswordDialog/UserPasswordDialog.vue'
+));
+Vue.component('kirby-user-language-dialog', () => import(
+  /* webpackChunkName: "user-language-dialog" */
+  './User/UserLanguageDialog/UserLanguageDialog.vue'
 ));
 Vue.component('kirby-user-remove-dialog', () => import(
   /* webpackChunkName: "user-remove-dialog" */

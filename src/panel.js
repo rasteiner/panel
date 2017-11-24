@@ -1,16 +1,23 @@
-import config from './panel.config.js';
 import Vue from 'vue';
+import config from './panel.config.js';
 
 /** Error Handling */
-Vue.config.errorHandler = function (err, vm) {
-  vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a bug, it has been reported!');
+Vue.config.errorHandler = (err, vm) => {
+  if (config.enableErrorTracking) {
+    vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a bug, it has been reported!');
+  } else {
+    vm.$store.dispatch('error', 'Something went wrong. See the console for more information.');
+    console.error(err);
+  }
 };
 
 /** Error Tracking */
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 
-Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
+if (config.enableErrorTracking) {
+  Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
+}
 
 /** Store */
 import store from 'App/Store/Store.js';
@@ -23,11 +30,12 @@ Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  routes: Routes,
-  beforeEach: (to, from, next) => {
-    store.dispatch('isLoading', true);
-    next();
-  }
+  routes: Routes
+});
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('isLoading', true);
+  next();
 });
 
 /** API */
@@ -43,6 +51,10 @@ import i18n from 'vuex-i18n';
 Vue.use(i18n.plugin, store);
 Vue.i18n.fallback(store.state.language.locale);
 store.dispatch('language', store.state.language.locale);
+
+/* moment.js */
+import moment from 'vue-moment'
+Vue.use(moment);
 
 /** App Stuff */
 import 'App/App.js';

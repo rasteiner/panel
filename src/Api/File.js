@@ -93,14 +93,12 @@ export default {
   },
   breadcrumb (file) {
     return Page.get(file.parent).then((page) => {
-      var breadcrumb = page.parents.map((parent) => ({
-        label: parent.title,
-        link: '/pages/' + parent.id
-      }));
+
+      let breadcrumb = Page.breadcrumb(page);
 
       breadcrumb.push({
-        label: page.title,
-        link: '/pages/' + page.id
+        label: file.filename,
+        link: '/pages/' + page.id + '/files/' + file.filename
       });
 
       return breadcrumb;

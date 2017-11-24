@@ -4,7 +4,7 @@
     @remove="remove">
 
     <figure v-if="value.src">
-      <img :src="value.src">
+      <img :src="value.src" @click="$refs.upload.open()">
       <figcaption>
         <kirby-fancy-input
           ref="input"
@@ -18,8 +18,10 @@
     </figure>
 
     <kirby-box v-else>
-      <kirby-button icon="cloud-upload" :upload="{accept: 'image/*'}">Upload an image</kirby-button>
+      <kirby-button icon="cloud-upload" @click="$refs.upload.open()">Upload an image</kirby-button>
     </kirby-box>
+
+    <kirby-upload ref="upload" />
 
   </kirby-block>
 </template>

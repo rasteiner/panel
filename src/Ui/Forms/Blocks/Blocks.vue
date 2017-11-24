@@ -33,6 +33,9 @@ export default {
   methods: {
     input(index, value) {
       this.blocks[index].value = value;
+
+      console.log(this.blocks);
+
     },
     append(index, type, props) {
 

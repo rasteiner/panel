@@ -75,6 +75,7 @@ export default new Vuex.Store({
       if (locale) {
         Language.get(locale).then((language) => {
           Vue.i18n.replace(locale, language.strings);
+          Vue.moment.locale(locale);
           context.commit('language', {
             locale: language.locale,
             direction: language.direction
