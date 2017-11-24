@@ -2,18 +2,19 @@
 
   <kirby-view class="kirby-users-view">
 
-    <kirby-header icon="users" link="/users">
+    <kirby-header icon="users" link="/users" :breadcrumb="breadcrumb">
 
-      <template v-if="role">
-        {{ $t('user.role')}}: <kirby-select-input class="kirby-users-role-select" :options="roles" :value="role" @input="$router.push('/users/role/' + $event)" />
-      </template>
-      <template v-else>
-        {{ $t('users') }}
-      </template>
+      {{ $t('users') }}
 
       <template slot="buttons-left">
         <kirby-button icon="add" @click="$refs.create.open()">{{ $t('user.add') }}</kirby-button>
-        <kirby-button v-if="!role" icon="funnel" @click="$router.push('/users/role/admin')">Filter by role</kirby-button>
+        <kirby-dropdown>
+          <kirby-button icon="funnel" @click="$refs.roles.toggle()">Role: {{ role ? role : 'all' }}</kirby-button>
+          <kirby-dropdown-content ref="roles" :dark="true">
+            <kirby-dropdown-item @click="filter(false)" icon="bolt">all</kirby-dropdown-item>
+            <kirby-dropdown-item v-for="role in roles" @click="filter(role.value)" icon="bolt">{{ role.text }}</kirby-dropdown-item>
+          </kirby-dropdown-content>
+        </kirby-dropdown>
       </template>
 
       <template slot="buttons-right">
@@ -22,7 +23,12 @@
 
     </kirby-header>
 
-    <kirby-collection :items="users" :pagination="pagination" @paginate="paginate" @action="action" />
+    <template v-if="users.length > 0">
+      <kirby-collection :items="users" :pagination="pagination" @paginate="paginate" @action="action" />
+    </template>
+    <template v-else>
+      <kirby-box>No results :(</kirby-box>
+    </template>
 
     <kirby-user-create-dialog ref="create" @success="fetch" />
     <kirby-user-role-dialog ref="role" @success="fetch" />
@@ -127,6 +133,15 @@ export default {
           this.$refs.remove.open(user.id);
           break;
       }
+    },
+    filter (role) {
+      if (role === false) {
+        this.$router.push('/users');
+      } else {
+        this.$router.push('/users/role/' + role);
+      }
+
+      this.$refs.roles.close();
     }
   },
   computed: {
@@ -135,6 +150,20 @@ export default {
         page: this.page,
         limit: this.limit
       };
+    },
+    breadcrumb () {
+
+      if (this.role) {
+        return [
+          {
+            link: '/users/role/' + this.role,
+            label: 'role:' + this.role
+          },
+        ];
+      }
+
+      return [];
+
     },
     role () {
       return this.$route.params.role;
@@ -154,12 +183,20 @@ export default {
 
 <style lang="scss">
 
-  .kirby-users-role-select {
-    display: inline-block;
+  .kirby-users-view-role-select {
+    display: inline-block !important;
+    padding: 0 !important;
   }
+  .kirby-users-view-role-select > button {
+    font: inherit;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    color: $color-focus;
 
-  .kirby-users-role-select > label {
-    color: $color-dark-grey;
+    &:focus {
+      outline: none;
+    }
   }
 
 </style>
