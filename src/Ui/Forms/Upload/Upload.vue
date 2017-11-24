@@ -70,7 +70,11 @@ export default {
   methods: {
     open(params) {
       this.options = Object.assign({}, this.$props, params);
-      this.$refs.input.click();
+
+      // TODO: try removing this hack
+      setTimeout(() => {
+        this.$refs.input.click();
+      }, 1);
     },
     select (e) {
       this.upload(e.target.files);

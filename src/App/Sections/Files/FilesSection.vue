@@ -27,7 +27,8 @@
         @action="action" />
 
       <kirby-box v-if="items.length === 0" class="kirby-files-collection-placeholder" :data-layout="layout">
-        <kirby-button :upload="true" icon="upload" @click="upload">Upload</kirby-button>
+        <kirby-button v-if="add" icon="upload" @click="upload">Upload</kirby-button>
+        <kirby-txt v-else>No files :(</kirby-txt>
       </kirby-box>
 
       <kirby-file-remove-dialog ref="remove" @success="fetch" />
@@ -120,7 +121,7 @@ export default {
     },
     replace (file) {
       this.$refs.upload.open({
-        url: this.add.url + '/' + file.filename,
+        url: window.panel.config.api + '/pages/' + file.parent + '/files/' + file.filename,
         accept: file.mime,
         multiple: false
       });
