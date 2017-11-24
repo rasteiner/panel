@@ -113,7 +113,7 @@ export default {
 
 .kirby-list-collection-text small {
   color: $color-light-grey;
-  font-size: .9em;
+  font-size: $font-size-tiny;
   display: none;
 
   @media screen and (min-width: $breakpoint-medium) {

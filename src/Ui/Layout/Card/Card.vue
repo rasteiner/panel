@@ -115,11 +115,11 @@ export default {
   font-size: $font-size-small;
 }
 .kirby-card-info {
-  color: $color-dark-grey;
+  color: $color-light-grey;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: $font-size-small;
+  font-size: $font-size-tiny;
   font-family: $font-family-mono;
 }
 .kirby-card .kirby-dropdown {
