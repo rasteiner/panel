@@ -47,10 +47,6 @@ export default {
 .kirby-header {
   border-bottom: 1px solid #ddd;
   margin-bottom: 1.5rem;
-
-  @media screen and (min-width: $breakpoint-medium) {
-    margin-bottom: 3rem;
-  }
 }
 
 .kirby-header .kirby-header-breadcrumb-bar {
