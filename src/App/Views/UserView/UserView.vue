@@ -63,6 +63,7 @@
 
     <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
+    <kirby-user-language-dialog ref="language" />
     <kirby-user-remove-dialog ref="remove" />
 
     <kirby-upload ref="upload" :url="uploadApi" accept="image/jpeg" :multiple="false" @success="uploadedAvatar" />
@@ -169,6 +170,9 @@ export default {
           break;
         case 'password':
           this.$refs.password.open(this.user.id);
+          break;
+        case 'language':
+          this.$refs.language.open(this.user.id);
           break;
         case 'remove':
           this.$refs.remove.open(this.user.id);

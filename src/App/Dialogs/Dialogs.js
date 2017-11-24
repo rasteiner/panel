@@ -34,6 +34,10 @@ Vue.component('kirby-user-password-dialog', () => import(
   /* webpackChunkName: "user-password-dialog" */
   './User/UserPasswordDialog/UserPasswordDialog.vue'
 ));
+Vue.component('kirby-user-language-dialog', () => import(
+  /* webpackChunkName: "user-language-dialog" */
+  './User/UserLanguageDialog/UserLanguageDialog.vue'
+));
 Vue.component('kirby-user-remove-dialog', () => import(
   /* webpackChunkName: "user-remove-dialog" */
   './User/UserRemoveDialog/UserRemoveDialog.vue'
