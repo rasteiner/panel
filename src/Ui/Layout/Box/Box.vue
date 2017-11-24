@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-box">
+  <div class="kirby-box" @click="$emit('click')">
     <slot />
   </div>
 </template>
