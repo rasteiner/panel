@@ -56,7 +56,10 @@ store.dispatch('language', store.state.language.locale);
 import moment from 'vue-moment'
 Vue.use(moment);
 
-/** App Stuff */
+/** Plugins */
+import 'App/Plugins/Plugins.js';
+
+/** App Kit */
 import 'App/App.js';
 
 new Vue({
