@@ -69,12 +69,11 @@ export default {
   border-color: $color-dark;
 }
 .kirby-input-prefix {
-  width: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
-  font-size: .8em;
+  padding-left: .5rem;
   color: $color-dark-grey;
 }
 .kirby-input-content {
