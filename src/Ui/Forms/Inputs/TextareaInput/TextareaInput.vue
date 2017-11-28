@@ -9,8 +9,7 @@
     @blur="$emit('blur')"
     @keydown.delete="remove($event)"
     @keydown.enter="enter($event)"
-    :placeholder="placeholder"
-    :value="value">
+    :placeholder="placeholder">
   </textarea>
 </template>
 
