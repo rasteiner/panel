@@ -13,7 +13,7 @@
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content"></slot>
-    <kirby-input v-else :icon="icon" :prefix="prefix">
+    <kirby-input v-else :icon="icon" :error="error" :prefix="prefix">
       <slot></slot>
     </kirby-input>
 
