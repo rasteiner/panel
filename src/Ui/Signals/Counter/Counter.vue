@@ -1,9 +1,7 @@
 <template>
 
-  <div class="kirby-counter">
-    <span :class="{ exceeded: count > max }">
-      <span>{{ count }}</span> / {{ max }}
-    </span>
+  <div class="kirby-counter" :data-exceeded="count > max">
+    <span>{{ count }}</span> / {{ max }}
   </div>
 
 </template>
@@ -21,7 +19,12 @@ export default {
 
 <style lang="scss">
 
-.kirby-counter .exceeded > span {
+.kirby-counter {
+  font-size: $font-size-small;
+  font-family: $font-family-mono;
+  color: $color-dark-grey;
+}
+.kirby-counter[data-exceeded] > span {
   color: $color-negative;
 }
 

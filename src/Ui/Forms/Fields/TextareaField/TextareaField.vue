@@ -1,7 +1,8 @@
 <template>
   <kirby-field class="kirby-textarea-field" v-bind="$props" :data-fullscreen="fullscreen">
+
     <template slot="options" v-if="max">
-      <kirby-counter :value="data" :max="max"></kirby-counter>
+      <kirby-counter :value="data" :max="max" />
     </template>
 
     <kirby-textarea-input ref="input" v-bind="$props" @focus="addShortcuts" @blur="removeShortcuts" v-model="data" @submit="$emit('submit', $event)" />

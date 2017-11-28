@@ -1,12 +1,16 @@
 <template>
   <div class="kirby-field" :required="required" :readonly="readonly" :error="error">
 
-    <div v-if="$slots.label || $slots.options || label" class="kirby-field-header">
-      <slot name="label">
-        <label :for="name">{{ label }}</label>
-      </slot>
-      <slot name="options"></slot>
-    </div>
+    <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
+      <template slot="left">
+        <slot name="label">
+          <label :for="name">{{ label }}</label>
+        </slot>
+      </template>
+      <template slot="right">
+        <slot name="options"></slot>
+      </template>
+    </kirby-bar>
 
     <slot v-if="$slots.content" name="content"></slot>
     <kirby-input v-else :icon="icon" :prefix="prefix">
@@ -42,13 +46,11 @@ export default {
 <style lang="scss">
 
 .kirby-field-header {
-  display: flex;
   padding: 1rem 0 1rem;
 }
 .kirby-field-header label {
   display: block;
   font-weight: 500;
-  flex-grow: 1;
   line-height: 1.5em;
   margin-bottom: -1px;
 }
