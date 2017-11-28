@@ -1,6 +1,6 @@
 <template>
 
-  <div class="kirby-counter" :data-exceeded="count > max">
+  <div class="kirby-counter" :data-invalid="!valid">
     <span>{{ count }}</span> / {{ max }}
   </div>
 
@@ -8,10 +8,27 @@
 
 <script>
 export default {
-  props: ['value', 'max'],
+  props: {
+    value: {},
+    min: Number,
+    max: Number
+  },
   computed: {
     count () {
       return this.value ? this.value.length : 0;
+    },
+    valid () {
+
+      if (this.min && this.count < this.min) {
+        return false;
+      }
+
+      if (this.max && this.count > this.max) {
+        return false;
+      }
+
+      return true;
+
     }
   }
 }
@@ -24,7 +41,7 @@ export default {
   font-family: $font-family-mono;
   color: $color-dark-grey;
 }
-.kirby-counter[data-exceeded] > span {
+.kirby-counter[data-invalid] > span {
   color: $color-negative;
 }
 
