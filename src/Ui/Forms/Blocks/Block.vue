@@ -41,9 +41,6 @@ export default {
 .kirby-block {
   position: relative;
   padding: 0 1.5rem;
-  max-width: 40rem;
-  margin-left: auto;
-  margin-right: auto;
 }
 .kirby-block-options {
   opacity: 0;
