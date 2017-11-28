@@ -1,10 +1,10 @@
 <template>
-  <div class="kirby-field" :required="required" :readonly="readonly" :error="error">
+  <div class="kirby-field" :data-readonly="readonly" :data-error="error">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
       <template slot="left">
         <slot name="label">
-          <label :for="name">{{ label }}</label>
+          <label :for="name">{{ label }} <abbr v-if="required" title="Required">*</abbr></label>
         </slot>
       </template>
       <template slot="right">
@@ -29,57 +29,49 @@
 <script>
 
 export default {
-  props: [
-    'required',
-    'readonly',
-    'error',
-    'label',
-    'help',
-    'name',
-    'prefix',
-    'icon'
-  ]
+  props: {
+    error: Boolean,
+    help: String,
+    icon: String,
+    label: String,
+    name: {
+      type: String,
+      required: true
+    },
+    readonly: Boolean,
+    required: Boolean,
+    prefix: String,
+  }
 }
 
 </script>
 
 <style lang="scss">
 
-.kirby-field-header {
-  padding: 1rem 0 1rem;
-}
 .kirby-field-header label {
   display: block;
   font-weight: 500;
   line-height: 1.5em;
+  padding: 1rem 0;
   margin-bottom: -1px;
 }
-.kirby-field-header .kirby-button-group .kirby-button {
-  padding-top: 0;
-  padding-bottom: 0;
+.kirby-field-header label abbr {
+  color: $color-focus;
+  text-decoration: none;
+  padding: 0 .25rem;
 }
-.kirby-field[readonly] {
+
+.kirby-field[data-readonly] {
   cursor: default;
   pointer-events: none;
 }
-.kirby-field[readonly] .kirby-input {
+.kirby-field[data-readonly] .kirby-input {
   background: $color-background;
 }
-.kirby-field[error] .kirby-field-header label {
+.kirby-field[data-error] .kirby-field-header label {
   color: $color-negative;
 }
-.kirby-field[required] .kirby-field-header label:after {
-  content: "*";
-  color: $color-focus;
-
-  [dir="ltr"] & {
-    padding-left: .35rem;
-  }
-  [dir="rtl"] & {
-    padding-right: .35rem;
-  }
-}
-.kirby-field[required][error] .kirby-field-header label:after {
+.kirby-field[data-error] .kirby-field-header label abbr {
   color: $color-negative;
 }
 
@@ -89,9 +81,6 @@ export default {
   font-family: $font-family-mono;
   color: $color-dark-grey;
   line-height: 1.5;
-}
-.kirby-field[error] .kirby-field-help {
-  color: $color-negative;
 }
 
 </style>
