@@ -1,11 +1,25 @@
 <template>
-  <kirby-field v-bind="$props">
+  <kirby-field v-bind="fieldProps">
 
-    <template slot="options" v-if="max">
-      <kirby-counter :value="data" :max="max"></kirby-counter>
+    <template slot="options" v-if="maxlength">
+      <kirby-counter :value="model" :min="minlength" :max="maxlength"></kirby-counter>
     </template>
 
-    <kirby-text-input v-bind="$props" v-model="data" />
+    <input
+      class="kirby-text-input"
+      :autocomplete="autocomplete ? 'on' : 'off'"
+      :id="name"
+      :name="name"
+      :maxlength="maxlength"
+      :minlength="minlength"
+      :pattern="pattern"
+      :placeholder="placeholder"
+      :readonly="readonly"
+      :required="required"
+      :spellcheck="spellcheck"
+      :type="type"
+      v-model="model" />
+
   </kirby-field>
 </template>
 
@@ -16,11 +30,32 @@ import Field from 'Ui/Forms/Field/Field.mixin.js';
 export default {
   mixins: [Field],
   props: {
+    autocomplete: {
+      type: Boolean,
+      default: false
+    },
+    maxlength: {
+      type: Number
+    },
+    minlength: {
+      type: Number
+    },
+    pattern: {
+      type: String
+    },
     placeholder: {
       type: String
     },
-    max: {
-      type: Number
+    spellcheck: {
+      type: Boolean,
+      default: false
+    },
+    type: {
+      type: String,
+      default: 'text'
+    },
+    value: {
+      type: [String, Number]
     }
   }
 }
