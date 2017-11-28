@@ -3,12 +3,15 @@ import config from './panel.config.js';
 
 /** Error Handling */
 Vue.config.errorHandler = (err, vm) => {
+
+  console.error(err);
+
   if (config.enableErrorTracking) {
     vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a bug, it has been reported!');
   } else {
     vm.$store.dispatch('error', 'Something went wrong. See the console for more information.');
-    console.error(err);
   }
+
 };
 
 /** Error Tracking */
