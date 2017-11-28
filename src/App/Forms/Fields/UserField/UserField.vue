@@ -31,8 +31,7 @@
 
 <script>
 
-import User from 'Api/User.js';
-import Field from 'Ui/Forms/Fields/Field.mixin.js';
+import Field from 'Ui/Forms/Field/Field.mixin.js';
 
 export default {
   mixins: [Field],

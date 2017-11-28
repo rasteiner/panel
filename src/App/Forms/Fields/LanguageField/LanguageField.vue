@@ -13,7 +13,7 @@
 <script>
 
 import Language from 'Api/Language.js';
-import Field from 'Ui/Forms/Fields/Field.mixin.js';
+import Field from 'Ui/Forms/Field/Field.mixin.js';
 
 export default {
   mixins: [Field],

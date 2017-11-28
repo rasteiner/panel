@@ -19,7 +19,7 @@
 
 <script>
 
-import Field from '../Field.mixin.js';
+import Field from 'Ui/Forms/Field/Field.mixin.js';
 
 export default {
   mixins: [Field],

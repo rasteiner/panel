@@ -1,6 +1,6 @@
 
 import Vue from 'vue';
-import FieldMixin from 'Ui/Forms/Fields/Field.mixin.js';
+import FieldMixin from 'Ui/Forms/Field/Field.mixin.js';
 
 // General components
 window.panel.component = (name, options) => {
