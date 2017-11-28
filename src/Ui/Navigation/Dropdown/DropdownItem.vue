@@ -33,7 +33,7 @@ export default {
 .kirby-dropdown-item {
   white-space: nowrap;
   line-height: 1;
-  color: inherit;
+  color: lighten($color-light-grey, 10%);
   display: flex;
   width: 100%;
   align-items: center;
@@ -45,9 +45,19 @@ export default {
     padding: .5rem .5rem .5rem 1.5rem;
   }
 }
+
+.kirby-dropdown-item:hover,
+.kirby-dropdown-item:focus {
+  color: #fff;
+}
+
 .kirby-dropdown-item .kirby-icon {
   width: 2rem;
   text-align: center;
+}
+
+.kirby-dropdown-item .kirby-icon svg * {
+  fill: #fff;
 }
 
 </style>

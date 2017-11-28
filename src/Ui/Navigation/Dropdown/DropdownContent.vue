@@ -1,6 +1,6 @@
 <template>
-  <div v-show="isOpen" class="kirby-dropdown-content" :data-dark="dark" :data-align="align">
-    <span v-if="dropdownItems">
+  <div v-show="isOpen" class="kirby-dropdown-content" :data-align="align">
+    <template v-if="dropdownItems">
       <kirby-dropdown-item v-for="(option, index) in dropdownItems"
         :key="index"
         :icon="option.icon"
@@ -8,7 +8,7 @@
         @click="$emit('action', option.click)">
           {{ option.text }}
       </kirby-dropdown-item>
-    </span>
+    </template>
     <slot v-else />
   </div>
 </template>
@@ -29,7 +29,6 @@ const DropdownClickListener = function (e) {
 
 export default {
   props: [
-    'dark',
     'options',
     'align'
   ],
@@ -95,9 +94,9 @@ export default {
   position: absolute;
   top: 100%;
   padding: .5rem 0;
-  background: $color-white;
+  background: $color-dark;
+  color: $color-light;
   z-index: z-index(dropdown);
-  color: $color-dark;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
 
@@ -120,25 +119,6 @@ export default {
     right: auto;
     left: 0;
   }
-}
-
-.kirby-dropdown-content[data-dark] {
-  background: $color-dark;
-  color: $color-light;
-
-  .kirby-dropdown-item {
-    color: lighten($color-light-grey, 10%);
-  }
-
-  .kirby-button:hover,
-  .kirby-button:focus {
-    color: #fff;
-  }
-
-  .kirby-button .kirby-icon svg * {
-    fill: #fff;
-  }
-
 }
 
 .kirby-dropdown-item:last-child {

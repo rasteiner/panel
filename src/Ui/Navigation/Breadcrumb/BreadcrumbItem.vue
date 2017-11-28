@@ -42,7 +42,7 @@ export default {
   text-decoration: none;
   transition: color .3s;
 
-  &:after {
+  &::after {
     position: absolute;
     content: "/";
 
@@ -58,6 +58,10 @@ export default {
     @include focus-ring;
   }
 
+}
+.kirby-breadcrumb-item:last-child a::after,
+.kirby-breadcrumb-item:last-child span::after {
+  display: none;
 }
 
 .kirby-breadcrumb-item a:hover {

@@ -5,7 +5,6 @@
       <kirby-button type="submit" icon="check">{{ $t("login") }}</kirby-button>
     </form>
   </div>
-  <kirby-loader v-else position="center" theme="dark" />
 </template>
 
 <script>
@@ -75,7 +74,7 @@ export default {
 <style>
 
 .kirby-login-view {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

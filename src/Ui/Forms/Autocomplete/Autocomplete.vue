@@ -9,7 +9,7 @@
       @keydown.enter="keydown"
       @keydown.up.prevent="navigate(-1)"
       @keydown.down.prevent="navigate(1)" />
-    <kirby-dropdown-content :dark="true" ref="items">
+    <kirby-dropdown-content ref="items">
       <kirby-dropdown-item v-for="(item, index) in items"
         tabindex="-1"
         :key="index"

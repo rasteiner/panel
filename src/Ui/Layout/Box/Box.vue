@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-box" :state="state">
+  <div class="kirby-box" :data-state="state" @click="$emit('click')">
     <slot />
   </div>
 </template>
@@ -21,11 +21,11 @@ export default {
 .kirby-box {
   background: rgba(0,0,0, .075);
   border-radius: $border-radius;
-  padding: .75rem 1rem;
+  padding: .65rem 1rem;
   line-height: 1.5;
 }
 
-.kirby-box[state="empty"] {
+.kirby-box[data-state="empty"] {
   color: $color-light-grey;
 }
 

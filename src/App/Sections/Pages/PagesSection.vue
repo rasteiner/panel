@@ -4,12 +4,20 @@
     <kirby-headline>
       {{ headline }}
       <kirby-button-group slot="options">
-        <kirby-button v-show="!isLoading" icon="add" @click="action(null, 'create')">Add</kirby-button>
+        <template v-show="!isLoading">
+          <kirby-button v-if="add" icon="add" @click="action(null, 'create')">Add</kirby-button>
+        </template>
       </kirby-button-group>
     </kirby-headline>
 
     <template v-if="isLoading">
       <kirby-skeleton type="list" />
+    </template>
+    <template v-else-if="error">
+      <kirby-box>
+        <strong>The section could not be loaded:</strong>
+        {{ error }}
+      </kirby-box>
     </template>
     <template v-else>
 
@@ -21,13 +29,14 @@
         @action="action" />
 
       <kirby-box v-if="items.length === 0">
-        <kirby-button>No entries</kirby-button>
+        <kirby-button v-if="add" @click="action(null, 'create')">No entries</kirby-button>
+        <kirby-txt v-else>No entries</kirby-txt>
       </kirby-box>
 
-      <kirby-page-create-dialog ref="create" @success="$emit('create')" />
-      <kirby-page-url-dialog    ref="url"    @success="$emit('url')" />
-      <kirby-page-status-dialog ref="status" @success="$emit('status')" />
-      <kirby-page-remove-dialog ref="remove" @success="$emit('remove')" />
+      <kirby-page-create-dialog ref="create" />
+      <kirby-page-url-dialog    ref="url"    @success="fetch" />
+      <kirby-page-status-dialog ref="status" @success="fetch" />
+      <kirby-page-remove-dialog ref="remove" @success="fetch" />
 
     </template>
 
@@ -43,12 +52,14 @@ export default {
   },
   data () {
     return {
+      add: null,
       layout: 'list',
       items: [],
       pagination: {},
       query: this.config,
-      headline: this.config.headline,
-      isLoading: true
+      headline: null,
+      isLoading: true,
+      error: null
     }
   },
   created () {
@@ -61,18 +72,33 @@ export default {
         this.query.self = this.self;
       }
 
+      this.$store.dispatch('isLoading', true);
+
       this.$api.section(this.query.type, this.query).then((response) => {
+        this.add        = response.add;
         this.items      = response.items;
         this.pagination = response.pagination;
+        this.headline   = response.headline;
         this.layout     = response.layout || 'list';
         this.isLoading  = false;
+        this.$store.dispatch('isLoading', false);
+      }).catch((error) => {
+        this.isLoading = false;
+        this.error     = error.message;
+        this.$store.dispatch('isLoading', false);
       });
+
+    },
+    update (event) {
 
     },
     action (page, action) {
       switch (action) {
         case 'preview':
           window.open(page.url);
+          break;
+        case 'create':
+          this.$refs.create.open(this.add);
           break;
         case 'url':
           this.$refs.url.open(page.id);
@@ -87,8 +113,8 @@ export default {
           this.$store.dispatch('error', 'Not yet implemented');
       }
     },
-    paginate(pagination) {
-      Object.assign(this.query.pagination || {}, pagination);
+    paginate (pagination) {
+      this.query.pagination = Object.assign(this.query.pagination || {}, pagination);
       this.fetch();
     }
   }

@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       parent: null,
-      options: [],
+      templates: [],
       page: {
         title: null,
         template: null
@@ -37,13 +37,13 @@ export default {
         },
       ];
 
-      if (this.options.length > 1) {
+      if (this.templates.length > 1) {
         fields.push({
           name: 'template',
           label: 'Template',
           type: 'select',
           required: true,
-          options: this.options
+          options: this.templates
         });
       }
 
@@ -52,9 +52,9 @@ export default {
     }
   },
   methods: {
-    open (parent) {
+    open (options) {
 
-      this.parent = parent;
+      this.parent = options.parent;
 
       this.$api[this.model].blueprints(this.parent).then((blueprints) => {
 
@@ -63,7 +63,12 @@ export default {
           return;
         }
 
-        this.options = blueprints.map((blueprint) => {
+        if (options.templates) {
+          // remove all blueprints, which are not included in the options
+          blueprints = blueprints.filter(blueprint => options.templates.includes(blueprint.name));
+        }
+
+        this.templates = blueprints.map((blueprint) => {
           return {
             value: blueprint.name,
             text: blueprint.title || blueprint.name
@@ -80,7 +85,7 @@ export default {
     submit () {
 
       if (!this.page.template) {
-        this.page.template = this.options[0].value;
+        this.page.template = this.templates[0].value;
       }
 
       const data = {

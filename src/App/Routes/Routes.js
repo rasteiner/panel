@@ -1,3 +1,6 @@
+
+/* Code splitting along views */
+
 const CreatePageView = () => import(
   /* webpackChunkName: "create-page-view" */
   '../Views/CreatePageView/CreatePageView.vue'
@@ -43,23 +46,36 @@ const UserView = () => import(
   '../Views/UserView/UserView.vue'
 );
 
-/* store */
+/* Store */
 import store from '../Store/Store.js';
+
+/* Api */
 import Auth from 'Api/Auth.js';
 import Panel from 'Api/Panel.js';
 
+/* Route filters */
 const auth = (to, from, next) => {
 
+  // check if user is logged in
   Auth.validate().then((user) => {
+
+    // store logged-in user
     store.dispatch('user', user);
     next();
+
   }).catch(() => {
+
+    // store url to navigate after login
     store.commit('afterLogin', to.path);
+
+    // redirect to login form
     next('/login');
   });
 
 };
 
+
+/* Routes */
 export default [
   {
     path: '/',

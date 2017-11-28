@@ -5,7 +5,7 @@
       <kirby-button @click="$refs.dropdown.toggle()" :disabled="!hasPages">
         <template v-if="total > 1">{{ detailsText }}</template>{{ total }}
       </kirby-button>
-      <kirby-dropdown-content @open="$nextTick(() => $refs.page.focus())" class="kirby-pagination-selector" :dark="true" ref="dropdown">
+      <kirby-dropdown-content @open="$nextTick(() => $refs.page.focus())" class="kirby-pagination-selector" ref="dropdown">
         <div>
           <label for="kirby-pagination-input">{{ pageLabel }}</label>
           <input id="kirby-pagination-input" ref="page" type="number" :value="currentPage" @input="goTo($event.target.value)" @focus="$event.target.select()" :min="1" :max="pages">

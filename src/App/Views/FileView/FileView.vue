@@ -76,7 +76,7 @@
 
               <template v-if="file.created">
                 <dt>Uploaded</dt>
-                <dd>{{ file.created }}</dd>
+                <dd>{{ [file.created, 'dd.MM.yyyy - HH:mm:ss'] | date('DATETIME_SHORT_WITH_SECONDS') }}</dd>
               </template>
 
               <template v-if="file.content.group">
@@ -229,6 +229,7 @@ export default {
       this.$api.file.update(this.path, this.file.filename, this.file.content).then((file) => {
         this.file.content = file.content;
         this.$store.dispatch('success', 'Saved!');
+        this.$events.$emit('file.update');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

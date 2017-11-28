@@ -4,7 +4,7 @@
 
     <kirby-dialog ref="dialog">
       <template v-if="errors.length > 0">
-        <kirby-headline :margin="true">Upload errors</kirby-headline>
+        <kirby-headline>Upload errors</kirby-headline>
         <ul class="kirby-upload-error-list">
           <li :key="'error-' + index" v-for="(error, index) in errors">
             <p class="kirby-upload-error-filename">{{ error.file.name }}</p>
@@ -70,7 +70,11 @@ export default {
   methods: {
     open(params) {
       this.options = Object.assign({}, this.$props, params);
-      this.$refs.input.click();
+
+      // TODO: try removing this hack
+      setTimeout(() => {
+        this.$refs.input.click();
+      }, 1);
     },
     select (e) {
       this.upload(e.target.files);
@@ -141,6 +145,10 @@ export default {
     position: absolute;
     top: 0;
     left: -3000px;
+  }
+
+  .kirby-upload .kirby-headline > span {
+    padding-top: 0;
   }
 
   .kirby-upload-list,

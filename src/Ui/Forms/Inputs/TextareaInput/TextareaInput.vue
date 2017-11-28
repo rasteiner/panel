@@ -9,8 +9,7 @@
     @blur="$emit('blur')"
     @keydown.delete="remove($event)"
     @keydown.enter="enter($event)"
-    :placeholder="placeholder"
-    :value="value">
+    :placeholder="placeholder">
   </textarea>
 </template>
 
@@ -45,9 +44,10 @@ export default {
 
       const area = this.$refs.textarea;
 
+      area.focus();
+
       document.execCommand('insertText', false, text);
 
-      area.focus();
       this.resize();
 
     },

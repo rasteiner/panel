@@ -19,12 +19,31 @@ const guid = function() {
 };
 
 export default {
-  props: [
-    'value'
-  ],
+  props: {
+    value: {
+      type: Array,
+      default () {
+        return [];
+      }
+    }
+  },
   data() {
+
+    let blocks = this.value;
+
+    if (blocks === null || blocks.length === 0) {
+
+      blocks = [
+        {
+          type: 'text',
+          value: ''
+        }
+      ];
+
+    }
+
     return {
-      blocks: this.value.map(function(item) {
+      blocks: blocks.map(function(item) {
         item._id = guid();
         return item;
       })
@@ -33,10 +52,9 @@ export default {
   methods: {
     input(index, value) {
       this.blocks[index].value = value;
+      this.$emit('input', this.blocks);
     },
     append(index, type, props) {
-
-      console.log(props);
 
       this.blocks.splice(index + 1, 0, {
         id: guid(),
@@ -45,18 +63,31 @@ export default {
         value: ''
       });
 
-      this.$nextTick(function() {
+      this.$nextTick(() => {
         this.focus(index + 1);
-      }.bind(this));
+      });
+
+      this.$emit('input', this.blocks);
 
     },
     remove(index) {
 
       this.blocks.splice(index, 1);
 
-      this.$nextTick(function() {
+      if (this.blocks.length === 0) {
+        this.blocks = [
+          {
+            type: 'text',
+            value: ''
+          }
+        ];
+      }
+
+      this.$nextTick(() => {
         this.focus(index - 1);
-      }.bind(this));
+      });
+
+      this.$emit('input', this.blocks);
 
     },
     focus(index) {

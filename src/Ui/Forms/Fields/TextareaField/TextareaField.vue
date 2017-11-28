@@ -10,7 +10,7 @@
       <div class="kirby-format-buttons-group">
         <kirby-dropdown>
           <kirby-button class="kirby-format-button" @click="$refs.headlines.toggle()" icon="title" />
-          <kirby-dropdown-content ref="headlines" :dark="true">
+          <kirby-dropdown-content ref="headlines">
             <kirby-dropdown-item @click="prefix('#')" icon="title">Headline 1</kirby-dropdown-item>
             <kirby-dropdown-item @click="prefix('##')" icon="title">Headline 2</kirby-dropdown-item>
             <kirby-dropdown-item @click="prefix('###')" icon="title">Headline 3</kirby-dropdown-item>
@@ -25,8 +25,8 @@
         <kirby-button class="kirby-format-button" @click="wrap('`')" icon="code" />
       </div>
       <div class="kirby-format-buttons-group">
-        <kirby-button class="kirby-format-button" @click="prefix('-')" icon="list-bullet" />
-        <kirby-button class="kirby-format-button" @click="prefix('1.')" icon="list-numbers" />
+        <kirby-button class="kirby-format-button" @click="list('ul')" icon="list-bullet" />
+        <kirby-button class="kirby-format-button" @click="list('ol')" icon="list-numbers" />
       </div>
       <div class="kirby-format-buttons-group">
         <kirby-button class="kirby-format-button" @click="toggle()" :icon="fullscreen ? 'collapse' : 'expand'" />
@@ -112,6 +112,28 @@ export default {
       const tag       = prefix + ' ' + input.selection();
 
       input.insert(tag);
+
+    },
+    list (type) {
+
+      const input     = this.$refs.input;
+      const selection = input.selection();
+
+      let html = '';
+
+      selection.split('\n').forEach((line, index) => {
+
+        let prefix = '-';
+
+        if (type === 'ol') {
+          prefix = (index + 1) + '.';
+        }
+
+        html += prefix + ' ' + line + '\n';
+
+      });
+
+      input.insert(html);
 
     },
     wrap (token) {

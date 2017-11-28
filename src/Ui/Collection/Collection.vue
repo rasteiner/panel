@@ -3,6 +3,7 @@
   <div class="kirby-collection">
     <template v-if="items.length">
       <component
+        class="kirby-collection-items"
         :is="'kirby-' + layout + '-collection'"
         :items="items"
         :pagination="paginationOptions"
@@ -73,3 +74,16 @@ export default {
 }
 
 </script>
+
+<style>
+
+.kirby-collection-items {
+  padding-bottom: 1.5rem;
+}
+
+.kirby-collection .kirby-pagination {
+  margin-top: -1.5rem;
+  margin-bottom: -.5rem;
+}
+
+</style>

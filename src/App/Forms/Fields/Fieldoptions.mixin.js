@@ -1,16 +1,11 @@
 
-const path = require('path')
-
 export default {
   props: {
     options: {
       type: [Array, String],
       default: []
     },
-    field: {
-      type: Object
-    },
-    query: {
+    source: {
       type: Object
     },
     url: {
@@ -25,9 +20,18 @@ export default {
   mounted () {
     this.fetchOptions();
     this.$events.$on('page.update', this.fetchOptions);
+    this.$events.$on('file.update', this.fetchOptions);
+    this.$events.$on('user.update', this.fetchOptions);
   },
   destroyed: function () {
     this.$events.$off('page.update', this.fetchOptions);
+    this.$events.$off('file.update', this.fetchOptions);
+    this.$events.$off('user.update', this.fetchOptions);
+  },
+  watch: {
+    options () {
+      this.fetchOptions();
+    }
   },
   methods: {
     fetchOptions () {
@@ -38,32 +42,28 @@ export default {
       }
 
       var type = this.options;
-      const data = {};
+      const data = {
+        page: this.$route.params.path,
+        file: this.$route.params.filename,
+        user: this.$route.params.id
+
+      };
 
       switch (this.options) {
-        case 'field':
-          data.page = this.fieldoptionsPage(this.field.page);
-          data.field = this.field.name;
-          data.separator = this.field.separator;
-          break;
-
         case 'url':
           data.url = this.url;
           break;
 
-        case 'query':
-          data.page = this.fieldoptionsPage(this.query.page);
-          data.fetch = this.query.fetch;
-          data.template = this.query.template;
-          data.value = this.query.value;
-          data.text = this.query.text;
-          data.flip = this.query.flip;
+        case 'source':
+          data.query = this.source.query;
+          data.value = this.source.value;
+          data.text = this.source.text;
+          data.flip = this.source.flip;
           break;
 
         default:
-          type = 'query';
-          data.page = this.fieldoptionsPage()
-          data.fetch = this.options
+          type = 'source';
+          data.query = this.options;
           break;
       }
 
@@ -73,12 +73,6 @@ export default {
 
     },
     fieldoptionsPage(page) {
-      if (!page) {
-        return this.$route.params.path;
-      }
-      if (page.startsWith('.')) {
-        return path.join(this.$route.params.path, page);
-      }
       return page;
     }
   }

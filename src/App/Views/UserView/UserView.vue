@@ -25,7 +25,7 @@
           <kirby-button @click="$refs.picture.toggle()" icon="image">
             {{ $t('user.image') }}
           </kirby-button>
-          <kirby-dropdown-content ref="picture" :dark="true">
+          <kirby-dropdown-content ref="picture">
             <template v-if="image">
               <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('change') }}
@@ -49,7 +49,7 @@
           <kirby-button @click="$refs.settings.toggle()" icon="cog">
             Settings
           </kirby-button>
-          <kirby-dropdown-content ref="settings" :dark="true" :options="options" @action="action" />
+          <kirby-dropdown-content ref="settings" :options="options" @action="action" />
         </kirby-dropdown>
       </template>
 
@@ -63,9 +63,10 @@
 
     <kirby-user-role-dialog ref="role" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
+    <kirby-user-language-dialog ref="language" />
     <kirby-user-remove-dialog ref="remove" />
 
-    <kirby-upload ref="upload" :url="uploadApi" accept="image/jpeg" :multiple="false" @success="fetch" />
+    <kirby-upload ref="upload" :url="uploadApi" accept="image/jpeg" :multiple="false" @success="uploadedAvatar" />
 
   </kirby-view>
 
@@ -126,19 +127,6 @@ export default {
     }
   },
   methods: {
-    input (data) {
-
-      if (data.language === this.user.language) {
-        return true;
-      }
-
-      // if current panel user, switch language
-      if(data.language && this.$store.state.user.id === this.user.id) {
-        this.user.language = data.language;
-        this.$store.dispatch('language', data.language);
-      }
-
-    },
     save (data) {
 
       this.saveName();
@@ -149,6 +137,7 @@ export default {
 
       this.$api.user.update(this.id, data).then(() => {
         this.$store.dispatch('success', 'Saved!');
+        this.$events.$emit('user.update');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });
@@ -169,6 +158,9 @@ export default {
           break;
         case 'password':
           this.$refs.password.open(this.user.id);
+          break;
+        case 'language':
+          this.$refs.language.open(this.user.id);
           break;
         case 'remove':
           this.$refs.remove.open(this.user.id);
@@ -226,6 +218,10 @@ export default {
         this.$store.dispatch('error', error.message);
       });
 
+    },
+    uploadedAvatar () {
+      this.$store.dispatch('success', 'The image has been uploaded!');
+      this.fetch();
     }
   }
 }

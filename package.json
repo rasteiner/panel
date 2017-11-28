@@ -16,6 +16,7 @@
     "start": "npm-run-all --parallel dev fractal api"
   },
   "dependencies": {
+    "luxon": "^0.2.0",
     "raven-js": "^3.19.1",
     "slugify": "^1.2.1",
     "vue": "^2.5.2",

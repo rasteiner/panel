@@ -30,7 +30,7 @@
           <kirby-button @click="$refs.settings.toggle()" icon="cog">
             {{ $t('settings') }}
           </kirby-button>
-          <kirby-dropdown-content :dark="true" ref="settings" :options="options" @action="action" />
+          <kirby-dropdown-content ref="settings" :options="options" @action="action" />
         </kirby-dropdown>
       </template>
 
@@ -126,6 +126,7 @@ export default {
 
       this.$api.page.update(this.page.id, data).then(() => {
         this.$store.dispatch('success', 'Saved!');
+        this.$events.$emit('page.update');
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
       });

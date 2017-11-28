@@ -1,7 +1,7 @@
 <template>
   <kirby-dropdown class="kirby-page-selector">
     <slot />
-    <kirby-dropdown-content :dark="true" ref="dropdown">
+    <kirby-dropdown-content ref="dropdown">
       <ul>
         <li class="kirby-page-selector-item" v-if="path">
           <kirby-button @click="back" icon="angle-left" alt="Show Parent Pages" />

@@ -1,6 +1,4 @@
 import Vue from 'vue';
 import 'Ui/Ui.js';
 
-new Vue({
-  el: 'main'
-});
+window.KirbyUi = Vue;

@@ -51,15 +51,15 @@ export default {
   blueprints (id) {
     return Api.get('pages/' + id + '/blueprints');
   },
-  breadcrumb (page, self = false) {
+  breadcrumb (page, self = true) {
     var breadcrumb = page.parents.map((parent) => ({
-      label: parent.title,
+      label: parent.slug,
       link: '/pages/' + parent.id
     }));
 
     if (self === true) {
       breadcrumb.push({
-        label: page.title,
+        label: page.slug,
         link: '/pages/' + page.id
       })
     }

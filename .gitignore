@@ -8,7 +8,14 @@ npm-debug.log
 yarn-error.log
 package-lock.json
 
-/assets/js/*.js
+/assets/js/vendor.js
+/assets/js/ui.js
+/assets/js/ui-kit.js
+/assets/js/panel.js
 /assets/js/*.js.map
+
+/assets/js/chunks/*.js
+/assets/js/chunks/*.js.map
+
 /kirby/vendor
 /kirby/composer.lock

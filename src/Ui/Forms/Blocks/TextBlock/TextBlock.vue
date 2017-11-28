@@ -55,7 +55,7 @@ export default {
 
 <style lang="scss">
 
-.kirby-text-block {
+.kirby-text-block:not(:last-child) {
   margin-bottom: 1.5rem;
 }
 

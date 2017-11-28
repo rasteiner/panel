@@ -1,5 +1,13 @@
 <template>
-  <kirby-select-field :options="options" v-bind="$props" v-model="data" />
+  <kirby-select-field
+    :label="label"
+    :name="name"
+    :icon="icon"
+    :help="help"
+    :required="required"
+    :readonly="readonly"
+    :options="options"
+    v-model="data" />
 </template>
 
 <script>
@@ -36,7 +44,6 @@ export default {
     fetch () {
 
       Language.list().then(languages => {
-
         this.options = languages.map(lang =>({
           value: lang.locale,
           text: lang.name
@@ -47,7 +54,6 @@ export default {
           text: 'Please select a language…',
           disabled: true
          })
-
       });
 
     }
