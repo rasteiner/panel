@@ -9,11 +9,11 @@ import Field from 'Ui/Forms/Field/Field.mixin.js';
 export default {
   mixins: [Field],
   props: {
-    label: {
-      default: 'Phone'
-    },
     icon: {
       default: 'phone'
+    },
+    label: {
+      default: 'Phone'
     },
     name: {
       default: 'phone'
