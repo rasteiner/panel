@@ -1,10 +1,12 @@
 <template>
   <kirby-field v-bind="fieldProps">
-
     <template slot="options" v-if="maxlength">
-      <kirby-counter :value="model" :min="minlength" :max="maxlength"></kirby-counter>
+      <kirby-counter
+        :value="model"
+        :min="minlength"
+        :max="maxlength"
+      />
     </template>
-
     <input
       class="kirby-text-input"
       :autocomplete="autocomplete ? 'on' : 'off'"
@@ -18,8 +20,8 @@
       :required="required"
       :spellcheck="spellcheck"
       :type="type"
-      v-model="model" />
-
+      v-model="model"
+    />
   </kirby-field>
 </template>
 
