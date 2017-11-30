@@ -32,7 +32,7 @@ export default {
   props: {
     error: Boolean,
     help: String,
-    icon: String,
+    icon: [String, Boolean],
     label: String,
     name: {
       type: String,
