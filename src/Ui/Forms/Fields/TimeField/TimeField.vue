@@ -6,7 +6,8 @@
       :now="now"
       :override="override"
       :value="state"
-      @input="input" />
+      @input="input"
+    />
   </kirby-field>
 </template>
 
