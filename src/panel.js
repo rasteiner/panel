@@ -17,9 +17,11 @@ Vue.config.errorHandler = (err, vm) => {
 /** Error Tracking */
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
+import { Version } from '../package.json';
 
 if (config.enableErrorTracking) {
   Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
+  Raven.setTagsContext({ panel: Version });
 }
 
 /** Store */
