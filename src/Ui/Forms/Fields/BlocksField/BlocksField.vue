@@ -1,7 +1,7 @@
 <template>
-  <kirby-field v-bind="$props">
+  <kirby-field v-bind="fieldProps">
 
-    <kirby-blocks :value="value" @input="input" />
+    <kirby-blocks :value="state" @input="input" />
 
   </kirby-field>
 </template>
@@ -11,12 +11,7 @@
 import Field from 'Ui/Forms/Field/Field.mixin.js';
 
 export default {
-  mixins: [Field],
-  methods: {
-    input (input) {
-      this.$emit('input', input);
-    }
-  }
+  mixins: [Field]
 }
 
 </script>
