@@ -1,6 +1,12 @@
 <template>
-  <kirby-field class="kirby-time-field" v-bind="$props">
-    <kirby-time-input v-bind="$props" v-model="data" />
+  <kirby-field class="kirby-time-field" v-bind="fieldProps">
+    <kirby-time-input
+      :mode="mode"
+      :interval="interval"
+      :now="now"
+      :override="override"
+      :value="state"
+      @input="input" />
   </kirby-field>
 </template>
 
