@@ -33,9 +33,9 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
-      model: this.value
+      state: this.value
     }
   },
   computed: {
@@ -43,11 +43,17 @@ export default {
       return {
         name: this.name,
         label: this.label,
+        icon: this.icon,
         help: this.help,
         required: this.required,
-        icon: this.icon,
         readonly: this.readonly
       };
+    }
+  },
+  methods: {
+    input (state) {
+      this.state = state
+      this.$emit('input', this.state)
     }
   }
 }

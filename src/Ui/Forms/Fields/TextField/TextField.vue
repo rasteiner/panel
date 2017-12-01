@@ -2,7 +2,7 @@
   <kirby-field v-bind="fieldProps">
     <template slot="options" v-if="maxlength">
       <kirby-counter
-        :value="model"
+        :value="state"
         :min="minlength"
         :max="maxlength"
       />
@@ -20,7 +20,8 @@
       :required="required"
       :spellcheck="spellcheck"
       :type="type"
-      v-model="model"
+      :value="state"
+      @input="input($event.target.value)"
     />
   </kirby-field>
 </template>

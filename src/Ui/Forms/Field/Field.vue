@@ -40,7 +40,7 @@ export default {
     },
     readonly: Boolean,
     required: Boolean,
-    prefix: String,
+    prefix: String
   }
 }
 
