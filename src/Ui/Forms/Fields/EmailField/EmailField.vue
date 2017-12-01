@@ -1,5 +1,10 @@
 <template>
-  <kirby-text-field class="kirby-email-field" v-bind="$props" v-model="model" />
+  <kirby-text-field
+    class="kirby-email-field"
+    v-bind="$props"
+    :value="state"
+    @input="input"
+  />
 </template>
 
 <script>
