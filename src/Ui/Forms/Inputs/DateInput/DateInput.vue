@@ -1,9 +1,24 @@
 <template>
   <div class="kirby-date-inputs">
-    <kirby-select-input v-model="day" ref="day" :options="days" />
-    <kirby-select-input v-model="month" :options="months" />
-    <kirby-select-input v-if="range !== false" v-model="year" :options="years" />
-    <kirby-text-input v-else v-model.number="year" />
+    <kirby-select-input
+      ref="day"
+      :options="days"
+      v-model="day"
+    />
+    <kirby-select-input
+      :options="months"
+      v-model="month"
+    />
+
+    <kirby-select-input
+      v-if="range !== false"
+      :options="years"
+      v-model="year"
+    />
+    <kirby-text-input
+      v-else
+      v-model.number="year"
+    />
   </div>
 </template>
 
