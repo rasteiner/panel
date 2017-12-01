@@ -1,7 +1,15 @@
 <template>
-  <kirby-field class="kirby-datetime-field" v-bind="$props">
-    <kirby-date-input v-bind="date" :value="value ? value.date : null" @input="$emit('input', datetime)" ref="date" />
-    <kirby-time-input v-bind="time" :value="value ? value.time : null" @input="$emit('input', datetime)" ref="time" />
+  <kirby-field class="kirby-datetime-field" v-bind="fieldProps">
+    <kirby-date-input
+      ref="date"
+      v-bind="date"
+      :value="value ? value.date : null"
+      @input="$emit('input', datetime)" />
+    <kirby-time-input
+      ref="time"
+      v-bind="time"
+      :value="value ? value.time : null"
+      @input="$emit('input', datetime)" />
   </kirby-field>
 </template>
 
