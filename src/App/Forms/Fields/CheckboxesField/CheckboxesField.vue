@@ -1,16 +1,27 @@
-
 <template>
-  <ui-checkboxes-field v-model="data" v-bind="$props" :options="fieldoptions" />
+
+  <ui-checkboxes-field
+    :label="label"
+    :name="name"
+    :icon="icon"
+    :help="help"
+    :required="required"
+    :readonly="readonly"
+    :options="fieldOptions"
+    :value="state"
+    @input="input"
+  />
+
 </template>
 
 <script>
 
 import CheckboxesField from 'Ui/Forms/Fields/CheckboxesField/CheckboxesField.vue'
-import Fieldoptions from '../Fieldoptions.mixin.js';
+import FieldOptions from '../FieldOptions.mixin.js';
 
 export default {
   extends: CheckboxesField,
-  mixins: [Fieldoptions],
+  mixins: [FieldOptions],
   components: {
     'ui-checkboxes-field': CheckboxesField
   }

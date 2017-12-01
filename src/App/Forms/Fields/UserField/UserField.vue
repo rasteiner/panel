@@ -1,17 +1,25 @@
 <template>
-  <kirby-field ref="field" class="kirby-user-field" v-bind="$props" :icon="button">
+
+  <kirby-field
+    class="kirby-user-field"
+    ref="field"
+    v-bind="fieldProps"
+    :icon="button">
+
     <template v-if="user">
       <kirby-button class="kirby-user-field-image" v-if="user.image.exists">
         <kirby-image
           :cover="true"
           ratio="1/1"
-          :src="user.image.url" />
+          :src="user.image.url"
+        />
       </kirby-button>
       <kirby-text-input
         class="kirby-user-field-name"
         :readonly="true"
         :value="user.content.name || user.id"
-        @keydown.native.delete="clear" />
+        @keydown.native.delete="clear"
+      />
     </template>
 
     <kirby-autocomplete v-else
@@ -24,9 +32,11 @@
           image: 'image.url'
         }"
       @enter="function(value) { select(value) }"
-      @select="function(item) { select(item.value) }">
-    </kirby-autocomplete>
+      @select="function(item) { select(item.value) }"
+    />
+
   </kirby-field>
+
 </template>
 
 <script>
@@ -49,7 +59,7 @@ export default {
       type: String
     }
   },
-  data() {
+  data () {
     return {
       user: null
     };

@@ -1,11 +1,17 @@
-
 <template>
+
   <ui-select-field
-    v-bind="$props"
+    :label="label"
+    :name="name"
+    :icon="icon"
+    :help="help"
+    :required="required"
+    :readonly="readonly"
     :options="fieldOptions"
     :value="state"
     @input="input"
   />
+
 </template>
 
 <script>

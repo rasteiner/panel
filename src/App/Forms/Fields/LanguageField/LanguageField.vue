@@ -7,7 +7,8 @@
     :required="required"
     :readonly="readonly"
     :options="options"
-    v-model="data" />
+    :value="state"
+    @input="input" />
 </template>
 
 <script>
@@ -31,9 +32,9 @@ export default {
       type: String
     }
   },
-  data() {
+  data () {
     return {
-      data: this.value,
+      state: this.value,
       options: []
     };
   },
