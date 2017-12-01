@@ -1,16 +1,21 @@
 
 <template>
-  <ui-select-field v-model="data" v-bind="$props" :options="fieldoptions" />
+  <ui-select-field
+    v-bind="$props"
+    :options="fieldOptions"
+    :value="state"
+    @input="input"
+  />
 </template>
 
 <script>
 
 import SelectField from 'Ui/Forms/Fields/SelectField/SelectField.vue'
-import Fieldoptions from '../Fieldoptions.mixin.js';
+import FieldOptions from '../FieldOptions.mixin.js';
 
 export default {
   extends: SelectField,
-  mixins: [Fieldoptions],
+  mixins: [FieldOptions],
   components: {
     'ui-select-field': SelectField
   }

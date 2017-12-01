@@ -14,7 +14,7 @@ export default {
   },
   data () {
     return {
-      fieldoptions: []
+      fieldOptions: []
     }
   },
   mounted () {
@@ -37,7 +37,7 @@ export default {
     fetchOptions () {
 
       if (Array.isArray(this.options)) {
-        this.fieldoptions = this.options;
+        this.fieldOptions = this.options;
         return;
       }
 
@@ -68,12 +68,9 @@ export default {
       }
 
       this.$api.panel.options(type, data).then((options) => {
-        this.fieldoptions = options;
+        this.fieldOptions = options;
       })
 
-    },
-    fieldoptionsPage(page) {
-      return page;
     }
   }
 }
