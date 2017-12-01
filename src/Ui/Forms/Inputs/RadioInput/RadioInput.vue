@@ -8,7 +8,8 @@
         :name="_uid"
         :value="option.value"
         :id="_uid + '_' + option.value"
-        v-model="data"
+        :checked="state === option.value"
+        @change="input(option.value)"
         class="kirby-radio-input" />
         <label :for="_uid + '_' + option.value">
           {{ option.text }}
@@ -28,7 +29,7 @@
 
 <script>
 
-import Input from '../Input.mixin.js';
+import Input from 'Ui/Forms/Input/Input.mixin.js';
 
 export default {
   mixins: [Input],
