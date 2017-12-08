@@ -4,12 +4,14 @@
       ref="date"
       v-bind="date"
       :value="value ? value.date : null"
-      @input="$emit('input', datetime)" />
+      @input="$emit('input', datetime)"
+    />
     <kirby-time-input
       ref="time"
       v-bind="time"
       :value="value ? value.time : null"
-      @input="$emit('input', datetime)" />
+      @input="$emit('input', datetime)"
+    />
   </kirby-field>
 </template>
 
