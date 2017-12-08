@@ -68,8 +68,8 @@ Vue.filter('date', function(value, output) {
 /** Plugins */
 import 'App/Plugins/Plugins.js';
 
-/** App Kit */
-import 'App/App.js';
+/** App Components Kit */
+import 'App/Components/Components.js';
 
 new Vue({
   el: 'main',

@@ -6,7 +6,7 @@
 
 <script>
 
-import DialogMixin from 'App/Dialogs/Dialogs.mixin.js';
+import DialogMixin from 'App/Components/Dialogs/Dialogs.mixin.js';
 
 export default {
   mixins: [DialogMixin],
