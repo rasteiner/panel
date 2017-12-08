@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
 
 /** API */
 import Api from 'Api/Api.js';
-Vue.use(Api);
+Vue.prototype.$api = Api;
 
 /** Event bus */
 import Events from 'App/Events/Events.js';
