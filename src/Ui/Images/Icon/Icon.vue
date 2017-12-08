@@ -1,15 +1,12 @@
 <template>
-  <i v-if="alt" :class="className" :aria-label="alt" role="img" v-html="svg"></i>
-  <i v-else :class="className" aria-hidden="true" v-html="svg"></i>
+  <i v-if="alt" class="kirby-icon" :aria-label="alt" role="img" v-html="svg"></i>
+  <i v-else class="kirby-icon" aria-hidden="true" v-html="svg"></i>
 </template>
 
 <script>
 
 export default {
   props: {
-    type: {
-      type: String
-    },
     alt: {
       type: String
     },
@@ -21,11 +18,6 @@ export default {
     return {
       svg: ''
     };
-  },
-  computed: {
-    className () {
-      return 'kirby-icon'
-    }
   },
   created () {
     this.fetch();
@@ -43,7 +35,7 @@ export default {
         return;
       }
 
-      fetch(`${this.source}/${this.type}.svg`).then((response) => {
+      fetch(this.source).then((response) => {
 
         if(response.ok) {
           return response.text();
@@ -67,12 +59,12 @@ export default {
 
       // add to cache
       if (svg) {
-        return window.icons[this.type] = svg;
+        return window.icons[this.source] = svg;
       }
 
       // get from cache
-      if (window.icons[this.type]) {
-        return window.icons[this.type];
+      if (window.icons[this.source]) {
+        return window.icons[this.source];
       }
 
       return false;

@@ -1,5 +1,5 @@
 <template>
-    <ui-icon v-bind="$props" :source="source" />
+  <ui-icon :alt="alt" :source="source" />
 </template>
 
 <script>
@@ -8,13 +8,20 @@ import Icon from 'Ui/Images/Icon/Icon.vue'
 
 
 export default {
-  extends: Icon,
   components: {
     'ui-icon': Icon
   },
+  props: {
+    type: {
+      type: String
+    },
+    alt: {
+      type: String
+    }
+  },
   computed: {
     source () {
-      return window.panel.config.assets + '/icons';
+      return `${window.panel.config.assets}/icons/${this.type}.svg`;
     }
   }
 }
