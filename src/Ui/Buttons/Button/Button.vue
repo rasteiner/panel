@@ -25,29 +25,20 @@ export default {
     'link',
     'disabled'
   ],
-  computed: {
-    component: function () {
-      return this.link ? 'router-link' : 'button'
-    }
-  },
-  data() {
+  data () {
     return {
       tabbed: false
     }
   },
   methods: {
-    click: function () {
-      if (this.link) {
-        this.$router.push(this.link)
-      } else {
-        this.$emit('click')
-      }
+    click () {
+      this.$emit('click')
     },
-    tab: function ($event) {
-      this.tabbed = true;
+    tab ($event) {
+      this.tabbed = true
     },
-    untab: function () {
-      this.tabbed = false;
+    untab () {
+      this.tabbed = false
     }
   }
 }
