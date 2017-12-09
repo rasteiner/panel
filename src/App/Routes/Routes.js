@@ -200,8 +200,8 @@ export default [
     path: '*',
     name: 'NotFound',
     beforeEnter: (to, from, next) => {
-      store.dispatch('error', 'This view does not exist');
       next('/');
+      store.dispatch('error', 'This view does not exist');
     }
   }
 ]

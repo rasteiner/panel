@@ -71,7 +71,7 @@ import 'App/Plugins/Plugins.js';
 /** App Kit */
 import 'App/App.js';
 
-new Vue({
+window.panel.vue = new Vue({
   el: 'main',
   router,
   store
