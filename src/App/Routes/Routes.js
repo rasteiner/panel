@@ -54,7 +54,7 @@ import Auth from 'Api/Auth.js';
 import Panel from 'Api/Panel.js';
 
 /* Route filters */
-const auth = (to, from, next) => {
+export const auth = (to, from, next) => {
 
   // check if user is logged in
   Auth.validate().then((user) => {
