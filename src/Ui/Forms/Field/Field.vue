@@ -8,13 +8,13 @@
         </slot>
       </template>
       <template slot="right">
-        <slot name="options"></slot>
+        <slot name="options" />
       </template>
     </kirby-bar>
 
-    <slot v-if="$slots.content" name="content"></slot>
+    <slot v-if="$slots.content" name="content" />
     <kirby-input v-else :icon="icon" :error="error" :prefix="prefix">
-      <slot></slot>
+      <slot />
     </kirby-input>
 
     <div v-if="$slots.help || help" class="kirby-field-help">
@@ -40,7 +40,7 @@ export default {
     },
     readonly: Boolean,
     required: Boolean,
-    prefix: String,
+    prefix: String
   }
 }
 

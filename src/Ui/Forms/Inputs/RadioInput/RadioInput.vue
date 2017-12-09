@@ -1,20 +1,29 @@
 <template>
   <div class="kirby-radio-inputs">
     <template v-if="hasOptions">
-      <span v-for="option in options"
-      :key="option.value"
-      class="kirby-radio-input">
-        <input type="radio"
-        :name="_uid"
-        :value="option.value"
-        :id="_uid + '_' + option.value"
-        v-model="data"
-        class="kirby-radio-input" />
+      <span
+        class="kirby-radio-input"
+        v-for="option in options"
+        :key="option.value">
+
+        <input
+          class="kirby-radio-input"
+          type="radio"
+          :name="_uid"
+          :id="_uid + '_' + option.value"
+          :value="option.value"
+          :checked="state === option.value"
+          @change="input($event.target.value)"
+        />
+
         <label :for="_uid + '_' + option.value">
+
           {{ option.text }}
+
           <div v-if="option.info" class="kirby-radio-input-info">
             {{ option.info }}
           </div>
+
         </label>
       </span>
     </template>
@@ -28,7 +37,7 @@
 
 <script>
 
-import Input from '../Input.mixin.js';
+import Input from 'Ui/Forms/Input/Input.mixin.js';
 
 export default {
   mixins: [Input],

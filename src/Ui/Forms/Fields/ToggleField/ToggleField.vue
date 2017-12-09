@@ -1,8 +1,12 @@
 <template>
-  <kirby-field class="kirby-toggle-field" v-bind="$props">
+  <kirby-field class="kirby-toggle-field" v-bind="fieldProps">
     <span class="kirby-toggle-input">
-      <input type="checkbox" v-model="data" :id="name" />
-      <label :for="name">{{ state }}</label>
+      <input
+        type="checkbox"
+        :id="name"
+        @change="input($event.target.checked)"
+      />
+      <label :for="name">{{ display }}</label>
     </span>
   </kirby-field>
 </template>
@@ -35,12 +39,12 @@ export default {
     }
   },
   computed: {
-    state () {
-      if (this.on && this.off) {
-        return this.data ? this.on : this.off;
+    display () {
+      if (this.text) {
+        return this.text
       }
 
-      return this.text;
+      return this.state ? this.on : this.off;
     }
   }
 }

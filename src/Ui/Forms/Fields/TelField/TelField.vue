@@ -1,5 +1,10 @@
 <template>
-  <kirby-text-field v-bind="$props" v-model="data" />
+  <kirby-text-field
+    class="kirby-tel-field"
+    v-bind="$props"
+    :value="state"
+    @input="input"
+  />
 </template>
 
 <script>
@@ -9,11 +14,11 @@ import Field from 'Ui/Forms/Field/Field.mixin.js';
 export default {
   mixins: [Field],
   props: {
-    label: {
-      default: 'Phone'
-    },
     icon: {
       default: 'phone'
+    },
+    label: {
+      default: 'Phone'
     },
     name: {
       default: 'phone'

@@ -1,17 +1,22 @@
 <template>
-  <kirby-field ref="field" class="kirby-user-field" v-bind="$props" :icon="button">
+
+  <kirby-field
+    class="kirby-user-field"
+    ref="field"
+    v-bind="fieldProps"
+    :icon="button">
+
     <template v-if="user">
       <kirby-button class="kirby-user-field-image" v-if="user.image.exists">
         <kirby-image
           :cover="true"
           ratio="1/1"
-          :src="user.image.url" />
+          :src="user.image.url"
+        />
       </kirby-button>
-      <kirby-text-input
-        class="kirby-user-field-name"
-        :readonly="true"
-        :value="user.content.name || user.id"
-        @keydown.native.delete="clear" />
+
+      <span class="kirby-user-name">{{ display }}</span>
+
     </template>
 
     <kirby-autocomplete v-else
@@ -24,9 +29,11 @@
           image: 'image.url'
         }"
       @enter="function(value) { select(value) }"
-      @select="function(item) { select(item.value) }">
-    </kirby-autocomplete>
+      @select="function(item) { select(item.value) }"
+    />
+
   </kirby-field>
+
 </template>
 
 <script>
@@ -49,7 +56,7 @@ export default {
       type: String
     }
   },
-  data() {
+  data () {
     return {
       user: null
     };
@@ -60,6 +67,9 @@ export default {
     },
     button () {
       return this.user ? 'cancel' : this.icon;
+    },
+    display () {
+      return this.user.content.name || this.user.id;
     }
   },
   mounted () {
@@ -96,12 +106,14 @@ export default {
 
 .kirby-input-content > .kirby-user-field-image {
   display: inline-block;
-  width: 3.15rem;
+  width: 2.8rem;
   cursor: default;
 }
 
-.kirby-input-content > .kirby-user-field-name {
-  display: inline-block;
+.kirby-input-content > .kirby-user-name {
+  display: flex;
+  align-items: center;
+  padding: .45rem
 }
 
 .kirby-user-field .kirby-autocomplete > input {

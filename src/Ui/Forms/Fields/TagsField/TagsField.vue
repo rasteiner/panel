@@ -1,7 +1,16 @@
 <template>
-  <kirby-field class="kirby-tags-field" v-bind="$props" @click.native="focus">
-    <draggable v-model="data" :options="{disabled: disabled}" class="kirby-tags-input">
-      <kirby-tag v-for="tag in data"
+  <kirby-field
+    class="kirby-tags-field"
+    v-bind="fieldProps"
+    @click.native="focus">
+
+    <draggable
+      :value="state"
+      @input="input"
+      :options="{disabled: disabled}"
+      class="kirby-tags-input">
+
+      <kirby-tag v-for="tag in state"
         :ref="tag"
         :key="tag"
         @blur.native="select(null)"
@@ -14,25 +23,26 @@
         :removable="true">
           {{ tag }}
       </kirby-tag>
+
       <span slot="footer" class="kirby-tags-input-element">
         <kirby-autocomplete v-if="autocomplete"
           ref="input"
           :id="_uid"
           :map="autocomplete.map"
           :url="autocomplete.url"
-          :ignore="data"
+          :ignore="state"
           @keydown.native.left="leaveInput"
           @keydown.native.delete="leaveInput"
           @enter="function(value) { add(value) }"
-          @select="function(item) { add(item.value) }">
-        </kirby-autocomplete>
+          @select="function(item) { add(item.value) }" />
         <input v-else :id="_uid" ref="input"
           @keydown.enter="add($event.target.value)"
           @keydown.tab="add($event.target.value)"
           @keydown.separator.prevent="add($event.target.value)"
           @keydown.left="leaveInput"
-          @keydown.delete="leaveInput">
+          @keydown.delete="leaveInput" />
       </span>
+
     </draggable>
   </kirby-field>
 </template>
@@ -70,7 +80,7 @@ export default {
       default: true
     }
   },
-  data: function() {
+  data () {
 
     var tags = this.value || [];
 
@@ -79,14 +89,14 @@ export default {
     }
 
     return {
-      data: tags,
+      state: tags,
       selected: null
     }
 
   },
   computed: {
     disabled () {
-      return this.sortable === false || this.data.length === 0;
+      return this.sortable === false || this.state.length === 0;
     }
   },
   methods: {
@@ -97,7 +107,7 @@ export default {
       this.selected = tag;
     },
     index (tag) {
-      return this.data.indexOf(tag);
+      return this.state.indexOf(tag);
     },
     add (tag) {
 
@@ -108,7 +118,7 @@ export default {
       }
 
       if(this.index(tag) === -1) {
-        this.data.push(tag);
+        this.state.push(tag);
       }
 
       if(this.autocomplete) {
@@ -127,13 +137,13 @@ export default {
       var prev = this.get('prev');
       var next = this.get('next');
 
-      this.data.splice(this.index(tag), 1);
+      this.state.splice(this.index(tag), 1);
 
       if(prev) {
         prev.ref.focus();
       } else if(next) {
         this.$nextTick(() => {
-          var nextIndex  = this.data.indexOf(next.tag);
+          var nextIndex  = this.state.indexOf(next.tag);
           var nextResult = this.get(nextIndex);
           this.selected = nextResult.tag;
           nextResult.ref.focus();
@@ -154,13 +164,13 @@ export default {
         case 'first':
           var nextIndex = 0;
         case 'last':
-          var nextIndex = (this.data.length - 1);
+          var nextIndex = (this.state.length - 1);
           break;
         default:
           var nextIndex = method;
       }
 
-      var nextTag = this.data[nextIndex];
+      var nextTag = this.state[nextIndex];
       var nextRef = this.$refs[nextTag];
 
       if(nextRef && nextRef[0]) {

@@ -4,6 +4,7 @@ export default {
     value: {},
     name: {
       type: String,
+      required: true,
     },
     type: {
       type: String,
@@ -34,15 +35,25 @@ export default {
   },
   data () {
     return {
-      data: this.value
+      state: this.value
     }
   },
-  watch: {
-    data () {
-      this.$emit('input', this.data)
-    },
-    value () {
-      this.data = this.value;
+  computed: {
+    fieldProps () {
+      return {
+        name: this.name,
+        label: this.label,
+        icon: this.icon,
+        help: this.help,
+        required: this.required,
+        readonly: this.readonly
+      };
+    }
+  },
+  methods: {
+    input (state) {
+      this.state = state
+      this.$emit('input', this.state)
     }
   }
 }
