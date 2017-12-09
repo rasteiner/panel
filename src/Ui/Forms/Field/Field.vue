@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-field" :data-readonly="readonly" :data-error="error">
+  <div class="kirby-field" :data-readonly="readonly" :data-error="error" @click="$emit('focus')">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
       <template slot="left">

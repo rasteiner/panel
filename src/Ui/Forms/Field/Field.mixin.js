@@ -38,6 +38,11 @@ export default {
       state: this.value
     }
   },
+  watch: {
+    value (changed) {
+      this.state = changed
+    }
+  },
   computed: {
     fieldProps () {
       return {

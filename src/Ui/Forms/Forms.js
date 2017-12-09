@@ -28,7 +28,6 @@ import QuoteBlock from './Blocks/QuoteBlock/QuoteBlock.vue'
 import SubheadlineBlock from './Blocks/SubheadlineBlock/SubheadlineBlock.vue'
 import TextBlock from './Blocks/TextBlock/TextBlock.vue'
 
-
 Vue.component('kirby-blocks', Blocks);
 Vue.component('kirby-block', Block);
 Vue.component('kirby-code-block', CodeBlock);

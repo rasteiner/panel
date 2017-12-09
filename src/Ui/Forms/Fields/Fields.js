@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 /** Forms/Fields **/
 import BlocksField from './BlocksField/BlocksField.vue'
+import CalendarField from './CalendarField/CalendarField.vue'
 import CheckboxField from './CheckboxField/CheckboxField.vue'
 import CheckboxesField from './CheckboxesField/CheckboxesField.vue'
 import DateField from './DateField/DateField.vue'
@@ -25,6 +26,7 @@ import ToggleField from './ToggleField/ToggleField.vue'
 import UrlField from './UrlField/UrlField.vue'
 
 Vue.component('kirby-blocks-field', BlocksField);
+Vue.component('kirby-calendar-field', CalendarField);
 Vue.component('kirby-checkbox-field', CheckboxField);
 Vue.component('kirby-checkboxes-field', CheckboxesField);
 Vue.component('kirby-date-field', DateField);
