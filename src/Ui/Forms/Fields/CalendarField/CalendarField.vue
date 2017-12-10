@@ -1,7 +1,7 @@
 <template>
   <kirby-field class="kirby-calendar-field" v-bind="fieldProps" @focus="open = true">
 
-    <input :value="state" :readonly="true" />
+    <input :value="state | date('DATE_SHORT')" :readonly="true" />
 
     <kirby-calendar
       v-show="open"

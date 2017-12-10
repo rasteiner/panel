@@ -58,14 +58,7 @@ Vue.i18n.fallback(store.state.language.locale);
 store.dispatch('language', store.state.language.locale);
 
 /** Date formating */
-import { DateTime } from 'luxon';
-
-Vue.filter('date', function(value, output) {
-  let dt = Array.isArray(value) ? DateTime.fromString(value[0], value[1]) : DateTime.fromString(value);
-  return dt.
-          setLocale(store.state.language.locale).
-          toLocaleString(typeof output === 'string' ? DateTime[output] : output)
-});
+import 'App/Helpers/DateFilter.js';
 
 /** Plugins */
 import 'App/Plugins/Plugins.js';
