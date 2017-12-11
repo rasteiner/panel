@@ -27,10 +27,12 @@ export default {
 
     this.$el.addEventListener('focus', () => {
       this.isFocused = true;
+      this.$emit('focus');
     }, true);
 
     this.$el.addEventListener('blur', () => {
       this.isFocused = false;
+      this.$emit('blur');
     }, true);
 
   },

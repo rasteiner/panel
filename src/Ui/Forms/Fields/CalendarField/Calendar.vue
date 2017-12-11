@@ -266,6 +266,9 @@ $cell-padding: .2rem;
   padding: $cell-padding;
   font-family: $font-family-mono;
 }
+.kirby-calendar-table .kirby-button:hover {
+  color: $color-white;
+}
 .kirby-calendar-day[aria-current="date"] .kirby-button-text {
   color: $color-notice;
   font-weight: 700;
