@@ -1,7 +1,7 @@
 <template>
   <div v-show="isOpen" class="kirby-dropdown-content" :data-align="align">
-    <template v-if="dropdownItems">
-      <kirby-dropdown-item v-for="(option, index) in dropdownItems"
+    <template v-if="items">
+      <kirby-dropdown-item v-for="(option, index) in items"
         :key="index"
         :icon="option.icon"
         :upload="option.upload"
@@ -17,71 +17,69 @@
 
 var OpenDropdown = null
 
-const DropdownEscapeListener = function (e) {
-  if (e.code === 'Escape') {
-    this.close()
-  }
-}
-
-const DropdownClickListener = function (e) {
-  this.close()
-}
-
 export default {
-  props: [
-    'options',
-    'align'
-  ],
-  data: function () {
+  props: {
+    options: {},
+    align: {
+      type: String
+    }
+  },
+  data () {
     return {
-      isOpen: false,
-      dropdownItems: null
+      items: null,
+      isOpen: false
     }
   },
   created: function () {
-    window.addEventListener('keyup', DropdownEscapeListener.bind(this), false)
-    document.addEventListener('click', DropdownClickListener.bind(this), false)
+    window.addEventListener('keyup', this.escape, false)
+    document.addEventListener('click', this.close, false)
   },
   destroyed: function () {
-    window.removeEventListener('keyup', DropdownEscapeListener, false)
-    document.removeEventListener('click', DropdownClickListener, false)
+    window.removeEventListener('keyup', this.escape, false)
+    document.removeEventListener('click', this.close, false)
   },
   methods: {
-    fetchOptions: function (callback) {
+    fetchOptions (callback) {
       if (this.options) {
         if (typeof this.options === 'string') {
-          fetch(this.options).then(function (response) {
-            return response.json()
-          }).then(function (json) {
-            this.dropdownItems = json
-            return callback()
-          }.bind(this))
+          fetch(this.options).
+            then((response) => response.json()).
+            then((json) => {
+              this.items = json
+              return callback()
+            })
+
         } else if (typeof this.options === 'object') {
-          this.dropdownItems = this.options
+          this.items = this.options
         }
         return callback()
       } else {
         return callback()
       }
     },
-    open: function () {
+    open () {
       if (OpenDropdown && OpenDropdown !== this) {
         // close the current dropdown
         OpenDropdown.close()
       }
 
-      this.fetchOptions(function () {
+      this.fetchOptions(() => {
         this.isOpen = true
-        this.$emit('open');
+        this.$emit('open')
         OpenDropdown = this
-      }.bind(this))
+      })
     },
-    close: function () {
+    close () {
       this.isOpen = OpenDropdown = false
-      this.$emit('close');
+      this.$emit('close')
     },
-    toggle: function () {
+    toggle () {
       this.isOpen ? this.close() : this.open()
+    },
+    escape (e) {
+      if (e.code === 'Escape') {
+        this.close()
+      }
     }
   }
 }

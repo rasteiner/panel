@@ -1,22 +1,33 @@
 <template>
 
   <kirby-bar v-if="$slots.options">
-    <h2 slot="left" class="kirby-headline" :data-margin="margin" :data-size="size">
-      <span><slot /></span>
-    </h2>
+    <template slot="left">
+      <h2 class="kirby-headline" :data-margin="margin" :data-size="size">
+        <span><slot /></span>
+      </h2>
+    </template>
     <template slot="right">
       <slot name="options"></slot>
     </template>
   </kirby-bar>
 
-  <h2 v-else class="kirby-headline" :data-margin="margin" :data-size="size"><span><slot /></span></h2>
+  <h2 v-else class="kirby-headline" :data-margin="margin" :data-size="size">
+    <span><slot /></span>
+  </h2>
 
 </template>
 
 <script>
 
 export default {
-  props: ['size', 'margin']
+  props: {
+    size: {
+      type: String
+    },
+    margin: {
+      type: Boolean
+    }
+  }
 }
 
 </script>

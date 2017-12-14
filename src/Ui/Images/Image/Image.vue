@@ -2,10 +2,18 @@
   <figure class="kirby-image" :data-ratio="ratio" :data-back="back" :data-cover="cover">
     <span>
       <transition name="kirby-image-transition">
-        <img v-if="loaded" :src="src" :alt="alt || ''">
+        <img v-if="loaded" :src="src" :alt="alt || ''" />
       </transition>
-      <kirby-loader v-if="!loaded && !error" position="center" theme="light" />
-      <kirby-icon class="kirby-image-error" v-if="error" type="cancel" />
+      <kirby-loader
+        v-if="!loaded && !error"
+        position="center"
+        theme="light"
+      />
+      <kirby-icon
+        v-if="error"
+        class="kirby-image-error"
+        type="cancel"
+      />
     </span>
   </figure>
 </template>
@@ -22,22 +30,28 @@ export default {
   ],
   data () {
     return {
-      loaded: false,
-      error:  false
+      loaded: {
+        type: Boolean,
+        default: false
+      },
+      error: {
+        type: Boolean,
+        default: false
+      }
     }
   },
   created () {
-    let img = new Image();
+    let img = new Image()
 
     img.onload = () => {
-      this.loaded = true;
+      this.loaded = true
     };
 
     img.onerror = (message) => {
-      this.error  = true;
+      this.error  = true
     };
 
-    img.src = this.src;
+    img.src = this.src
   }
 }
 

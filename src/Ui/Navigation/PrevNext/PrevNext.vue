@@ -1,24 +1,21 @@
 <template>
   <kirby-button-group class="kirby-prev-next" :data-align="align">
-    <kirby-button :disabled="!prev" @click="$emit('prev')" icon="angle-left" :alt="prevLabel"></kirby-button>
-    <kirby-button :disabled="!next" @click="$emit('next')" icon="angle-right" :alt="nextLabel"></kirby-button>
+    <kirby-button
+      :disabled="!prev"
+      @click="$emit('prev')"
+      icon="angle-left"
+      :alt="prevLabel"
+    />
+    <kirby-button
+      :disabled="!next"
+      @click="$emit('next')"
+      icon="angle-right"
+      :alt="nextLabel"
+    />
   </kirby-button-group>
 </template>
 
 <script>
-
-const PaginationKeysListener = function (e) {
-
-  switch (e.code) {
-    case 'ArrowLeft':
-      this.prev();
-      break;
-    case 'ArrowRight':
-      this.next();
-      break;
-  }
-
-}
 
 export default {
   props: {
@@ -47,13 +44,25 @@ export default {
       default: 'Next'
     }
   },
-  created() {
-    if (this.keys === true) {
-      window.addEventListener('keydown', PaginationKeysListener.bind(this), false)
+  methods: {
+    navigate (e) {
+      switch (e.code) {
+        case 'ArrowLeft':
+          this.prev()
+          break
+        case 'ArrowRight':
+          this.next()
+          break
+      }
     }
   },
-  destroyed() {
-    window.removeEventListener('keydown', PaginationKeysListener, false)
+  created () {
+    if (this.keys === true) {
+      window.addEventListener('keydown', this.navigate, false)
+    }
+  },
+  destroyed () {
+    window.removeEventListener('keydown', this.navigate, false)
   }
 }
 

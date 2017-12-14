@@ -13,17 +13,17 @@
 
 export default {
   methods: {
-    click: function () {
+    props: [
+      'icon',
+      'link',
+      'image',
+      'upload'
+    ],
+    click () {
       this.$parent.close()
       this.$emit('click')
     }
-  },
-  props: [
-    'icon',
-    'link',
-    'image',
-    'upload'
-  ]
+  }
 }
 
 </script>

@@ -1,10 +1,17 @@
 <template>
   <kirby-button-group class="kirby-pagination" v-if="show" :data-align="align">
-    <kirby-button :disabled="!hasPrev" @click="prev" icon="angle-left" :alt="prevLabel"></kirby-button>
+    <kirby-button
+      :disabled="!hasPrev"
+      @click="prev"
+      icon="angle-left"
+      :alt="prevLabel"
+    />
+
     <kirby-dropdown v-if="details">
       <kirby-button @click="$refs.dropdown.toggle()" :disabled="!hasPages">
         <template v-if="total > 1">{{ detailsText }}</template>{{ total }}
       </kirby-button>
+
       <kirby-dropdown-content @open="$nextTick(() => $refs.page.focus())" class="kirby-pagination-selector" ref="dropdown">
         <div>
           <label for="kirby-pagination-input">{{ pageLabel }}</label>
@@ -12,24 +19,17 @@
         </div>
       </kirby-dropdown-content>
     </kirby-dropdown>
-    <kirby-button :disabled="!hasNext" @click="next" icon="angle-right" :alt="nextLabel"></kirby-button>
+
+    <kirby-button
+      :disabled="!hasNext"
+      @click="next"
+      icon="angle-right"
+      :alt="nextLabel"
+    />
   </kirby-button-group>
 </template>
 
 <script>
-
-const PaginationKeysListener = function (e) {
-
-  switch (e.code) {
-    case 'ArrowLeft':
-      this.prev();
-      break;
-    case 'ArrowRight':
-      this.next();
-      break;
-  }
-
-}
 
 export default {
   props: {
@@ -117,17 +117,17 @@ export default {
     }
   },
   methods: {
-    goTo(page) {
+    goTo (page) {
 
       if (page < 1) {
-        page = 1;
+        page = 1
       }
 
       if (page > this.pages) {
-        page = this.pages;
+        page = this.pages
       }
 
-      this.currentPage = page;
+      this.currentPage = page
 
       this.$emit('paginate', {
         page: parseInt(this.currentPage),
@@ -135,23 +135,33 @@ export default {
         end: this.end,
         limit: this.limit,
         offset: this.offset
-      });
+      })
 
     },
-    prev() {
-      this.goTo(this.currentPage - 1);
+    prev () {
+      this.goTo(this.currentPage - 1)
     },
-    next() {
-      this.goTo(this.currentPage + 1);
+    next () {
+      this.goTo(this.currentPage + 1)
+    },
+    navigate (e) {
+      switch (e.code) {
+        case 'ArrowLeft':
+          this.prev()
+          break
+        case 'ArrowRight':
+          this.next()
+          break
+      }
     }
   },
-  created() {
+  created () {
     if (this.keys === true) {
-      window.addEventListener('keydown', PaginationKeysListener.bind(this), false)
+      window.addEventListener('keydown', this.navigate, false)
     }
   },
   destroyed() {
-    window.removeEventListener('keydown', PaginationKeysListener, false)
+    window.removeEventListener('keydown', this.navigate, false)
   }
 }
 
