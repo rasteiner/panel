@@ -22,14 +22,14 @@
 
 export default {
   props: {
-    'headline': {},
-    'size': {},
-    'sticky': {},
-    'state': {},
-    'button': {
+    headline: {},
+    size: {},
+    sticky: {},
+    state: {},
+    button: {
       default: 'Ok'
     },
-    'icon': {
+    icon: {
       default: 'check'
     }
   },
@@ -55,18 +55,12 @@ export default {
       }
     },
     cancel () {
-      this.$emit('cancel');
-      this.close();
+      this.$emit('cancel')
+      this.close()
     },
     submit () {
-      this.$emit('submit');
+      this.$emit('submit')
     }
-  },
-  created () {
-    this.$events.$on('key.escape', this.close, false);
-  },
-  destroyed () {
-    this.$events.$off('key.escape', this.close, false);
   }
 }
 
