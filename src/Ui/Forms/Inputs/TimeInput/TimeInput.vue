@@ -1,11 +1,25 @@
 <template>
   <div class="kirby-time-inputs">
-    <kirby-select-input ref="hour" v-model="hour" :options="hours" />
-    <kirby-select-input ref="minute" v-model="minute"  :options="minutes" />
-    <kirby-select-input class="kirby-time-field-switch" v-if="mode === 12" ref="period" v-model="period" :options="[
-      { value: 'am', text: 'am' },
-      { value: 'pm', text: 'pm' },
-    ]" />
+    <kirby-select-input
+      ref="hour"
+      :options="hours"
+      v-model="hour"
+    />
+    <kirby-select-input
+      ref="minute"
+      :options="minutes"
+      v-model="minute"
+    />
+    <kirby-select-input
+      v-if="mode === 12"
+      ref="period"
+      class="kirby-time-field-switch"
+      :options="[
+        { value: 'am', text: 'am' },
+        { value: 'pm', text: 'pm' },
+      ]"
+      v-model="period"
+    />
   </div>
 </template>
 
@@ -63,7 +77,7 @@ export default {
   computed: {
     time () {
       if (this.mode === 12) {
-        return `${this.hour}:${this.minute} ${this.period}`;
+        return `${this.hour.padZero()}:${this.minute.padZero()} ${this.period}`;
       }
 
       return `${this.hour}:${this.minute}`;

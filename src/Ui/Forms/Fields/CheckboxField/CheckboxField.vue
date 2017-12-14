@@ -1,6 +1,10 @@
 <template>
-  <kirby-field class="kirby-checkbox-field" v-bind="$props">
-    <kirby-checkbox-input :text="text" v-model="data" v-bind="$props" />
+  <kirby-field class="kirby-checkbox-field" v-bind="fieldProps">
+    <kirby-checkbox-input
+      :text="text"
+      :value="state"
+      @input="input"
+    />
   </kirby-field>
 </template>
 
