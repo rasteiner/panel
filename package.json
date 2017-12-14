@@ -1,7 +1,7 @@
 {
   "name": "kirby-ui",
   "description": "Kirby Next: UI Kit",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.3",
   "author": "Bastian Allgeier <mail@bastianallgeier.com>",
   "private": true,
   "scripts": {

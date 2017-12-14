@@ -4,7 +4,8 @@ var webpack = require('webpack')
 module.exports = {
   entry: {
     'ui': './src/Ui/Ui.js',
-    'panel': './src/panel.js'
+    'panel': './src/panel.js',
+    'api': './src/Api/Api.js'
   },
   output: {
     path: path.resolve(__dirname, './assets/js/'),
