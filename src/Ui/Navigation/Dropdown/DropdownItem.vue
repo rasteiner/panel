@@ -12,18 +12,18 @@
 <script>
 
 export default {
-  methods: {
-    click: function () {
-      this.$parent.close()
-      this.$emit('click')
-    }
-  },
   props: [
     'icon',
     'link',
     'image',
     'upload'
-  ]
+  ],
+  methods: {
+    click () {
+      this.$parent.close()
+      this.$emit('click')
+    }
+  }
 }
 
 </script>

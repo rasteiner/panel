@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-field" :data-readonly="readonly" :data-error="error">
+  <div class="kirby-field" :data-readonly="readonly" :data-error="error" @click="focus">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
       <template slot="left">
@@ -8,13 +8,13 @@
         </slot>
       </template>
       <template slot="right">
-        <slot name="options"></slot>
+        <slot name="options" />
       </template>
     </kirby-bar>
 
-    <slot v-if="$slots.content" name="content"></slot>
+    <slot v-if="$slots.content" name="content" />
     <kirby-input v-else :icon="icon" :error="error" :prefix="prefix">
-      <slot></slot>
+      <slot />
     </kirby-input>
 
     <div v-if="$slots.help || help" class="kirby-field-help">
@@ -40,7 +40,34 @@ export default {
     },
     readonly: Boolean,
     required: Boolean,
-    prefix: String,
+    prefix: String
+  },
+  data () {
+    return {
+      isFocused: false
+    }
+  },
+  created () {
+    window.addEventListener('click', this.checkFocus);
+  },
+  destroyed () {
+    window.removeEventListener('click', this.checkFocus);
+  },
+  methods: {
+    focus () {
+      this.isFocused = true
+      this.$emit('focus')
+      console.log('focussed')
+    },
+    blur () {
+      this.isFocused = false
+      this.$emit('blur')
+    },
+    checkFocus (e) {
+      if (this.isFocused && this.$el.contains(e.target) === false) {
+        this.blur();
+      }
+    }
   }
 }
 

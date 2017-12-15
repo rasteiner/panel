@@ -1,7 +1,15 @@
 <template>
-  <kirby-field v-bind="$props" class="kirby-select-field">
-    <kirby-select-input v-bind="$props" v-model="data" />
+
+  <kirby-field class="kirby-select-field" v-bind="fieldProps">
+
+    <kirby-select-input
+      :options="options"
+      :value="state"
+      @input="input"
+    />
+
   </kirby-field>
+
 </template>
 
 <script>

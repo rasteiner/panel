@@ -15,19 +15,19 @@ export default {
   },
   computed: {
     count () {
-      return this.value ? this.value.length : 0;
+      return this.value ? this.value.length : 0
     },
     valid () {
 
       if (this.min && this.count < this.min) {
-        return false;
+        return false
       }
 
       if (this.max && this.count > this.max) {
-        return false;
+        return false
       }
 
-      return true;
+      return true
 
     }
   }

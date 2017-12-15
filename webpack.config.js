@@ -5,7 +5,7 @@ module.exports = {
   entry: {
     'ui': './src/Ui/Ui.js',
     'panel': './src/panel.js',
-    'ui-kit': './src/ui.js'
+    'api': './src/Api/Api.js'
   },
   output: {
     path: path.resolve(__dirname, './assets/js/'),

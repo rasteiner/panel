@@ -1,5 +1,4 @@
 import Api from './Api.js';
-import Page from './Page.js';
 
 export default {
   get (page, filename) {
@@ -92,9 +91,9 @@ export default {
 
   },
   breadcrumb (file) {
-    return Page.get(file.parent).then((page) => {
+    return Api.page.get(file.parent).then((page) => {
 
-      let breadcrumb = Page.breadcrumb(page);
+      let breadcrumb = Api.page.breadcrumb(page);
 
       breadcrumb.push({
         label: file.filename,

@@ -1,7 +1,12 @@
 <template>
 
   <div class="kirby-checkbox-input">
-    <input :id="name || _uid" type="checkbox" v-model="data" :checked="data" />
+    <input
+      :id="name || _uid"
+      type="checkbox"
+      :checked="state"
+      @change="input($event.target.checked)"
+    />
     <label :for="name || _uid">
       <span class="checkbox" aria-hidden="true">
         <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
@@ -12,12 +17,11 @@
     </label>
   </div>
 
-
 </template>
 
 <script>
 
-import Input from '../Input.mixin.js';
+import Input from 'Ui/Forms/Input/Input.mixin.js';
 
 export default {
   mixins: [Input],

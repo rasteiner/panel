@@ -1,28 +1,31 @@
 <template>
   <div v-if="options.length" class="kirby-select-input">
     <select
-    :id="name"
-    ref="select"
-    v-bind="$props"
-    v-model="data"
-    @focus="$emit('focus')"
-    @blur="$emit('blur')">
+      :id="name"
+      ref="select"
+      :value="value"
+      @change="input($event.target.value)"
+      @focus="$emit('focus')"
+      @blur="$emit('blur')">
 
       <option
-      v-for="option in options"
-      :key="option.value"
-      :value="option.value"
-      :selected="data === option.value"
-      :disabled="option.disabled">{{ option.text }}</option>
+        v-for="option in options"
+        :key="option.value"
+        :value="option.value"
+        :selected="state === option.value"
+        :disabled="option.disabled">
+        {{ option.text }}
+      </option>
 
     </select>
+
     <label :for="_uid">{{ label }}</label>
   </div>
 </template>
 
 <script>
 
-import Input from '../Input.mixin.js';
+import Input from 'Ui/Forms/Input/Input.mixin.js';
 
 export default {
   mixins: [Input],
@@ -34,7 +37,7 @@ export default {
   },
   computed: {
     label () {
-      var label = this.text(this.data);
+      var label = this.text(this.state);
 
       if(!label && this.options[0]) {
         label = this.options[0].text;
