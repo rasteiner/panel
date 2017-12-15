@@ -50,14 +50,8 @@
     </nav>
 
     <div class="kirby-tab-panels">
-      <div class="kirby-tab-panel" v-show="currentTab === 'content'">
-        <kirby-sections v-if="page" :self="self" :model="page" :values="page.content" :layout="layout" @submit="save" />
-      </div>
-      <div class="kirby-tab-panel" v-show="currentTab === 'links'">
-        Links
-      </div>
-      <div class="kirby-tab-panel" v-show="currentTab === 'seo'">
-        SEO
+      <div class="kirby-tab-panel" v-for="tab in tabs" v-show="currentTab === tab.name">
+        <kirby-sections v-if="page" :self="self" :model="page" :values="page.content" :layout="tab.columns" @submit="save" />
       </div>
     </div>
 
@@ -86,23 +80,7 @@ export default {
       breadcrumb: [],
       layout: [],
       currentTab: 'content',
-      tabs: [
-        {
-          name: 'content',
-          label: 'Content',
-          icon: 'text'
-        },
-        {
-          name: 'links',
-          label: 'Links',
-          icon: 'chain'
-        },
-        {
-          name: 'seo',
-          label: 'SEO',
-          icon: 'search'
-        }
-      ]
+      tabs: []
     }
   },
   created () {
@@ -152,7 +130,10 @@ export default {
           this.page       = page;
           this.page.title = page.content.title;
           this.breadcrumb = this.$api.page.breadcrumb(page);
-          this.layout     = blueprint.layout;
+          this.tabs       = blueprint.tabs;
+
+          console.log(this.tabs);
+
           this.$store.dispatch('isLoading', false);
         });
       }).catch((error) => {
