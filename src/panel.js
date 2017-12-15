@@ -1,34 +1,14 @@
 import Vue from 'vue';
 import config from './panel.config.js';
 
-/** Error Handling */
-Vue.config.errorHandler = (err, vm) => {
-
-  console.error(err);
-
-  if (config.enableErrorTracking) {
-    vm.$store.dispatch('error', 'Something went wrong. Thanks for finding a bug, it has been reported!');
-  } else {
-    vm.$store.dispatch('error', 'Something went wrong. See the console for more information.');
-  }
-
-};
-
-/** Error Tracking */
-import Raven from 'raven-js';
-import RavenVue from 'raven-js/plugins/vue';
-import { Version } from '../package.json';
-
-if (config.enableErrorTracking) {
-  Raven.config(config.ravenKey).addPlugin(RavenVue, Vue).install();
-  Raven.setTagsContext({ panel: Version });
-}
-
-/** Store */
-import store from 'App/Store/Store.js';
+/** Error Handling & Tracking */
+import 'App/Errors/Errors.js';
 
 /** Plugins */
 import 'App/Plugins/Loader.js';
+
+/** Store */
+import store from 'App/Store/Store.js';
 
 /** Routes */
 import Router from 'vue-router';
@@ -72,7 +52,7 @@ Vue.filter('date', function(value, output) {
           toLocaleString(typeof output === 'string' ? DateTime[output] : output)
 });
 
-/** App Components Kit */
+/** App Components */
 import 'App/Components/Components.js';
 
 window.panel.vue = new Vue({
