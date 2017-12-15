@@ -10,7 +10,7 @@
         theme="light"
       />
       <kirby-icon
-        v-if="error"
+        v-if="!loaded && error"
         class="kirby-image-error"
         type="cancel"
       />
