@@ -36,7 +36,30 @@
 
     </kirby-header>
 
-    <kirby-sections v-if="page" :self="self" :model="page" :values="page.content" :layout="layout" @submit="save" />
+    <nav class="kirby-tabs" role="tablist">
+      <kirby-button
+        v-for="(tab, index) in tabs"
+        role="tab"
+        class="kirby-tab"
+        :aria-selected="currentTab === tab.name"
+        :key="index"
+        :icon="tab.icon"
+        @click="currentTab = tab.name">
+        {{ tab.label }}
+      </kirby-button>
+    </nav>
+
+    <div class="kirby-tab-panels">
+      <div class="kirby-tab-panel" v-show="currentTab === 'content'">
+        <kirby-sections v-if="page" :self="self" :model="page" :values="page.content" :layout="layout" @submit="save" />
+      </div>
+      <div class="kirby-tab-panel" v-show="currentTab === 'links'">
+        Links
+      </div>
+      <div class="kirby-tab-panel" v-show="currentTab === 'seo'">
+        SEO
+      </div>
+    </div>
 
     <kirby-page-status-dialog ref="status" @success="fetch"></kirby-page-status-dialog>
     <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
@@ -62,6 +85,24 @@ export default {
       icon: 'page',
       breadcrumb: [],
       layout: [],
+      currentTab: 'content',
+      tabs: [
+        {
+          name: 'content',
+          label: 'Content',
+          icon: 'text'
+        },
+        {
+          name: 'links',
+          label: 'Links',
+          icon: 'chain'
+        },
+        {
+          name: 'seo',
+          label: 'SEO',
+          icon: 'search'
+        }
+      ]
     }
   },
   created () {
@@ -178,6 +219,39 @@ export default {
 
 .kirby-page-view .kirby-column section:not(:last-child) {
   margin-bottom: 1.5rem;
+}
+
+.kirby-page-view .kirby-header {
+  border-bottom: 0;
+}
+
+.kirby-tabs {
+  position: relative;
+  margin-bottom: 3rem;
+  display: flex;
+}
+.kirby-tab {
+  padding: .65rem 1rem;
+  border-radius: $border-radius;
+  min-width: 10rem;
+  flex-grow: 1;
+  margin: 0 1px;
+  background: $color-border;
+}
+.kirby-tab[aria-selected] {
+  color: $color-dark;
+  @include focus-ring;
+  z-index: 1;
+}
+.kirby-tab[aria-selected]:after {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
+  margin-left: -5px;
+  content: "";
+  border-top: 5px solid $color-focus;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
 }
 
 </style>
