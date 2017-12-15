@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-calendar-field" v-bind="fieldProps" @click.native="open = true">
+  <kirby-field class="kirby-calendar-field" v-bind="fieldProps" @focus="show" @blur="hide">
 
     <input :value="state | date('DATE_SHORT')" :readonly="true" />
 
@@ -43,6 +43,11 @@ export default {
     input (state) {
       this.state = state
       this.$emit('input', this.state)
+    },
+    show () {
+      this.open = true
+    },
+    hide () {
       this.open = false
     }
   }
