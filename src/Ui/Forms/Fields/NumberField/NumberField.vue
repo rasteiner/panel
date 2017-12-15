@@ -1,6 +1,11 @@
 <template>
-  <kirby-field v-bind="$props">
-    <input type="number" v-bind="$props" v-model.number="data" />
+  <kirby-field class="kirby-number-field" v-bind="fieldProps">
+    <input
+      type="number"
+      :min="min"
+      :value="state"
+      @input="input($event.target.value)"
+    />
   </kirby-field>
 </template>
 

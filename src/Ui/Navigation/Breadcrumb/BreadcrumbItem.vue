@@ -10,7 +10,11 @@
 <script>
 
 export default {
-  props: ['link']
+  props: {
+    link: {
+      type: String
+    }
+  }
 }
 
 </script>

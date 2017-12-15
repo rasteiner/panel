@@ -1,12 +1,12 @@
 <template>
-  <kirby-field class="kirby-checkboxes-field" v-bind="$props">
+  <kirby-field class="kirby-checkboxes-field" v-bind="fieldProps">
     <template v-if="hasOptions">
       <kirby-checkbox-input
-      v-for="(option, index) in options"
-      :key="index"
-      :value="data.indexOf(option.value) !== -1"
-      :text="option.text"
-      @input="input($event, index)"
+        v-for="(option, index) in options"
+        :key="index"
+        :value="state.indexOf(option.value) !== -1"
+        :text="option.text"
+        @input="input($event, index)"
       />
     </template>
     <template v-else>
@@ -38,17 +38,21 @@ export default {
   },
   computed: {
     hasOptions () {
-      return this.options && this.options.length > 0;
+      return this.options && this.options.length > 0
     }
   },
   methods: {
     input (value, index) {
-      let option = this.options[index].value;
+
+      let option = this.options[index].value
+
       if (value === true) {
-        this.data.push(option)
+        this.state.push(option)
       } else {
-        this.data = this.data.filter(item => item !== option)
+        this.state = this.state.filter(item => item !== option)
       }
+
+      this.$emit('input', this.state)
     }
   }
 }

@@ -6,7 +6,14 @@
 
 <script>
 export default {
-  props: ['position', 'theme']
+  props: {
+    position: {
+      type: String
+    },
+    theme: {
+      type: String
+    }
+  }
 }
 </script>
 

@@ -7,12 +7,19 @@
 <script>
 
 export default {
-  props: ['type', 'message'],
+  props: {
+    type: {
+      type: String
+    },
+    message: {
+      type: String
+    }
+  },
   computed: {
     icon () {
       switch (this.type) {
         case 'success':
-          return 'smile';
+          return 'smile'
         case 'error':
           return 'alert'
       }
