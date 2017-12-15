@@ -1,32 +1,32 @@
 
 import Vue from 'vue'
 
-// General components
-window.panel.component = (name, options) => {
+// Components
+Object.keys(window.panel.plugins.components).forEach((name) => {
+  let options = window.panel.plugins.components[name]
   Vue.component(name, options)
-}
+});
 
 // Fields
 import FieldMixin from 'Ui/Forms/Field/Field.mixin.js'
 
-window.panel.field = (name, options) => {
+Object.keys(window.panel.plugins.fields).forEach((name) => {
+  let options = window.panel.plugins.fields[name]
+
   if (options.mixins) {
     options.mixins.push(FieldMixin)
   } else {
     options.mixins = [FieldMixin]
   }
-  panel.component(`kirby-${name}-field`, options)
-}
 
-// Sections
-window.panel.section = (name, options) => {
-  panel.component(`kirby-${name}-section`, options)
-}
+  Vue.component(name, options)
+});
 
 // Views
 import { auth } from 'App/Routes/Routes.js'
 
-window.panel.view = (name, options) => {
+Object.keys(window.panel.plugins.views).forEach((name) => {
+  let options = window.panel.plugins.views[name]
 
   let route = options.path ? options : {
     name: 'Plugin' + name.charAt(0).toUpperCase() + name.slice(1),
@@ -35,5 +35,5 @@ window.panel.view = (name, options) => {
     beforeEnter: auth
   }
 
-  panel.vue.$router.addRoutes([route])
-}
+  window.panel.plugins.routes.push(route)
+});
