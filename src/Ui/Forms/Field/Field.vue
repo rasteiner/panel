@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-field" :data-readonly="readonly" :data-error="error">
+  <div class="kirby-field" :data-readonly="readonly" :data-error="error" @click="focus">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
       <template slot="left">
@@ -41,6 +41,33 @@ export default {
     readonly: Boolean,
     required: Boolean,
     prefix: String
+  },
+  data () {
+    return {
+      isFocused: false
+    }
+  },
+  created () {
+    window.addEventListener('click', this.checkFocus);
+  },
+  destroyed () {
+    window.removeEventListener('click', this.checkFocus);
+  },
+  methods: {
+    focus () {
+      this.isFocused = true
+      this.$emit('focus')
+      console.log('focussed')
+    },
+    blur () {
+      this.isFocused = false
+      this.$emit('blur')
+    },
+    checkFocus (e) {
+      if (this.isFocused && this.$el.contains(e.target) === false) {
+        this.blur();
+      }
+    }
   }
 }
 
