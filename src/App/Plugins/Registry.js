@@ -3,6 +3,7 @@ window.panel.plugins = {
   components: {},
   fields: {},
   views: {},
+  menuButtons: {},
   routes: []
 }
 
@@ -24,4 +25,8 @@ window.panel.section = (name, options) => {
 
 window.panel.view = (name, options) => {
   panel.plugin('view', name, options)
+}
+
+window.panel.menuButton = (name, options) => {
+  panel.plugin('menuButton', name, options)
 }
