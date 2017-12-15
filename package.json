@@ -16,14 +16,14 @@
     "start": "npm-run-all --parallel dev fractal api"
   },
   "dependencies": {
-    "luxon": "^0.2.0",
-    "raven-js": "^3.19.1",
-    "slugify": "^1.2.1",
-    "vue": "^2.5.2",
+    "luxon": "^0.2.7",
+    "raven-js": "^3.20.1",
+    "slugify": "^1.2.6",
+    "vue": "^2.5.9",
     "vue-router": "^3.0.1",
-    "vuedraggable": "^2.14.1",
-    "vuex": "^3.0.0",
-    "vuex-i18n": "^1.7.0"
+    "vuedraggable": "^2.15.0",
+    "vuex": "^3.0.1",
+    "vuex-i18n": "^1.8.0"
   },
   "devDependencies": {
     "@frctl/fractal": "^1.1.7",
@@ -35,22 +35,22 @@
     "babel-preset-env": "^1.5.1",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
-    "eslint": "^4.1.1",
+    "eslint": "^4.13.0",
     "file-loader": "^1.1.5",
     "jasmine-core": "^2.6.3",
     "karma": "^1.7.0",
-    "karma-jasmine": "^1.1.0",
+    "karma-jasmine": "^1.1.1",
     "karma-phantomjs-launcher": "^1.0.4",
-    "karma-webpack": "^2.0.3",
-    "node-sass": "^4.5.0",
-    "npm-run-all": "^4.0.2",
+    "karma-webpack": "^2.0.6",
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
     "phantomjs": "^2.1.7",
     "sass-loader": "^6.0.6",
     "sass-resources-loader": "^1.2.1",
-    "vue-loader": "^13.3.0",
-    "vue-template-compiler": "^2.4.1",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.3",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.9",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7",
     "whatwg-fetch": "^2.0.3"
   }
 }

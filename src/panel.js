@@ -27,6 +27,9 @@ if (config.enableErrorTracking) {
 /** Store */
 import store from 'App/Store/Store.js';
 
+/** Plugins */
+import 'App/Plugins/Loader.js';
+
 /** Routes */
 import Router from 'vue-router';
 import Routes from 'App/Routes/Routes.js';
@@ -37,6 +40,8 @@ const router = new Router({
   mode: 'history',
   routes: Routes
 });
+
+router.addRoutes(window.panel.plugins.routes)
 
 router.beforeEach((to, from, next) => {
   store.dispatch('isLoading', true);
@@ -67,13 +72,10 @@ Vue.filter('date', function(value, output) {
           toLocaleString(typeof output === 'string' ? DateTime[output] : output)
 });
 
-/** Plugins */
-import 'App/Plugins/Plugins.js';
-
 /** App Components Kit */
 import 'App/Components/Components.js';
 
-new Vue({
+window.panel.vue = new Vue({
   el: 'main',
   router,
   store
