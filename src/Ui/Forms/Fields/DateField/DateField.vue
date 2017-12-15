@@ -1,6 +1,10 @@
 <template>
-  <kirby-field class="kirby-date-field" v-bind="$props">
-    <kirby-date-input v-bind="$props" v-model="data" />
+  <kirby-field class="kirby-date-field" v-bind="fieldProps">
+    <kirby-date-input
+      :range="range"
+      :value="state"
+      @input="input"
+    />
   </kirby-field>
 </template>
 

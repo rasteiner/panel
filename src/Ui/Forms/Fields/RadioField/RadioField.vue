@@ -1,6 +1,9 @@
 <template>
-  <kirby-field class="kirby-radio-field" v-bind="$props">
-    <kirby-radio-input v-bind="$props" v-model="data" />
+  <kirby-field class="kirby-radio-field" v-bind="fieldProps">
+    <kirby-radio-input
+      :options="options"
+      :value="state"
+      @input="input" />
   </kirby-field>
 </template>
 
