@@ -27,6 +27,6 @@ window.panel.view = (name, options) => {
   panel.plugin('view', name, options)
 }
 
-window.panel.menuButton = (name, options) => {
+window.panel.menuButton = (name, options = {}) => {
   panel.plugin('menuButton', name, options)
 }

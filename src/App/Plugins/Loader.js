@@ -52,3 +52,24 @@ Object.keys(window.panel.plugins.views).forEach((name) => {
 
   window.panel.plugins.routes.push(options)
 });
+
+
+// Menu Buttons
+Object.keys(window.panel.plugins.menuButtons).forEach((name) => {
+
+  // Link fallback
+  if (!panel.plugins.menuButtons[name].link) {
+    window.panel.plugins.menuButtons[name].link = '/plugin/' + name
+  }
+
+  // Label fallback
+  if (!window.panel.plugins.menuButtons[name].label) {
+    window.panel.plugins.menuButtons[name].label = name.charAt(0).toUpperCase() + name.slice(1)
+  }
+
+  // Icon fallback
+  if (!window.panel.plugins.menuButtons[name].icon) {
+    window.panel.plugins.menuButtons[name].icon = 'page'
+  }
+
+});
