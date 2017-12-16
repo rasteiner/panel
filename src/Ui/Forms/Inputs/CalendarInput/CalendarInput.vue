@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-calendar">
+  <div class="kirby-calendar-input">
 
     <nav>
       <kirby-button @click="prev" icon="angle-left" />
@@ -214,7 +214,7 @@ export default {
 
 $cell-padding: .2rem;
 
-.kirby-calendar {
+.kirby-calendar-input {
   padding: .5rem;
   background: $color-dark;
   color: $color-light;
@@ -225,7 +225,7 @@ $cell-padding: .2rem;
   table-layout: fixed;
 }
 
-.kirby-calendar > nav {
+.kirby-calendar-input > nav {
   display: flex;
 
   .kirby-button {
@@ -246,15 +246,15 @@ $cell-padding: .2rem;
   padding: .5rem;
   font-weight: 500;
 }
-.kirby-calendar th {
+.kirby-calendar-input th {
   padding: $cell-padding;
   color: $color-light-grey;
   font-size: .8em;
   font-weight: 500;
   text-transform: uppercase;
 }
-.kirby-calendar td,
-.kirby-calendar th {
+.kirby-calendar-input td,
+.kirby-calendar-input th {
   [dir="ltr"] & {
     text-align: right;
   }
@@ -276,7 +276,7 @@ $cell-padding: .2rem;
 .kirby-calendar-day[aria-selected="date"] .kirby-button-text {
   background: $color-focus;
 }
-.kirby-calendar tfoot td {
+.kirby-calendar-input tfoot td {
   text-align: center;
   padding: 1rem 0 0;
 }
