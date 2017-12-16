@@ -10,8 +10,9 @@ package-lock.json
 
 /assets/js/vendor.js
 /assets/js/ui.js
-/assets/js/ui-kit.js
+/assets/js/api.js
 /assets/js/panel.js
+/assets/js/registry.js
 /assets/js/*.js.map
 
 /assets/js/chunks/*.js

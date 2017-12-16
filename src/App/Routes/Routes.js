@@ -54,7 +54,7 @@ import Auth from 'Api/Auth.js';
 import Panel from 'Api/Panel.js';
 
 /* Route filters */
-const auth = (to, from, next) => {
+export const auth = (to, from, next) => {
 
   // check if user is logged in
   Auth.validate().then((user) => {
@@ -200,8 +200,8 @@ export default [
     path: '*',
     name: 'NotFound',
     beforeEnter: (to, from, next) => {
-      store.dispatch('error', 'This view does not exist');
       next('/');
+      store.dispatch('error', 'This view does not exist');
     }
   }
 ]

@@ -1,5 +1,5 @@
 <template>
-  <progress class="kirby-progress" :value="state" max="100"></progress>
+  <progress class="kirby-progress" :value="state" max="100">{{ state }}%</progress>
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     set (value) {
-      this.state = value;
+      this.state = value
     }
   }
 }

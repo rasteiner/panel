@@ -3,10 +3,10 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    'ui': './src/Ui/Ui.js',
-    'panel': './src/panel.js',
     'api': './src/Api/Api.js',
-    'ui-kit': './src/ui.js'
+    'panel': './src/panel.js',
+    'registry': './src/App/Plugins/Registry.js',
+    'ui': './src/Ui/Ui.js',
   },
   output: {
     path: path.resolve(__dirname, './assets/js/'),
@@ -58,7 +58,6 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      chunks: ['ui', 'panel', 'file-view'],
       minChunks: (m) => /node_modules/.test(m.context)
     })
   ],
