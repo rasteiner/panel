@@ -13,6 +13,14 @@ import FieldOptions from "App/Components/Forms/Fields/Fieldoptions.mixin.js";
 Object.keys(window.panel.plugins.fields).forEach(name => {
   let options = window.panel.plugins.fields[name];
 
+  if (!options.template) {
+    panel.error(
+      "Broken plugin field",
+      `No template provided when loading plugin field "${name}". The field has not been registered.`
+    );
+    return;
+  }
+
   // make sure mixin key exists
   if (!options.mixin) {
     options.mixins = [];
@@ -38,6 +46,14 @@ Object.keys(window.panel.plugins.views).forEach(name => {
   // Handle whether only component or whole
   // route options have been registered
   if (!options.component) {
+    if (!options.template) {
+      panel.error(
+        "Broken plugin view",
+        `Neither component nor template provided when loading plugin view "${name}". The view has not been registered.`
+      );
+      return;
+    }
+
     options = {
       component: options
     };
