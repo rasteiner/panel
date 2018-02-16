@@ -1,7 +1,7 @@
 import Api from './Api.js';
 
 export default {
-    validate () {
+    user () {
         return Api.get('auth/user');
     },
     login (credentials) {
