@@ -3,17 +3,17 @@
     <kirby-select-input
       ref="day"
       :options="days"
-      v-model="day"
+      v-model.number="day"
     />
     <kirby-select-input
       :options="months"
-      v-model="month"
+      v-model.number="month"
     />
 
     <kirby-select-input
       v-if="range !== false"
       :options="years"
-      v-model="year"
+      v-model.number="year"
     />
     <kirby-text-input
       v-else

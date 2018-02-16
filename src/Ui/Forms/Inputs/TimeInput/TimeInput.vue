@@ -3,12 +3,12 @@
     <kirby-select-input
       ref="hour"
       :options="hours"
-      v-model="hour"
+      v-model.number="hour"
     />
     <kirby-select-input
       ref="minute"
       :options="minutes"
-      v-model="minute"
+      v-model.number="minute"
     />
     <kirby-select-input
       v-if="mode === 12"
