@@ -1,5 +1,6 @@
 <template>
   <div class="kirby-panel" :data-loading="$store.state.isLoading" :data-menu="$store.state.menu">
+
     <kirby-menu ref="menu" v-if="$store.state.user" :open="$store.state.menu" @close="$store.commit('menu', false)">
       <section class="kirby-menu-section">
         <kirby-button @click="$store.dispatch('error', 'Not yet implemented')" icon="dashboard">
@@ -15,6 +16,16 @@
           {{ $t('users') }}
         </kirby-button>
       </section>
+
+      <section class="kirby-menu-section kirby-menu-section-plugins">
+        <kirby-button
+          v-for="button in pluginButtons"
+          :key="button.link"
+          @click="$refs.menu.close()"
+          :link="button.link"
+          :icon="button.icon"> {{ button.label }} </kirby-button>
+      </section>
+
       <section class="kirby-menu-section kirby-menu-section-bottom">
         <kirby-button @click="preview" icon="preview">
           Open site
@@ -27,6 +38,7 @@
         </kirby-button>
       </section>
     </kirby-menu>
+
     <div class="kirby-panel-view">
       <router-view />
     </div>
@@ -53,6 +65,9 @@ export default {
   computed: {
     currentUser () {
       return '/users/' + this.$store.state.user.id;
+    },
+    pluginButtons () {
+      return window.panel.plugins.menuButtons
     }
   },
   methods: {
