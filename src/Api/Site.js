@@ -1,8 +1,8 @@
 import Api from './Api.js';
 
 export default {
-    get () {
-        return Api.get('site');
+    get (query) {
+        return Api.get('site', query);
     },
     update (id, data) {
         return Api.post('site', data);

@@ -195,8 +195,8 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      autosize(this.$el)
-    })
+      autosize(this.$refs.input);
+    });
   },
   methods: {
     prefix (prefix) {

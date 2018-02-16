@@ -8,7 +8,7 @@
 
 <script>
 
-import Language from 'Api/Language.js';
+import Language from 'Api/Locale.js';
 import Select from 'App/Components/Forms/Fields/SelectField/SelectField.vue'
 
 export default {
@@ -36,10 +36,11 @@ export default {
   methods: {
     fetch () {
 
-      Language.list().then(languages => {
-        this.languages = languages.map(lang =>({
-          value: lang.locale,
-          text: lang.name
+      Locale.list().then(locales => {
+
+        this.options = locales.data.map(locale =>({
+          value: locale.id,
+          text: locale.name
         }))
 
         this.languages.unshift({

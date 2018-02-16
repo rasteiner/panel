@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Language from 'Api/Language.js';
+import Locale from 'Api/Locale.js';
 
 Vue.use(Vuex);
 
@@ -9,12 +9,12 @@ let notificationTimeout = null;
 export default new Vuex.Store({
   state: {
     // content
-    translation: 'en',
+    translation: 'en_US',
 
     // user
     user: null,
-    language: {
-      locale: 'en',
+    locale: {
+      id: 'en_US',
       direction: 'ltr'
     },
 
@@ -36,11 +36,11 @@ export default new Vuex.Store({
     user (state, user) {
       state.user = user;
     },
-    language (state, language) {
-      state.language = language;
-      document.documentElement.lang = language.locale;
-      Vue.i18n.set(language.locale);
-      document.dir = language.direction;
+    locale (state, locale) {
+      state.locale = locale;
+      document.documentElement.lang = locale.id;
+      Vue.i18n.set(locale.id);
+      document.dir = locale.direction;
     },
 
     // UI
@@ -63,22 +63,17 @@ export default new Vuex.Store({
     // user
     user (context, user) {
       if (user === null) {
-        localStorage.removeItem('auth');
         context.commit('user', null);
       } else {
-        localStorage.setItem('auth', user.content.token);
         context.commit('user', user);
-        context.dispatch('language', user.content.language);
+        context.dispatch('locale', user.language);
       }
     },
-    language (context, locale) {
-      if (locale) {
-        Language.get(locale).then((language) => {
-          Vue.i18n.replace(locale, language.strings);
-          context.commit('language', {
-            locale: language.locale,
-            direction: language.direction
-          });
+    locale (context, id) {
+      if (id) {
+        Locale.get(id).then((locale) => {
+          Vue.i18n.replace(id, locale.data);
+          context.commit('locale', locale);
         });
       }
     },
