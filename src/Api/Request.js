@@ -23,7 +23,12 @@ export default {
       return json;
     });
   },
-  get (path, options) {
+  get (path, query, options) {
+
+    if (query) {
+      path += '?' + Object.keys(query).map((key) => key + '=' + query[key]).join('&');
+    }
+
     return this.request(path, Object.assign(options || {}, { method: 'GET' }));
   },
   post (path, data, options) {

@@ -1,15 +1,13 @@
 <template>
   <kirby-grid class="kirby-sections" gutter="large">
-    <kirby-column v-for="(column, columnIndex) in layout" :key="'column-' + columnIndex" :width="column.width">
+    <kirby-column v-for="(column, columnIndex) in columns" :key="parent + '-column-' + columnIndex" :width="column.width">
       <template v-for="(section, sectionIndex) in column.sections">
         <component v-if="exists(section.type)"
-          :key="model.id + '-column-' + columnIndex + '-section-' + sectionIndex"
-          :values="values"
+          :key="parent + '-column-' + columnIndex + '-section-' + sectionIndex"
           :is="'kirby-' + section.type + '-section'"
-          :self="self"
-          :model="model"
-          @submit="$emit('submit', $event)"
-          :config="section" />
+          :parent="parent"
+          :name="section.name"
+          @submit="$emit('submit', $event)" />
         <template v-else>
           <kirby-box>
             The section type <strong>{{ section.type }}</strong> does not exist. Please change the configuration in your blueprint.
@@ -26,10 +24,8 @@ import Vue from 'vue';
 
 export default {
   props: {
-    model: Object,
-    values: Object,
-    layout: Array,
-    self: String
+    parent: String,
+    columns: Array
   },
   methods: {
     exists (type) {

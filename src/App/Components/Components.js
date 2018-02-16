@@ -7,3 +7,4 @@ import './Images/Images.js';
 import './Navigation/Navigation.js';
 import './Panel/Panel.js';
 import './Sections/Sections.js';
+import './Tabs/Tabs.js';

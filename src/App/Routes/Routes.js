@@ -57,7 +57,7 @@ import Panel from 'Api/Panel.js';
 export const auth = (to, from, next) => {
 
   // check if user is logged in
-  Auth.validate().then((user) => {
+  Auth.user().then((user) => {
 
     // store logged-in user
     store.dispatch('user', user);
@@ -65,11 +65,14 @@ export const auth = (to, from, next) => {
 
   }).catch(() => {
 
+    Auth.logout();
+
     // store url to navigate after login
-    store.commit('afterLogin', to.path);
+    // store.commit('afterLogin', to.path);
 
     // redirect to login form
     next('/login');
+    return false;
   });
 
 };
@@ -83,24 +86,7 @@ export default [
   },
   {
     path: '/login',
-    component: LoginView,
-    beforeEnter: (to, from, next) => {
-
-      Panel.system().then((system) => {
-
-        if (system.isInstalled === false) {
-          return next('/installation');
-        }
-
-        if (store.state.user !== null) {
-          return next('/');
-        }
-
-        return next();
-
-      });
-
-    }
+    component: LoginView
   },
   {
     path: '/installation',

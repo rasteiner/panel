@@ -41,7 +41,7 @@ export default {
       this.slug = slug(input);
 
       if (this.page.parent) {
-        this.url = this.page.parent + '/' + this.slug;
+        this.url = this.page.parent.id + '/' + this.slug;
       } else {
         this.url = this.slug;
       }

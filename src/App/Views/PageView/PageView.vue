@@ -34,30 +34,17 @@
         </kirby-dropdown>
       </template>
 
+      <template v-if="isLoading === false" slot="buttons-right">
+        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+      </template>
+
     </kirby-header>
 
-    <nav class="kirby-tabs" role="tablist">
-      <kirby-button
-        v-for="(tab, index) in tabs"
-        role="tab"
-        class="kirby-tab"
-        :aria-selected="currentTab === tab.name"
-        :key="index"
-        :icon="tab.icon"
-        @click="currentTab = tab.name">
-        {{ tab.label }}
-      </kirby-button>
-    </nav>
+    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="isLoading === false" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" />
 
-    <div class="kirby-tab-panels">
-      <div class="kirby-tab-panel" v-for="tab in tabs" v-show="currentTab === tab.name">
-        <kirby-sections v-if="page" :self="self" :model="page" :values="page.content" :layout="tab.columns" @submit="save" />
-      </div>
-    </div>
-
-    <kirby-page-status-dialog ref="status" @success="fetch"></kirby-page-status-dialog>
-    <kirby-page-url-dialog ref="url"></kirby-page-url-dialog>
-    <kirby-page-remove-dialog ref="remove"></kirby-page-remove-dialog>
+    <kirby-page-status-dialog ref="status" @success="fetch" />
+    <kirby-page-url-dialog ref="url" />
+    <kirby-page-remove-dialog ref="remove" />
 
   </kirby-view>
 
@@ -72,14 +59,12 @@ export default {
       page: {
         title: '',
         id: null,
-        content: {},
         prev: null,
         next: null,
       },
       icon: 'page',
+      isLoading: true,
       breadcrumb: [],
-      layout: [],
-      currentTab: 'content',
       tabs: []
     }
   },
@@ -92,11 +77,12 @@ export default {
     }
   },
   computed: {
-    self () {
-      return 'site.find("' + this.page.id + '")';
-    },
     options () {
-      return window.panel.config.api + '/pages/' + this.page.id + '/options?not=preview,status';
+      return (ready) => {
+        this.$api.page.options(this.page.id).then((options) => {
+          ready(options);
+        });
+      }
     },
     status () {
 
@@ -125,19 +111,15 @@ export default {
   methods: {
     fetch() {
 
-      this.$api.page.get(this.path).then((page) => {
-        this.$api.page.blueprint(page.id).then((blueprint) => {
-          this.page       = page;
-          this.page.title = page.content.title;
-          this.breadcrumb = this.$api.page.breadcrumb(page);
-          this.tabs       = blueprint.tabs;
-
-          console.log(this.tabs);
-
-          this.$store.dispatch('isLoading', false);
-        });
+      this.$api.page.get(this.path, {view: 'panel'}).then((page) => {
+        this.page       = page;
+        this.tabs       = page.blueprint.tabs;
+        this.breadcrumb = this.$api.page.breadcrumb(page);
+        this.$store.dispatch('isLoading', false);
+        this.isLoading = false;
       }).catch((error) => {
         this.$store.dispatch('error', error.message);
+        this.isLoading = false;
       });
 
     },
@@ -158,19 +140,17 @@ export default {
       this.page.title = title;
     },
     saveTitle () {
-
-      if (this.page.title === this.page.content.title) {
-        return true;
-      }
-
-      this.save({ title: this.page.title });
-
+      // this.save({ title: this.page.title });
     },
     prev () {
-      this.$router.push('/pages/' + this.page.prev);
+      if (this.page.prev) {
+        this.$router.push(this.$api.page.link(this.page.prev.id));
+      }
     },
     next () {
-      this.$router.push('/pages/' + this.page.next);
+      if (this.page.next) {
+        this.$router.push(this.$api.page.link(this.page.next.id));
+      }
     },
     action (action) {
       switch (action) {
@@ -202,37 +182,5 @@ export default {
   margin-bottom: 1.5rem;
 }
 
-.kirby-page-view .kirby-header {
-  border-bottom: 0;
-}
-
-.kirby-tabs {
-  position: relative;
-  margin-bottom: 3rem;
-  display: flex;
-}
-.kirby-tab {
-  padding: .65rem 1rem;
-  border-radius: $border-radius;
-  min-width: 10rem;
-  flex-grow: 1;
-  margin: 0 1px;
-  background: $color-border;
-}
-.kirby-tab[aria-selected] {
-  color: $color-dark;
-  @include focus-ring;
-  z-index: 1;
-}
-.kirby-tab[aria-selected]:after {
-  position: absolute;
-  top: calc(100% + 2px);
-  left: 50%;
-  margin-left: -5px;
-  content: "";
-  border-top: 5px solid $color-focus;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-}
 
 </style>
