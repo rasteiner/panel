@@ -14,6 +14,6 @@ The `kirby-bar` component is usable for any kind of layout, where you need to al
 
 ## Slots
 
-- `left`
-- `right`
-- `center`
+* `left`
+* `right`
+* `center`

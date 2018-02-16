@@ -31,16 +31,15 @@
 </template>
 
 <script>
-
 export default {
   props: {
     image: Object,
     preview: {
       type: Object,
-      default () {
+      default() {
         return {
-          icon: 'file'
-        }
+          icon: "file"
+        };
       }
     },
     text: String,
@@ -49,20 +48,18 @@ export default {
     options: {},
     menuLabel: {
       type: String,
-      default: 'Actions'
+      default: "Actions"
     }
   },
   computed: {
     wrapper: function() {
-      return this.link ? 'router-link' : 'div';
+      return this.link ? "router-link" : "div";
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-card {
   position: relative;
 }
@@ -77,7 +74,7 @@ export default {
   box-shadow: $box-shadow-focus-full;
 }
 .kirby-card-content {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   line-height: 1.5em;
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
@@ -101,7 +98,7 @@ export default {
   transform: translate(-50%, -50%) scale(3);
 }
 .kirby-card .kirby-preview svg * {
-  fill: rgba($color-white, .5);
+  fill: rgba($color-white, 0.5);
 }
 .kirby-card-text {
   display: block;
@@ -132,7 +129,7 @@ export default {
   }
 }
 .kirby-card-options-button {
-  padding: .6rem 1rem;
+  padding: 0.6rem 1rem;
   line-height: 1.5em;
   background: #fff;
 }
@@ -145,5 +142,4 @@ export default {
   left: -1rem;
   background: -webkit-linear-gradient(left, rgba(#fff, 0), rgba(#fff, 1));
 }
-
 </style>

@@ -12,27 +12,26 @@
 </template>
 
 <script>
-
-import Locale from 'Api/Locale.js';
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Locale from "Api/Locale.js";
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
     label: {
-      default: 'Language'
+      default: "Language"
     },
     name: {
-      default: 'language'
+      default: "language"
     },
     icon: {
-      default: 'globe'
+      default: "globe"
     },
     value: {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       state: this.value,
       options: []
@@ -42,24 +41,20 @@ export default {
     this.fetch();
   },
   methods: {
-    fetch () {
-
+    fetch() {
       Locale.list().then(locales => {
-
-        this.options = locales.data.map(locale =>({
+        this.options = locales.data.map(locale => ({
           value: locale.id,
           text: locale.name
-        }))
+        }));
 
         this.options.unshift({
-          value: '',
-          text: 'Please select a language…',
+          value: "",
+          text: "Please select a language…",
           disabled: true
-         })
+        });
       });
-
     }
   }
-}
-
+};
 </script>

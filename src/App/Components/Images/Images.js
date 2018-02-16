@@ -1,5 +1,5 @@
-import Vue from 'vue'
+import Vue from "vue";
 
-import Icon from './Icon/Icon.vue'
+import Icon from "./Icon/Icon.vue";
 
-Vue.component('kirby-icon', Icon);
+Vue.component("kirby-icon", Icon);

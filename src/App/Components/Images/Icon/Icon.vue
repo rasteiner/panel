@@ -3,13 +3,11 @@
 </template>
 
 <script>
-
-import Icon from 'Ui/Images/Icon/Icon.vue'
-
+import Icon from "Ui/Images/Icon/Icon.vue";
 
 export default {
   components: {
-    'ui-icon': Icon
+    "ui-icon": Icon
   },
   props: {
     type: {
@@ -20,10 +18,9 @@ export default {
     }
   },
   computed: {
-    source () {
+    source() {
       return `${window.panel.config.assets}/icons/${this.type}.svg`;
     }
   }
-}
-
+};
 </script>

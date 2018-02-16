@@ -5,29 +5,25 @@
 </template>
 
 <script>
-
-
 export default {
   props: {
     label: {
-      default: 'Headline'
+      default: "Headline"
     },
     type: {
-      default: 'headline'
+      default: "headline"
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-headline-field {
   position: relative;
-  margin-bottom: -.5rem;
+  margin-bottom: -0.5rem;
   padding-top: 3rem;
   padding-left: 1.5em;
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid $color-border;
   counter-increment: count;
 }
@@ -36,13 +32,12 @@ export default {
 }
 
 .kirby-headline-field::before {
-  position:    absolute;
-  content:     counter(count, decimal-leading-zero);
-  padding-bottom: .5rem;
-  left:        0;
-  color:       $color-focus;
+  position: absolute;
+  content: counter(count, decimal-leading-zero);
+  padding-bottom: 0.5rem;
+  left: 0;
+  color: $color-focus;
   font-family: $font-family-mono;
   font-weight: 400;
 }
-
 </style>

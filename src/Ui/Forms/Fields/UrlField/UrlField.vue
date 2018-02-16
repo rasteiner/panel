@@ -8,28 +8,26 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
     label: {
-      default: 'URL'
+      default: "URL"
     },
     icon: {
-      default: 'chain'
+      default: "chain"
     },
     name: {
-      default: 'url'
+      default: "url"
     },
     placeholder: {
-      default: 'https://'
+      default: "https://"
     },
     type: {
-      default: 'url'
+      default: "url"
     }
   }
-}
-
+};
 </script>

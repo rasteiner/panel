@@ -1,4 +1,3 @@
-
 export default {
   props: {
     options: {
@@ -12,30 +11,29 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       fieldOptions: []
-    }
+    };
   },
-  mounted () {
+  mounted() {
     this.fetchOptions();
-    this.$events.$on('page.update', this.fetchOptions);
-    this.$events.$on('file.update', this.fetchOptions);
-    this.$events.$on('user.update', this.fetchOptions);
+    this.$events.$on("page.update", this.fetchOptions);
+    this.$events.$on("file.update", this.fetchOptions);
+    this.$events.$on("user.update", this.fetchOptions);
   },
-  destroyed: function () {
-    this.$events.$off('page.update', this.fetchOptions);
-    this.$events.$off('file.update', this.fetchOptions);
-    this.$events.$off('user.update', this.fetchOptions);
+  destroyed: function() {
+    this.$events.$off("page.update", this.fetchOptions);
+    this.$events.$off("file.update", this.fetchOptions);
+    this.$events.$off("user.update", this.fetchOptions);
   },
   watch: {
-    options () {
+    options() {
       this.fetchOptions();
     }
   },
   methods: {
-    fetchOptions () {
-
+    fetchOptions() {
       if (Array.isArray(this.options)) {
         this.fieldOptions = this.options;
         return;
@@ -46,15 +44,14 @@ export default {
         page: this.$route.params.path,
         file: this.$route.params.filename,
         user: this.$route.params.id
-
       };
 
       switch (this.options) {
-        case 'url':
+        case "url":
           data.url = this.url;
           break;
 
-        case 'source':
+        case "source":
           data.query = this.source.query;
           data.value = this.source.value;
           data.text = this.source.text;
@@ -62,15 +59,14 @@ export default {
           break;
 
         default:
-          type = 'source';
+          type = "source";
           data.query = this.options;
           break;
       }
 
-      this.$api.panel.options(type, data).then((options) => {
+      this.$api.panel.options(type, data).then(options => {
         this.fieldOptions = options;
-      })
-
+      });
     }
   }
-}
+};

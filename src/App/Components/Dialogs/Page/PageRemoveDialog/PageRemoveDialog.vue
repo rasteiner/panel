@@ -7,8 +7,7 @@
 </template>
 
 <script>
-
-import DialogMixin from 'App/Components/Dialogs/Dialogs.mixin.js';
+import DialogMixin from "App/Components/Dialogs/Dialogs.mixin.js";
 
 export default {
   mixins: [DialogMixin],
@@ -20,35 +19,38 @@ export default {
     };
   },
   methods: {
-    open (id) {
-      this.$api.page.get(id).then((page) => {
-        this.page = page;
-        this.$refs.dialog.open();
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-    },
-    submit () {
-      this.$api.page.delete(this.page.id).then(() => {
-
-        if (this.$route.path === '/pages/' + this.page.id) {
-          if (this.page.parent) {
-            this.$router.push('/pages/' + this.page.parent);
-          } else {
-            this.$router.push('/pages');
-          }
-        }
-
-        this.success({
-          message: 'The page has been deleted',
-          event: 'page.delete'
+    open(id) {
+      this.$api.page
+        .get(id)
+        .then(page => {
+          this.page = page;
+          this.$refs.dialog.open();
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
         });
+    },
+    submit() {
+      this.$api.page
+        .delete(this.page.id)
+        .then(() => {
+          if (this.$route.path === "/pages/" + this.page.id) {
+            if (this.page.parent) {
+              this.$router.push("/pages/" + this.page.parent);
+            } else {
+              this.$router.push("/pages");
+            }
+          }
 
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
+          this.success({
+            message: "The page has been deleted",
+            event: "page.delete"
+          });
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     }
   }
-}
-
+};
 </script>

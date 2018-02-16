@@ -25,29 +25,26 @@
 </template>
 
 <script>
-
 export default {
-  props: ['items'],
+  props: ["items"],
   methods: {
-    preview (item) {
+    preview(item) {
       if (item.preview && item.preview.icon) {
         return item.preview.icon;
       } else {
-        return 'file';
+        return "file";
       }
     },
-    background (item) {
+    background(item) {
       if (item.preview && item.preview.color) {
         return { backgroundColor: item.preview.color };
       }
     }
   }
 };
-
 </script>
 
 <style lang="scss">
-
 .kirby-list-collection li {
   position: relative;
   background: $color-white;
@@ -86,11 +83,11 @@ export default {
   transform: translate(-50%, -50%);
 }
 .kirby-list-collection-image .kirby-icon svg * {
-  fill: rgba($color-white, .5);
+  fill: rgba($color-white, 0.5);
 }
 .kirby-list-collection-text {
   display: block;
-  padding: .75rem;
+  padding: 0.75rem;
   line-height: 1;
   height: 2.5rem;
   margin-left: 2.5rem;
@@ -117,7 +114,6 @@ export default {
   @media screen and (min-width: $breakpoint-medium) {
     display: block;
   }
-
 }
 
 .kirby-list-collection-options {
@@ -132,6 +128,4 @@ export default {
   width: 3rem;
   height: 2.5rem;
 }
-
-
 </style>

@@ -19,34 +19,36 @@
 </template>
 
 <script>
-
 const guid = function() {
-  return Math.random().toString(36).substr(2, 10);
+  return Math.random()
+    .toString(36)
+    .substr(2, 10);
 };
 
 export default {
   props: {
     tag: {
       type: String,
-      default: 'ul'
+      default: "ul"
     },
     value: {
-      type: [String,Array]
+      type: [String, Array]
     }
   },
   data() {
-
-    let items = this.value || [{
-      _id: guid(),
-      text: ''
-    }];
+    let items = this.value || [
+      {
+        _id: guid(),
+        text: ""
+      }
+    ];
 
     return {
       items: items.map(function(item) {
         item._id = guid();
         return item;
       })
-    }
+    };
   },
   methods: {
     focus() {
@@ -55,46 +57,41 @@ export default {
     enter(index) {
       this.items.splice(index + 1, 0, {
         _id: guid(),
-        text: ''
+        text: ""
       });
 
-      this.$nextTick(function() {
-        this.select(index + 1);
-      }.bind(this));
-
+      this.$nextTick(
+        function() {
+          this.select(index + 1);
+        }.bind(this)
+      );
     },
     select(index) {
       try {
         this.$refs.item[index].focus();
-      } catch(e) {
-
-      }
+      } catch (e) {}
     },
     empty(index) {
-
       if (this.items.length > 1) {
         this.items.splice(index, 1);
-        this.$nextTick(function() {
-          this.select(index - 1);
-        }.bind(this));
+        this.$nextTick(
+          function() {
+            this.select(index - 1);
+          }.bind(this)
+        );
       } else {
         this.remove();
       }
-
     },
     append(type, props) {
-      this.$emit('append', type, props);
+      this.$emit("append", type, props);
     },
-    input() {
-
-    }
+    input() {}
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-list-block {
   margin-bottom: 1.5rem;
 }
@@ -113,5 +110,4 @@ export default {
 .kirby-list-block ol li {
   list-style: decimal;
 }
-
 </style>

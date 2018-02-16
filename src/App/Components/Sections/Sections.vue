@@ -19,8 +19,7 @@
 </template>
 
 <script>
-
-import Vue from 'vue';
+import Vue from "vue";
 
 export default {
   props: {
@@ -28,10 +27,9 @@ export default {
     columns: Array
   },
   methods: {
-    exists (type) {
-      return Vue.options.components['kirby-' + type + '-section'];
+    exists(type) {
+      return Vue.options.components["kirby-" + type + "-section"];
     }
   }
 };
-
 </script>
