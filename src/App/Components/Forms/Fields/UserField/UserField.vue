@@ -7,11 +7,11 @@
     :icon="button">
 
     <template v-if="user">
-      <kirby-button class="kirby-user-field-image" v-if="user.image.exists">
+      <kirby-button class="kirby-user-field-image" v-if="user.avatar.exists">
         <kirby-image
           :cover="true"
           ratio="1/1"
-          :src="user.image.url"
+          :src="user.avatar.url"
         />
       </kirby-button>
 
@@ -23,10 +23,10 @@
       ref="input"
       :url="api"
       :map="{
-          items: 'items',
+          items: 'data',
           value: 'id',
-          text: 'content.name',
-          image: 'image.url'
+          text: 'name',
+          image: 'avatar.url'
         }"
       @enter="function(value) { select(value) }"
       @select="function(item) { select(item.value) }"
@@ -69,7 +69,7 @@ export default {
       return this.user ? 'cancel' : this.icon;
     },
     display () {
-      return this.user.content.name || this.user.id;
+      return this.user.name;
     }
   },
   mounted () {
@@ -82,7 +82,7 @@ export default {
     select (id) {
       this.$api.user.get(id).then((user) => {
         this.user = user
-        this.$emit('input', user.id);
+        this.$emit('input', user.email);
       })
     },
     clear () {

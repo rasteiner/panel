@@ -3,7 +3,7 @@
 
     <kirby-headline>
       <span>{{ headline }}</span>
-      <kirby-button-group slot="options" v-if="add && items.length !== 0">
+      <kirby-button-group slot="options" v-if="create && data.length !== 0">
         <kirby-button icon="upload" @click="upload"></kirby-button>
       </kirby-button-group>
     </kirby-headline>
@@ -21,13 +21,13 @@
 
       <kirby-collection
         :layout="layout"
-        :items="items"
+        :items="data"
         :pagination="pagination"
         @paginate="paginate"
         @action="action" />
 
-      <kirby-box v-if="items.length === 0" class="kirby-files-collection-placeholder" :data-layout="layout">
-        <kirby-button v-if="add" icon="upload" @click="upload">Upload</kirby-button>
+      <kirby-box v-if="data.length === 0" class="kirby-files-collection-placeholder" :data-layout="layout">
+        <kirby-button v-if="create" icon="upload" @click="upload">Upload</kirby-button>
         <kirby-txt v-else>No files :(</kirby-txt>
       </kirby-box>
 
@@ -43,24 +43,18 @@
 
 export default {
   props: {
-    self: String,
-    config: Object
+    parent: String,
+    name: String
   },
   data() {
     return {
-      layout: 'list',
-      items: [],
+      create: null,
+      data: [],
       error: null,
-      add: null,
-      max: this.config.max,
-      query: this.config,
-      pagination: {
-        page: 1,
-        limit: 10,
-        total: 0
-      },
       headline: null,
-      isLoading: true
+      isLoading: true,
+      layout: 'list',
+      pagination: {},
     }
   },
   created () {
@@ -77,24 +71,23 @@ export default {
   methods: {
     fetch () {
 
-      if (!this.query.self) {
-        this.query.self = this.self;
-      }
+      this.$api.section(this.parent, this.name).then((response) => {
+        this.data = response.data.map((file) => {
+          file.options = (ready) => {
+            this.$api.file.options(file.parent, file.filename).then((options) => ready(options));
+          };
 
-      this.$store.dispatch('isLoading', true);
+          return file;
+        });
 
-      this.$api.section(this.query.type, this.query).then((response) => {
         this.headline   = response.headline;
-        this.add        = response.add;
-        this.items      = response.items;
+        this.create     = response.create;
         this.pagination = response.pagination;
         this.layout     = response.layout || 'list';
         this.isLoading  = false;
-        this.$store.dispatch('isLoading', false);
       }).catch((error) => {
         this.isLoading = false;
         this.error     = error.message;
-        this.$store.dispatch('isLoading', false);
       });
 
     },
@@ -117,7 +110,7 @@ export default {
       }
     },
     upload () {
-      this.$refs.upload.open(this.add);
+      this.$refs.upload.open(this.create);
     },
     replace (file) {
       this.$refs.upload.open({
@@ -132,7 +125,7 @@ export default {
       this.$store.dispatch('success', 'The files have been uploaded');
     },
     paginate (pagination) {
-      this.query.pagination = Object.assign(this.query.pagination || {}, pagination);
+      this.pagination = Object.assign(this.pagination || {}, pagination);
       this.fetch();
     }
   }

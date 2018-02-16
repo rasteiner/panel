@@ -1,6 +1,6 @@
 
 import Vue from 'vue';
-import Shortcuts from '../Shortcuts/Shortcuts.js';
+import Shortcuts from './Shortcuts.js';
 
 export default {
   install (Vue) {

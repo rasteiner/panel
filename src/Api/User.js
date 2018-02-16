@@ -8,8 +8,8 @@ export default {
   list (query) {
     return Api.post('users/search', query);
   },
-  get (id) {
-    return Api.get('users/' + id);
+  get (id, query) {
+    return Api.get('users/' + id, query);
   },
   update (id, data) {
     return Api.post('users/' + id, data);
@@ -37,7 +37,7 @@ export default {
       },
       {
         link: '/users/' + user.id,
-        label: user.id
+        label: user.email
       }
     ];
   },

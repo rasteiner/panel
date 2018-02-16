@@ -13,7 +13,7 @@
 
 <script>
 
-import Language from 'Api/Language.js';
+import Locale from 'Api/Locale.js';
 import Field from 'Ui/Forms/Field/Field.mixin.js';
 
 export default {
@@ -44,10 +44,11 @@ export default {
   methods: {
     fetch () {
 
-      Language.list().then(languages => {
-        this.options = languages.map(lang =>({
-          value: lang.locale,
-          text: lang.name
+      Locale.list().then(locales => {
+
+        this.options = locales.data.map(locale =>({
+          value: locale.id,
+          text: locale.name
         }))
 
         this.options.unshift({

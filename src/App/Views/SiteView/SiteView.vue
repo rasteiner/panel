@@ -7,8 +7,15 @@
           Preview
         </kirby-button>
       </template>
+
+      <template v-if="isLoading === false" slot="buttons-right">
+        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+      </template>
+
     </kirby-header>
-    <kirby-sections v-if="site" :layout="layout" :model="site" />
+
+    <kirby-tabs key="site-tabs" v-if="isLoading === false" parent="site" :tabs="tabs" ref="tabs" />
+
   </kirby-view>
 </template>
 
@@ -20,9 +27,9 @@ export default {
       site: {
         id: null,
         title: null,
-        content: {}
       },
-      layout: [],
+      tabs: [],
+      isLoading: true
     }
   },
   created () {
@@ -30,12 +37,11 @@ export default {
   },
   methods: {
     fetch() {
-      this.$api.site.get().then((site) => {
-        this.$api.site.blueprint().then((blueprint) => {
-          this.site   = site;
-          this.layout = blueprint.layout;
-          this.$store.dispatch('isLoading', false);
-        });
+      this.$api.site.get({view: 'panel'}).then((site) => {
+        this.site = site;
+        this.tabs = site.blueprint.tabs;
+        this.isLoading = false;
+        this.$store.dispatch('isLoading', false);
       });
     },
     preview () {

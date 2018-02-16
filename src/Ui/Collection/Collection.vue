@@ -38,7 +38,9 @@ export default {
     },
     items: {
       type: Array,
-      default: []
+      default: () => {
+        return [];
+      }
     },
     pagination: {
       type: Object,

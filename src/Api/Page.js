@@ -7,11 +7,28 @@ export default {
       return Api.post('site/children', data);
     }
 
-    return Api.post('pages/' + parent + '/children', data);
+    return Api.post(this.url(parent, 'children'), data);
 
   },
-  get (id) {
-    return Api.get('pages/' + id).then((page) => {
+  url (id, path) {
+
+    if (id === null) {
+      return null;
+    }
+
+    let url = 'pages/' + id.replace('/', '+');
+
+    if (path) {
+      url += '/' + path;
+    }
+
+    return url;
+  },
+  link (id) {
+    return '/' + this.url(id);
+  },
+  get (id, query) {
+    return Api.get(this.url(id), query).then((page) => {
 
       if (Array.isArray(page.content) === true) {
         page.content = {};
@@ -22,45 +39,77 @@ export default {
     });
   },
   options (id) {
-    return Api.get('pages/' + id + '/options');
+    return Api.get(this.url(id, 'options')).then((options) => {
+
+      let result = [];
+
+      if (options.preview) {
+        result.push({
+          click: 'preview',
+          icon: 'preview',
+          text: 'Open preview',
+        });
+      }
+
+      if (options.changeUrl) {
+        result.push({
+          click: 'url',
+          icon: 'chain',
+          text: 'Change URL',
+        });
+      }
+
+      if (options.changeTemplate) {
+        result.push({
+          click: 'temolate',
+          icon: 'code',
+          text: 'Change template',
+        });
+      }
+
+      if (options.delete) {
+        result.push({
+          click: 'remove',
+          icon: 'trash',
+          text: 'Delete this page',
+        });
+      }
+
+      return result;
+
+    });
   },
   update (id, data) {
-    return Api.post('pages/' + id, data);
+    return Api.post(this.url(id), data);
   },
   children (id, query) {
-    return Api.post('pages/' + id + '/children/search', query);
+    return Api.post(this.url(id, 'children/search'), query);
   },
   files (id, query) {
-    return Api.post('pages/' + id + '/files/search', query);
+    return Api.post(this.url(id, 'files/search'), query);
   },
   delete (id) {
-    return Api.delete('pages/' + id);
+    return Api.delete(this.url(id));
   },
   slug (id, slug) {
-    return Api.post('pages/' + id + '/slug', { slug: slug });
+    return Api.post(this.url(id, 'slug'), { slug: slug });
   },
   status (id, status, position) {
-    return Api.post('pages/' + id + '/status', {
+    return Api.post(this.url(id, 'status'), {
       status: status,
       position: position
     });
   },
-  blueprint (id) {
-    return Api.get('pages/' + id + '/blueprint');
-  },
-  blueprints (id) {
-    return Api.get('pages/' + id + '/blueprints');
-  },
   breadcrumb (page, self = true) {
     var breadcrumb = page.parents.map((parent) => ({
       label: parent.slug,
-      link: '/pages/' + parent.id
+      link: this.link(parent.id)
     }));
 
     if (self === true) {
       breadcrumb.push({
         label: page.slug,
-        link: '/pages/' + page.id
+        link: this.link(page.id)
       })
     }
 

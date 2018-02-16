@@ -16,8 +16,8 @@
         @blur="saveName"
         @enter="saveName" />
 
-      <kirby-button class="kirby-user-view-image" v-if="image" @click="$refs.upload.open()">
-        <kirby-image :cover="true" ratio="1/1" :src="image" />
+      <kirby-button class="kirby-user-view-image" v-if="avatar" @click="$refs.upload.open()">
+        <kirby-image :cover="true" ratio="1/1" :src="avatar" />
       </kirby-button>
 
       <template slot="buttons-left">
@@ -26,7 +26,7 @@
             {{ $t('user.image') }}
           </kirby-button>
           <kirby-dropdown-content ref="picture">
-            <template v-if="image">
+            <template v-if="avatar">
               <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('change') }}
               </kirby-dropdown-item>
@@ -53,9 +53,13 @@
         </kirby-dropdown>
       </template>
 
+      <template v-if="isLoading === false" slot="buttons-right">
+        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+      </template>
+
     </kirby-header>
 
-    <kirby-sections v-if="user && layout" :model="user" :self="self" :values="user.content" :layout="layout" @submit="save" />
+    <kirby-tabs :key="'user-' + user.id + '-tabs'" v-if="user && tabs.length" :parent="'users/' + user.id" :tabs="tabs" ref="tabs" />
 
     <kirby-box v-else>
       You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role}}.yml</strong>
@@ -83,25 +87,21 @@ export default {
   data () {
     return {
       options: window.panel.config.api + '/users/' + this.id + '/options?not=edit',
-      layout: null,
+      tabs: [],
       name: null,
+      isLoading: true,
       user: {
         role: null,
         name: null,
-        content: {
-          language: 'en',
-        },
+        language: null,
         prev: null,
         next: null,
       },
-      image: null,
+      avatar: null,
       breadcrumb: null
     }
   },
   computed: {
-    self () {
-      return 'kirby.users.find("' + this.user.id + '")';
-    },
     uploadApi () {
       return window.panel.config.api + '/users/' + this.user.id + '/avatar';
     },
@@ -148,7 +148,7 @@ export default {
         case 'picture.delete':
           this.$api.user.deleteAvatar(this.id).then(() => {
             this.$store.dispatch('success', this.$t('notification.image.deleted'));
-            this.image = null;
+            this.avatar = null;
           }).catch((error) => {
             this.$store.dispatch('error', error.message);
           });
@@ -171,34 +171,32 @@ export default {
       }
     },
     prev () {
-      this.$router.push('/users/' + this.user.prev);
+      this.$router.push('/users/' + this.user.prev.id);
     },
     next () {
-      this.$router.push('/users/' + this.user.next);
+      this.$router.push('/users/' + this.user.next.id);
     },
     fetch () {
 
-      this.$api.user.get(this.id).then((user) => {
-
-        this.$api.user.blueprint(this.id).then((blueprint) => {
+      this.$api.user.get(this.id, {view: 'panel'}).then((user) => {
 
           this.user       = user;
-          this.name       = user.content.name;
+          this.name       = user.name;
           this.breadcrumb = this.$api.user.breadcrumb(user);
-          this.layout     = blueprint.layout;
+          this.tabs       = user.blueprint.tabs;
 
-          if (user.image.exists) {
-            this.image = user.image.url + '?v=' + user.image.modified;
+          if (user.avatar.exists) {
+            this.avatar = user.avatar.url + '?v=' + user.avatar.modified;
           } else {
-            this.image = null;
+            this.avatar = null;
           }
 
           this.$store.dispatch('isLoading', false);
-
-        });
+          this.isLoading = false;
 
       }).catch(() => {
         this.$store.dispatch('error', 'The user could not be found');
+        this.isLoading = false;
       });
 
     },
@@ -207,7 +205,9 @@ export default {
     },
     saveName () {
 
-      if (this.name === this.user.content.name) {
+      return true;
+
+      if (this.name === this.user.name) {
         return true;
       }
 
