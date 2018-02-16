@@ -37,6 +37,12 @@ export default {
       body: JSON.stringify(data)
     }));
   },
+  patch (path, data, options) {
+    return this.request(path, Object.assign(options || {}, {
+      method: 'PATCH',
+      body: JSON.stringify(data)
+    }));
+  },
   delete (path) {
     return this.request(path, { method: 'DELETE' });
   }

@@ -83,9 +83,6 @@ export default {
 
     },
     append(type, props) {
-
-      console.log(props);
-
       this.$emit('append', type, props);
     },
     input() {

@@ -80,7 +80,7 @@ export default {
     });
   },
   update (id, data) {
-    return Api.post(this.url(id), data);
+    return Api.patch(this.url(id), data);
   },
   children (id, query) {
     return Api.post(this.url(id, 'children/search'), query);

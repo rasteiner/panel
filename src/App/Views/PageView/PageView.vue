@@ -40,7 +40,7 @@
 
     </kirby-header>
 
-    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="isLoading === false" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" />
+    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="isLoading === false" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" @submit="save" />
 
     <kirby-page-status-dialog ref="status" @success="fetch" />
     <kirby-page-url-dialog ref="url" />
