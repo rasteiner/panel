@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     type: {
@@ -16,27 +15,25 @@ export default {
     }
   },
   computed: {
-    icon () {
+    icon() {
       switch (this.type) {
-        case 'success':
-          return 'smile'
-        case 'error':
-          return 'alert'
+        case "success":
+          return "smile";
+        case "error":
+          return "alert";
       }
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-notification {
   position: fixed;
   top: 1.5rem;
   background: $color-dark;
   color: $color-white;
-  padding: .5rem 1rem .5rem 3rem;
+  padding: 0.5rem 1rem 0.5rem 3rem;
   border-radius: $border-radius;
   font-family: $font-family-mono;
   font-size: $font-size-small;
@@ -44,20 +41,20 @@ export default {
 
   [dir="ltr"] & {
     right: 1.5rem;
-    padding: .5rem 1rem .5rem 3rem;
+    padding: 0.5rem 1rem 0.5rem 3rem;
   }
   [dir="rtl"] & {
     left: 1.5rem;
-    padding: .5rem 3rem .5rem 1rem;
+    padding: 0.5rem 3rem 0.5rem 1rem;
   }
 }
 .kirby-notification .kirby-icon {
   position: absolute;
   top: 50%;
-  margin-top: -.525rem;
+  margin-top: -0.525rem;
 
   [dir="ltr"] & {
-   left: 1rem;
+    left: 1rem;
   }
   [dir="rtl"] & {
     right: 1rem;
@@ -69,6 +66,4 @@ export default {
 .kirby-notification[data-type="error"] .kirby-icon svg * {
   fill: $color-negative;
 }
-
 </style>
-

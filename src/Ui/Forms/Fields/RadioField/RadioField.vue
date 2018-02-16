@@ -8,28 +8,24 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
     name: {
-      default: 'radio'
+      default: "radio"
     },
     options: {
       type: Array,
       default: []
     }
   }
-}
-
+};
 </script>
 
 <style>
-
 .kirby-radio-field .kirby-input-content {
-  padding: .65rem;
+  padding: 0.65rem;
 }
-
 </style>

@@ -6,9 +6,7 @@
 
 
 <style lang="scss">
-
 .kirby-dropdown {
   position: relative;
 }
-
 </style>

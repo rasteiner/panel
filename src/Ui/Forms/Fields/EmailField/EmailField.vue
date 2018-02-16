@@ -8,28 +8,26 @@
 </template>
 
 <script>
-
-import TextField from 'Ui/Forms/Fields/TextField/TextField.vue';
+import TextField from "Ui/Forms/Fields/TextField/TextField.vue";
 
 export default {
   extends: TextField,
   props: {
     name: {
-      default: 'email'
+      default: "email"
     },
     type: {
-      default: 'email'
+      default: "email"
     },
     label: {
-      default: 'Email'
+      default: "Email"
     },
     icon: {
-      default: 'email'
+      default: "email"
     },
     placeholder: {
-      default: 'mail@example.com'
+      default: "mail@example.com"
     }
   }
-}
-
+};
 </script>

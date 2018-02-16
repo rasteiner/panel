@@ -8,25 +8,23 @@
 </template>
 
 <script>
-
-import TextField from 'Ui/Forms/Fields/TextField/TextField.vue';
+import TextField from "Ui/Forms/Fields/TextField/TextField.vue";
 
 export default {
   extends: TextField,
   props: {
     name: {
-      default: 'phone'
+      default: "phone"
     },
     type: {
-      default: 'tel'
+      default: "tel"
     },
     icon: {
-      default: 'phone'
+      default: "phone"
     },
     label: {
-      default: 'Phone'
+      default: "Phone"
     }
   }
-}
-
+};
 </script>

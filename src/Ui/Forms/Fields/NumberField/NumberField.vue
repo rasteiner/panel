@@ -13,20 +13,19 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
     name: {
-      default: 'number'
+      default: "number"
     },
     value: {
       type: Number
     },
     label: {
-      default: 'Number'
+      default: "Number"
     },
     placeholder: {
       type: String
@@ -43,6 +42,5 @@ export default {
       default: 1
     }
   }
-}
-
+};
 </script>

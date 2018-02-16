@@ -54,21 +54,20 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
     name: {
-      default: 'structure'
+      default: "structure"
     },
     value: {
       type: Array,
       default: []
     },
     label: {
-      default: 'Items'
+      default: "Items"
     },
     fields: {
       type: Array,
@@ -78,64 +77,59 @@ export default {
   data() {
     return {
       row: {},
-      form: {},
+      form: {}
     };
   },
   methods: {
     prev() {
-      let index = this.value.indexOf(this.row)
+      let index = this.value.indexOf(this.row);
       if (index > 0) {
-        this.edit(this.value[index - 1])
+        this.edit(this.value[index - 1]);
       } else {
-        this.edit(this.value[this.value.length - 1])
+        this.edit(this.value[this.value.length - 1]);
       }
     },
     next() {
-      let index = this.value.indexOf(this.row)
+      let index = this.value.indexOf(this.row);
       if (index < this.value.length - 1) {
-        this.edit(this.value[index + 1])
+        this.edit(this.value[index + 1]);
       } else {
-        this.edit(this.value[0])
+        this.edit(this.value[0]);
       }
     },
     add() {
-      this.row  = {}
+      this.row = {};
       this.form = {
-        headline: 'Add a new row',
-        button: 'Create',
+        headline: "Add a new row",
+        button: "Create",
         pagination: false
-      }
-      this.$refs.form.open()
+      };
+      this.$refs.form.open();
     },
     edit(row) {
-      this.row  = row
+      this.row = row;
       this.form = {
-        headline: 'Edit table row',
-        button: 'Save',
+        headline: "Edit table row",
+        button: "Save",
         pagination: true
-      }
-      this.$refs.form.open()
+      };
+      this.$refs.form.open();
     },
     remove(row) {
-      this.row = row
-      this.$refs.remove.open()
+      this.row = row;
+      this.$refs.remove.open();
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
-
 .kirby-table-field {
-
   .kirby-table-cell {
     vertical-align: top;
   }
 
   .kirby-table-header {
-
     .kirby-table-header-cell {
       color: $color-dark-grey;
       border-bottom: 2px solid $color-background;
@@ -149,9 +143,6 @@ export default {
         }
       }
     }
-
   }
-
 }
-
 </style>

@@ -8,28 +8,26 @@
 </template>
 
 <script>
-
-import TextField from 'Ui/Forms/Fields/TextField/TextField.vue';
+import TextField from "Ui/Forms/Fields/TextField/TextField.vue";
 
 export default {
   extends: TextField,
   props: {
     name: {
-      default: 'url'
+      default: "url"
     },
     type: {
-      default: 'url'
+      default: "url"
     },
     label: {
-      default: 'URL'
+      default: "URL"
     },
     icon: {
-      default: 'chain'
+      default: "chain"
     },
     placeholder: {
-      default: 'https://'
+      default: "https://"
     }
   }
-}
-
+};
 </script>

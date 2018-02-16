@@ -4,7 +4,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     alt: {
@@ -14,44 +13,44 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
-      svg: ''
+      svg: ""
     };
   },
-  created () {
+  created() {
     this.fetch();
   },
   watch: {
-    type () {
+    type() {
       this.fetch();
     }
   },
   methods: {
-    fetch () {
+    fetch() {
       // Get icon from window.icons, if cached
       if (this.cache()) {
         this.svg = this.cache();
         return;
       }
 
-      fetch(this.source).then((response) => {
+      fetch(this.source)
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          }
 
-        if(response.ok) {
-          return response.text();
-        }
-
-        throw new Error('Network response was not ok.');
-
-      }).then((result) => {
-        this.svg = result;
-        this.cache(result);
-      }).catch(() => {
-        console.log('The icon could not be loaded');
-      });
+          throw new Error("Network response was not ok.");
+        })
+        .then(result => {
+          this.svg = result;
+          this.cache(result);
+        })
+        .catch(() => {
+          console.log("The icon could not be loaded");
+        });
     },
-    cache (svg) {
-
+    cache(svg) {
       // initialize global cache
       if (window.icons === undefined) {
         window.icons = [];
@@ -59,7 +58,7 @@ export default {
 
       // add to cache
       if (svg) {
-        return window.icons[this.source] = svg;
+        return (window.icons[this.source] = svg);
       }
 
       // get from cache
@@ -70,12 +69,10 @@ export default {
       return false;
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-icon {
   position: relative;
   top: -1px;
@@ -85,5 +82,4 @@ export default {
 .kirby-icon svg * {
   fill: $color-dark;
 }
-
 </style>

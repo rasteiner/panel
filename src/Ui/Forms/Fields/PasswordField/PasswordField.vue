@@ -8,25 +8,23 @@
 </template>
 
 <script>
-
-import TextField from 'Ui/Forms/Fields/TextField/TextField.vue';
+import TextField from "Ui/Forms/Fields/TextField/TextField.vue";
 
 export default {
   extends: TextField,
   props: {
     name: {
-      default: 'password'
+      default: "password"
     },
     type: {
-      default: 'password'
+      default: "password"
     },
     label: {
-      default: 'Password'
+      default: "Password"
     },
     icon: {
-      default: 'key'
+      default: "key"
     }
   }
-}
-
+};
 </script>

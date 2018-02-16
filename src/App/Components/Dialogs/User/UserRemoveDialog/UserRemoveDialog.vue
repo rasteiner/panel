@@ -5,46 +5,46 @@
 </template>
 
 <script>
-
-import DialogMixin from 'App/Components/Dialogs/Dialogs.mixin.js';
+import DialogMixin from "App/Components/Dialogs/Dialogs.mixin.js";
 
 export default {
   mixins: [DialogMixin],
-  data () {
+  data() {
     return {
       user: {
         content: {}
       }
-    }
+    };
   },
   methods: {
     open(id) {
-      this.$api.user.get(id).then((user) => {
-        this.user = user;
-        this.$refs.dialog.open();
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-    },
-    submit () {
-
-      this.$api.user.delete(this.user.id).then(() => {
-
-        this.success({
-          message: 'The user has been deleted',
-          event: 'user.delete'
+      this.$api.user
+        .get(id)
+        .then(user => {
+          this.user = user;
+          this.$refs.dialog.open();
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
         });
+    },
+    submit() {
+      this.$api.user
+        .delete(this.user.id)
+        .then(() => {
+          this.success({
+            message: "The user has been deleted",
+            event: "user.delete"
+          });
 
-        if (this.$route.name === 'User') {
-          this.$router.push('/users');
-        }
-
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
+          if (this.$route.name === "User") {
+            this.$router.push("/users");
+          }
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     }
   }
-}
-
+};
 </script>

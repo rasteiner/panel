@@ -10,16 +10,14 @@
 </template>
 
 <script>
-
-import Select from 'Ui/Forms/Fields/SelectField/SelectField.vue'
-import FieldOptions from '../FieldOptions.mixin.js';
+import Select from "Ui/Forms/Fields/SelectField/SelectField.vue";
+import FieldOptions from "../FieldOptions.mixin.js";
 
 export default {
   extends: Select,
   mixins: [FieldOptions],
   components: {
-    'ui-select-field': Select
+    "ui-select-field": Select
   }
-}
-
+};
 </script>

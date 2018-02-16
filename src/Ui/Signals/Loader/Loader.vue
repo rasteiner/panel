@@ -14,24 +14,23 @@ export default {
       type: String
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-
 .kirby-loader div {
   width: 2rem;
   height: 2rem;
   border: 3px solid $color-dark;
   border-radius: 100%;
-  animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1s infinite ease-in-out;
 }
 
 .kirby-loader[data-position="center"] {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 .kirby-loader[data-theme="light"] div {
   border-color: $color-white;
@@ -40,10 +39,10 @@ export default {
 
 @-webkit-keyframes sk-scaleout {
   0% {
-    transform: scale(0)
+    transform: scale(0);
   }
   100% {
-    transform: scale(1.0);
+    transform: scale(1);
     opacity: 0;
   }
 }
@@ -51,10 +50,10 @@ export default {
 @keyframes sk-scaleout {
   0% {
     transform: scale(0);
-  } 100% {
-    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(1);
     opacity: 0;
   }
 }
-
 </style>

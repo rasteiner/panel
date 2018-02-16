@@ -20,34 +20,32 @@
 </template>
 
 <script>
-
 export default {
-  data () {
+  data() {
     return {
       site: {
         id: null,
-        title: null,
+        title: null
       },
       tabs: [],
       isLoading: true
-    }
+    };
   },
-  created () {
+  created() {
     this.fetch();
   },
   methods: {
     fetch() {
-      this.$api.site.get({view: 'panel'}).then((site) => {
+      this.$api.site.get({ view: "panel" }).then(site => {
         this.site = site;
         this.tabs = site.blueprint.tabs;
         this.isLoading = false;
-        this.$store.dispatch('isLoading', false);
+        this.$store.dispatch("isLoading", false);
       });
     },
-    preview () {
+    preview() {
       window.open(this.site.url);
     }
   }
-}
-
+};
 </script>

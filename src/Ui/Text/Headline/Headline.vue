@@ -18,7 +18,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     size: {
@@ -28,12 +27,10 @@ export default {
       type: Boolean
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-headline {
   font-size: $font-size-medium;
   font-weight: 500;
@@ -53,5 +50,4 @@ export default {
 .kirby-headline[data-margin] {
   margin-bottom: 1.5rem;
 }
-
 </style>

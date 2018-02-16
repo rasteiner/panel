@@ -30,12 +30,11 @@
 </template>
 
 <script>
-
 export default {
   props: {
     align: {
       type: String,
-      default: 'left'
+      default: "left"
     },
     details: {
       type: Boolean,
@@ -59,40 +58,38 @@ export default {
     },
     pageLabel: {
       type: String,
-      default: 'Page'
+      default: "Page"
     },
     prevLabel: {
       type: String,
-      default: 'Previous'
+      default: "Previous"
     },
     nextLabel: {
       type: String,
-      default: 'Next'
+      default: "Next"
     }
   },
   computed: {
-    show () {
+    show() {
       return this.pages > 1;
     },
     start() {
       return (this.currentPage - 1) * this.limit + 1;
     },
     end() {
-
-      let value = (this.start - 1) + this.limit;
+      let value = this.start - 1 + this.limit;
 
       if (value > this.total) {
         return this.total;
       } else {
         return value;
       }
-
     },
     detailsText() {
       if (this.limit === 1) {
-        return this.start + ' / ';
+        return this.start + " / ";
       } else {
-        return this.start + '-' + this.end + ' / ';
+        return this.start + "-" + this.end + " / ";
       }
     },
     pages() {
@@ -108,67 +105,63 @@ export default {
       return this.total > this.limit;
     },
     offset() {
-      return (this.start - 1);
+      return this.start - 1;
     }
   },
   data() {
     return {
       currentPage: this.page
-    }
+    };
   },
   methods: {
-    goTo (page) {
-
+    goTo(page) {
       if (page < 1) {
-        page = 1
+        page = 1;
       }
 
       if (page > this.pages) {
-        page = this.pages
+        page = this.pages;
       }
 
-      this.currentPage = page
+      this.currentPage = page;
 
-      this.$emit('paginate', {
+      this.$emit("paginate", {
         page: parseInt(this.currentPage),
         start: this.start,
         end: this.end,
         limit: this.limit,
         offset: this.offset
-      })
-
+      });
     },
-    prev () {
-      this.goTo(this.currentPage - 1)
+    prev() {
+      this.goTo(this.currentPage - 1);
     },
-    next () {
-      this.goTo(this.currentPage + 1)
+    next() {
+      this.goTo(this.currentPage + 1);
     },
-    navigate (e) {
+    navigate(e) {
       switch (e.code) {
-        case 'ArrowLeft':
-          this.prev()
-          break
-        case 'ArrowRight':
-          this.next()
-          break
+        case "ArrowLeft":
+          this.prev();
+          break;
+        case "ArrowRight":
+          this.next();
+          break;
       }
     }
   },
-  created () {
+  created() {
     if (this.keys === true) {
-      window.addEventListener('keydown', this.navigate, false)
+      window.addEventListener("keydown", this.navigate, false);
     }
   },
   destroyed() {
-    window.removeEventListener('keydown', this.navigate, false)
+    window.removeEventListener("keydown", this.navigate, false);
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-pagination {
   user-select: none;
 }
@@ -197,13 +190,13 @@ export default {
   font-family: $font-family-mono;
 }
 .kirby-pagination-selector > div > label {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 
   [dir="ltr"] & {
-    border-right: 1px solid rgba(#fff, .1);
+    border-right: 1px solid rgba(#fff, 0.1);
   }
   [dir="rtl"] & {
-    border-left: 1px solid rgba(#fff, .1);
+    border-left: 1px solid rgba(#fff, 0.1);
   }
 }
 .kirby-pagination-selector > div > input {
@@ -212,7 +205,7 @@ export default {
   border: 0;
   background: 0;
   color: inherit;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-top-right-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
 }
@@ -221,6 +214,4 @@ export default {
   background: $color-focus;
   color: $color-dark;
 }
-
 </style>
-

@@ -1,10 +1,10 @@
-import Vue from 'vue';
+import Vue from "vue";
 
-import './Buttons/Buttons.js';
-import './Dialogs/Dialogs.js';
-import './Forms/Forms.js';
-import './Images/Images.js';
-import './Navigation/Navigation.js';
-import './Panel/Panel.js';
-import './Sections/Sections.js';
-import './Tabs/Tabs.js';
+import "./Buttons/Buttons.js";
+import "./Dialogs/Dialogs.js";
+import "./Forms/Forms.js";
+import "./Images/Images.js";
+import "./Navigation/Navigation.js";
+import "./Panel/Panel.js";
+import "./Sections/Sections.js";
+import "./Tabs/Tabs.js";

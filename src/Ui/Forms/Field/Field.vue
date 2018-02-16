@@ -30,7 +30,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     error: Boolean,
@@ -44,39 +43,36 @@ export default {
     required: Boolean
   },
   inheritAttrs: false,
-  data () {
+  data() {
     return {
       isFocused: false
-    }
+    };
   },
-  created () {
-    window.addEventListener('click', this.checkFocus)
+  created() {
+    window.addEventListener("click", this.checkFocus);
   },
-  destroyed () {
-    window.removeEventListener('click', this.checkFocus)
+  destroyed() {
+    window.removeEventListener("click", this.checkFocus);
   },
   methods: {
-    focus () {
-      this.isFocused = true
-      this.$emit('focus')
+    focus() {
+      this.isFocused = true;
+      this.$emit("focus");
     },
-    blur () {
-      this.isFocused = false
-      this.$emit('blur')
+    blur() {
+      this.isFocused = false;
+      this.$emit("blur");
     },
-    checkFocus (e) {
-      if (this.isFocused &&
-          this.$el.contains(e.target) === false) {
-        this.blur()
+    checkFocus(e) {
+      if (this.isFocused && this.$el.contains(e.target) === false) {
+        this.blur();
       }
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-field-header label {
   display: block;
   font-weight: 500;
@@ -87,7 +83,7 @@ export default {
 .kirby-field-header label abbr {
   color: $color-focus;
   text-decoration: none;
-  padding: 0 .25rem;
+  padding: 0 0.25rem;
 }
 
 .kirby-field[data-readonly] {
@@ -105,11 +101,10 @@ export default {
 }
 
 .kirby-field-help {
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   font-size: $font-size-small;
   font-family: $font-family-mono;
   color: $color-dark-grey;
   line-height: 1.5;
 }
-
 </style>

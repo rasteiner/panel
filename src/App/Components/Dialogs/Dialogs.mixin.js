@@ -1,15 +1,14 @@
 export default {
   methods: {
-    open () {
+    open() {
       this.$refs.dialog.open();
-      this.$emit('open');
+      this.$emit("open");
     },
-    close () {
+    close() {
       this.$refs.dialog.close();
-      this.$emit('close');
+      this.$emit("close");
     },
-    success (payload) {
-
+    success(payload) {
       this.$refs.dialog.close();
 
       if (payload.route) {
@@ -17,15 +16,14 @@ export default {
       }
 
       if (payload.message) {
-        this.$store.dispatch('success', payload.message);
+        this.$store.dispatch("success", payload.message);
       }
 
       if (payload.event) {
         this.$events.$emit(payload.event);
       }
 
-      this.$emit('success');
-
+      this.$emit("success");
     }
   }
-}
+};

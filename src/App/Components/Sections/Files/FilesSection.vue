@@ -40,7 +40,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     parent: String,
@@ -53,82 +52,89 @@ export default {
       error: null,
       headline: null,
       isLoading: true,
-      layout: 'list',
-      pagination: {},
-    }
+      layout: "list",
+      pagination: {}
+    };
   },
-  created () {
+  created() {
     this.fetch();
   },
-  mounted () {
-    this.$events.$on('file.create', this.fetch);
-    this.$events.$on('file.delete', this.fetch);
+  mounted() {
+    this.$events.$on("file.create", this.fetch);
+    this.$events.$on("file.delete", this.fetch);
   },
-  destroyed () {
-    this.$events.$off('file.create', this.fetch);
-    this.$events.$off('file.delete', this.fetch);
+  destroyed() {
+    this.$events.$off("file.create", this.fetch);
+    this.$events.$off("file.delete", this.fetch);
   },
   methods: {
-    fetch () {
+    fetch() {
+      this.$api
+        .section(this.parent, this.name)
+        .then(response => {
+          this.data = response.data.map(file => {
+            file.options = ready => {
+              this.$api.file
+                .options(file.parent, file.filename)
+                .then(options => ready(options));
+            };
 
-      this.$api.section(this.parent, this.name).then((response) => {
-        this.data = response.data.map((file) => {
-          file.options = (ready) => {
-            this.$api.file.options(file.parent, file.filename).then((options) => ready(options));
-          };
+            return file;
+          });
 
-          return file;
+          this.headline = response.headline;
+          this.create = response.create;
+          this.pagination = response.pagination;
+          this.layout = response.layout || "list";
+          this.isLoading = false;
+        })
+        .catch(error => {
+          this.isLoading = false;
+          this.error = error.message;
         });
-
-        this.headline   = response.headline;
-        this.create     = response.create;
-        this.pagination = response.pagination;
-        this.layout     = response.layout || 'list';
-        this.isLoading  = false;
-      }).catch((error) => {
-        this.isLoading = false;
-        this.error     = error.message;
-      });
-
     },
-    action (file, action) {
+    action(file, action) {
       switch (action) {
-        case 'edit':
+        case "edit":
           this.$router.push(file.link);
           break;
-        case 'download':
+        case "download":
           window.open(file.url);
           break;
-        case 'replace':
+        case "replace":
           this.replace(file);
           break;
-        case 'remove':
+        case "remove":
           this.$refs.remove.open(file.parent, file.filename);
           break;
         default:
-          this.$store.dispatch('error', 'Not yet implemented');
+          this.$store.dispatch("error", "Not yet implemented");
       }
     },
-    upload () {
+    upload() {
       this.$refs.upload.open(this.create);
     },
-    replace (file) {
+    replace(file) {
       this.$refs.upload.open({
-        url: window.panel.config.api + '/pages/' + file.parent + '/files/' + file.filename,
+        url:
+          window.panel.config.api +
+          "/pages/" +
+          file.parent +
+          "/files/" +
+          file.filename,
         accept: file.mime,
         multiple: false
       });
     },
-    uploaded () {
+    uploaded() {
       this.fetch();
-      this.$events.$emit('file.create');
-      this.$store.dispatch('success', 'The files have been uploaded');
+      this.$events.$emit("file.create");
+      this.$store.dispatch("success", "The files have been uploaded");
     },
-    paginate (pagination) {
+    paginate(pagination) {
       this.pagination = Object.assign(this.pagination || {}, pagination);
       this.fetch();
     }
   }
 };
-
 </script>

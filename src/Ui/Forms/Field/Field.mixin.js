@@ -1,15 +1,14 @@
-
 export default {
   props: {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     value: {},
 
     // elements
     label: {
-      type: String,
+      type: String
     },
     icon: {
       type: [Boolean, String],
@@ -17,7 +16,7 @@ export default {
     },
     help: {
       type: String,
-      default: ''
+      default: ""
     },
 
     // states
@@ -34,20 +33,20 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       state: this.value
-    }
+    };
   },
   watch: {
-    value (state) {
-      this.state = state
+    value(state) {
+      this.state = state;
     }
   },
   methods: {
-    input (state) {
-      this.state = state
-      this.$emit('input', this.state)
+    input(state) {
+      this.state = state;
+      this.$emit("input", this.state);
     }
   }
-}
+};

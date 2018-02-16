@@ -7,24 +7,23 @@
 </template>
 
 <script>
-
-import Language from 'Api/Locale.js';
-import Select from 'App/Components/Forms/Fields/SelectField/SelectField.vue'
+import Language from "Api/Locale.js";
+import Select from "App/Components/Forms/Fields/SelectField/SelectField.vue";
 
 export default {
   extends: Select,
   props: {
     name: {
-      default: 'language'
+      default: "language"
     },
     label: {
-      default: 'Language'
+      default: "Language"
     },
     icon: {
-      default: 'globe'
+      default: "globe"
     }
   },
-  data () {
+  data() {
     return {
       state: this.value,
       languages: []
@@ -34,24 +33,20 @@ export default {
     this.fetch();
   },
   methods: {
-    fetch () {
-
+    fetch() {
       Locale.list().then(locales => {
-
-        this.options = locales.data.map(locale =>({
+        this.languages = locales.data.map(locale => ({
           value: locale.id,
           text: locale.name
-        }))
+        }));
 
         this.languages.unshift({
-          value: '',
-          text: 'Please select a language…',
+          value: "",
+          text: "Please select a language…",
           disabled: true
-         })
+        });
       });
-
     }
   }
-}
-
+};
 </script>

@@ -12,20 +12,19 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
     name: {
-      default: 'time'
+      default: "time"
     },
     label: {
-      default: 'Time'
+      default: "Time"
     },
     icon: {
-      default: 'clock'
+      default: "clock"
     },
     mode: {
       type: Number,
@@ -44,18 +43,15 @@ export default {
       default: false
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-time-field .kirby-input-content {
-  padding: 0 .65rem;
+  padding: 0 0.65rem;
 }
 
 .kirby-time-field .kirby-time-inputs {
   background: $color-white;
 }
-
 </style>

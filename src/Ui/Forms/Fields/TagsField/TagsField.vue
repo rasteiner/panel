@@ -48,9 +48,8 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
-import draggable from 'vuedraggable'
+import Field from "Ui/Forms/Field/Field.mixin.js";
+import draggable from "vuedraggable";
 
 export default {
   mixins: [Field],
@@ -59,17 +58,17 @@ export default {
   },
   props: {
     name: {
-      default: 'tags'
+      default: "tags"
     },
     label: {
-      default: 'Tags'
+      default: "Tags"
     },
     icon: {
-      default: 'tag'
+      default: "tag"
     },
     separator: {
       type: String,
-      default: ','
+      default: ","
     },
     autocomplete: {
       type: [Boolean, Object],
@@ -80,186 +79,176 @@ export default {
       default: true
     }
   },
-  data () {
+  data() {
+    var tags = this.value || [];
 
-    var tags = this.value || []
-
-    if(typeof tags === 'string') {
-      var tags = tags.split(this.separator).map(tag => tag.trim())
+    if (typeof tags === "string") {
+      var tags = tags.split(this.separator).map(tag => tag.trim());
     }
 
     return {
       state: tags,
       selected: null
-    }
-
+    };
   },
   computed: {
-    isDisabled () {
-      return this.sortable === false || this.state.length === 0
+    isDisabled() {
+      return this.sortable === false || this.state.length === 0;
     }
   },
   methods: {
-    focus () {
-      this.$refs.input.focus()
+    focus() {
+      this.$refs.input.focus();
     },
-    select (tag) {
-      this.selected = tag
+    select(tag) {
+      this.selected = tag;
     },
-    index (tag) {
-      return this.state.indexOf(tag)
+    index(tag) {
+      return this.state.indexOf(tag);
     },
-    add (tag) {
+    add(tag) {
+      var tag = tag.trim();
 
-      var tag = tag.trim()
-
-      if(tag.length === 0) {
+      if (tag.length === 0) {
         return;
       }
 
-      if(this.index(tag) === -1) {
-        this.state.push(tag)
+      if (this.index(tag) === -1) {
+        this.state.push(tag);
       }
 
-      if(this.autocomplete) {
-        this.$refs.input.close()
-        this.$refs.input.clear()
+      if (this.autocomplete) {
+        this.$refs.input.close();
+        this.$refs.input.clear();
       } else {
-        this.$refs.input.value = ''
+        this.$refs.input.value = "";
       }
     },
-    edit (tag) {
-      this.$refs.input.value = tag
-      this.$refs.input.select()
-      this.remove(tag)
+    edit(tag) {
+      this.$refs.input.value = tag;
+      this.$refs.input.select();
+      this.remove(tag);
     },
-    remove (tag) {
-      var prev = this.get('prev')
-      var next = this.get('next')
+    remove(tag) {
+      var prev = this.get("prev");
+      var next = this.get("next");
 
-      this.state.splice(this.index(tag), 1)
+      this.state.splice(this.index(tag), 1);
 
-      if(prev) {
-        prev.ref.focus()
-      } else if(next) {
+      if (prev) {
+        prev.ref.focus();
+      } else if (next) {
         this.$nextTick(() => {
-          var nextIndex  = this.state.indexOf(next.tag)
-          var nextResult = this.get(nextIndex)
-          this.selected = nextResult.tag
-          nextResult.ref.focus()
+          var nextIndex = this.state.indexOf(next.tag);
+          var nextResult = this.get(nextIndex);
+          this.selected = nextResult.tag;
+          nextResult.ref.focus();
         });
       } else {
-        this.$refs.input.focus()
+        this.$refs.input.focus();
       }
     },
-    get (method) {
-
-      switch(method) {
-        case 'prev':
-        case 'next':
-          if(!this.selected) return
-          var currIndex = this.index(this.selected)
-          var nextIndex = method === 'prev' ? (currIndex - 1) : (currIndex + 1)
+    get(method) {
+      switch (method) {
+        case "prev":
+        case "next":
+          if (!this.selected) return;
+          var currIndex = this.index(this.selected);
+          var nextIndex = method === "prev" ? currIndex - 1 : currIndex + 1;
           break;
-        case 'first':
+        case "first":
           var nextIndex = 0;
-        case 'last':
-          var nextIndex = (this.state.length - 1)
+        case "last":
+          var nextIndex = this.state.length - 1;
           break;
         default:
-          var nextIndex = method
+          var nextIndex = method;
       }
 
-      var nextTag = this.state[nextIndex]
-      var nextRef = this.$refs[nextTag]
+      var nextTag = this.state[nextIndex];
+      var nextRef = this.$refs[nextTag];
 
-      if(nextRef && nextRef[0]) {
+      if (nextRef && nextRef[0]) {
         return {
           ref: nextRef[0],
           tag: nextTag,
           index: nextIndex
-        }
+        };
       } else {
-        return false
+        return false;
       }
-
     },
-    navigate (method) {
+    navigate(method) {
+      var result = this.get(method);
 
-      var result = this.get(method)
-
-      if(result) {
-        result.ref.focus()
-        this.selected = result.tag
-      } else if(method === 'next') {
-        this.$refs.input.focus()
-        this.selected = null
+      if (result) {
+        result.ref.focus();
+        this.selected = result.tag;
+      } else if (method === "next") {
+        this.$refs.input.focus();
+        this.selected = null;
       }
-
     },
-    leaveInput (e) {
-
-      if(e.target.selectionStart === 0 &&
-         e.target.selectionStart === e.target.selectionEnd) {
-        this.navigate('last')
-        e.target.blur()
+    leaveInput(e) {
+      if (
+        e.target.selectionStart === 0 &&
+        e.target.selectionStart === e.target.selectionEnd
+      ) {
+        this.navigate("last");
+        e.target.blur();
       }
-
     }
   }
-}
-
+};
 </script>
 
 
 <style lang="scss">
+.kirby-tags-field .kirby-input-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  cursor: text;
 
-  .kirby-tags-field .kirby-input-content {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    cursor: text;
-
-    [dir="ltr"] & {
-      padding: 4px 0 0 4px;
-    }
-    [dir="rtl"] & {
-      padding: 4px 4px 0 0;
-    }
+  [dir="ltr"] & {
+    padding: 4px 0 0 4px;
   }
-  .kirby-tags-field .kirby-tag {
-    margin-bottom: 4px;
-
-    [dir="ltr"] & {
-      margin-right: 4px;
-    }
-    [dir="rtl"] & {
-      margin-left: 4px;
-    }
+  [dir="rtl"] & {
+    padding: 4px 4px 0 0;
   }
-  .kirby-tags-field .kirby-tag.sortable-ghost {
-    opacity: .2;
-  }
-  .kirby-tags-input-element input {
-    display: inline-block;
-    min-width: 4rem;
-    padding: .4rem;
-    flex-grow: 1;
-    font: inherit;
-    border: 0;
-    outline: 0;
-    line-height: 1;
-    outline: 0;
-    margin-bottom: 4px;
-    border-radius: 3px;
-    background: transparent;
+}
+.kirby-tags-field .kirby-tag {
+  margin-bottom: 4px;
 
-    [dir="ltr"] & {
-      margin-right: 4px;
-    }
-    [dir="rtl"] & {
-      margin-left: 4px;
-    }
+  [dir="ltr"] & {
+    margin-right: 4px;
   }
+  [dir="rtl"] & {
+    margin-left: 4px;
+  }
+}
+.kirby-tags-field .kirby-tag.sortable-ghost {
+  opacity: 0.2;
+}
+.kirby-tags-input-element input {
+  display: inline-block;
+  min-width: 4rem;
+  padding: 0.4rem;
+  flex-grow: 1;
+  font: inherit;
+  border: 0;
+  outline: 0;
+  line-height: 1;
+  outline: 0;
+  margin-bottom: 4px;
+  border-radius: 3px;
+  background: transparent;
 
+  [dir="ltr"] & {
+    margin-right: 4px;
+  }
+  [dir="rtl"] & {
+    margin-left: 4px;
+  }
+}
 </style>
