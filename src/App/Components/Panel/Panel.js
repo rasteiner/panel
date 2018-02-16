@@ -1,4 +1,4 @@
-import Vue from 'vue'
-import Panel from './Panel.vue';
+import Vue from "vue";
+import Panel from "./Panel.vue";
 
-Vue.component('kirby-panel', Panel);
+Vue.component("kirby-panel", Panel);

@@ -14,28 +14,25 @@ export default {
     max: Number
   },
   computed: {
-    count () {
-      return this.value ? this.value.length : 0
+    count() {
+      return this.value ? this.value.length : 0;
     },
-    valid () {
-
+    valid() {
       if (this.min && this.count < this.min) {
-        return false
+        return false;
       }
 
       if (this.max && this.count > this.max) {
-        return false
+        return false;
       }
 
-      return true
-
+      return true;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-
 .kirby-counter {
   font-size: $font-size-small;
   font-family: $font-family-mono;
@@ -44,5 +41,4 @@ export default {
 .kirby-counter[data-invalid] > span {
   color: $color-negative;
 }
-
 </style>

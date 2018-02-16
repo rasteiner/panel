@@ -5,26 +5,25 @@
 </template>
 
 <script>
-
-import DialogMixin from 'App/Components/Dialogs/Dialogs.mixin.js';
+import DialogMixin from "App/Components/Dialogs/Dialogs.mixin.js";
 
 export default {
   mixins: [DialogMixin],
-  data () {
+  data() {
     return {
       user: {
         id: null,
-        role: 'visitor'
+        role: "visitor"
       }
-    }
+    };
   },
   computed: {
-    fields () {
+    fields() {
       return [
         {
-          name: 'role',
-          label: 'Select a new role',
-          type: 'radio',
+          name: "role",
+          label: "Select a new role",
+          type: "radio",
           required: true,
           options: this.$api.user.roles()
         }
@@ -32,26 +31,31 @@ export default {
     }
   },
   methods: {
-    open (id) {
+    open(id) {
       this.id = id;
-      this.$api.user.get(id).then((user) => {
-        this.user = user;
-        this.$refs.dialog.open();
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-    },
-    submit () {
-      this.$api.user.changeRole(this.user.id, this.user.role).then(() => {
-        this.success({
-          message: 'The has been changed to: ' + this.user.role,
-          event: 'user.change.role'
+      this.$api.user
+        .get(id)
+        .then(user => {
+          this.user = user;
+          this.$refs.dialog.open();
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
         });
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
+    },
+    submit() {
+      this.$api.user
+        .changeRole(this.user.id, this.user.role)
+        .then(() => {
+          this.success({
+            message: "The has been changed to: " + this.user.role,
+            event: "user.change.role"
+          });
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     }
   }
-}
-
+};
 </script>

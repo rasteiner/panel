@@ -36,8 +36,7 @@
 </template>
 
 <script>
-
-import Input from 'Ui/Forms/Input/Input.mixin.js';
+import Input from "Ui/Forms/Input/Input.mixin.js";
 
 export default {
   mixins: [Input],
@@ -51,25 +50,22 @@ export default {
     }
   },
   computed: {
-    hasOptions () {
+    hasOptions() {
       return this.options && this.options.length > 0;
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 $color-radio-border: #8b8e94;
 $color-radio-focus: #567896;
-$radio-focus-outline: 0 0 0 3px rgba(108,166,217,0.25);
+$radio-focus-outline: 0 0 0 3px rgba(108, 166, 217, 0.25);
 
 $radio-width: 16px;
 $radio-height: 16px;
 $radio-offset-y: 6px;
 $radio-label-gap: 8px;
-
 
 .kirby-radio-inputs > * + * {
   margin-top: 4px;
@@ -133,9 +129,7 @@ $radio-label-gap: 8px;
   border-radius: 50%;
   cursor: pointer;
 
-  transition:
-    background-color .2s,
-    border-color .2s;
+  transition: background-color 0.2s, border-color 0.2s;
 
   [dir="ltr"] & {
     left: 0;
@@ -147,7 +141,7 @@ $radio-label-gap: 8px;
 
 /* radio button dot */
 .kirby-radio-input input + label::after {
-  content: '';
+  content: "";
   position: absolute;
   top: $radio-offset-y + 5px;
   height: 6px;
@@ -155,8 +149,7 @@ $radio-label-gap: 8px;
   background-color: $color-white;
   border-radius: 50%;
   transform: scale(0);
-  transition:
-    transform .2s;
+  transition: transform 0.2s;
 
   [dir="ltr"] & {
     left: 5px;
@@ -165,7 +158,6 @@ $radio-label-gap: 8px;
     right: 5px;
   }
 }
-
 
 /* focus + active */
 .kirby-radio-input input:focus + label::before,
@@ -195,7 +187,6 @@ $radio-label-gap: 8px;
   border-color: $color-radio-focus;
 }
 
-
 // /* checked */
 // .kirby-radio-input input:checked + label::before {
 //   background-color: $color-dark;
@@ -222,9 +213,8 @@ $radio-label-gap: 8px;
 // }
 
 .kirby-radio-input-info {
-  font-size: .8em;
+  font-size: 0.8em;
   line-height: 1.2;
   color: $color-light-grey;
 }
-
 </style>

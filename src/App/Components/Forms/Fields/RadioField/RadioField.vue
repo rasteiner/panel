@@ -15,16 +15,14 @@
 </template>
 
 <script>
-
-import RadioField from 'Ui/Forms/Fields/RadioField/RadioField.vue'
-import FieldOptions from '../FieldOptions.mixin.js';
+import RadioField from "Ui/Forms/Fields/RadioField/RadioField.vue";
+import FieldOptions from "../FieldOptions.mixin.js";
 
 export default {
   extends: RadioField,
   mixins: [FieldOptions],
   components: {
-    'ui-radio-field': RadioField
+    "ui-radio-field": RadioField
   }
-}
-
+};
 </script>

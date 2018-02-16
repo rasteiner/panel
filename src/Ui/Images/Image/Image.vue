@@ -19,16 +19,9 @@
 </template>
 
 <script>
-
 export default {
-  props: [
-    'src',
-    'alt',
-    'ratio',
-    'back',
-    'cover'
-  ],
-  data () {
+  props: ["src", "alt", "ratio", "back", "cover"],
+  data() {
     return {
       loaded: {
         type: Boolean,
@@ -38,27 +31,25 @@ export default {
         type: Boolean,
         default: false
       }
-    }
+    };
   },
-  created () {
-    let img = new Image()
+  created() {
+    let img = new Image();
 
     img.onload = () => {
-      this.loaded = true
+      this.loaded = true;
     };
 
-    img.onerror = (message) => {
-      this.error  = true
+    img.onerror = message => {
+      this.error = true;
     };
 
-    img.src = this.src
+    img.src = this.src;
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-image span {
   position: relative;
   display: block;
@@ -82,19 +73,19 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   color: $color-white;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 .kirby-image-error svg * {
-  fill: rgba($color-white, .3);
+  fill: rgba($color-white, 0.3);
 }
 
 .kirby-image-transition-enter-active,
 .kirby-image-transition-leave-active {
-  transition: opacity .2s
+  transition: opacity 0.2s;
 }
 .kirby-image-transition-enter,
 .kirby-image-transition-leave-to {
-  opacity: 0
+  opacity: 0;
 }
 
 .kirby-image[data-ratio="1/1"] span {
@@ -120,5 +111,4 @@ export default {
 .kirby-image[data-back="pattern"] span {
   background: url(/images/pattern.png);
 }
-
 </style>

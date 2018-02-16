@@ -9,8 +9,7 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
@@ -20,20 +19,17 @@ export default {
       default: false
     },
     name: {
-      default: 'check'
+      default: "check"
     },
     text: {
       type: String
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-checkbox-field .kirby-input-content {
-  padding: .45rem .65rem;
+  padding: 0.45rem 0.65rem;
 }
-
 </style>

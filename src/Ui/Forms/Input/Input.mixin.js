@@ -1,4 +1,3 @@
-
 export default {
   props: {
     value: {},
@@ -6,15 +5,15 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       state: this.value
-    }
+    };
   },
   methods: {
-    input (state) {
-      this.state = state
-      this.$emit('input', this.state)
+    input(state) {
+      this.state = state;
+      this.$emit("input", this.state);
     }
   }
-}
+};

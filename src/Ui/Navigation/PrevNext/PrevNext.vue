@@ -16,12 +16,11 @@
 </template>
 
 <script>
-
 export default {
   props: {
     align: {
       type: String,
-      default: 'left'
+      default: "left"
     },
     keys: {
       type: Boolean,
@@ -33,7 +32,7 @@ export default {
     },
     prevLabel: {
       type: String,
-      default: 'Previous'
+      default: "Previous"
     },
     next: {
       type: Boolean,
@@ -41,35 +40,33 @@ export default {
     },
     nextLabel: {
       type: String,
-      default: 'Next'
+      default: "Next"
     }
   },
   methods: {
-    navigate (e) {
+    navigate(e) {
       switch (e.code) {
-        case 'ArrowLeft':
-          this.prev()
-          break
-        case 'ArrowRight':
-          this.next()
-          break
+        case "ArrowLeft":
+          this.prev();
+          break;
+        case "ArrowRight":
+          this.next();
+          break;
       }
     }
   },
-  created () {
+  created() {
     if (this.keys === true) {
-      window.addEventListener('keydown', this.navigate, false)
+      window.addEventListener("keydown", this.navigate, false);
     }
   },
-  destroyed () {
-    window.removeEventListener('keydown', this.navigate, false)
+  destroyed() {
+    window.removeEventListener("keydown", this.navigate, false);
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-prev-next {
   user-select: none;
 }
@@ -87,5 +84,4 @@ export default {
     text-align: left;
   }
 }
-
 </style>

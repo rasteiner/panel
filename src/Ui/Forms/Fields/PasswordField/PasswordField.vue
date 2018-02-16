@@ -8,8 +8,7 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
@@ -18,18 +17,17 @@ export default {
       type: String
     },
     label: {
-      default: 'Password'
+      default: "Password"
     },
     icon: {
-      default: 'key'
+      default: "key"
     },
     name: {
-      default: 'password'
+      default: "password"
     },
     type: {
-      default: 'password'
+      default: "password"
     }
   }
-}
-
+};
 </script>

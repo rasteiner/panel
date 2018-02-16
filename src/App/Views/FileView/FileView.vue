@@ -105,18 +105,17 @@
 </template>
 
 <script>
-
-import slug from 'App/Helpers/slug.js';
+import slug from "App/Helpers/slug.js";
 
 export default {
-  props: ['path', 'filename'],
-  data () {
+  props: ["path", "filename"],
+  data() {
     return {
-      name: '',
+      name: "",
       preview: {},
       file: {
-        filename: '',
-        url: '',
+        filename: "",
+        url: "",
         prev: null,
         next: null,
         mime: null,
@@ -124,87 +123,91 @@ export default {
       },
       blueprint: {},
       breadcrumb: []
-    }
+    };
   },
-  created () {
+  created() {
     this.fetch();
-    this.$events.$on('key.save', this.save);
+    this.$events.$on("key.save", this.save);
   },
-  destroyed: function () {
-    this.$events.$off('key.save', this.save);
+  destroyed: function() {
+    this.$events.$off("key.save", this.save);
   },
   watch: {
-    $route () {
+    $route() {
       this.fetch();
     }
   },
   computed: {
-    uploadApi () {
-      return window.panel.config.api + '/pages/' + this.path + '/files/' + this.filename;
+    uploadApi() {
+      return (
+        window.panel.config.api +
+        "/pages/" +
+        this.path +
+        "/files/" +
+        this.filename
+      );
     },
     pagination() {
       return {
         prev: this.file.prev ? true : false,
-        prevLabel: 'Previous File',
+        prevLabel: "Previous File",
         next: this.file.next ? true : false,
-        nextLabel: 'Next File',
+        nextLabel: "Next File"
       };
     },
-    fields () {
+    fields() {
       return this.blueprint.fields || [];
     }
   },
   methods: {
     fetch() {
+      this.$api.file
+        .get(this.path, this.filename)
+        .then(file => {
+          this.file = file;
+          this.file.url = file.url + "?v=" + file.modified;
+          this.name = file.name;
+          this.preview = this.$api.file.preview(file);
 
-      this.$api.file.get(this.path, this.filename).then((file) => {
+          this.$api.file.breadcrumb(file).then(breadcrumb => {
+            this.breadcrumb = breadcrumb;
+          });
 
-        this.file     = file;
-        this.file.url = file.url + '?v=' + file.modified;
-        this.name     = file.name;
-        this.preview  = this.$api.file.preview(file);
+          this.$api.file.blueprint(this.path, this.filename).then(blueprint => {
+            this.blueprint = blueprint;
+          });
 
-        this.$api.file.breadcrumb(file).then((breadcrumb) => {
-          this.breadcrumb = breadcrumb;
+          this.$store.dispatch("isLoading", false);
+        })
+        .catch(() => {
+          this.$store.dispatch("error", "The file could not be found");
+          this.$router.push("../");
         });
-
-        this.$api.file.blueprint(this.path, this.filename).then((blueprint) => {
-          this.blueprint = blueprint;
-        });
-
-        this.$store.dispatch('isLoading', false);
-
-      }).catch(() => {
-        this.$store.dispatch('error', 'The file could not be found');
-        this.$router.push('../');
-      });
-
     },
-    action (action) {
+    action(action) {
       switch (action) {
-        case 'download':
+        case "download":
           window.open(this.file.url);
           break;
-        case 'remove':
+        case "remove":
           this.$refs.remove.open(this.file.parent, this.file.filename);
           break;
         default:
-          this.$store.dispatch('error', 'Not yet implemented');
+          this.$store.dispatch("error", "Not yet implemented");
           break;
       }
     },
-    prev () {
-      this.$router.push('/pages/' + this.path + '/files/' + this.file.prev);
+    prev() {
+      this.$router.push("/pages/" + this.path + "/files/" + this.file.prev);
     },
-    next () {
-      this.$router.push('/pages/' + this.path + '/files/' + this.file.next);
+    next() {
+      this.$router.push("/pages/" + this.path + "/files/" + this.file.next);
     },
-    updateFilename (name) {
-
+    updateFilename(name) {
       name = slug(name);
 
       if (name.length === 0) {
-        this.$store.dispatch('alert', 'Please enter a filename');
+        this.$store.dispatch("alert", "Please enter a filename");
         return;
       }
 
@@ -212,37 +215,37 @@ export default {
         return true;
       }
 
-      this.$api.file.rename(this.path, this.file.filename, name).then((file) => {
-        this.$router.push('/pages/' + this.path + '/files/' + file.filename);
-        this.$store.dispatch('success', 'The file has been renamed');
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
+      this.$api.file
+        .rename(this.path, this.file.filename, name)
+        .then(file => {
+          this.$router.push("/pages/" + this.path + "/files/" + file.filename);
+          this.$store.dispatch("success", "The file has been renamed");
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     },
-    uploaded () {
+    uploaded() {
       this.fetch();
-      this.$store.dispatch('success', 'The file has been replaced');
+      this.$store.dispatch("success", "The file has been replaced");
     },
-    save () {
-
-      this.$api.file.update(this.path, this.file.filename, this.file.content).then((file) => {
-        this.file.content = file.content;
-        this.$store.dispatch('success', 'Saved!');
-        this.$events.$emit('file.update');
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
+    save() {
+      this.$api.file
+        .update(this.path, this.file.filename, this.file.content)
+        .then(file => {
+          this.file.content = file.content;
+          this.$store.dispatch("success", "Saved!");
+          this.$events.$emit("file.update");
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
-
 .kirby-file-view-title {
   display: flex;
 }
@@ -253,9 +256,9 @@ export default {
 .kirby-file-view-title > span:first-child:focus {
   @include focus-ring;
   background: #fff;
-  padding: 0 .5rem;
-  margin-left: -.5rem;
-  margin-right: -.5rem;
+  padding: 0 0.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
 }
 
 .kirby-file-view .kirby-image {
@@ -277,7 +280,7 @@ export default {
   transform: translate(-50%, -50%) scale(4);
 }
 .kirby-file-view-preview svg * {
-  fill: rgba($color-white, .5);
+  fill: rgba($color-white, 0.5);
 }
 
 .kirby-file-view-section {
@@ -286,7 +289,7 @@ export default {
 
 .kirby-file-view dl {
   line-height: 1.5em;
-  margin-top: -.4rem;
+  margin-top: -0.4rem;
 }
 .kirby-file-view dt {
   font-family: $font-family-mono;
@@ -300,7 +303,7 @@ export default {
   font-size: $font-size-small;
 }
 .kirby-file-view dd:not(:last-child) {
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
 }
 .kirby-file-view dd a {
   display: block;
@@ -308,7 +311,4 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-
-
 </style>

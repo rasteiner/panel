@@ -42,81 +42,77 @@
 </template>
 
 <script>
-
 export default {
   props: {
     parent: String,
     name: String
   },
-  data () {
+  data() {
     return {
       create: null,
       data: [],
       error: null,
       headline: null,
       isLoading: true,
-      layout: 'list',
+      layout: "list",
       pagination: {},
       link: false
-    }
+    };
   },
-  created () {
+  created() {
     this.fetch();
   },
   methods: {
-    fetch () {
+    fetch() {
+      this.$api
+        .section(this.parent, this.name)
+        .then(response => {
+          this.data = response.data.map(page => {
+            page.options = ready => {
+              this.$api.page.options(page.id).then(options => ready(options));
+            };
 
-      this.$api.section(this.parent, this.name).then((response) => {
+            return page;
+          });
 
-        this.data = response.data.map((page) => {
-          page.options = (ready) => {
-            this.$api.page.options(page.id).then((options) => ready(options));
-          };
-
-          return page;
+          this.create = response.create;
+          this.pagination = response.pagination;
+          this.headline = response.headline;
+          this.layout = response.layout || "list";
+          this.link = response.link;
+          this.isLoading = false;
+        })
+        .catch(error => {
+          this.isLoading = false;
+          this.error = error.message;
         });
-
-        this.create     = response.create;
-        this.pagination = response.pagination;
-        this.headline   = response.headline;
-        this.layout     = response.layout || 'list';
-        this.link       = response.link;
-        this.isLoading  = false;
-    }).catch((error) => {
-        this.isLoading = false;
-        this.error     = error.message;
-      });
-
     },
-    update (event) {
-
-    },
-    action (page, action) {
+    update(event) {},
+    action(page, action) {
       switch (action) {
-        case 'preview':
+        case "preview":
           window.open(page.url);
           break;
-        case 'create':
+        case "create":
           this.$refs.create.open(this.add);
           break;
-        case 'url':
+        case "url":
           this.$refs.url.open(page.id);
           break;
-        case 'status':
+        case "status":
           this.$refs.status.open(page.id);
           break;
-        case 'remove':
+        case "remove":
           this.$refs.remove.open(page.id);
           break;
         default:
-          this.$store.dispatch('error', 'Not yet implemented');
+          this.$store.dispatch("error", "Not yet implemented");
       }
     },
-    paginate (pagination) {
+    paginate(pagination) {
       this.pagination = Object.assign(this.pagination || {}, pagination);
       this.fetch();
     }
   }
 };
-
 </script>

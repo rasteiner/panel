@@ -12,23 +12,19 @@
 </template>
 
 <script>
-
 export default {
-  data () {
+  data() {
     return {
       active: false,
-      translations: ['en', 'de']
-    }
+      translations: ["en", "de"]
+    };
   }
-}
-
+};
 </script>
 
 <style>
-
 .kirby-translations .kirby-button {
   white-space: nowrap;
   text-transform: uppercase;
 }
-
 </style>

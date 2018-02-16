@@ -5,23 +5,20 @@
 </template>
 
 <script>
-
 export default {
   props: {
     state: {
       type: String
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-box {
-  background: rgba(0,0,0, .075);
+  background: rgba(0, 0, 0, 0.075);
   border-radius: $border-radius;
-  padding: .65rem 1rem;
+  padding: 0.65rem 1rem;
   line-height: 1.5;
 }
 
@@ -48,5 +45,4 @@ export default {
 .kirby-box > strong {
   font-weight: 500;
 }
-
 </style>
