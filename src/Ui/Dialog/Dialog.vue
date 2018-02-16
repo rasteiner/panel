@@ -3,7 +3,7 @@
     <div v-show="isOpen" @click="close" class="kirby-dialog">
       <div @click.stop class="kirby-dialog-box" :data-size="size">
         <div class="kirby-dialog-body">
-          <slot />
+          <slot></slot>
         </div>
         <slot name="footer">
           <footer class="kirby-dialog-footer">
@@ -24,7 +24,6 @@ export default {
   props: {
     headline: {},
     size: {},
-    sticky: {},
     state: {},
     button: {
       default: 'Ok'
@@ -35,7 +34,7 @@ export default {
   },
   data () {
     return {
-      isOpen: this.sticky === true
+      isOpen: false
     }
   },
   methods: {
@@ -50,9 +49,7 @@ export default {
       })
     },
     close () {
-      if (this.sticky !== true) {
-        this.isOpen = false
-      }
+      this.isOpen = false
     },
     cancel () {
       this.$emit('cancel')

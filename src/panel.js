@@ -39,8 +39,8 @@ Vue.use(Events);
 /** i18n */
 import i18n from 'vuex-i18n';
 Vue.use(i18n.plugin, store);
-Vue.i18n.fallback(store.state.language.locale);
-store.dispatch('language', store.state.language.locale);
+Vue.i18n.fallback(store.state.locale.id);
+store.dispatch('locale', store.state.locale.id);
 
 /** Date formating */
 import { DateTime } from 'luxon';
@@ -48,7 +48,7 @@ import { DateTime } from 'luxon';
 Vue.filter('date', function(value, output) {
   let dt = Array.isArray(value) ? DateTime.fromString(value[0], value[1]) : DateTime.fromString(value);
   return dt.
-          setLocale(store.state.language.locale).
+          setLocale(store.state.locale.id).
           toLocaleString(typeof output === 'string' ? DateTime[output] : output)
 });
 

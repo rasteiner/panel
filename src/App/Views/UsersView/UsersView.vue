@@ -83,21 +83,21 @@ export default {
 
       this.$api.user.list(query).then((response) => {
         this.total = response.pagination.total;
-        this.users = response.items.map((user) => {
+        this.users = response.data.map((user) => {
 
           let item = {
             id: user.id,
             preview: { icon: 'user' },
-            text: user.content.name ? user.content.name : user.content.email,
+            text: user.name,
             role: user.role,
             link: '/users/' + user.id,
             options: window.panel.config.api + '/users/' + user.id + '/options',
             image: null
           };
 
-          if (user.image.exists === true) {
+          if (user.avatar.exists === true) {
             item.image = {
-              url: user.image.url + '?v=' + user.image.modified
+              url: user.avatar.url + '?v=' + user.avatar.modified
             };
           }
 

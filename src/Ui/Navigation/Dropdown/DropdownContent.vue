@@ -39,22 +39,22 @@ export default {
     document.removeEventListener('click', this.close, false)
   },
   methods: {
-    fetchOptions (callback) {
+    fetchOptions (ready) {
       if (this.options) {
         if (typeof this.options === 'string') {
           fetch(this.options).
             then((response) => response.json()).
             then((json) => {
-              this.items = json
-              return callback()
+              return ready(json)
             })
-
+        } else if (typeof this.options === 'function') {
+          this.options(ready);
         } else if (typeof this.options === 'object') {
-          this.items = this.options
+          ready(this.options);
         }
-        return callback()
+
       } else {
-        return callback()
+        return ready(this.items)
       }
     },
     open () {
@@ -63,8 +63,9 @@ export default {
         OpenDropdown.close()
       }
 
-      this.fetchOptions(() => {
+      this.fetchOptions((items) => {
         this.isOpen = true
+        this.items  = items;
         this.$emit('open')
         OpenDropdown = this
       })

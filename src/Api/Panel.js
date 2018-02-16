@@ -2,7 +2,7 @@ import Api from './Api.js';
 
 export default {
     system () {
-        return Api.get('panel/system');
+        return Api.get('system');
     },
     options (type, data) {
         const params = Object.keys(data).

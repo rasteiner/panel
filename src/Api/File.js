@@ -1,8 +1,9 @@
 import Api from './Api.js';
+import Page from './Page.js';
 
 export default {
   get (page, filename) {
-    return Api.get('pages/' + page + '/files/' + filename).then((file) => {
+    return Api.get(this.url(page, filename)).then((file) => {
 
       if (Array.isArray(file.content) === true) {
         file.content = {};
@@ -12,19 +13,65 @@ export default {
 
     });
   },
-  blueprint (page, filename) {
-    return Api.get('pages/' + page + '/files/' + filename + '/blueprint');
-  },
   update (page, filename, data) {
-    return Api.post('pages/' + page + '/files/' + filename, data);
+    return Api.post(this.url(page, filename), data);
   },
   rename (page, filename, to) {
-    return Api.post('pages/' + page + '/files/' + filename + '/rename', {
+    return Api.post(this.url(page, filename, 'rename'), {
         name: to
     });
   },
+  url (page, filename, path) {
+    let url = Page.url(page, 'files/' + filename);
+
+    if (path) {
+      url += '/' + path;
+    }
+
+    return url;
+  },
+  link (page, filename, path) {
+    return '/' + this.url(page, filename, path);
+  },
   delete (page, filename) {
-    return Api.delete('pages/' + page + '/files/' + filename);
+    return Api.delete(this.url(page, filename));
+  },
+  options (page, filename) {
+    return Api.get(this.url(page, filename, 'options')).then((options) => {
+
+      let result = [];
+
+      if (options.update) {
+        result.push({
+          icon: 'edit',
+          text: 'Edit',
+          click: 'edit'
+        });
+      }
+
+      result.push({
+        icon: 'download',
+        text: 'Download',
+        click: 'download'
+      });
+
+      result.push({
+        icon: 'upload',
+        text: 'Replace',
+        click: 'replace'
+      });
+
+      if (options.delete) {
+        result.push({
+          icon: 'trash',
+          text: 'Delete',
+          click: 'remove'
+        });
+      }
+
+      return result;
+
+    });
   },
   preview (file) {
 
