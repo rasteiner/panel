@@ -29,7 +29,7 @@ export default {
       default: 'Toggle'
     },
     text: {
-      type: String
+      type: [String, Array]
     }
   },
   computed: {

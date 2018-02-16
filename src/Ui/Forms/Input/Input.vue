@@ -4,11 +4,11 @@
       <slot name="prefix">{{ prefix }}</slot>
     </span>
     <span class="kirby-input-content">
-      <slot></slot>
+      <slot />
     </span>
     <span v-if="$slots.icon || icon" @click="focus" class="kirby-input-icon">
       <slot name="icon">
-        <kirby-icon :type="icon"></kirby-icon>
+        <kirby-icon :type="icon" />
       </slot>
     </span>
   </div>
@@ -28,25 +28,21 @@ export default {
     }
   },
   mounted () {
-
     this.$el.addEventListener('focus', () => {
-      this.isFocused = true;
-    }, true);
+      this.isFocused = true
+    }, true)
 
     this.$el.addEventListener('blur', () => {
-      this.isFocused = false;
-    }, true);
-
+      this.isFocused = false
+    }, true)
   },
   methods: {
     focus () {
-
-      var input = this.$el.querySelector('input:not([type="radio"]):not([type="checkbox"]):first-child, textarea:first-child, select:first-child');
+      var input = this.$el.querySelector('input:not([type="radio"]):not([type="checkbox"]):first-child, textarea:first-child, select:first-child')
 
       if(input) {
-        input.focus();
+        input.focus()
       }
-
     }
   }
 }

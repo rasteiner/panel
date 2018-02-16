@@ -2,14 +2,17 @@
   <div class="kirby-field" :data-readonly="readonly" :data-error="error" @click="focus">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
+
       <template slot="left">
         <slot name="label">
           <label :for="name">{{ label }} <abbr v-if="required" title="Required">*</abbr></label>
         </slot>
       </template>
+
       <template slot="right">
         <slot name="options" />
       </template>
+
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content" />
@@ -62,7 +65,8 @@ export default {
       this.$emit('blur')
     },
     checkFocus (e) {
-      if (this.isFocused && this.$el.contains(e.target) === false) {
+      if (this.isFocused &&
+          this.$el.contains(e.target) === false) {
         this.blur()
       }
     }
