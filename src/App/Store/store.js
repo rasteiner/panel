@@ -63,12 +63,10 @@ export default new Vuex.Store({
     // user
     user (context, user) {
       if (user === null) {
-        localStorage.removeItem('auth');
         context.commit('user', null);
       } else {
-        localStorage.setItem('auth', 'abc');
         context.commit('user', user);
-        context.dispatch('locale', user.content.language);
+        context.dispatch('locale', user.language);
       }
     },
     locale (context, id) {
