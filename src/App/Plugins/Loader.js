@@ -9,18 +9,25 @@ Object.keys(window.panel.plugins.components).forEach((name) => {
 
 
 // Fields
-import FieldMixin from 'Ui/Forms/Field/Field.mixin.js'
+import Field from 'Ui/Forms/Field/Field.mixin.js'
+import FieldOptions from 'App/Components/Forms/Fields/Fieldoptions.mixin.js'
+
 
 Object.keys(window.panel.plugins.fields).forEach((name) => {
   let options = window.panel.plugins.fields[name]
 
-  // Inject FieldMixin, depending on whether other
-  // mixins are already defined
-  if (options.mixins) {
-    options.mixins.push(FieldMixin)
-  } else {
-    options.mixins = [FieldMixin]
+  // make sure mixin key exists
+  if (!options.mixin) {
+    options.mixins = []
   }
+
+  // replace mixin aliases
+  options.mixins.map((mixin) => {
+    return mixin === 'options' ? FieldOptions : mixin
+  })
+
+  // inject Field mixin
+  options.mixins.push(Field)
 
   Vue.component(name, options)
 });
@@ -58,7 +65,7 @@ Object.keys(window.panel.plugins.views).forEach((name) => {
 Object.keys(window.panel.plugins.menuButtons).forEach((name) => {
 
   // Link fallback
-  if (!panel.plugins.menuButtons[name].link) {
+  if (!window.panel.plugins.menuButtons[name].link) {
     window.panel.plugins.menuButtons[name].link = '/plugin/' + name
   }
 
