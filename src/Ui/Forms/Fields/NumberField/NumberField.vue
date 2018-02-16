@@ -10,8 +10,7 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
@@ -20,15 +19,14 @@ export default {
       type: Number
     },
     label: {
-      default: 'Number'
+      default: "Number"
     },
     name: {
-      default: 'number'
+      default: "number"
     },
     min: {
       default: 0
     }
   }
-}
-
+};
 </script>

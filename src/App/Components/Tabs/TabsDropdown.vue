@@ -8,26 +8,24 @@
 </template>
 
 <script>
-
 export default {
   props: {
     tabs: Array
   },
-  data () {
+  data() {
     return {
       tab: this.tabs[0]
     };
   },
   methods: {
-    open (tabName) {
-      this.tabs.forEach((tab) => {
+    open(tabName) {
+      this.tabs.forEach(tab => {
         if (tab.name === tabName) {
           this.tab = tab;
-          this.$emit('open', tab.name)
+          this.$emit("open", tab.name);
         }
       });
     }
   }
 };
-
 </script>

@@ -55,41 +55,40 @@
 </template>
 
 <script>
-
 export default {
-  data () {
+  data() {
     return {
       menu: false
-    }
+    };
   },
   computed: {
-    currentUser () {
-      return '/users/' + this.$store.state.user.id;
+    currentUser() {
+      return "/users/" + this.$store.state.user.id;
     },
-    pluginButtons () {
-      return window.panel.plugins.menuButtons
+    pluginButtons() {
+      return window.panel.plugins.menuButtons;
     }
   },
   methods: {
-    preview () {
-      window.open(window.panel.config.index)
+    preview() {
+      window.open(window.panel.config.index);
     },
-    logout () {
-      this.$store.dispatch('user', null);
-      this.$router.push('/login');
+    logout() {
+      this.$store.dispatch("user", null);
+      this.$router.push("/login");
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to {
-  opacity: 0
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .kirby-panel-view {
@@ -101,8 +100,8 @@ export default {
   pointer-events: none;
 }
 
-.kirby-panel[data-loading] .kirby-panel-view  {
-  opacity: .25;
+.kirby-panel[data-loading] .kirby-panel-view {
+  opacity: 0.25;
 }
 
 .kirby-panel-loader {
@@ -137,5 +136,4 @@ export default {
     }
   }
 }
-
 </style>

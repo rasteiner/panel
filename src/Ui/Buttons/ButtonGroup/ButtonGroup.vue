@@ -6,7 +6,6 @@
 
 
 <style lang="scss">
-
 .kirby-button-group {
   font-size: 0;
   margin-left: -1rem;

@@ -5,13 +5,12 @@
 </template>
 
 <script>
-
-import DialogMixin from 'App/Components/Dialogs/Dialogs.mixin.js';
-import slug from 'App/Helpers/slug.js';
+import DialogMixin from "App/Components/Dialogs/Dialogs.mixin.js";
+import slug from "App/Helpers/slug.js";
 
 export default {
   mixins: [DialogMixin],
-  data () {
+  data() {
     return {
       parent: null,
       templates: [],
@@ -22,68 +21,69 @@ export default {
     };
   },
   computed: {
-    model () {
-      return (!this.parent || this.parent === '/') ? 'site' : 'page';
+    model() {
+      return !this.parent || this.parent === "/" ? "site" : "page";
     },
-    fields () {
-
+    fields() {
       const fields = [
         {
-          name: 'title',
-          label: 'Title',
-          type: 'text',
+          name: "title",
+          label: "Title",
+          type: "text",
           required: true,
-          icon: 'title'
-        },
+          icon: "title"
+        }
       ];
 
       if (this.templates.length > 1) {
         fields.push({
-          name: 'template',
-          label: 'Template',
-          type: 'select',
+          name: "template",
+          label: "Template",
+          type: "select",
           required: true,
           options: this.templates
         });
       }
 
       return fields;
-
     }
   },
   methods: {
-    open (options) {
-
+    open(options) {
       this.parent = options.parent;
 
-      this.$api[this.model].blueprints(this.parent).then((blueprints) => {
-
-        if (blueprints.length === 0) {
-          this.$store.dispatch('error', 'You are not allowed to add any subpages');
-          return;
-        }
-
-        if (options.templates) {
-          // remove all blueprints, which are not included in the options
-          blueprints = blueprints.filter(blueprint => options.templates.includes(blueprint.name));
-        }
-
-        this.templates = blueprints.map((blueprint) => {
-          return {
-            value: blueprint.name,
-            text: blueprint.title || blueprint.name
+      this.$api[this.model]
+        .blueprints(this.parent)
+        .then(blueprints => {
+          if (blueprints.length === 0) {
+            this.$store.dispatch(
+              "error",
+              "You are not allowed to add any subpages"
+            );
+            return;
           }
+
+          if (options.templates) {
+            // remove all blueprints, which are not included in the options
+            blueprints = blueprints.filter(blueprint =>
+              options.templates.includes(blueprint.name)
+            );
+          }
+
+          this.templates = blueprints.map(blueprint => {
+            return {
+              value: blueprint.name,
+              text: blueprint.title || blueprint.name
+            };
+          });
+
+          this.$refs.dialog.open();
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
         });
-
-        this.$refs.dialog.open();
-
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
     },
-    submit () {
-
+    submit() {
       if (!this.page.template) {
         this.page.template = this.templates[0].value;
       }
@@ -96,20 +96,19 @@ export default {
         }
       };
 
-      this.$api.page.create(this.parent, data).then((page) => {
-
-        this.success({
-          route: '/pages/' + page.id,
-          message: 'The page has been created',
-          event: 'page.create'
+      this.$api.page
+        .create(this.parent, data)
+        .then(page => {
+          this.success({
+            route: "/pages/" + page.id,
+            message: "The page has been created",
+            event: "page.create"
+          });
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
         });
-
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
     }
   }
-}
-
+};
 </script>

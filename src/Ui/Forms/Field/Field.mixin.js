@@ -1,16 +1,15 @@
-
 export default {
   props: {
     value: {},
     name: {
       type: String,
-      required: true,
+      required: true
     },
     type: {
-      type: String,
+      type: String
     },
     label: {
-      type: String,
+      type: String
     },
     icon: {
       type: [Boolean, String],
@@ -18,7 +17,7 @@ export default {
     },
     help: {
       type: String,
-      default: ''
+      default: ""
     },
     required: {
       type: Boolean,
@@ -33,13 +32,13 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       state: this.value
-    }
+    };
   },
   computed: {
-    fieldProps () {
+    fieldProps() {
       return {
         name: this.name,
         label: this.label,
@@ -51,9 +50,9 @@ export default {
     }
   },
   methods: {
-    input (state) {
-      this.state = state
-      this.$emit('input', this.state)
+    input(state) {
+      this.state = state;
+      this.$emit("input", this.state);
     }
   }
-}
+};

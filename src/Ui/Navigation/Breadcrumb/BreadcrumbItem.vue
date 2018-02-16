@@ -8,19 +8,16 @@
 </template>
 
 <script>
-
 export default {
   props: {
     link: {
       type: String
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-breadcrumb-item {
   position: relative;
   list-style: none;
@@ -44,7 +41,7 @@ export default {
   padding: 1rem 0;
   display: block;
   text-decoration: none;
-  transition: color .3s;
+  transition: color 0.3s;
 
   &::after {
     position: absolute;
@@ -61,7 +58,6 @@ export default {
   &[data-tabbed] {
     @include focus-ring;
   }
-
 }
 .kirby-breadcrumb-item:last-child a::after,
 .kirby-breadcrumb-item:last-child span::after {
@@ -71,5 +67,4 @@ export default {
 .kirby-breadcrumb-item a:hover {
   color: $color-dark;
 }
-
 </style>

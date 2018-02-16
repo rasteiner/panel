@@ -20,8 +20,7 @@
 </template>
 
 <script>
-
-import Input from 'Ui/Forms/Input/Input.mixin.js';
+import Input from "Ui/Forms/Input/Input.mixin.js";
 
 export default {
   mixins: [Input],
@@ -34,20 +33,17 @@ export default {
       type: String
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 $color-checkbox-focus: #567896;
 $color-checkbox-border: #8b8e94;
-$checkbox-focus-outline: 0 0 0 3px rgba(108,166,217,0.25);
+$checkbox-focus-outline: 0 0 0 3px rgba(108, 166, 217, 0.25);
 
 $checkbox-width: 16px;
 $checkbox-height: 16px;
 $checkbox-label-gap: 10px;
-
 
 .kirby-checkbox-input {
   position: relative;
@@ -74,7 +70,6 @@ $checkbox-label-gap: 10px;
   height: $checkbox-height;
   cursor: pointer;
 
-
   [dir="ltr"] & {
     left: 0;
   }
@@ -84,7 +79,7 @@ $checkbox-label-gap: 10px;
   }
 }
 
-.kirby-checkbox-input input {
+.kirby-checkbox-input input  {
   width: $checkbox-width + $checkbox-label-gap;
 
   /* remove default browser styling to make checkbox
@@ -102,9 +97,7 @@ $checkbox-label-gap: 10px;
   border: 2px solid $color-checkbox-border;
   border-radius: 2px;
 
-  transition:
-    background-color .2s,
-    border-color .2s;
+  transition: background-color 0.2s, border-color 0.2s;
 
   svg {
     position: absolute;
@@ -116,11 +109,9 @@ $checkbox-label-gap: 10px;
     stroke: $color-white;
     stroke-dasharray: 14.149505615234375;
     stroke-dashoffset: 14.149505615234375;
-    transition:
-      stroke-dashoffset .2s;
+    transition: stroke-dashoffset 0.2s;
   }
 }
-
 
 .kirby-checkbox-input label {
   display: block;
@@ -131,9 +122,7 @@ $checkbox-label-gap: 10px;
   cursor: pointer;
 }
 
-
 .kirby-checkbox-input input {
-
   /* focus + active */
   &:focus ~ label .checkbox,
   &:active ~ label .checkbox {
@@ -162,5 +151,4 @@ $checkbox-label-gap: 10px;
     border-color: $color-checkbox-focus;
   }
 }
-
 </style>

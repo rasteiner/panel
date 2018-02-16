@@ -24,7 +24,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     value: {},
@@ -45,18 +44,17 @@ export default {
       default: false
     }
   },
-  data () {
-
+  data() {
     var time = {
       hour: 0,
       minute: 0
-    }
+    };
 
     if (this.now) {
       const now = new Date();
       time = {
         hour: now.getHours(),
-        minute: now.getMinutes(),
+        minute: now.getMinutes()
       };
     }
 
@@ -68,22 +66,20 @@ export default {
       hour: this.getHour(parseInt(time.hour)),
       minute: time.minute,
       period: this.getPeriod(parseInt(time.hour))
-    }
-
+    };
   },
-  mounted () {
+  mounted() {
     this.minute = this.getMinute(this.minute);
   },
   computed: {
-    time () {
+    time() {
       if (this.mode === 12) {
         return `${this.hour.padZero()}:${this.minute.padZero()} ${this.period}`;
       }
 
       return `${this.hour}:${this.minute}`;
     },
-    hours () {
-
+    hours() {
       var options = [];
 
       const first = this.mode === 24 ? 0 : 1;
@@ -92,44 +88,41 @@ export default {
       for (var i = first; i <= last; i++) {
         options.push({
           value: i,
-          text:  i.padZero()
-        })
+          text: i.padZero()
+        });
       }
 
       return options;
-
     },
-    minutes () {
-
+    minutes() {
       var options = [];
 
       for (var i = 0; i < 60; i += this.interval) {
         options.push({
           value: i,
-          text:  i.padZero()
-        })
+          text: i.padZero()
+        });
       }
 
       return options;
-
     }
   },
   watch: {
-    hour () {
-      this.$emit('input', this.time);
+    hour() {
+      this.$emit("input", this.time);
     },
-    minute () {
-      this.$emit('input', this.time);
+    minute() {
+      this.$emit("input", this.time);
     },
-    period () {
-      this.$emit('input', this.time);
+    period() {
+      this.$emit("input", this.time);
     }
   },
   methods: {
-    focus () {
+    focus() {
       this.$refs.hour.focus();
     },
-    getHour (hour) {
+    getHour(hour) {
       if (this.mode === 24) {
         return hour;
       }
@@ -140,49 +133,44 @@ export default {
 
       return hour === 0 ? 12 : hour;
     },
-    getMinute (minute) {
-
+    getMinute(minute) {
       var value, last;
 
-      this.minutes.some((item) => {
-          var delta = Math.abs(minute - item.value);
+      this.minutes.some(item => {
+        var delta = Math.abs(minute - item.value);
 
-          if (delta >= last) {
-              return true;
-          }
+        if (delta >= last) {
+          return true;
+        }
 
-          value = item.value;
-          last = delta;
+        value = item.value;
+        last = delta;
       });
 
       return value;
-
     },
-    getPeriod (hours) {
-      return hours >= 12 ? 'pm' : 'am';
+    getPeriod(hours) {
+      return hours >= 12 ? "pm" : "am";
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-time-inputs {
   position: relative;
   display: flex;
-  padding-top: .65rem;
-  padding-bottom: .65rem;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
   flex-grow: 1;
 }
 
 .kirby-time-inputs .kirby-select-input:first-child:after {
-  content: ':';
-  padding: 0 .2rem;
+  content: ":";
+  padding: 0 0.2rem;
 }
 
 .kirby-time-field-switch {
-  padding-left: .5rem;
+  padding-left: 0.5rem;
 }
-
 </style>

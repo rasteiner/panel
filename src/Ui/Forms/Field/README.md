@@ -5,10 +5,17 @@ The `kirby-field` component is the wrapping component for all form fields. It ta
 ## Props
 
 ### error
+
 ### help
+
 ### icon
+
 ### label
+
 ### name
+
 ### readonly
+
 ### required
+
 ### prefix
