@@ -2,12 +2,16 @@
 export default {
   request (path, options) {
 
-    const headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth'));
+    if (localStorage.getItem('auth')) {
 
-    options = Object.assign(options || {}, {
-      headers: headers
-    });
+      const headers = new Headers();
+      headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth'));
+
+      options = Object.assign(options || {}, {
+        headers: headers
+      });
+
+    }
 
     return fetch(window.panel.config.api + '/' + path, options)
       .then((response) => response.json())
