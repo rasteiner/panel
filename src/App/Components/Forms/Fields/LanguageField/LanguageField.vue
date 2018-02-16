@@ -8,7 +8,7 @@
 
 <script>
 import Language from "Api/Locale.js";
-import Select from "App/Components/Forms/Fields/SelectField/SelectField.vue";
+import Select from "Ui/Forms/Fields/SelectField/SelectField.vue";
 
 export default {
   extends: Select,
