@@ -1,6 +1,6 @@
 <template>
 
-  <ui-checkboxes-field
+  <ui-tags-field
     v-bind="$props"
     :options="fieldOptions"
     :value="state"
@@ -11,14 +11,14 @@
 
 <script>
 
-import Checkboxes from 'Ui/Forms/Fields/CheckboxesField/CheckboxesField.vue'
+import Tags from 'Ui/Forms/Fields/TagsField/TagsField.vue'
 import FieldOptions from '../FieldOptions.mixin.js';
 
 export default {
-  extends: Checkboxes,
+  extends: Tags,
   mixins: [FieldOptions],
   components: {
-    'ui-checkboxes-field': Checkboxes
+    'ui-tags-field': Tags
   }
 }
 

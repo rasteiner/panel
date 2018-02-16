@@ -1,12 +1,7 @@
 <template>
   <kirby-select-field
-    :label="label"
-    :name="name"
-    :icon="icon"
-    :help="help"
-    :required="required"
-    :readonly="readonly"
-    :options="options"
+    v-bind="$props"
+    :options="languages"
     :value="state"
     @input="input" />
 </template>
@@ -14,16 +9,13 @@
 <script>
 
 import Language from 'Api/Language.js';
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Select from 'App/Components/Forms/Fields/SelectField/SelectField.vue'
 
 export default {
-  mixins: [Field],
+  extends: Select,
   props: {
     name: {
       default: 'language'
-    },
-    value: {
-      type: String
     },
     label: {
       default: 'Language'
@@ -35,7 +27,7 @@ export default {
   data () {
     return {
       state: this.value,
-      options: []
+      languages: []
     };
   },
   created() {
@@ -45,12 +37,12 @@ export default {
     fetch () {
 
       Language.list().then(languages => {
-        this.options = languages.map(lang =>({
+        this.languages = languages.map(lang =>({
           value: lang.locale,
           text: lang.name
         }))
 
-        this.options.unshift({
+        this.languages.unshift({
           value: '',
           text: 'Please select a language…',
           disabled: true
