@@ -4,18 +4,6 @@
   </div>
 </template>
 
-<script>
-
-
-export default {
-  props: {
-    type: {
-      default: 'line'
-    }
-  }
-}
-
-</script>
 
 <style lang="scss">
 

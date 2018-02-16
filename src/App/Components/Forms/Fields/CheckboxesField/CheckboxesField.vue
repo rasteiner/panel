@@ -16,14 +16,14 @@
 
 <script>
 
-import CheckboxesField from 'Ui/Forms/Fields/CheckboxesField/CheckboxesField.vue'
+import Checkboxes from 'Ui/Forms/Fields/CheckboxesField/CheckboxesField.vue'
 import FieldOptions from '../FieldOptions.mixin.js';
 
 export default {
-  extends: CheckboxesField,
+  extends: Checkboxes,
   mixins: [FieldOptions],
   components: {
-    'ui-checkboxes-field': CheckboxesField
+    'ui-checkboxes-field': Checkboxes
   }
 }
 

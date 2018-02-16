@@ -13,7 +13,7 @@
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content" />
-    <kirby-input v-else :icon="icon" :error="error" :prefix="prefix">
+    <kirby-input v-else :error="error" :icon="$attrs.icon"  :prefix="$attrs.prefix">
       <slot />
     </kirby-input>
 
@@ -32,32 +32,30 @@ export default {
   props: {
     error: Boolean,
     help: String,
-    icon: [String, Boolean],
     label: String,
     name: {
       type: String,
       required: true
     },
     readonly: Boolean,
-    required: Boolean,
-    prefix: String
+    required: Boolean
   },
+  inheritAttrs: false,
   data () {
     return {
       isFocused: false
     }
   },
   created () {
-    window.addEventListener('click', this.checkFocus);
+    window.addEventListener('click', this.checkFocus)
   },
   destroyed () {
-    window.removeEventListener('click', this.checkFocus);
+    window.removeEventListener('click', this.checkFocus)
   },
   methods: {
     focus () {
       this.isFocused = true
       this.$emit('focus')
-      console.log('focussed')
     },
     blur () {
       this.isFocused = false
@@ -65,7 +63,7 @@ export default {
     },
     checkFocus (e) {
       if (this.isFocused && this.$el.contains(e.target) === false) {
-        this.blur();
+        this.blur()
       }
     }
   }

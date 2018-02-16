@@ -9,25 +9,22 @@
 
 <script>
 
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import TextField from 'Ui/Forms/Fields/TextField/TextField.vue';
 
 export default {
-  mixins: [Field],
+  extends: TextField,
   props: {
-    value: {
-      type: String
+    name: {
+      default: 'password'
+    },
+    type: {
+      default: 'password'
     },
     label: {
       default: 'Password'
     },
     icon: {
       default: 'key'
-    },
-    name: {
-      default: 'password'
-    },
-    type: {
-      default: 'password'
     }
   }
 }

@@ -1,8 +1,11 @@
 <template>
-  <kirby-field class="kirby-number-field" v-bind="fieldProps">
+  <kirby-field class="kirby-number-field" v-bind="$props">
     <input
       type="number"
+      :placeholder="placeholder"
       :min="min"
+      :max="max"
+      :step="step"
       :value="state"
       @input="input($event.target.value)"
     />
@@ -16,17 +19,28 @@ import Field from 'Ui/Forms/Field/Field.mixin.js';
 export default {
   mixins: [Field],
   props: {
+    name: {
+      default: 'number'
+    },
     value: {
       type: Number
     },
     label: {
       default: 'Number'
     },
-    name: {
-      default: 'number'
+    placeholder: {
+      type: String
     },
     min: {
+      type: Number,
       default: 0
+    },
+    max: {
+      type: Number
+    },
+    step: {
+      type: Number,
+      default: 1
     }
   }
 }

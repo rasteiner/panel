@@ -1,14 +1,13 @@
 
 export default {
   props: {
-    value: {},
     name: {
       type: String,
       required: true,
     },
-    type: {
-      type: String,
-    },
+    value: {},
+
+    // elements
     label: {
       type: String,
     },
@@ -20,6 +19,8 @@ export default {
       type: String,
       default: ''
     },
+
+    // states
     required: {
       type: Boolean,
       default: false
@@ -38,16 +39,9 @@ export default {
       state: this.value
     }
   },
-  computed: {
-    fieldProps () {
-      return {
-        name: this.name,
-        label: this.label,
-        icon: this.icon,
-        help: this.help,
-        required: this.required,
-        readonly: this.readonly
-      };
+  watch: {
+    value (state) {
+      this.state = state
     }
   },
   methods: {

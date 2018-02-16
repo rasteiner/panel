@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-datetime-field" v-bind="fieldProps">
+  <kirby-field class="kirby-datetime-field" v-bind="$props">
     <kirby-date-input
       ref="date"
       v-bind="date"
@@ -37,7 +37,7 @@ export default {
   computed: {
     datetime () {
       const date = this.$refs.date.date;
-      var time = this.$refs.time.time;
+      let time   = this.$refs.time.time;
       const mode = time.split(' ');
 
       // am/pm mode

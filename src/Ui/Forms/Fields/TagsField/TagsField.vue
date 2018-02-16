@@ -1,13 +1,13 @@
 <template>
   <kirby-field
     class="kirby-tags-field"
-    v-bind="fieldProps"
+    v-bind="$props"
     @click.native="focus">
 
     <draggable
       :value="state"
       @input="input"
-      :options="{disabled: disabled}"
+      :options="{disabled: isDisabled}"
       class="kirby-tags-input">
 
       <kirby-tag v-for="tag in state"
@@ -58,11 +58,11 @@ export default {
     draggable
   },
   props: {
-    label: {
-      default: 'Tags'
-    },
     name: {
       default: 'tags'
+    },
+    label: {
+      default: 'Tags'
     },
     icon: {
       default: 'tag'
@@ -82,10 +82,10 @@ export default {
   },
   data () {
 
-    var tags = this.value || [];
+    var tags = this.value || []
 
     if(typeof tags === 'string') {
-      var tags = tags.split(this.separator).map(tag => tag.trim());
+      var tags = tags.split(this.separator).map(tag => tag.trim())
     }
 
     return {
@@ -95,61 +95,61 @@ export default {
 
   },
   computed: {
-    disabled () {
-      return this.sortable === false || this.state.length === 0;
+    isDisabled () {
+      return this.sortable === false || this.state.length === 0
     }
   },
   methods: {
     focus () {
-      this.$refs.input.focus();
+      this.$refs.input.focus()
     },
     select (tag) {
-      this.selected = tag;
+      this.selected = tag
     },
     index (tag) {
-      return this.state.indexOf(tag);
+      return this.state.indexOf(tag)
     },
     add (tag) {
 
-      var tag = tag.trim();
+      var tag = tag.trim()
 
       if(tag.length === 0) {
         return;
       }
 
       if(this.index(tag) === -1) {
-        this.state.push(tag);
+        this.state.push(tag)
       }
 
       if(this.autocomplete) {
-        this.$refs.input.close();
-        this.$refs.input.clear();
+        this.$refs.input.close()
+        this.$refs.input.clear()
       } else {
-        this.$refs.input.value = '';
+        this.$refs.input.value = ''
       }
     },
     edit (tag) {
-      this.$refs.input.value = tag;
-      this.$refs.input.select();
-      this.remove(tag);
+      this.$refs.input.value = tag
+      this.$refs.input.select()
+      this.remove(tag)
     },
     remove (tag) {
-      var prev = this.get('prev');
-      var next = this.get('next');
+      var prev = this.get('prev')
+      var next = this.get('next')
 
-      this.state.splice(this.index(tag), 1);
+      this.state.splice(this.index(tag), 1)
 
       if(prev) {
-        prev.ref.focus();
+        prev.ref.focus()
       } else if(next) {
         this.$nextTick(() => {
-          var nextIndex  = this.state.indexOf(next.tag);
-          var nextResult = this.get(nextIndex);
-          this.selected = nextResult.tag;
-          nextResult.ref.focus();
+          var nextIndex  = this.state.indexOf(next.tag)
+          var nextResult = this.get(nextIndex)
+          this.selected = nextResult.tag
+          nextResult.ref.focus()
         });
       } else {
-        this.$refs.input.focus();
+        this.$refs.input.focus()
       }
     },
     get (method) {
@@ -157,21 +157,21 @@ export default {
       switch(method) {
         case 'prev':
         case 'next':
-          if(!this.selected) return;
-          var currIndex = this.index(this.selected);
-          var nextIndex = method === 'prev' ? (currIndex - 1) : (currIndex + 1);
+          if(!this.selected) return
+          var currIndex = this.index(this.selected)
+          var nextIndex = method === 'prev' ? (currIndex - 1) : (currIndex + 1)
           break;
         case 'first':
           var nextIndex = 0;
         case 'last':
-          var nextIndex = (this.state.length - 1);
+          var nextIndex = (this.state.length - 1)
           break;
         default:
-          var nextIndex = method;
+          var nextIndex = method
       }
 
-      var nextTag = this.state[nextIndex];
-      var nextRef = this.$refs[nextTag];
+      var nextTag = this.state[nextIndex]
+      var nextRef = this.$refs[nextTag]
 
       if(nextRef && nextRef[0]) {
         return {
@@ -180,28 +180,29 @@ export default {
           index: nextIndex
         }
       } else {
-        return false;
+        return false
       }
 
     },
     navigate (method) {
 
-      var result = this.get(method);
+      var result = this.get(method)
 
       if(result) {
-        result.ref.focus();
-        this.selected = result.tag;
+        result.ref.focus()
+        this.selected = result.tag
       } else if(method === 'next') {
-        this.$refs.input.focus();
-        this.selected = null;
+        this.$refs.input.focus()
+        this.selected = null
       }
 
     },
     leaveInput (e) {
 
-      if(e.target.selectionStart === 0 && e.target.selectionStart === e.target.selectionEnd) {
-        this.navigate('last');
-        e.target.blur();
+      if(e.target.selectionStart === 0 &&
+         e.target.selectionStart === e.target.selectionEnd) {
+        this.navigate('last')
+        e.target.blur()
       }
 
     }

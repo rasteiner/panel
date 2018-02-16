@@ -17,7 +17,11 @@
 <script>
 
 export default {
-  props: ['error', 'prefix', 'icon'],
+  props: {
+    error: Boolean,
+    icon: [String, Boolean],
+    prefix: String
+  },
   data () {
     return {
       isFocused: false

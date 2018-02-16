@@ -19,17 +19,17 @@ import Field from 'Ui/Forms/Field/Field.mixin.js';
 export default {
   mixins: [Field],
   props: {
-    label: {
-      default: 'Language'
-    },
     name: {
       default: 'language'
     },
-    icon: {
-      default: 'globe'
-    },
     value: {
       type: String
+    },
+    label: {
+      default: 'Language'
+    },
+    icon: {
+      default: 'globe'
     }
   },
   data () {

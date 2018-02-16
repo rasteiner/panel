@@ -11,6 +11,11 @@ export default {
       state: this.value
     }
   },
+  watch: {
+    value (state) {
+      this.state = state
+    }
+  },
   methods: {
     input (state) {
       this.state = state

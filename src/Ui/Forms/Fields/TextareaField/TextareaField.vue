@@ -1,7 +1,7 @@
 <template>
   <kirby-field
     class="kirby-textarea-field"
-    v-bind="fieldProps"
+    v-bind="$props"
     :data-fullscreen="fullscreen">
 
     <template slot="options" v-if="maxlength">
@@ -153,12 +153,13 @@ import autosize from './Textarea.autosize.js';
 export default {
   mixins: [Field],
   props: {
-    label: {
-      default: 'Text'
-    },
     name: {
       default: 'text'
     },
+    label: {
+      default: 'Text'
+    },
+
     maxlength: {
       type: Number
     },
@@ -194,58 +195,57 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      autosize(this.$el);
-    });
+      autosize(this.$el)
+    })
   },
   methods: {
     prefix (prefix) {
 
-      const tag = prefix + ' ' + this.selection();
+      const tag = prefix + ' ' + this.selection()
 
-      this.insert(tag);
+      this.insert(tag)
 
     },
     list (type) {
 
-      let html = '';
-      const selection = this.selection();
+      let html = ''
+      const selection = this.selection()
 
       selection.split('\n').forEach((line, index) => {
 
-        let prefix = '-';
+        let prefix = '-'
 
         if (type === 'ol') {
-          prefix = (index + 1) + '.';
+          prefix = (index + 1) + '.'
         }
 
-        html += prefix + ' ' + line + '\n';
+        html += prefix + ' ' + line + '\n'
 
       });
 
-      this.insert(html);
+      this.insert(html)
 
     },
     wrap (token) {
-      const tag   = token + this.selection() + token;
-
-      this.insert(tag);
+      const tag   = token + this.selection() + token
+      this.insert(tag)
     },
     bold () {
-      this.wrap('**');
+      this.wrap('**')
     },
     italic () {
-      this.wrap('*');
+      this.wrap('*')
     },
     openLinkModal () {
-      this.linkValue.text = this.selection();
-      this.$refs.linkModal.open();
+      this.linkValue.text = this.selection()
+      this.$refs.linkModal.open()
     },
     link () {
 
-      let tag = '(link: ' + this.linkValue.url + ')';
+      let tag = '(link: ' + this.linkValue.url + ')'
 
       if (this.linkValue.text.length > 0) {
-        tag = '(link: ' + this.linkValue.url + ' text: ' + this.linkValue.text + ')';
+        tag = '(link: ' + this.linkValue.url + ' text: ' + this.linkValue.text + ')'
       }
 
       // reset the form
@@ -255,102 +255,96 @@ export default {
       };
 
       // insert the link
-      this.insert(tag);
+      this.insert(tag)
 
       // close the modal
-      this.$refs.linkModal.close();
+      this.$refs.linkModal.close()
 
     },
     openEmailModal () {
-      this.emailValue.text = this.selection();
-      this.$refs.emailModal.open();
+      this.emailValue.text = this.selection()
+      this.$refs.emailModal.open()
     },
     email () {
 
-      let tag = '(email: ' + this.emailValue.email + ')';
+      let tag = '(email: ' + this.emailValue.email + ')'
 
       if (this.emailValue.text.length > 0) {
-        tag = '(email: ' + this.emailValue.email + ' text: ' + this.emailValue.text + ')';
+        tag = '(email: ' + this.emailValue.email + ' text: ' + this.emailValue.text + ')'
       }
 
       // reset the form
       this.emailValue = {
         email: null,
         text: null
-      };
+      }
 
       // insert the link
-      this.insert(tag);
+      this.insert(tag)
 
       // close the modal
-      this.$refs.emailModal.close();
+      this.$refs.emailModal.close()
 
     },
     toggle () {
-      this.fullscreen = !this.fullscreen;
+      this.fullscreen = !this.fullscreen
       this.$nextTick(() => {
-        this.resize();
-        this.focus();
+        this.resize()
+        this.focus()
       });
     },
     addShortcuts () {
-      this.$events.$on('key.cmd+b', this.bold);
-      this.$events.$on('key.cmd+i', this.italic);
-      this.$events.$on('key.cmd+u', this.openLinkModal);
-      this.$events.$on('key.cmd+e', this.openEmailModal);
+      this.$events.$on('key.cmd+b', this.bold)
+      this.$events.$on('key.cmd+i', this.italic)
+      this.$events.$on('key.cmd+u', this.openLinkModal)
+      this.$events.$on('key.cmd+e', this.openEmailModal)
     },
     removeShortcuts () {
-      this.$events.$off('key.cmd+b', this.bold);
-      this.$events.$off('key.cmd+i', this.italic);
-      this.$events.$off('key.cmd+u', this.openLinkModal);
-      this.$events.$off('key.cmd+e', this.openEmailModal);
+      this.$events.$off('key.cmd+b', this.bold)
+      this.$events.$off('key.cmd+i', this.italic)
+      this.$events.$off('key.cmd+u', this.openLinkModal)
+      this.$events.$off('key.cmd+e', this.openEmailModal)
     },
     focus () {
-      this.$refs.input.focus();
+      this.$refs.input.focus()
     },
     insert (text) {
-
-      const area = this.$refs.input;
+      const area = this.$refs.input
 
       area.focus();
 
-      document.execCommand('insertText', false, text);
+      document.execCommand('insertText', false, text)
 
-      this.resize();
-
+      this.resize()
     },
     resize () {
-      autosize.update(this.$refs.input);
+      autosize.update(this.$refs.input)
     },
     selection () {
+      const area  = this.$refs.input
+      const start = area.selectionStart
+      const end   = area.selectionEnd
 
-      const area  = this.$refs.input;
-      const start = area.selectionStart;
-      const end   = area.selectionEnd;
-
-      return area.value.substring(start, end);
-
+      return area.value.substring(start, end)
     },
     enter (e) {
-      this.$emit('enter', e);
+      this.$emit('enter', e)
 
       if (this.multiline === false) {
-        e.preventDefault();
+        e.preventDefault()
       }
 
       if (e.metaKey || e.ctrlKey) {
-        this.$emit('submit', e);
+        this.$emit('submit', e)
       }
-
     },
     remove (e) {
-
       if (e.target.selectionStart === 0 && e.target.value.length === 0) {
-        this.$emit('empty');
-        e.preventDefault();
+        this.$emit('empty')
+        e.preventDefault()
       }
 
-      this.$emit('remove', e);
+      this.$emit('remove', e)
     }
   }
 }

@@ -1,8 +1,6 @@
 <template>
-  <kirby-field v-bind="fieldProps">
-
+  <kirby-field v-bind="$props">
     <kirby-blocks :value="state" @input="input" />
-
   </kirby-field>
 </template>
 
