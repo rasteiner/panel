@@ -5,8 +5,7 @@
 </template>
 
 <script>
-
-import DialogMixin from 'App/Components/Dialogs/Dialogs.mixin.js';
+import DialogMixin from "App/Components/Dialogs/Dialogs.mixin.js";
 
 export default {
   mixins: [DialogMixin],
@@ -19,52 +18,55 @@ export default {
       },
       fields: [
         {
-          name: 'password',
-          label: 'New password',
-          type: 'password',
+          name: "password",
+          label: "New password",
+          type: "password",
           required: true
         },
         {
-          name: 'passwordConfirmation',
-          label: 'Confirm the new password …',
-          type: 'password',
+          name: "passwordConfirmation",
+          label: "Confirm the new password …",
+          type: "password",
           required: true
-        },
+        }
       ]
-    }
+    };
   },
   methods: {
-    open (id) {
-      this.$api.user.get(id).then((user) => {
-        this.user = user;
-        this.$refs.dialog.open();
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
+    open(id) {
+      this.$api.user
+        .get(id)
+        .then(user => {
+          this.user = user;
+          this.$refs.dialog.open();
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     },
-    submit () {
-
+    submit() {
       if (this.values.password.length === 0) {
-        this.$store.dispatch('error', 'Please enter a valid password');
+        this.$store.dispatch("error", "Please enter a valid password");
         return false;
       }
 
       if (this.values.password !== this.values.passwordConfirmation) {
-        this.$store.dispatch('error', 'The passwords must match');
+        this.$store.dispatch("error", "The passwords must match");
         return false;
       }
 
-      this.$api.user.changePassword(this.user.id, this.values.password).then(() => {
-        this.success({
-          message: 'The password has been changed',
-          event: 'user.change.password'
+      this.$api.user
+        .changePassword(this.user.id, this.values.password)
+        .then(() => {
+          this.success({
+            message: "The password has been changed",
+            event: "user.change.password"
+          });
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
         });
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
     }
   }
-}
-
+};
 </script>

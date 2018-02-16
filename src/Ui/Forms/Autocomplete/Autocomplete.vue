@@ -24,12 +24,11 @@
 </template>
 
 <script>
-
-import resolve from 'Ui/Helpers/resolveObjectPath.js';
+import resolve from "Ui/Helpers/resolveObjectPath.js";
 
 export default {
   props: {
-    id: '',
+    id: "",
     url: {
       required: true
     },
@@ -37,14 +36,14 @@ export default {
     icon: {},
     ignore: {
       default: () => {
-        return []
+        return [];
       }
     },
     map: {
-      default () {
+      default() {
         return {
-          value: 'value',
-          text: 'text',
+          value: "value",
+          text: "text",
           icon: false,
           image: false,
           items: false
@@ -59,7 +58,7 @@ export default {
       default: true
     }
   },
-  data () {
+  data() {
     return {
       source: [],
       items: [],
@@ -69,22 +68,21 @@ export default {
     };
   },
   watch: {
-    query () {
+    query() {
       this.search(this.query);
     }
   },
-  mounted () {
-
-    fetch(this.url).
-      then((response)  => response.json()).
-      then((json) => {
-
+  mounted() {
+    fetch(this.url)
+      .then(response => response.json())
+      .then(json => {
         if (this.map.items) {
           json = resolve(json, this.map.items);
         }
 
-        json.forEach((item) => {
-          let text = resolve(item, this.map.text) || resolve(item, this.map.value);
+        json.forEach(item => {
+          let text =
+            resolve(item, this.map.text) || resolve(item, this.map.value);
 
           this.source.push({
             value: resolve(item, this.map.value),
@@ -96,109 +94,95 @@ export default {
           });
         });
       });
-
   },
   methods: {
-    search (value) {
-
-      if(value === '') {
+    search(value) {
+      if (value === "") {
         this.items = [];
         this.$refs.items.close();
         return;
       }
 
-      const regex = new RegExp(value, 'ig');
+      const regex = new RegExp(value, "ig");
 
-      this.items = this.source.filter((item) => {
-
-        if(this.ignore.indexOf(item.text) !== -1) {
+      this.items = this.source.filter(item => {
+        if (this.ignore.indexOf(item.text) !== -1) {
           return false;
-        } else if(item.text.match(regex)) {
+        } else if (item.text.match(regex)) {
           return true;
-        } else if(this.matchValues && item.value.match(regex)) {
+        } else if (this.matchValues && item.value.match(regex)) {
           return true;
         } else {
           return false;
         }
-
       });
 
       this.items = this.items.slice(0, this.limit);
-      this.highlight()
+      this.highlight();
       this.$refs.items.open();
-
     },
-    highlight () {
-      const regex = new RegExp(`(${this.query})`, 'i');
-      this.items.forEach((item) => {
-        item.matched = item.text.replace(regex, '<b>$1</b>')
+    highlight() {
+      const regex = new RegExp(`(${this.query})`, "i");
+      this.items.forEach(item => {
+        item.matched = item.text.replace(regex, "<b>$1</b>");
       });
     },
-    keydown (event) {
-      if(this.items[this.selected]) {
+    keydown(event) {
+      if (this.items[this.selected]) {
         this.select(null);
         event.preventDefault();
       } else {
-
-        switch(event.key) {
-          case 'Enter':
-            this.$emit('enter', this.$refs.input.value);
+        switch (event.key) {
+          case "Enter":
+            this.$emit("enter", this.$refs.input.value);
             break;
-          case 'Tab':
-            this.$emit('tab', this.$refs.input.value);
+          case "Tab":
+            this.$emit("tab", this.$refs.input.value);
             break;
         }
 
         this.close();
-
       }
     },
-    select (value) {
-
-      if(value === null && this.items[this.selected]) {
+    select(value) {
+      if (value === null && this.items[this.selected]) {
         value = this.items[this.selected].value;
       }
 
       this.val = value;
-      this.$emit('input', value);
-      this.$emit('select', this.items.find(item => item.value === value));
+      this.$emit("input", value);
+      this.$emit("select", this.items.find(item => item.value === value));
 
       this.close();
-
     },
-    clear () {
-      this.$refs.input.value = '';
+    clear() {
+      this.$refs.input.value = "";
     },
-    close () {
+    close() {
       this.$refs.items.close();
       this.selected = -1;
     },
-    focus () {
+    focus() {
       this.$refs.input.focus();
     },
-    navigate (direction) {
-
+    navigate(direction) {
       this.selected = this.selected + direction;
 
-      if(this.selected <= -1) {
+      if (this.selected <= -1) {
         return this.close();
       }
 
-      if(this.selected > (this.items.length - 1)) {
-        this.selected = (this.items.length - 1);
+      if (this.selected > this.items.length - 1) {
+        this.selected = this.items.length - 1;
       }
-
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-dropdown-item.is-selected {
   background: $color-focus;
   color: #fff !important;
 }
-
 </style>

@@ -40,7 +40,7 @@
 
     </kirby-header>
 
-    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="isLoading === false" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" />
+    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="isLoading === false" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" @submit="save" />
 
     <kirby-page-status-dialog ref="status" @success="fetch" />
     <kirby-page-url-dialog ref="url" />
@@ -51,136 +51,131 @@
 </template>
 
 <script>
-
 export default {
-  props: ['path'],
-  data () {
+  props: ["path"],
+  data() {
     return {
       page: {
-        title: '',
+        title: "",
         id: null,
         prev: null,
-        next: null,
+        next: null
       },
-      icon: 'page',
+      icon: "page",
       isLoading: true,
       breadcrumb: [],
       tabs: []
-    }
+    };
   },
-  created () {
+  created() {
     this.fetch();
   },
   watch: {
-    $route () {
+    $route() {
       this.fetch();
     }
   },
   computed: {
-    options () {
-      return (ready) => {
-        this.$api.page.options(this.page.id).then((options) => {
+    options() {
+      return ready => {
+        this.$api.page.options(this.page.id).then(options => {
           ready(options);
         });
-      }
+      };
     },
-    status () {
-
+    status() {
       if (this.page.isVisible) {
         return {
-          icon: 'toggle-on',
-          text: 'Public'
+          icon: "toggle-on",
+          text: "Public"
         };
       } else {
         return {
-          icon: 'toggle-off',
-          text: 'Unlisted'
+          icon: "toggle-off",
+          text: "Unlisted"
         };
       }
-
     },
-    pagination () {
+    pagination() {
       return {
         prev: this.page.prev ? true : false,
-        prevLabel: 'Previous page',
+        prevLabel: "Previous page",
         next: this.page.next ? true : false,
-        nextLabel: 'Next page'
+        nextLabel: "Next page"
       };
     }
   },
   methods: {
     fetch() {
-
-      this.$api.page.get(this.path, {view: 'panel'}).then((page) => {
-        this.page       = page;
-        this.tabs       = page.blueprint.tabs;
-        this.breadcrumb = this.$api.page.breadcrumb(page);
-        this.$store.dispatch('isLoading', false);
-        this.isLoading = false;
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-        this.isLoading = false;
-      });
-
+      this.$api.page
+        .get(this.path, { view: "panel" })
+        .then(page => {
+          this.page = page;
+          this.tabs = page.blueprint.tabs;
+          this.breadcrumb = this.$api.page.breadcrumb(page);
+          this.$store.dispatch("isLoading", false);
+          this.isLoading = false;
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+          this.isLoading = false;
+        });
     },
-    save (data) {
-
+    save(data) {
       // always store the latest title
       data.title = this.page.title;
 
-      this.$api.page.update(this.page.id, data).then(() => {
-        this.$store.dispatch('success', 'Saved!');
-        this.$events.$emit('page.update');
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
+      this.$api.page
+        .update(this.page.id, data)
+        .then(() => {
+          this.$store.dispatch("success", "Saved!");
+          this.$events.$emit("page.update");
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     },
-    updateTitle (title) {
+    updateTitle(title) {
       this.page.title = title;
     },
-    saveTitle () {
+    saveTitle() {
       // this.save({ title: this.page.title });
     },
-    prev () {
+    prev() {
       if (this.page.prev) {
         this.$router.push(this.$api.page.link(this.page.prev.id));
       }
     },
-    next () {
+    next() {
       if (this.page.next) {
         this.$router.push(this.$api.page.link(this.page.next.id));
       }
     },
-    action (action) {
+    action(action) {
       switch (action) {
-        case 'preview':
+        case "preview":
           window.open(this.page.url);
           break;
-        case 'status':
+        case "status":
           this.$refs.status.open(this.page.id);
           break;
-        case 'url':
+        case "url":
           this.$refs.url.open(this.page.id);
           break;
-        case 'remove':
+        case "remove":
           this.$refs.remove.open(this.page.id);
           break;
         default:
-          this.$store.dispatch('error', 'Not yet implemented');
+          this.$store.dispatch("error", "Not yet implemented");
           break;
       }
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-page-view .kirby-column section:not(:last-child) {
   margin-bottom: 1.5rem;
 }
-
-
 </style>

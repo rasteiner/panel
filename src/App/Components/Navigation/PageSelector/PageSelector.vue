@@ -18,53 +18,52 @@
 </template>
 
 <script>
-
-import Page from 'Api/Page.js'
+import Page from "Api/Page.js";
 
 export default {
-  data () {
+  data() {
     return {
       pages: [],
       path: null
-    }
+    };
   },
-  mounted () {
+  mounted() {
     this.$refs.dropdown.open();
   },
-  created () {
+  created() {
     this.fetch();
   },
   methods: {
-    fetch (id) {
-
-
+    fetch(id) {},
+    back() {
+      this.fetch(
+        this.path
+          .split("/")
+          .slice(0, -2)
+          .join("/")
+      );
     },
-    back () {
-      this.fetch(this.path.split('/').slice(0, -2).join('/'));
-    },
-    select (id) {
-      this.$emit('select', id);
+    select(id) {
+      this.$emit("select", id);
       this.$refs.dropdown.close();
     },
-    open () {
+    open() {
       this.fetch();
       this.$refs.dropdown.open();
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-page-selector-item {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  border-bottom: 1px solid rgba(#fff, .1);
+  border-bottom: 1px solid rgba(#fff, 0.1);
 }
 .kirby-page-selector-item .kirby-button {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   color: inherit;
 }
 .kirby-page-selector-item .kirby-button:hover,
@@ -84,5 +83,4 @@ export default {
     text-align: right;
   }
 }
-
 </style>

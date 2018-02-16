@@ -27,24 +27,21 @@
 </template>
 
 <script>
-
 export default {
   props: {
     options: Array
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-block {
   position: relative;
   padding: 0 1.5rem;
 }
 .kirby-block-options {
   opacity: 0;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 .kirby-block:hover .kirby-block-options {
   opacity: 1;
@@ -62,19 +59,19 @@ export default {
 }
 .kirby-block-options .kirby-dropdown-item {
   border-bottom: 0 !important;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
-  margin-left: .5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-left: 0.5rem;
 }
 .kirby-block-options.kirby-dropdown h2 {
-  padding: .5rem 1.5rem .5rem;
+  padding: 0.5rem 1.5rem 0.5rem;
   font-size: $font-size-small;
   text-transform: uppercase;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   font-weight: 400;
 }
 .kirby-block-options-group {
-  padding: .5rem 0 .75rem;
+  padding: 0.5rem 0 0.75rem;
 }
 .kirby-block-options-group:last-child {
   border-bottom: 0;

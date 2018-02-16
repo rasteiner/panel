@@ -11,22 +11,21 @@
 </template>
 
 <script>
-import Button from 'Ui/Buttons/Button/Button.vue'
+import Button from "Ui/Buttons/Button/Button.vue";
 
 export default {
   extends: Button,
   components: {
-    'ui-button': Button
+    "ui-button": Button
   },
   methods: {
-    click () {
+    click() {
       if (this.link) {
-        this.$router.push(this.link)
+        this.$router.push(this.link);
       } else {
-        this.$emit('click')
+        this.$emit("click");
       }
     }
   }
-}
-
+};
 </script>

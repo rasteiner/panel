@@ -1,62 +1,62 @@
-import Vue from 'vue';
-import Api from './Api.js';
+import Vue from "vue";
+import Api from "./Api.js";
 
 export default {
-  create (data) {
-    return Api.post('users', data);
+  create(data) {
+    return Api.post("users", data);
   },
-  list (query) {
-    return Api.post('users/search', query);
+  list(query) {
+    return Api.post("users/search", query);
   },
-  get (id, query) {
-    return Api.get('users/' + id, query);
+  get(id, query) {
+    return Api.get("users/" + id, query);
   },
-  update (id, data) {
-    return Api.post('users/' + id, data);
+  update(id, data) {
+    return Api.post("users/" + id, data);
   },
-  delete (id) {
-    return Api.delete('users/' + id);
+  delete(id) {
+    return Api.delete("users/" + id);
   },
-  changePassword (id, password) {
-    return Api.post('users/' + id + '/password', { password: password });
+  changePassword(id, password) {
+    return Api.post("users/" + id + "/password", { password: password });
   },
-  changeRole (id, role) {
-    return Api.post('users/' + id + '/role', { role: role });
+  changeRole(id, role) {
+    return Api.post("users/" + id + "/role", { role: role });
   },
-  deleteAvatar (id) {
-    return Api.delete('users/' + id + '/avatar');
+  deleteAvatar(id) {
+    return Api.delete("users/" + id + "/avatar");
   },
-  blueprint (id) {
-    return Api.get('users/' + id + '/blueprint');
+  blueprint(id) {
+    return Api.get("users/" + id + "/blueprint");
   },
-  breadcrumb (user) {
+  breadcrumb(user) {
     return [
       {
-        link: '/users/role/' + user.role,
-        label: Vue.i18n.translate('user.role').toLowerCase() + ':' + user.role
+        link: "/users/role/" + user.role,
+        label: Vue.i18n.translate("user.role").toLowerCase() + ":" + user.role
       },
       {
-        link: '/users/' + user.id,
+        link: "/users/" + user.id,
         label: user.email
       }
     ];
   },
-  roles () {
+  roles() {
     return [
       {
-        value: 'admin',
-        text: 'Admin',
-        info: 'All rights granted.'
+        value: "admin",
+        text: "Admin",
+        info: "All rights granted."
       },
       {
-        value: 'editor',
-        text: 'Editor',
-        info: 'User can edit but not adjust settings or manage users themself.'
+        value: "editor",
+        text: "Editor",
+        info: "User can edit but not adjust settings or manage users themself."
       },
       {
-        value: 'visitor',
-        text: 'Visitor',
-        info: 'No rights (ideal for frontend users).'
+        value: "visitor",
+        text: "Visitor",
+        info: "No rights (ideal for frontend users)."
       }
     ];
   }

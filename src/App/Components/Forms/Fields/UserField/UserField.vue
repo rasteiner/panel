@@ -37,68 +37,67 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
     label: {
-      default: 'User'
+      default: "User"
     },
     name: {
-      default: 'user'
+      default: "user"
     },
     icon: {
-      default: 'user'
+      default: "user"
     },
     role: {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       user: null
     };
   },
   computed: {
-    api () {
-      return window.panel.config.api + '/users'
+    api() {
+      return window.panel.config.api + "/users";
     },
-    button () {
-      return this.user ? 'cancel' : this.icon;
+    button() {
+      return this.user ? "cancel" : this.icon;
     },
-    display () {
+    display() {
       return this.user.name;
     }
   },
-  mounted () {
+  mounted() {
     if (this.value) {
       this.select(this.value);
     }
-    this.$el.querySelector('.kirby-input-icon').addEventListener("click", this.clear, false);
+    this.$el
+      .querySelector(".kirby-input-icon")
+      .addEventListener("click", this.clear, false);
   },
   methods: {
-    select (id) {
-      this.$api.user.get(id).then((user) => {
-        this.user = user
-        this.$emit('input', user.email);
-      })
+    select(id) {
+      this.$api.user.get(id).then(user => {
+        this.user = user;
+        this.$emit("input", user.email);
+      });
     },
-    clear () {
+    clear() {
       this.user = null;
-      this.$emit('input', null);
+      this.$emit("input", null);
       this.$nextTick(() => {
-        this.$refs.input.focus()
-      })
+        this.$refs.input.focus();
+      });
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-user-field .kirby-input-content {
   position: relative;
   display: flex;
@@ -113,22 +112,20 @@ export default {
 .kirby-input-content > .kirby-user-name {
   display: flex;
   align-items: center;
-  padding: .45rem
+  padding: 0.45rem;
 }
 
 .kirby-user-field .kirby-autocomplete > input {
-    border: 0;
-    font: inherit;
-    line-height: 1.5em;
-    padding: .5rem;
-    width: 100%;
-    resize: none;
-    background: none;
+  border: 0;
+  font: inherit;
+  line-height: 1.5em;
+  padding: 0.5rem;
+  width: 100%;
+  resize: none;
+  background: none;
 
-    &:focus {
-      outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 }
-
 </style>
-

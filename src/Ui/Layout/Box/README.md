@@ -13,6 +13,7 @@ If you place a button in the box, it's perfect to provide a default action for e
 ## Props
 
 ### state
+
 Set the state to `empty` in order to give the box the typical empty state design
 
 ```html

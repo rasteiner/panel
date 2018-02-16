@@ -8,28 +8,26 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
     icon: {
-      default: 'email'
+      default: "email"
     },
     label: {
-      default: 'Email'
+      default: "Email"
     },
     name: {
-      default: 'email'
+      default: "email"
     },
     placeholder: {
-      default: 'mail@example.com'
+      default: "mail@example.com"
     },
     type: {
-      default: 'email'
+      default: "email"
     }
   }
-}
-
+};
 </script>

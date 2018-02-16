@@ -15,42 +15,45 @@
 </template>
 
 <script>
-
 export default {
-  props: ['error', 'prefix', 'icon'],
-  data () {
+  props: ["error", "prefix", "icon"],
+  data() {
     return {
       isFocused: false
-    }
+    };
   },
-  mounted () {
+  mounted() {
+    this.$el.addEventListener(
+      "focus",
+      () => {
+        this.isFocused = true;
+      },
+      true
+    );
 
-    this.$el.addEventListener('focus', () => {
-      this.isFocused = true;
-    }, true);
-
-    this.$el.addEventListener('blur', () => {
-      this.isFocused = false;
-    }, true);
-
+    this.$el.addEventListener(
+      "blur",
+      () => {
+        this.isFocused = false;
+      },
+      true
+    );
   },
   methods: {
-    focus () {
+    focus() {
+      var input = this.$el.querySelector(
+        'input:not([type="radio"]):not([type="checkbox"]):first-child, textarea:first-child, select:first-child'
+      );
 
-      var input = this.$el.querySelector('input:not([type="radio"]):not([type="checkbox"]):first-child, textarea:first-child, select:first-child');
-
-      if(input) {
+      if (input) {
         input.focus();
       }
-
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-input {
   display: flex;
   align-items: stretch;
@@ -73,7 +76,7 @@ export default {
   align-items: center;
   justify-content: center;
   line-height: 1;
-  padding-left: .5rem;
+  padding-left: 0.5rem;
   color: $color-dark-grey;
 }
 .kirby-input-content {
@@ -86,7 +89,7 @@ export default {
   border: 0;
   font: inherit;
   line-height: 1.5em;
-  padding: .5rem;
+  padding: 0.5rem;
   width: 100%;
   resize: none;
   background: none;
@@ -100,7 +103,7 @@ export default {
 .kirby-input-content input:-webkit-autofill:hover,
 .kirby-input-content input:-webkit-autofill:focus,
 .kirby-input-content input:-webkit-autofill:active {
- -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
 
 .kirby-input-icon {
@@ -114,5 +117,4 @@ export default {
     display: flex;
   }
 }
-
 </style>

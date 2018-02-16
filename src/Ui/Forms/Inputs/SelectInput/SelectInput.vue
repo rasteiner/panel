@@ -24,8 +24,7 @@
 </template>
 
 <script>
-
-import Input from 'Ui/Forms/Input/Input.mixin.js';
+import Input from "Ui/Forms/Input/Input.mixin.js";
 
 export default {
   mixins: [Input],
@@ -33,13 +32,13 @@ export default {
     options: {
       type: Array,
       default: []
-    },
+    }
   },
   computed: {
-    label () {
+    label() {
       var label = this.text(this.state);
 
-      if(!label && this.options[0]) {
+      if (!label && this.options[0]) {
         label = this.options[0].text;
       }
 
@@ -47,28 +46,26 @@ export default {
     }
   },
   methods: {
-    focus () {
-      this.$refs.select.focus()
+    focus() {
+      this.$refs.select.focus();
     },
-    blur () {
-      this.$refs.select.blur()
+    blur() {
+      this.$refs.select.blur();
     },
-    text (value) {
-      var text = '';
-      this.options.forEach((option) => {
-        if(option.value == value) {
+    text(value) {
+      var text = "";
+      this.options.forEach(option => {
+        if (option.value == value) {
           text = option.text;
         }
       });
       return text;
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-select-input {
   position: relative;
   cursor: pointer;
@@ -91,5 +88,4 @@ export default {
 .kirby-select-input select:focus + label {
   color: $color-focus;
 }
-
 </style>
