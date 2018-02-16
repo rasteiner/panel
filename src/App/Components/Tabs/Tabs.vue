@@ -1,5 +1,5 @@
 <template>
-  <kirby-sections :parent="parent" :columns="tab.columns" />
+  <kirby-sections :parent="parent" :columns="tab.columns" @submit="$emit('submit', $event)" />
 </template>
 
 <script>
