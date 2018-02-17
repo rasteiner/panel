@@ -19,7 +19,6 @@ Object.keys(window.panel.plugins.components).forEach(name => {
 
 // Fields
 import Field from "Ui/Forms/Field/Field.mixin.js";
-import FieldOptions from "App/Components/Forms/Fields/Fieldoptions.mixin.js";
 
 Object.keys(window.panel.plugins.fields).forEach(name => {
   let options = window.panel.plugins.fields[name];
@@ -36,11 +35,6 @@ Object.keys(window.panel.plugins.fields).forEach(name => {
   if (!options.mixin) {
     options.mixins = [];
   }
-
-  // replace mixin aliases
-  options.mixins.map(mixin => {
-    return mixin === "options" ? FieldOptions : mixin;
-  });
 
   // inject Field mixin
   options.mixins.push(Field);
