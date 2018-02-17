@@ -169,13 +169,21 @@ export default {
           this.name = file.name;
           this.preview = this.$api.file.preview(file);
 
-          this.$api.file.breadcrumb(file).then(breadcrumb => {
-            this.breadcrumb = breadcrumb;
-          });
+          this.$api.file
+            .breadcrumb(file)
+            .then(breadcrumb => {
+              this.breadcrumb = breadcrumb;
+            })
+            .catch(() => {
+              this.$store.dispatch("error", "Error with the breadcrumbs");
+            });
 
-          this.$api.file.blueprint(this.path, this.filename).then(blueprint => {
-            this.blueprint = blueprint;
-          });
+          // TODO: fix fields/form for FileView
+          // this.$api.file.blueprint(this.path, this.filename).then(blueprint => {
+          //    this.blueprint = blueprint;
+          // }).catch(() => {
+          //   this.$store.dispatch("error", "Error with the blueprint");
+          // });
 
           this.$store.dispatch("isLoading", false);
         })

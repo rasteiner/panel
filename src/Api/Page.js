@@ -55,7 +55,7 @@ export default {
 
       if (options.changeTemplate) {
         result.push({
-          click: "temolate",
+          click: "template",
           icon: "code",
           text: "Change template"
         });
