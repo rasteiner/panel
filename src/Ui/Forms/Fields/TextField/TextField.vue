@@ -52,8 +52,7 @@ export default {
       type: String
     },
     autocomplete: {
-      type: Boolean,
-      default: false
+      type: String
     },
     spellcheck: {
       type: Boolean,
