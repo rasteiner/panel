@@ -1,9 +1,20 @@
 import Vue from "vue";
 
+// Helper function to add components to Vuew
+window.panel.registerComponent = (name, component) => {
+  if (Vue.options.components[name]) {
+    console.warn(`Plugin is replacing "${name}"`);
+  }
+
+  Vue.component(name, component);
+};
+
 // Components
 Object.keys(window.panel.plugins.components).forEach(name => {
-  let options = window.panel.plugins.components[name];
-  Vue.component(name, options);
+  window.panel.plugin.registerComponent(
+    name,
+    window.panel.plugins.components[name]
+  );
 });
 
 // Fields
@@ -34,7 +45,7 @@ Object.keys(window.panel.plugins.fields).forEach(name => {
   // inject Field mixin
   options.mixins.push(Field);
 
-  Vue.component(name, options);
+  window.panel.plugin.registerComponent(name, options);
 });
 
 // Views
