@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Language from "Api/Locale.js";
+import Locale from "Api/Locale.js";
 import Select from "Ui/Forms/Fields/SelectField/SelectField.vue";
 
 export default {
