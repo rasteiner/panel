@@ -60,8 +60,4 @@ export default {
 .kirby-checkboxes-field .kirby-input-content {
   padding: 0.65rem;
 }
-
-.kirby-checkboxes-field > * + * {
-  margin-top: 4px;
-}
 </style>

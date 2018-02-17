@@ -67,10 +67,6 @@ $radio-height: 16px;
 $radio-offset-y: 6px;
 $radio-label-gap: 8px;
 
-.kirby-radio-inputs > * + * {
-  margin-top: 4px;
-}
-
 .kirby-radio-input {
   position: relative;
   display: block;
