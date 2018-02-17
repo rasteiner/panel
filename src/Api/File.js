@@ -137,7 +137,7 @@ export default {
     }
   },
   breadcrumb(file) {
-    return Api.page.get(file.parent.id).then(page => {
+    return Api.page.get(file.parent.id, { view: "panel" }).then(page => {
       let breadcrumb = Api.page.breadcrumb(page);
 
       breadcrumb.push({

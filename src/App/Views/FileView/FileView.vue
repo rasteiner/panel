@@ -71,7 +71,7 @@
             <dl>
               <template v-if="file.dimensions">
                 <dt>Dimensions</dt>
-                <dd>{{ file.dimensions }}</dd>
+                <dd>{{ file.dimensions.width }}&times;{{ file.dimensions.height }} / orientation: {{ file.dimensions.orientation }} / ratio: {{ file.dimensions.ratio }}</dd>
               </template>
 
               <template v-if="file.created">
