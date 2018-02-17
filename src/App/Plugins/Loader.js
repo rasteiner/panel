@@ -11,10 +11,7 @@ window.panel.registerComponent = (name, component) => {
 
 // Components
 Object.keys(window.panel.plugins.components).forEach(name => {
-  window.panel.plugin.registerComponent(
-    name,
-    window.panel.plugins.components[name]
-  );
+  window.panel.registerComponent(name, window.panel.plugins.components[name]);
 });
 
 // Fields
@@ -39,7 +36,7 @@ Object.keys(window.panel.plugins.fields).forEach(name => {
   // inject Field mixin
   options.mixins.push(Field);
 
-  window.panel.plugin.registerComponent(name, options);
+  window.panel.registerComponent(name, options);
 });
 
 // Views
