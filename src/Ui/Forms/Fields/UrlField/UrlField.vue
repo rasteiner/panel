@@ -8,25 +8,25 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import TextField from "Ui/Forms/Fields/TextField/TextField.vue";
 
 export default {
-  mixins: [Field],
+  extends: TextField,
   props: {
+    name: {
+      default: "url"
+    },
+    type: {
+      default: "url"
+    },
     label: {
       default: "URL"
     },
     icon: {
       default: "chain"
     },
-    name: {
-      default: "url"
-    },
     placeholder: {
       default: "https://"
-    },
-    type: {
-      default: "url"
     }
   }
 };

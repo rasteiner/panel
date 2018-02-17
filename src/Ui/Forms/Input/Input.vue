@@ -4,11 +4,11 @@
       <slot name="prefix">{{ prefix }}</slot>
     </span>
     <span class="kirby-input-content">
-      <slot></slot>
+      <slot />
     </span>
     <span v-if="$slots.icon || icon" @click="focus" class="kirby-input-icon">
       <slot name="icon">
-        <kirby-icon :type="icon"></kirby-icon>
+        <kirby-icon :type="icon" />
       </slot>
     </span>
   </div>
@@ -16,7 +16,11 @@
 
 <script>
 export default {
-  props: ["error", "prefix", "icon"],
+  props: {
+    error: Boolean,
+    icon: [String, Boolean],
+    prefix: String
+  },
   data() {
     return {
       isFocused: false

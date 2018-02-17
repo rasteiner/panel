@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-time-field" v-bind="fieldProps">
+  <kirby-field class="kirby-time-field" v-bind="$props">
     <kirby-time-input
       :mode="mode"
       :interval="interval"

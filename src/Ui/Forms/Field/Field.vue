@@ -2,18 +2,21 @@
   <div class="kirby-field" :data-readonly="readonly" :data-error="error" @click="focus">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
+
       <template slot="left">
         <slot name="label">
           <label :for="name">{{ label }} <abbr v-if="required" title="Required">*</abbr></label>
         </slot>
       </template>
+
       <template slot="right">
         <slot name="options" />
       </template>
+
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content" />
-    <kirby-input v-else :icon="icon" :error="error" :prefix="prefix">
+    <kirby-input v-else :error="error" :icon="$attrs.icon"  :prefix="$attrs.prefix">
       <slot />
     </kirby-input>
 
@@ -31,16 +34,15 @@ export default {
   props: {
     error: Boolean,
     help: String,
-    icon: [String, Boolean],
     label: String,
     name: {
       type: String,
       required: true
     },
     readonly: Boolean,
-    required: Boolean,
-    prefix: String
+    required: Boolean
   },
+  inheritAttrs: false,
   data() {
     return {
       isFocused: false
@@ -56,7 +58,6 @@ export default {
     focus() {
       this.isFocused = true;
       this.$emit("focus");
-      console.log("focussed");
     },
     blur() {
       this.isFocused = false;

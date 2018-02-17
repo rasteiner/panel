@@ -1,7 +1,7 @@
 <template>
   <kirby-field
     class="kirby-textarea-field"
-    v-bind="fieldProps"
+    v-bind="$props"
     :data-fullscreen="fullscreen">
 
     <template slot="options" v-if="maxlength">
@@ -152,12 +152,13 @@ import autosize from "./Textarea.autosize.js";
 export default {
   mixins: [Field],
   props: {
-    label: {
-      default: "Text"
-    },
     name: {
       default: "text"
     },
+    label: {
+      default: "Text"
+    },
+
     maxlength: {
       type: Number
     },

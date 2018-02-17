@@ -3,7 +3,7 @@
   <kirby-field
     class="kirby-user-field"
     ref="field"
-    v-bind="fieldProps"
+    v-bind="$props"
     :icon="button">
 
     <template v-if="user">
@@ -42,11 +42,11 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    label: {
-      default: "User"
-    },
     name: {
       default: "user"
+    },
+    label: {
+      default: "User"
     },
     icon: {
       default: "user"

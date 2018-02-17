@@ -8,25 +8,25 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import TextField from "Ui/Forms/Fields/TextField/TextField.vue";
 
 export default {
-  mixins: [Field],
+  extends: TextField,
   props: {
-    icon: {
+    name: {
+      default: "email"
+    },
+    type: {
       default: "email"
     },
     label: {
       default: "Email"
     },
-    name: {
+    icon: {
       default: "email"
     },
     placeholder: {
       default: "mail@example.com"
-    },
-    type: {
-      default: "email"
     }
   }
 };

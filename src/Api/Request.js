@@ -30,13 +30,16 @@ export default {
 
     return this.request(path, Object.assign(options || {}, { method: "GET" }));
   },
-  post (path, data, options, method = "POST") {
-    return this.request(path, Object.assign(options || {}, {
-      method: method,
-      body: JSON.stringify(data)
-    }));
+  post(path, data, options, method = "POST") {
+    return this.request(
+      path,
+      Object.assign(options || {}, {
+        method: method,
+        body: JSON.stringify(data)
+      })
+    );
   },
-  patch (path, data, options) {
+  patch(path, data, options) {
     return this.post(path, data, options, "PATCH");
   },
   delete(path) {

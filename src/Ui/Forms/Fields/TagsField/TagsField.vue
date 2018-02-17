@@ -1,13 +1,13 @@
 <template>
   <kirby-field
     class="kirby-tags-field"
-    v-bind="fieldProps"
+    v-bind="$props"
     @click.native="focus">
 
     <draggable
       :value="state"
       @input="input"
-      :options="{disabled: disabled}"
+      :options="{disabled: isDisabled}"
       class="kirby-tags-input">
 
       <kirby-tag v-for="tag in state"
@@ -57,11 +57,11 @@ export default {
     draggable
   },
   props: {
-    label: {
-      default: "Tags"
-    },
     name: {
       default: "tags"
+    },
+    label: {
+      default: "Tags"
     },
     icon: {
       default: "tag"
@@ -92,7 +92,7 @@ export default {
     };
   },
   computed: {
-    disabled() {
+    isDisabled() {
       return this.sortable === false || this.state.length === 0;
     }
   },

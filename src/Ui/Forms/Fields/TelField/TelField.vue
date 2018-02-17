@@ -8,22 +8,22 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import TextField from "Ui/Forms/Fields/TextField/TextField.vue";
 
 export default {
-  mixins: [Field],
+  extends: TextField,
   props: {
-    icon: {
-      default: "phone"
-    },
-    label: {
-      default: "Phone"
-    },
     name: {
       default: "phone"
     },
     type: {
       default: "tel"
+    },
+    icon: {
+      default: "phone"
+    },
+    label: {
+      default: "Phone"
     }
   }
 };

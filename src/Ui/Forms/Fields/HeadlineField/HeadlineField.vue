@@ -8,10 +8,8 @@
 export default {
   props: {
     label: {
+      type: String,
       default: "Headline"
-    },
-    type: {
-      default: "headline"
     }
   }
 };
@@ -27,6 +25,7 @@ export default {
   border-bottom: 1px solid $color-border;
   counter-increment: count;
 }
+
 .kirby-headline-field.kirby-headline > span {
   padding: 0;
 }

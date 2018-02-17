@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-toggle-field" v-bind="fieldProps">
+  <kirby-field class="kirby-toggle-field" v-bind="$props">
     <span class="kirby-toggle-input">
       <input
         type="checkbox"
@@ -17,33 +17,27 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
+    name: {
+      default: "toggle"
+    },
     value: {
       type: Boolean,
       default: false
-    },
-    name: {
-      default: "toggle"
     },
     label: {
       default: "Toggle"
     },
     text: {
-      type: String
-    },
-    on: {
-      type: String
-    },
-    off: {
-      type: String
+      type: [String, Array]
     }
   },
   computed: {
     display() {
-      if (this.text) {
-        return this.text;
+      if (Array.isArray(this.text)) {
+        return this.state ? this.text[1] : this.text[0];
       }
 
-      return this.state ? this.on : this.off;
+      return this.text;
     }
   }
 };

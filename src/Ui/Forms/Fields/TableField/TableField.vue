@@ -70,12 +70,12 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
+    name: {
+      default: "table"
+    },
     value: {
       type: Array,
       default: []
-    },
-    name: {
-      default: "table"
     },
     label: {
       default: "Table"

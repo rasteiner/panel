@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-radio-field" v-bind="fieldProps">
+  <kirby-field class="kirby-radio-field" v-bind="$props">
     <kirby-radio-input
       :options="options"
       :value="state"
@@ -14,7 +14,6 @@ export default {
   mixins: [Field],
   props: {
     name: {
-      type: String,
       default: "radio"
     },
     options: {

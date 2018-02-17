@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-checkboxes-field" v-bind="fieldProps">
+  <kirby-field class="kirby-checkboxes-field" v-bind="$props">
     <template v-if="hasOptions">
       <kirby-checkbox-input
         v-for="(option, index) in options"
@@ -23,12 +23,12 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
+    name: {
+      default: "checks"
+    },
     value: {
       type: Array,
       default: []
-    },
-    name: {
-      default: "checks"
     },
     options: {
       type: Array,

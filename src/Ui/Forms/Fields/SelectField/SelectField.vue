@@ -1,13 +1,11 @@
 <template>
 
-  <kirby-field class="kirby-select-field" v-bind="fieldProps">
-
+  <kirby-field class="kirby-select-field" v-bind="$props">
     <kirby-select-input
       :options="options"
       :value="state"
       @input="input"
     />
-
   </kirby-field>
 
 </template>
@@ -18,14 +16,14 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
+    name: {
+      default: "select"
+    },
     value: {
       type: [String, Number]
     },
     label: {
       default: "Select"
-    },
-    name: {
-      default: "select"
     },
     icon: {
       default: "angle-down"
