@@ -1,5 +1,5 @@
 <template>
-  <kirby-field v-bind="$props">
+  <kirby-field :class="`kirby-${this.type}-field`" v-bind="$props">
     <template slot="options" v-if="maxlength">
       <kirby-counter
         :value="state"
