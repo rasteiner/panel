@@ -16,8 +16,8 @@
         @blur="saveName"
         @enter="saveName" />
 
-      <kirby-button class="kirby-user-view-image" v-if="image" @click="$refs.upload.open()">
-        <kirby-image :cover="true" ratio="1/1" :src="image" />
+      <kirby-button class="kirby-user-view-image" v-if="avatar" @click="$refs.upload.open()">
+        <kirby-image :cover="true" ratio="1/1" :src="avatar" />
       </kirby-button>
 
       <template slot="buttons-left">
@@ -26,7 +26,7 @@
             {{ $t('user.image') }}
           </kirby-button>
           <kirby-dropdown-content ref="picture">
-            <template v-if="image">
+            <template v-if="avatar">
               <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('change') }}
               </kirby-dropdown-item>
@@ -53,9 +53,13 @@
         </kirby-dropdown>
       </template>
 
+      <template v-if="isLoading === false" slot="buttons-right">
+        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+      </template>
+
     </kirby-header>
 
-    <kirby-sections v-if="user && layout" :model="user" :self="self" :values="user.content" :layout="layout" @submit="save" />
+    <kirby-tabs :key="'user-' + user.id + '-tabs'" v-if="user && tabs.length" :parent="'users/' + user.id" :tabs="tabs" ref="tabs" @submit="save" />
 
     <kirby-box v-else>
       You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role}}.yml</strong>
@@ -73,163 +77,164 @@
 </template>
 
 <script>
-
 export default {
   props: {
     id: {
       type: String
     }
   },
-  data () {
+  data() {
     return {
-      options: window.panel.config.api + '/users/' + this.id + '/options?not=edit',
-      layout: null,
+      options:
+        window.panel.config.api + "/users/" + this.id + "/options?not=edit",
+      tabs: [],
       name: null,
+      isLoading: true,
       user: {
         role: null,
         name: null,
-        content: {
-          language: 'en',
-        },
+        language: null,
         prev: null,
-        next: null,
+        next: null
       },
-      image: null,
+      avatar: null,
       breadcrumb: null
-    }
+    };
   },
   computed: {
-    self () {
-      return 'kirby.users.find("' + this.user.id + '")';
+    uploadApi() {
+      return window.panel.config.api + "/users/" + this.user.id + "/avatar";
     },
-    uploadApi () {
-      return window.panel.config.api + '/users/' + this.user.id + '/avatar';
-    },
-    pagination () {
+    pagination() {
       return {
-        prevLabel: this.$t('user.previous'),
+        prevLabel: this.$t("user.previous"),
         prev: this.user.prev ? true : false,
         next: this.user.next ? true : false,
-        nextLabel: this.$t('user.next')
+        nextLabel: this.$t("user.next")
       };
     }
   },
-  created () {
+  created() {
     this.fetch();
-    this.$events.$on('key.save', this.save);
+    this.$events.$on("key.save", this.save);
   },
-  destroyed: function () {
-    this.$events.$off('key.save', this.save);
+  destroyed: function() {
+    this.$events.$off("key.save", this.save);
   },
   watch: {
-    $route () {
+    $route() {
       this.fetch();
     }
   },
   methods: {
-    save (data) {
-
+    save(data) {
       this.saveName();
 
       if (data === undefined) {
         return false;
       }
 
-      this.$api.user.update(this.id, data).then(() => {
-        this.$store.dispatch('success', 'Saved!');
-        this.$events.$emit('user.update');
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
+      this.$api.user
+        .update(this.id, data)
+        .then(() => {
+          this.$store.dispatch("success", "Saved!");
+          this.$events.$emit("user.update");
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     },
-    action (action) {
+    action(action) {
       switch (action) {
-        case 'picture.delete':
-          this.$api.user.deleteAvatar(this.id).then(() => {
-            this.$store.dispatch('success', this.$t('notification.image.deleted'));
-            this.image = null;
-          }).catch((error) => {
-            this.$store.dispatch('error', error.message);
-          });
+        case "picture.delete":
+          this.$api.user
+            .deleteAvatar(this.id)
+            .then(() => {
+              this.$store.dispatch(
+                "success",
+                this.$t("notification.image.deleted")
+              );
+              this.avatar = null;
+            })
+            .catch(error => {
+              this.$store.dispatch("error", error.message);
+            });
           break;
-        case 'role':
+        case "role":
           this.$refs.role.open(this.user.id);
           break;
-        case 'password':
+        case "password":
           this.$refs.password.open(this.user.id);
           break;
-        case 'language':
+        case "language":
           this.$refs.language.open(this.user.id);
           break;
-        case 'remove':
+        case "remove":
           this.$refs.remove.open(this.user.id);
           break;
         default:
-          this.$store.dispatch('error', 'Not yet implemented');
+          this.$store.dispatch("error", "Not yet implemented");
           break;
       }
     },
-    prev () {
-      this.$router.push('/users/' + this.user.prev);
+    prev() {
+      this.$router.push("/users/" + this.user.prev.id);
     },
-    next () {
-      this.$router.push('/users/' + this.user.next);
+    next() {
+      this.$router.push("/users/" + this.user.next.id);
     },
-    fetch () {
-
-      this.$api.user.get(this.id).then((user) => {
-
-        this.$api.user.blueprint(this.id).then((blueprint) => {
-
-          this.user       = user;
-          this.name       = user.content.name;
+    fetch() {
+      this.$api.user
+        .get(this.id, { view: "panel" })
+        .then(user => {
+          this.user = user;
+          this.name = user.name;
           this.breadcrumb = this.$api.user.breadcrumb(user);
-          this.layout     = blueprint.layout;
+          this.tabs = user.blueprint.tabs;
 
-          if (user.image.exists) {
-            this.image = user.image.url + '?v=' + user.image.modified;
+          if (user.avatar.exists) {
+            this.avatar = user.avatar.url + "?v=" + user.avatar.modified;
           } else {
-            this.image = null;
+            this.avatar = null;
           }
 
-          this.$store.dispatch('isLoading', false);
-
+          this.$store.dispatch("isLoading", false);
+          this.isLoading = false;
+        })
+        .catch(() => {
+          this.$store.dispatch("error", "The user could not be found");
+          this.isLoading = false;
         });
-
-      }).catch(() => {
-        this.$store.dispatch('error', 'The user could not be found');
-      });
-
     },
-    updateName (name) {
+    updateName(name) {
       this.name = name;
     },
-    saveName () {
+    saveName() {
+      return true;
 
-      if (this.name === this.user.content.name) {
+      if (this.name === this.user.name) {
         return true;
       }
 
-      this.$api.user.update(this.id, {name: this.name}).then((user) => {
-        this.user = user;
-        this.$store.dispatch('success', 'The name has been saved!');
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
+      this.$api.user
+        .update(this.id, { name: this.name })
+        .then(user => {
+          this.user = user;
+          this.$store.dispatch("success", "The name has been saved!");
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     },
-    uploadedAvatar () {
-      this.$store.dispatch('success', 'The image has been uploaded!');
+    uploadedAvatar() {
+      this.$store.dispatch("success", "The image has been uploaded!");
       this.fetch();
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-headline {
   position: relative;
   padding-right: 5rem;
@@ -244,13 +249,12 @@ export default {
   z-index: 0;
 
   [dir="ltr"] & {
-    right: .6rem;
-    margin-right: -.2rem;
+    right: 0.6rem;
+    margin-right: -0.2rem;
   }
   [dir="rtl"] & {
-    left: .6rem;
-    margin-left: -.2rem;
+    left: 0.6rem;
+    margin-left: -0.2rem;
   }
 }
-
 </style>

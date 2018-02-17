@@ -1,64 +1,52 @@
 <template>
   <kirby-select-field
-    :label="label"
-    :name="name"
-    :icon="icon"
-    :help="help"
-    :required="required"
-    :readonly="readonly"
-    :options="options"
+    v-bind="$props"
+    :options="languages"
     :value="state"
     @input="input" />
 </template>
 
 <script>
-
-import Language from 'Api/Language.js';
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Language from "Api/Locale.js";
+import Select from "Ui/Forms/Fields/SelectField/SelectField.vue";
 
 export default {
-  mixins: [Field],
+  extends: Select,
   props: {
-    label: {
-      default: 'Language'
-    },
     name: {
-      default: 'language'
+      default: "language"
+    },
+    label: {
+      default: "Language"
     },
     icon: {
-      default: 'globe'
-    },
-    value: {
-      type: String
+      default: "globe"
     }
   },
-  data () {
+  data() {
     return {
       state: this.value,
-      options: []
+      languages: []
     };
   },
   created() {
     this.fetch();
   },
   methods: {
-    fetch () {
+    fetch() {
+      Locale.list().then(locales => {
+        this.languages = locales.data.map(locale => ({
+          value: locale.id,
+          text: locale.name
+        }));
 
-      Language.list().then(languages => {
-        this.options = languages.map(lang =>({
-          value: lang.locale,
-          text: lang.name
-        }))
-
-        this.options.unshift({
-          value: '',
-          text: 'Please select a language…',
+        this.languages.unshift({
+          value: "",
+          text: "Please select a language…",
           disabled: true
-         })
+        });
       });
-
     }
   }
-}
-
+};
 </script>

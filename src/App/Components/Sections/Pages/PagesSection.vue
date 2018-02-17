@@ -1,19 +1,16 @@
 <template>
-  <section class="kirby-pages-section">
+  <section class="kirby-pages-section" v-if="isLoading === false">
 
     <kirby-headline>
-      {{ headline }}
+      <router-link v-if="link" :to="link">{{ headline }}</router-link>
+      <span v-else>{{ headline }}</span>
+
       <kirby-button-group slot="options">
-        <template v-show="!isLoading">
-          <kirby-button v-if="add" icon="add" @click="action(null, 'create')">Add</kirby-button>
-        </template>
+        <kirby-button v-if="create" icon="add" @click="action(null, 'create')">Add</kirby-button>
       </kirby-button-group>
     </kirby-headline>
 
-    <template v-if="isLoading">
-      <kirby-skeleton type="list" />
-    </template>
-    <template v-else-if="error">
+    <template v-if="error">
       <kirby-box>
         <strong>The section could not be loaded:</strong>
         {{ error }}
@@ -23,13 +20,13 @@
 
       <kirby-collection
         :layout="layout"
-        :items="items"
+        :items="data"
         :pagination="pagination"
         @paginate="paginate"
         @action="action" />
 
-      <kirby-box v-if="items.length === 0">
-        <kirby-button v-if="add" @click="action(null, 'create')">No entries</kirby-button>
+      <kirby-box v-if="data.length === 0">
+        <kirby-button v-if="create" @click="action(null, 'create')">No entries</kirby-button>
         <kirby-txt v-else>No entries</kirby-txt>
       </kirby-box>
 
@@ -41,83 +38,81 @@
     </template>
 
   </section>
+
 </template>
 
 <script>
-
 export default {
   props: {
-    self: String,
-    config: Object
+    parent: String,
+    name: String
   },
-  data () {
+  data() {
     return {
-      add: null,
-      layout: 'list',
-      items: [],
-      pagination: {},
-      query: this.config,
+      create: null,
+      data: [],
+      error: null,
       headline: null,
       isLoading: true,
-      error: null
-    }
+      layout: "list",
+      pagination: {},
+      link: false
+    };
   },
-  created () {
+  created() {
     this.fetch();
   },
   methods: {
-    fetch () {
+    fetch() {
+      this.$api
+        .section(this.parent, this.name)
+        .then(response => {
+          this.data = response.data.map(page => {
+            page.options = ready => {
+              this.$api.page.options(page.id).then(options => ready(options));
+            };
 
-      if (!this.query.self) {
-        this.query.self = this.self;
-      }
+            return page;
+          });
 
-      this.$store.dispatch('isLoading', true);
-
-      this.$api.section(this.query.type, this.query).then((response) => {
-        this.add        = response.add;
-        this.items      = response.items;
-        this.pagination = response.pagination;
-        this.headline   = response.headline;
-        this.layout     = response.layout || 'list';
-        this.isLoading  = false;
-        this.$store.dispatch('isLoading', false);
-      }).catch((error) => {
-        this.isLoading = false;
-        this.error     = error.message;
-        this.$store.dispatch('isLoading', false);
-      });
-
+          this.create = response.create;
+          this.pagination = response.pagination;
+          this.headline = response.headline;
+          this.layout = response.layout || "list";
+          this.link = response.link;
+          this.isLoading = false;
+        })
+        .catch(error => {
+          this.isLoading = false;
+          this.error = error.message;
+        });
     },
-    update (event) {
-
-    },
-    action (page, action) {
+    update(event) {},
+    action(page, action) {
       switch (action) {
-        case 'preview':
+        case "preview":
           window.open(page.url);
           break;
-        case 'create':
-          this.$refs.create.open(this.add);
+        case "create":
+          this.$refs.create.open(this.create);
           break;
-        case 'url':
+        case "url":
           this.$refs.url.open(page.id);
           break;
-        case 'status':
+        case "status":
           this.$refs.status.open(page.id);
           break;
-        case 'remove':
+        case "remove":
           this.$refs.remove.open(page.id);
           break;
         default:
-          this.$store.dispatch('error', 'Not yet implemented');
+          this.$store.dispatch("error", "Not yet implemented");
       }
     },
-    paginate (pagination) {
-      this.query.pagination = Object.assign(this.query.pagination || {}, pagination);
+    paginate(pagination) {
+      this.pagination = Object.assign(this.pagination || {}, pagination);
       this.fetch();
     }
   }
 };
-
 </script>

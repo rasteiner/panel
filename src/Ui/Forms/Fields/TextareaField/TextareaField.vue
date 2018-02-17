@@ -1,7 +1,7 @@
 <template>
   <kirby-field
     class="kirby-textarea-field"
-    v-bind="fieldProps"
+    v-bind="$props"
     :data-fullscreen="fullscreen">
 
     <template slot="options" v-if="maxlength">
@@ -146,19 +146,19 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
-import autosize from './Textarea.autosize.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
+import autosize from "./Textarea.autosize.js";
 
 export default {
   mixins: [Field],
   props: {
-    label: {
-      default: 'Text'
-    },
     name: {
-      default: 'text'
+      default: "text"
     },
+    label: {
+      default: "Text"
+    },
+
     maxlength: {
       type: Number
     },
@@ -178,7 +178,7 @@ export default {
       default: true
     }
   },
-  data () {
+  data() {
     return {
       state: this.value,
       fullscreen: false,
@@ -192,60 +192,58 @@ export default {
       }
     };
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
-      autosize(this.$el);
+      autosize(this.$refs.input);
     });
   },
   methods: {
-    prefix (prefix) {
-
-      const tag = prefix + ' ' + this.selection();
+    prefix(prefix) {
+      const tag = prefix + " " + this.selection();
 
       this.insert(tag);
-
     },
-    list (type) {
-
-      let html = '';
+    list(type) {
+      let html = "";
       const selection = this.selection();
 
-      selection.split('\n').forEach((line, index) => {
+      selection.split("\n").forEach((line, index) => {
+        let prefix = "-";
 
-        let prefix = '-';
-
-        if (type === 'ol') {
-          prefix = (index + 1) + '.';
+        if (type === "ol") {
+          prefix = index + 1 + ".";
         }
 
-        html += prefix + ' ' + line + '\n';
-
+        html += prefix + " " + line + "\n";
       });
 
       this.insert(html);
-
     },
-    wrap (token) {
-      const tag   = token + this.selection() + token;
+    wrap(token) {
+      const tag = token + this.selection() + token;
 
       this.insert(tag);
     },
-    bold () {
-      this.wrap('**');
+    bold() {
+      this.wrap("**");
     },
-    italic () {
-      this.wrap('*');
+    italic() {
+      this.wrap("*");
     },
-    openLinkModal () {
+    openLinkModal() {
       this.linkValue.text = this.selection();
       this.$refs.linkModal.open();
     },
-    link () {
-
-      let tag = '(link: ' + this.linkValue.url + ')';
+    link() {
+      let tag = "(link: " + this.linkValue.url + ")";
 
       if (this.linkValue.text.length > 0) {
-        tag = '(link: ' + this.linkValue.url + ' text: ' + this.linkValue.text + ')';
+        tag =
+          "(link: " +
+          this.linkValue.url +
+          " text: " +
+          this.linkValue.text +
+          ")";
       }
 
       // reset the form
@@ -259,18 +257,21 @@ export default {
 
       // close the modal
       this.$refs.linkModal.close();
-
     },
-    openEmailModal () {
+    openEmailModal() {
       this.emailValue.text = this.selection();
       this.$refs.emailModal.open();
     },
-    email () {
-
-      let tag = '(email: ' + this.emailValue.email + ')';
+    email() {
+      let tag = "(email: " + this.emailValue.email + ")";
 
       if (this.emailValue.text.length > 0) {
-        tag = '(email: ' + this.emailValue.email + ' text: ' + this.emailValue.text + ')';
+        tag =
+          "(email: " +
+          this.emailValue.email +
+          " text: " +
+          this.emailValue.text +
+          ")";
       }
 
       // reset the form
@@ -284,87 +285,78 @@ export default {
 
       // close the modal
       this.$refs.emailModal.close();
-
     },
-    toggle () {
+    toggle() {
       this.fullscreen = !this.fullscreen;
       this.$nextTick(() => {
         this.resize();
         this.focus();
       });
     },
-    addShortcuts () {
-      this.$events.$on('key.cmd+b', this.bold);
-      this.$events.$on('key.cmd+i', this.italic);
-      this.$events.$on('key.cmd+u', this.openLinkModal);
-      this.$events.$on('key.cmd+e', this.openEmailModal);
+    addShortcuts() {
+      this.$events.$on("key.cmd+b", this.bold);
+      this.$events.$on("key.cmd+i", this.italic);
+      this.$events.$on("key.cmd+u", this.openLinkModal);
+      this.$events.$on("key.cmd+e", this.openEmailModal);
     },
-    removeShortcuts () {
-      this.$events.$off('key.cmd+b', this.bold);
-      this.$events.$off('key.cmd+i', this.italic);
-      this.$events.$off('key.cmd+u', this.openLinkModal);
-      this.$events.$off('key.cmd+e', this.openEmailModal);
+    removeShortcuts() {
+      this.$events.$off("key.cmd+b", this.bold);
+      this.$events.$off("key.cmd+i", this.italic);
+      this.$events.$off("key.cmd+u", this.openLinkModal);
+      this.$events.$off("key.cmd+e", this.openEmailModal);
     },
-    focus () {
+    focus() {
       this.$refs.input.focus();
     },
-    insert (text) {
-
+    insert(text) {
       const area = this.$refs.input;
 
       area.focus();
 
-      document.execCommand('insertText', false, text);
+      document.execCommand("insertText", false, text);
 
       this.resize();
-
     },
-    resize () {
+    resize() {
       autosize.update(this.$refs.input);
     },
-    selection () {
-
-      const area  = this.$refs.input;
+    selection() {
+      const area = this.$refs.input;
       const start = area.selectionStart;
-      const end   = area.selectionEnd;
+      const end = area.selectionEnd;
 
       return area.value.substring(start, end);
-
     },
-    enter (e) {
-      this.$emit('enter', e);
+    enter(e) {
+      this.$emit("enter", e);
 
       if (this.multiline === false) {
         e.preventDefault();
       }
 
       if (e.metaKey || e.ctrlKey) {
-        this.$emit('submit', e);
+        this.$emit("submit", e);
       }
-
     },
-    remove (e) {
-
+    remove(e) {
       if (e.target.selectionStart === 0 && e.target.value.length === 0) {
-        this.$emit('empty');
+        this.$emit("empty");
         e.preventDefault();
       }
 
-      this.$emit('remove', e);
+      this.$emit("remove", e);
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-format-buttons {
   padding-top: 1rem;
-  padding-bottom: .25rem;
+  padding-bottom: 0.25rem;
   display: flex;
-  opacity: .25;
-  transition: opacity .3s;
+  opacity: 0.25;
+  transition: opacity 0.3s;
 }
 .kirby-input[data-focus] .kirby-format-buttons {
   opacity: 1;
@@ -374,7 +366,7 @@ export default {
 }
 
 .kirby-format-button {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .kirby-textarea-field[data-fullscreen] {
@@ -420,5 +412,4 @@ export default {
     max-height: 2rem;
   }
 }
-
 </style>

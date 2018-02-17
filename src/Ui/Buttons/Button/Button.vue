@@ -15,38 +15,28 @@
 </template>
 
 <script>
-
 export default {
-  props: [
-    'alt',
-    'icon',
-    'image',
-    'state',
-    'link',
-    'disabled'
-  ],
-  data () {
+  props: ["alt", "icon", "image", "state", "link", "disabled"],
+  data() {
     return {
       tabbed: false
-    }
+    };
   },
   methods: {
-    click () {
-      this.$emit('click')
+    click() {
+      this.$emit("click");
     },
-    tab ($event) {
-      this.tabbed = true
+    tab($event) {
+      this.tabbed = true;
     },
-    untab () {
-      this.tabbed = false
+    untab() {
+      this.tabbed = false;
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-button {
   position: relative;
   background: none;
@@ -56,7 +46,7 @@ export default {
   border: 0;
   cursor: pointer;
   color: $color-dark-grey;
-  transition: color .3s;
+  transition: color 0.3s;
 
   &:focus,
   &:hover {
@@ -79,18 +69,17 @@ export default {
 
   .kirby-icon ~ .kirby-button-text {
     [dir="ltr"] & {
-      padding-left: .25rem;
+      padding-left: 0.25rem;
     }
     [dir="rtl"] & {
-      padding-right: .25rem;
+      padding-right: 0.25rem;
     }
   }
-
 }
 
 .kirby-button[disabled] {
   pointer-events: none;
-  opacity: .25;
+  opacity: 0.25;
 }
 
 .kirby-button[data-state="positive"] {
@@ -103,7 +92,6 @@ export default {
   .kirby-icon svg * {
     fill: $color-positive;
   }
-
 }
 
 .kirby-button[data-state="negative"] {
@@ -116,7 +104,6 @@ export default {
   .kirby-icon svg * {
     fill: $color-negative;
   }
-
 }
 
 .kirby-button[data-has-image] {
@@ -137,19 +124,19 @@ export default {
 .kirby-button-image {
   width: 1.5rem;
   height: 1.5rem;
-  margin-top: -.5rem;
-  margin-bottom: -.5rem;
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
   border-radius: 50%;
   background: $color-dark;
   object-fit: cover;
 
   [dir="ltr"] & {
-    margin-right: .25rem;
+    margin-right: 0.25rem;
     margin-left: 0;
   }
   [dir="rtl"] & {
     margin-right: 0;
-    margin-left: .25rem;
+    margin-left: 0.25rem;
   }
 }
 
@@ -157,5 +144,4 @@ export default {
 .kirby-button-text b {
   vertical-align: baseline;
 }
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-checkbox-field" v-bind="fieldProps">
+  <kirby-field class="kirby-checkbox-field" v-bind="$props">
     <kirby-checkbox-input
       :text="text"
       :value="state"
@@ -9,31 +9,27 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
+    name: {
+      default: "check"
+    },
     value: {
       type: Boolean,
       default: false
-    },
-    name: {
-      default: 'check'
     },
     text: {
       type: String
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-checkbox-field .kirby-input-content {
-  padding: .45rem .65rem;
+  padding: 0.45rem 0.65rem;
 }
-
 </style>

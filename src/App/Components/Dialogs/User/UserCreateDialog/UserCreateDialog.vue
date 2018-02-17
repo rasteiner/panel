@@ -5,37 +5,36 @@
 </template>
 
 <script>
-
-import DialogMixin from 'App/Components/Dialogs/Dialogs.mixin.js';
+import DialogMixin from "App/Components/Dialogs/Dialogs.mixin.js";
 
 export default {
   mixins: [DialogMixin],
-  data () {
+  data() {
     return {
       user: {
-        email: '',
-        password: '',
-        language: 'en',
+        email: "",
+        password: "",
+        language: "en",
         // TODO: change to config default user role
-        role: 'admin'
+        role: "admin"
       },
       fields: [
         {
-          name: 'email',
-          label: 'Email',
-          type: 'email',
+          name: "email",
+          label: "Email",
+          type: "email",
           required: true
         },
         {
-          name: 'password',
-          label: 'Password',
-          type: 'password',
+          name: "password",
+          label: "Password",
+          type: "password",
           required: true
         },
         {
-          name: 'role',
-          label: 'Role',
-          type: 'radio',
+          name: "role",
+          label: "Role",
+          type: "radio",
           required: true,
           options: this.$api.user.roles()
         }
@@ -43,29 +42,27 @@ export default {
     };
   },
   methods: {
-    create () {
+    create() {
+      this.$api.user
+        .create(this.user)
+        .then(user => {
+          this.user = {
+            email: "",
+            password: "",
+            language: "en",
+            // TODO: change to config default user role
+            role: "admin"
+          };
 
-      this.$api.user.create(this.user).then((user) => {
-
-        this.user = {
-          email: '',
-          password: '',
-          language: 'en',
-          // TODO: change to config default user role
-          role: 'admin'
-        };
-
-        this.success({
-          message: 'The user has been created',
-          event: 'user.create'
+          this.success({
+            message: "The user has been created",
+            event: "user.create"
+          });
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
         });
-
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-      });
-
     }
   }
-}
-
+};
 </script>

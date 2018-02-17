@@ -14,8 +14,7 @@
 </template>
 
 <script>
-
-var OpenDropdown = null
+var OpenDropdown = null;
 
 export default {
   props: {
@@ -24,74 +23,72 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       items: null,
       isOpen: false
-    }
+    };
   },
-  created: function () {
-    window.addEventListener('keyup', this.escape, false)
-    document.addEventListener('click', this.close, false)
+  created: function() {
+    window.addEventListener("keyup", this.escape, false);
+    document.addEventListener("click", this.close, false);
   },
-  destroyed: function () {
-    window.removeEventListener('keyup', this.escape, false)
-    document.removeEventListener('click', this.close, false)
+  destroyed: function() {
+    window.removeEventListener("keyup", this.escape, false);
+    document.removeEventListener("click", this.close, false);
   },
   methods: {
-    fetchOptions (callback) {
+    fetchOptions(ready) {
       if (this.options) {
-        if (typeof this.options === 'string') {
-          fetch(this.options).
-            then((response) => response.json()).
-            then((json) => {
-              this.items = json
-              return callback()
-            })
-
-        } else if (typeof this.options === 'object') {
-          this.items = this.options
+        if (typeof this.options === "string") {
+          fetch(this.options)
+            .then(response => response.json())
+            .then(json => {
+              return ready(json);
+            });
+        } else if (typeof this.options === "function") {
+          this.options(ready);
+        } else if (typeof this.options === "object") {
+          ready(this.options);
         }
-        return callback()
       } else {
-        return callback()
+        return ready(this.items);
       }
     },
-    open () {
+    open() {
       if (OpenDropdown && OpenDropdown !== this) {
         // close the current dropdown
-        OpenDropdown.close()
+        OpenDropdown.close();
       }
 
-      this.fetchOptions(() => {
-        this.isOpen = true
-        this.$emit('open')
-        OpenDropdown = this
-      })
+      this.fetchOptions(items => {
+        this.isOpen = true;
+        this.items = items;
+        this.$emit("open");
+        OpenDropdown = this;
+      });
     },
-    close () {
-      this.isOpen = OpenDropdown = false
-      this.$emit('close')
+    close() {
+      this.isOpen = OpenDropdown = false;
+      this.$emit("close");
     },
-    toggle () {
-      this.isOpen ? this.close() : this.open()
+    toggle() {
+      this.isOpen ? this.close() : this.open();
     },
-    escape (e) {
-      if (e.code === 'Escape') {
-        this.close()
+    escape(e) {
+      if (e.code === "Escape") {
+        this.close();
       }
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-dropdown-content {
   position: absolute;
   top: 100%;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   background: $color-dark;
   color: $color-light;
   z-index: z-index(dropdown);
@@ -122,5 +119,4 @@ export default {
 .kirby-dropdown-item:last-child {
   border-bottom: 0;
 }
-
 </style>

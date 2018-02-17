@@ -14,13 +14,12 @@
 </template>
 
 <script>
-
 export default {
   props: {
     value: {},
     placeholder: {
       type: String,
-      default: 'Type something …'
+      default: "Type something …"
     },
     multiline: {
       type: Boolean,
@@ -32,31 +31,28 @@ export default {
       this.$refs.input.focus();
     },
     input(value) {
-      this.$emit('input', value);
+      this.$emit("input", value);
     },
     enter() {
       if (this.multiline === false) {
-        this.$emit('append', 'text');
+        this.$emit("append", "text");
       }
     },
     append(type) {
-      this.$emit('append', type);
+      this.$emit("append", type);
     },
     remove() {
-      this.$emit('remove');
+      this.$emit("remove");
     },
     empty() {
-      this.$emit('remove');
+      this.$emit("remove");
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-text-block:not(:last-child) {
   margin-bottom: 1.5rem;
 }
-
 </style>

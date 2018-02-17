@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-checkboxes-field" v-bind="fieldProps">
+  <kirby-field class="kirby-checkboxes-field" v-bind="$props">
     <template v-if="hasOptions">
       <kirby-checkbox-input
         v-for="(option, index) in options"
@@ -18,18 +18,17 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
+    name: {
+      default: "checks"
+    },
     value: {
       type: Array,
       default: []
-    },
-    name: {
-      default: 'checks'
     },
     options: {
       type: Array,
@@ -37,36 +36,32 @@ export default {
     }
   },
   computed: {
-    hasOptions () {
-      return this.options && this.options.length > 0
+    hasOptions() {
+      return this.options && this.options.length > 0;
     }
   },
   methods: {
-    input (value, index) {
-
-      let option = this.options[index].value
+    input(value, index) {
+      let option = this.options[index].value;
 
       if (value === true) {
-        this.state.push(option)
+        this.state.push(option);
       } else {
-        this.state = this.state.filter(item => item !== option)
+        this.state = this.state.filter(item => item !== option);
       }
 
-      this.$emit('input', this.state)
+      this.$emit("input", this.state);
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-checkboxes-field .kirby-input-content {
-  padding: .65rem;
+  padding: 0.65rem;
 }
 
 .kirby-checkboxes-field > * + * {
   margin-top: 4px;
 }
-
 </style>

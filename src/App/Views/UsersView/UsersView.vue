@@ -41,9 +41,8 @@
 </template>
 
 <script>
-
 export default {
-  data () {
+  data() {
     return {
       page: 1,
       limit: 20,
@@ -51,7 +50,7 @@ export default {
       users: []
     };
   },
-  created () {
+  created() {
     this.fetch();
   },
   watch: {
@@ -60,9 +59,8 @@ export default {
     }
   },
   methods: {
-    fetch () {
-
-      this.$store.dispatch('isLoading', true);
+    fetch() {
+      this.$store.dispatch("isLoading", true);
 
       let query = {
         paginate: {
@@ -74,129 +72,125 @@ export default {
       if (this.role) {
         query.filterBy = [
           {
-            field: 'role',
-            operator: '==',
+            field: "role",
+            operator: "==",
             value: this.role
           }
         ];
       }
 
-      this.$api.user.list(query).then((response) => {
-        this.total = response.pagination.total;
-        this.users = response.items.map((user) => {
-
-          let item = {
-            id: user.id,
-            preview: { icon: 'user' },
-            text: user.content.name ? user.content.name : user.content.email,
-            role: user.role,
-            link: '/users/' + user.id,
-            options: window.panel.config.api + '/users/' + user.id + '/options',
-            image: null
-          };
-
-          if (user.image.exists === true) {
-            item.image = {
-              url: user.image.url + '?v=' + user.image.modified
+      this.$api.user
+        .list(query)
+        .then(response => {
+          this.total = response.pagination.total;
+          this.users = response.data.map(user => {
+            let item = {
+              id: user.id,
+              preview: { icon: "user" },
+              text: user.name,
+              role: user.role,
+              link: "/users/" + user.id,
+              options:
+                window.panel.config.api + "/users/" + user.id + "/options",
+              image: null
             };
-          }
 
-          return item;
+            if (user.avatar.exists === true) {
+              item.image = {
+                url: user.avatar.url + "?v=" + user.avatar.modified
+              };
+            }
 
+            return item;
+          });
+          this.$store.dispatch("isLoading", false);
+        })
+        .catch(error => {
+          this.$store.dispatch("isLoading", false);
+          this.$store.dispatch("error", error.message);
         });
-        this.$store.dispatch('isLoading', false);
-      }).catch((error) => {
-        this.$store.dispatch('isLoading', false);
-        this.$store.dispatch('error', error.message);
-      });
-
     },
-    paginate (pagination) {
-      this.page  = pagination.page;
+    paginate(pagination) {
+      this.page = pagination.page;
       this.limit = pagination.limit;
     },
-    action (user, action) {
+    action(user, action) {
       switch (action) {
-        case 'edit':
-          this.$router.push('/users/' + user.id);
+        case "edit":
+          this.$router.push("/users/" + user.id);
           break;
-        case 'role':
+        case "role":
           this.$refs.role.open(user.id);
           break;
-        case 'password':
+        case "password":
           this.$refs.password.open(user.id);
           break;
-        case 'language':
+        case "language":
           this.$refs.language.open(user.id);
           break;
-        case 'remove':
+        case "remove":
           this.$refs.remove.open(user.id);
           break;
       }
     },
-    filter (role) {
+    filter(role) {
       if (role === false) {
-        this.$router.push('/users');
+        this.$router.push("/users");
       } else {
-        this.$router.push('/users/role/' + role);
+        this.$router.push("/users/role/" + role);
       }
 
       this.$refs.roles.close();
     }
   },
   computed: {
-    pagination () {
+    pagination() {
       return {
         page: this.page,
         limit: this.limit
       };
     },
-    breadcrumb () {
-
+    breadcrumb() {
       if (this.role) {
         return [
           {
-            link: '/users/role/' + this.role,
-            label: 'role:' + this.role
-          },
+            link: "/users/role/" + this.role,
+            label: "role:" + this.role
+          }
         ];
       }
 
       return [];
-
     },
-    role () {
+    role() {
       return this.$route.params.role;
     },
-    roles () {
+    roles() {
       // TODO: get actual roles from API
       return [
-        { value: 'admin', text: 'admin' },
-        { value: 'editor', text: 'editor' },
-        { value: 'visitor', text: 'visitor' }
+        { value: "admin", text: "admin" },
+        { value: "editor", text: "editor" },
+        { value: "visitor", text: "visitor" }
       ];
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
+.kirby-users-view-role-select {
+  display: inline-block !important;
+  padding: 0 !important;
+}
+.kirby-users-view-role-select > button {
+  font: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: $color-focus;
 
-  .kirby-users-view-role-select {
-    display: inline-block !important;
-    padding: 0 !important;
+  &:focus {
+    outline: none;
   }
-  .kirby-users-view-role-select > button {
-    font: inherit;
-    border: 0;
-    background: none;
-    cursor: pointer;
-    color: $color-focus;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
+}
 </style>

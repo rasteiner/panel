@@ -1,16 +1,14 @@
-
 export default {
   props: {
-    value: {},
     name: {
       type: String,
-      required: true,
+      required: true
     },
-    type: {
-      type: String,
-    },
+    value: {},
+
+    // elements
     label: {
-      type: String,
+      type: String
     },
     icon: {
       type: [Boolean, String],
@@ -18,8 +16,10 @@ export default {
     },
     help: {
       type: String,
-      default: ''
+      default: ""
     },
+
+    // states
     required: {
       type: Boolean,
       default: false
@@ -33,32 +33,20 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       state: this.value
-    }
+    };
   },
   watch: {
-    value (changed) {
-      this.state = changed
-    }
-  },
-  computed: {
-    fieldProps () {
-      return {
-        name: this.name,
-        label: this.label,
-        icon: this.icon,
-        help: this.help,
-        required: this.required,
-        readonly: this.readonly
-      };
+    value(state) {
+      this.state = state;
     }
   },
   methods: {
-    input (state) {
-      this.state = state
-      this.$emit('input', this.state)
+    input(state) {
+      this.state = state;
+      this.$emit("input", this.state);
     }
   }
-}
+};

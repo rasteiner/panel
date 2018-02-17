@@ -3,17 +3,17 @@
     <kirby-select-input
       ref="day"
       :options="days"
-      v-model="day"
+      v-model.number="day"
     />
     <kirby-select-input
       :options="months"
-      v-model="month"
+      v-model.number="month"
     />
 
     <kirby-select-input
       v-if="range !== false"
       :options="years"
-      v-model="year"
+      v-model.number="year"
     />
     <kirby-text-input
       v-else
@@ -23,8 +23,7 @@
 </template>
 
 <script>
-
-import Dates from './DateInput.dates.js';
+import Dates from "./DateInput.dates.js";
 
 export default {
   props: {
@@ -34,8 +33,7 @@ export default {
       default: 10
     }
   },
-  data () {
-
+  data() {
     var date = new Date();
 
     if (this.value) {
@@ -45,40 +43,36 @@ export default {
     return {
       open: false,
       day: date.getDate(),
-      month: (date.getMonth() + 1),
+      month: date.getMonth() + 1,
       year: date.getFullYear()
-    }
-
+    };
   },
-  mounted () {
-    document.addEventListener('click', () => {
+  mounted() {
+    document.addEventListener("click", () => {
       this.open = false;
     });
   },
   computed: {
-    date () {
+    date() {
       return new Date(this.year, this.month - 1, this.day, 1, 0);
     },
-    days () {
-
+    days() {
       var options = [];
 
-      Dates.days(this.year, this.month, 'numbers').forEach((day) => {
+      Dates.days(this.year, this.month, "numbers").forEach(day => {
         day = day.padZero();
         options.push({
           value: day,
           text: day
-        })
+        });
       });
 
       return options;
-
     },
-    months () {
-
+    months() {
       var options = [];
 
-      Dates.months('array').forEach((monthName, month) => {
+      Dates.months("array").forEach((monthName, month) => {
         month = (month + 1).padZero();
         options.push({
           value: month,
@@ -87,14 +81,17 @@ export default {
       });
 
       return options;
-
     },
-    years () {
-
+    years() {
       var options = [];
 
       if (this.range) {
-        Dates.years(this.date.getFullYear(), this.range, this.range, 10).forEach((year, index) => {
+        Dates.years(
+          this.date.getFullYear(),
+          this.range,
+          this.range,
+          10
+        ).forEach((year, index) => {
           options.push({
             value: year,
             text: year
@@ -102,39 +99,35 @@ export default {
         });
       }
 
-
       return options;
-
     }
   },
   watch: {
-    year () {
-      this.$emit('input', this.date);
+    year() {
+      this.$emit("input", this.date);
     },
-    month () {
-      this.$emit('input', this.date);
+    month() {
+      this.$emit("input", this.date);
     },
-    day () {
-      this.$emit('input', this.date);
+    day() {
+      this.$emit("input", this.date);
     }
   },
   methods: {
-    focus () {
+    focus() {
       this.$refs.day.focus();
     },
-    select (date) {
-      this.day   = date.getDate();
+    select(date) {
+      this.day = date.getDate();
       this.month = date.getMonth() + 1;
-      this.year  = date.getFullYear();
-      this.open  = false;
+      this.year = date.getFullYear();
+      this.open = false;
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-date-inputs {
   position: relative;
   display: flex;
@@ -142,19 +135,19 @@ export default {
 }
 
 .kirby-date-inputs .kirby-select-input {
-  padding: .65rem 0 .65rem;
+  padding: 0.65rem 0 0.65rem;
   min-height: 2.5rem;
 }
 .kirby-date-inputs .kirby-select-input:after {
-  content: '.';
-  padding: 0 .1rem;
+  content: ".";
+  padding: 0 0.1rem;
 }
 .kirby-date-inputs .kirby-select-input:first-child {
   [dir="ltr"] & {
-    padding-left: .5rem;
+    padding-left: 0.5rem;
   }
   [dir="rtl"] & {
-    padding-right: .5rem;
+    padding-right: 0.5rem;
   }
 }
 .kirby-date-inputs.kirby-select-input:last-child {
@@ -169,6 +162,4 @@ export default {
   border: 0;
   outline: none;
 }
-
 </style>
-

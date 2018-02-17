@@ -10,26 +10,18 @@
 </template>
 
 <script>
-
 export default {
-  props: [
-    'icon',
-    'link',
-    'image',
-    'upload'
-  ],
+  props: ["icon", "link", "image", "upload"],
   methods: {
-    click () {
-      this.$parent.close()
-      this.$emit('click')
+    click() {
+      this.$parent.close();
+      this.$emit("click");
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-dropdown-item {
   white-space: nowrap;
   line-height: 1;
@@ -39,10 +31,10 @@ export default {
   align-items: center;
 
   [dir="ltr"] & {
-    padding: .5rem 1.5rem .5rem .5rem;
+    padding: 0.5rem 1.5rem 0.5rem 0.5rem;
   }
   [dir="rtl"] & {
-    padding: .5rem .5rem .5rem 1.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   }
 }
 
@@ -59,5 +51,4 @@ export default {
 .kirby-dropdown-item .kirby-icon svg * {
   fill: #fff;
 }
-
 </style>

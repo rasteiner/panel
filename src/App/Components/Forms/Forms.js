@@ -1,6 +1,3 @@
-import Vue from 'vue'
+import Vue from "vue";
 
-import './Fields/Fields.js';
-
-
-
+import "./Fields/Fields.js";

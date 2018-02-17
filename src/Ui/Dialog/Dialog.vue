@@ -3,7 +3,7 @@
     <div v-show="isOpen" @click="close" class="kirby-dialog">
       <div @click.stop class="kirby-dialog-box" :data-size="size">
         <div class="kirby-dialog-body">
-          <slot />
+          <slot></slot>
         </div>
         <slot name="footer">
           <footer class="kirby-dialog-footer">
@@ -19,93 +19,85 @@
 </template>
 
 <script>
-
 export default {
   props: {
     headline: {},
     size: {},
-    sticky: {},
     state: {},
     button: {
-      default: 'Ok'
+      default: "Ok"
     },
     icon: {
-      default: 'check'
+      default: "check"
     }
   },
-  data () {
+  data() {
     return {
-      isOpen: this.sticky === true
-    }
+      isOpen: false
+    };
   },
   methods: {
-    open () {
-      this.isOpen = true
+    open() {
+      this.isOpen = true;
 
       this.$nextTick(() => {
-        var autofocus = this.$el.querySelector('input, textarea, button')
+        var autofocus = this.$el.querySelector("input, textarea, button");
         if (autofocus) {
-          autofocus.focus()
+          autofocus.focus();
         }
-      })
+      });
     },
-    close () {
-      if (this.sticky !== true) {
-        this.isOpen = false
-      }
+    close() {
+      this.isOpen = false;
     },
-    cancel () {
-      this.$emit('cancel')
-      this.close()
+    cancel() {
+      this.$emit("cancel");
+      this.close();
     },
-    submit () {
-      this.$emit('submit')
+    submit() {
+      this.$emit("submit");
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-dialog {
-  display:         flex;
-  align-items:     center;
+  display: flex;
+  align-items: center;
   justify-content: center;
 
   position: fixed;
-  top:      0;
-  right:    0;
-  bottom:   0;
-  left:     0;
-  border:   0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 0;
 
-  width:  100%;
+  width: 100%;
   height: 100%;
 
   background: $color-backdrop;
-  z-index:    z-index(dialog);
+  z-index: z-index(dialog);
 }
 
 .kirby-dialog-transition-enter-active,
 .kirby-dialog-transition-leave-active {
-  transition: opacity .15s
+  transition: opacity 0.15s;
 }
 .kirby-dialog-transition-enter,
 .kirby-dialog-transition-leave-to {
-  opacity: 0
+  opacity: 0;
 }
 
 .kirby-dialog-transition-enter-active .kirby-dialog-box,
-.kirby-dialog-transition-leave-active .kirby-dialog-box{
-  transition: transform .2s
+.kirby-dialog-transition-leave-active .kirby-dialog-box {
+  transition: transform 0.2s;
 }
 .kirby-dialog-transition-enter .kirby-dialog-box,
-.kirby-dialog-transition-leave-to .kirby-dialog-box{
+.kirby-dialog-transition-leave-to .kirby-dialog-box {
   transform: translateY(-5%);
 }
-
-
 
 .kirby-dialog-box {
   position: relative;
@@ -132,7 +124,7 @@ export default {
   overflow: auto;
 }
 .kirby-dialog-body .kirby-fieldset {
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
 }
 .kirby-dialog-body .kirby-fieldset .kirby-field-header {
   padding-top: 0;
@@ -168,7 +160,5 @@ export default {
       text-align: left;
     }
   }
-
 }
-
 </style>

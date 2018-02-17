@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-date-field" v-bind="fieldProps" @focus="show" @blur="hide">
+  <kirby-field class="kirby-date-field" v-bind="$props" @focus="show" @blur="hide">
 
     <template v-if="display === 'calendar'">
       <input :value="state | date('DATE_SHORT')" :readonly="true" />
@@ -23,20 +23,19 @@
 </template>
 
 <script>
-
-import Field from 'Ui/Forms/Field/Field.mixin.js';
+import Field from "Ui/Forms/Field/Field.mixin.js";
 
 export default {
   mixins: [Field],
   props: {
-    label: {
-      default: 'Date'
-    },
     name: {
-      default: 'date'
+      default: "date"
+    },
+    label: {
+      default: "Date"
     },
     icon: {
-      default: 'calendar'
+      default: "calendar"
     },
     display: {
       type: String
@@ -46,26 +45,24 @@ export default {
       default: 10
     }
   },
-  data () {
+  data() {
     return {
       state: this.value,
       open: false
-    }
+    };
   },
   methods: {
-    show () {
-      this.open = true
+    show() {
+      this.open = true;
     },
-    hide () {
-      this.open = false
+    hide() {
+      this.open = false;
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-date-field .kirby-input-content {
   position: relative;
 }
@@ -83,7 +80,7 @@ export default {
   &::before {
     $tooltip-size: 8px;
     position: absolute;
-    content: '';
+    content: "";
     width: 0;
     height: 0;
     right: 15px;
@@ -93,6 +90,4 @@ export default {
     border-color: transparent transparent $color-dark transparent;
   }
 }
-
 </style>
-
