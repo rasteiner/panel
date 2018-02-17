@@ -45,14 +45,14 @@ export default {
 
 <style lang="scss">
 .kirby-toggle-field .kirby-input-content {
-  padding: 0.5rem 0.65rem 0.75rem;
+  padding: 0.45rem 0.65rem;
 }
 
 .kirby-toggle-input > input {
   position: relative;
   top: 4px;
-  width: 38px;
-  height: 20px;
+  width: 40px;
+  height: 22px;
   border-radius: 38px;
   outline: none;
   cursor: pointer;
@@ -72,8 +72,8 @@ export default {
   content: "";
   position: absolute;
   top: 2px;
-  height: 16px;
-  width: 16px;
+  height: 18px;
+  width: 18px;
   background: $color-white;
   border-radius: 100%;
   transition: all ease-in-out 0.1s;
