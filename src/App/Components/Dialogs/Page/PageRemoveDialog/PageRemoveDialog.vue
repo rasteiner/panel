@@ -40,7 +40,10 @@ export default {
           };
 
           // if in PageView, redirect
-          if (this.page.id === this.$route.params.path.replace("+", "/")) {
+          if (
+            this.$route.params.path &&
+            this.page.id === this.$route.params.path.replace("+", "/")
+          ) {
             if (this.page.parent) {
               payload.route = "/pages/" + this.page.parent.id;
             } else {
