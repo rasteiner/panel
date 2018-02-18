@@ -90,8 +90,11 @@ export default {
               text: user.name,
               role: user.role,
               link: "/users/" + user.id,
-              options:
-                window.panel.config.api + "/users/" + user.id + "/options",
+              options: ready => {
+                this.$api.user
+                  .options(user.id, "list")
+                  .then(options => ready(options));
+              },
               image: null
             };
 

@@ -3,31 +3,31 @@ import Api from "./Api.js";
 
 export default {
   create(data) {
-    return Api.post("users", data);
+    return Api.post(this.url(), data);
   },
   list(query) {
-    return Api.post("users/search", query);
+    return Api.post(this.url(null, "search"), query);
   },
   get(id, query) {
-    return Api.get("users/" + id, query);
+    return Api.get(this.url(id), query);
   },
   update(id, data) {
-    return Api.post("users/" + id, data);
+    return Api.post(this.url(id), data);
   },
   delete(id) {
-    return Api.delete("users/" + id);
+    return Api.delete(this.url(id));
   },
   changePassword(id, password) {
-    return Api.post("users/" + id + "/password", { password: password });
+    return Api.post(this.url(id, "password"), { password: password });
   },
   changeRole(id, role) {
-    return Api.post("users/" + id + "/role", { role: role });
+    return Api.post(this.url(id, "role"), { role: role });
   },
   deleteAvatar(id) {
-    return Api.delete("users/" + id + "/avatar");
+    return Api.delete(this.url(id, "avatar"));
   },
   blueprint(id) {
-    return Api.get("users/" + id + "/blueprint");
+    return Api.get(this.url(id, "blueprint"));
   },
   breadcrumb(user) {
     return [
@@ -59,5 +59,61 @@ export default {
         info: "No rights (ideal for frontend users)."
       }
     ];
+  },
+  options(id, view) {
+    return Api.get(this.url(id, "options")).then(options => {
+      let result = [];
+
+      if (options.update && view === "list") {
+        result.push({
+          click: "edit",
+          icon: "edit",
+          text: "Edit"
+        });
+      }
+
+      if (options.changeRole) {
+        result.push({
+          click: "role",
+          icon: "bolt",
+          text: "Change role"
+        });
+      }
+
+      if (options.changePassword) {
+        result.push({
+          click: "password",
+          icon: "key",
+          text: "Change password"
+        });
+      }
+
+      if (options.changeLanguage) {
+        result.push({
+          click: "language",
+          icon: "globe",
+          text: "Change language"
+        });
+      }
+
+      if (options.delete) {
+        result.push({
+          click: "remove",
+          icon: "trash",
+          text: "Delete this user"
+        });
+      }
+
+      return result;
+    });
+  },
+  url(id, path) {
+    let url = id === null ? "users" : "users/" + id;
+
+    if (path) {
+      url += "/" + path;
+    }
+
+    return url;
   }
 };

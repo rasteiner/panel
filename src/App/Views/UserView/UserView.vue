@@ -85,8 +85,6 @@ export default {
   },
   data() {
     return {
-      options:
-        window.panel.config.api + "/users/" + this.id + "/options?not=edit",
       tabs: [],
       name: null,
       isLoading: true,
@@ -102,6 +100,13 @@ export default {
     };
   },
   computed: {
+    options() {
+      return ready => {
+        this.$api.user.options(this.user.id).then(options => {
+          ready(options);
+        });
+      };
+    },
     uploadApi() {
       return window.panel.config.api + "/users/" + this.user.id + "/avatar";
     },
