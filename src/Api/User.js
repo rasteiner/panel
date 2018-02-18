@@ -12,7 +12,7 @@ export default {
     return Api.get(this.url(id), query);
   },
   update(id, data) {
-    return Api.post(this.url(id), data);
+    return Api.patch(this.url(id), data);
   },
   delete(id) {
     return Api.delete(this.url(id));

@@ -12,7 +12,7 @@ export default {
     });
   },
   update(page, filename, data) {
-    return Api.post(this.url(page, filename), data);
+    return Api.patch(this.url(page, filename), data);
   },
   rename(page, filename, to) {
     return Api.post(this.url(page, filename, "rename"), {
