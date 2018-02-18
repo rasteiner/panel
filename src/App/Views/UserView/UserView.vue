@@ -203,6 +203,7 @@ export default {
             this.avatar = null;
           }
 
+          this.$store.dispatch("title", this.name);
           this.$store.dispatch("isLoading", false);
           this.isLoading = false;
         })

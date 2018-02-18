@@ -40,6 +40,7 @@ export default {
         this.site = site;
         this.tabs = site.blueprint.tabs;
         this.isLoading = false;
+        this.$store.dispatch("title", "Site");
         this.$store.dispatch("isLoading", false);
       });
     },

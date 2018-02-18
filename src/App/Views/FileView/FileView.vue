@@ -185,6 +185,7 @@ export default {
           //   this.$store.dispatch("error", "Error with the blueprint");
           // });
 
+          this.$store.dispatch("title", this.filename);
           this.$store.dispatch("isLoading", false);
         })
         .catch(() => {

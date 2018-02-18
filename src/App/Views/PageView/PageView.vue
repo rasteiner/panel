@@ -113,6 +113,8 @@ export default {
           this.page = page;
           this.tabs = page.blueprint.tabs;
           this.breadcrumb = this.$api.page.breadcrumb(page);
+
+          this.$store.dispatch("title", this.page.title);
           this.$store.dispatch("isLoading", false);
           this.isLoading = false;
         })

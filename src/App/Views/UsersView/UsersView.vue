@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     fetch() {
+      this.$store.dispatch("title", "Users");
       this.$store.dispatch("isLoading", true);
 
       let query = {
