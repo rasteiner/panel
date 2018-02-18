@@ -1,5 +1,3 @@
-
-
 <script>
 import Dialog from "Ui/Dialog/Dialog.vue";
 
