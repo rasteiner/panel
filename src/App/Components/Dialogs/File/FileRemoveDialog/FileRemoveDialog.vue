@@ -32,7 +32,7 @@ export default {
     },
     submit() {
       this.$api.file
-        .delete(this.parent, this.filename)
+        .delete(this.parent.id, this.filename)
         .then(() => {
           this.$store.dispatch("success", "The file has been deleted");
           this.$events.$emit("file.delete");
