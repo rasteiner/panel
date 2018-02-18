@@ -8,10 +8,11 @@
       :max="max"
       :step="step"
       :required="required"
-      v-model.number="state"
-      :style="`--min: ${min||0}; --max: ${max||100}; --val: ${position}`"
+      :style="`--min: ${min}; --max: ${max}; --val: ${position}`"
+      :value="state"
+      @input="input($event.target.value)"
     />
-    <span>{{ before }} {{ display }} {{ after }}</span>
+    <span>{{ prepend }} {{ display }} {{ append }}</span>
   </kirby-field>
 </template>
 
@@ -31,20 +32,39 @@ export default {
       type: Number,
       default: 0
     },
-    max: Number,
+    max: {
+      type: Number,
+      default: 100
+    },
     step: {
       type: Number,
       default: 1
     },
-    before: String,
-    after: String
+    prepend: String,
+    append: String
   },
   computed: {
-    position() {
-      return typeof this.state !== "undefined" ? this.state : 50;
-    },
     display() {
-      return this.state || "–";
+      return this.state !== null ? this.format(this.state) : "–";
+    },
+    center() {
+      const middle = (this.max - this.min) / 2 + this.min;
+      return Math.ceil(middle / this.step) * this.step;
+    },
+    position() {
+      return this.state !== null ? this.state : this.center;
+    }
+  },
+  methods: {
+    format(value) {
+      // get language locale from store
+      const locale = this.$store.state.locale.id;
+      // get decimals of step
+      let decimals = this.step.toString().split(".");
+      decimals = decimals.length > 1 ? decimals[1].length : 0;
+      return new Intl.NumberFormat(locale.replace("_", "-"), {
+        minimumFractionDigits: decimals
+      }).format(value);
     }
   }
 };
