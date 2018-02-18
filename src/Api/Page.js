@@ -81,7 +81,7 @@ export default {
     return Api.delete(this.url(id));
   },
   slug(id, slug) {
-    return Api.post(this.url(id, "slug"), { slug: slug });
+    return Api.patch(this.url(id, "slug"), { slug: slug });
   },
   status(id, status, position) {
     return Api.post(this.url(id, "status"), {
