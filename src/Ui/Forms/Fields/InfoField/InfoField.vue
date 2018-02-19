@@ -8,17 +8,14 @@
 </template>
 
 <script>
-
 export default {
   props: {
     label: {
-      type: String,
-      default: 'Info'
+      type: String
     },
     text: {
       type: String
     }
   }
-}
-
+};
 </script>

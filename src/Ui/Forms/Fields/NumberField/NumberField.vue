@@ -18,14 +18,8 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "number"
-    },
     value: {
       type: Number
-    },
-    label: {
-      default: "Number"
     },
     placeholder: {
       type: String

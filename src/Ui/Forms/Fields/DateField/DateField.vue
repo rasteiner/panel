@@ -14,15 +14,6 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "date"
-    },
-    label: {
-      default: "Date"
-    },
-    icon: {
-      default: "calendar"
-    },
     range: {
       type: [Boolean, Number],
       default: 10

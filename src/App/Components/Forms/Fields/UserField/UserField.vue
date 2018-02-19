@@ -42,15 +42,6 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "user"
-    },
-    label: {
-      default: "User"
-    },
-    icon: {
-      default: "user"
-    },
     role: {
       type: String
     }
