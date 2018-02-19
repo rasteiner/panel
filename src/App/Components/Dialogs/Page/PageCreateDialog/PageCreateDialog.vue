@@ -13,6 +13,7 @@ export default {
   data() {
     return {
       parent: null,
+      section: null,
       templates: [],
       page: {
         title: null,
@@ -21,73 +22,34 @@ export default {
     };
   },
   computed: {
-    model() {
-      return !this.parent || this.parent === "/" ? "site" : "page";
-    },
     fields() {
-      const fields = [
+      return [
         {
           name: "title",
           label: "Title",
           type: "text",
           required: true,
           icon: "title"
-        }
-      ];
-
-      if (this.templates.length > 1) {
-        fields.push({
+        },
+        {
           name: "template",
           label: "Template",
           type: "select",
           required: true,
           options: this.templates
-        });
-      }
-
-      return fields;
+        }
+      ];
     }
   },
   methods: {
-    open(options) {
-      this.parent = options.parent;
-
-      this.$api[this.model]
-        .blueprints(this.parent)
-        .then(blueprints => {
-          if (blueprints.length === 0) {
-            this.$store.dispatch(
-              "error",
-              "You are not allowed to add any subpages"
-            );
-            return;
-          }
-
-          if (options.templates) {
-            // remove all blueprints, which are not included in the options
-            blueprints = blueprints.filter(blueprint =>
-              options.templates.includes(blueprint.name)
-            );
-          }
-
-          this.templates = blueprints.map(blueprint => {
-            return {
-              value: blueprint.name,
-              text: blueprint.title || blueprint.name
-            };
-          });
-
-          this.$refs.dialog.open();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+    open(parent, section, options) {
+      this.parent = parent;
+      this.section = section;
+      this.templates = options.template;
+      this.page.template = options.template[0].value;
+      this.$refs.dialog.open();
     },
     submit() {
-      if (!this.page.template) {
-        this.page.template = this.templates[0].value;
-      }
-
       const data = {
         template: this.page.template,
         slug: slug(this.page.title),
@@ -96,8 +58,8 @@ export default {
         }
       };
 
-      this.$api.page
-        .create(this.parent, data)
+      this.$api
+        .post(this.parent + "/" + this.section, data)
         .then(page => {
           this.success({
             route: "/pages/" + page.id,
