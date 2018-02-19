@@ -1,6 +1,6 @@
 <template>
   <kirby-dialog ref="dialog" state="positive" icon="check" button="Change" @submit="$refs.form.submit()">
-    <kirby-form ref="form" :fields="fields" :values="values" @submit="submit" />
+    <kirby-form ref="form" :fields="fields" :values="user" @submit="submit" />
   </kirby-dialog>
 </template>
 
@@ -11,9 +11,8 @@ export default {
   mixins: [DialogMixin],
   data() {
     return {
-      user: null,
-      values: {
-        language: "en"
+      user: {
+        language: "en_US"
       },
       fields: [
         {
@@ -31,7 +30,6 @@ export default {
         .get(id)
         .then(user => {
           this.user = user;
-          this.values.language = this.user.content.language;
           this.$refs.dialog.open();
         })
         .catch(error => {
@@ -40,13 +38,13 @@ export default {
     },
     submit() {
       this.$api.user
-        .update(this.user.id, { language: this.values.language })
+        .changeLanguage(this.user.id, this.user.language)
         .then(user => {
           this.user = user;
 
           // if current panel user, switch language
           if (this.$store.state.user.id === this.user.id) {
-            this.$store.dispatch("language", this.values.language);
+            this.$store.dispatch("language", this.user.language);
           }
 
           this.success({
