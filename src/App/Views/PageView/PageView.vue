@@ -120,7 +120,7 @@ export default {
         })
         .catch(error => {
           this.$store.dispatch("error", error.message);
-          this.isLoading = false;
+          this.$router.push("/pages");
         });
     },
     save(data) {
