@@ -89,7 +89,7 @@ export default {
               id: user.id,
               preview: { icon: "user" },
               text: user.name,
-              role: user.role,
+              info: user.role,
               link: "/users/" + user.id,
               options: ready => {
                 this.$api.user
