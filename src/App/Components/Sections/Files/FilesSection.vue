@@ -112,7 +112,10 @@ export default {
       }
     },
     upload() {
-      this.$refs.upload.open(this.create);
+      this.$refs.upload.open({
+        url: window.panel.config.api + "/" + this.parent + "/" + this.name,
+        accept: this.create.mime
+      });
     },
     replace(file) {
       this.$refs.upload.open({
