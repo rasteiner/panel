@@ -17,11 +17,17 @@ export default {
   delete(id) {
     return Api.delete(this.url(id));
   },
+  changeEmail(id, email) {
+    return Api.patch(this.url(id, "email"), { email: email });
+  },
+  changeLanguage(id, language) {
+    return Api.patch(this.url(id, "language"), { language: language });
+  },
   changePassword(id, password) {
-    return Api.post(this.url(id, "password"), { password: password });
+    return Api.patch(this.url(id, "password"), { password: password });
   },
   changeRole(id, role) {
-    return Api.post(this.url(id, "role"), { role: role });
+    return Api.patch(this.url(id, "role"), { role: role });
   },
   deleteAvatar(id) {
     return Api.delete(this.url(id, "avatar"));
