@@ -118,16 +118,7 @@ export default {
       });
     },
     replace(file) {
-      this.$refs.upload.open({
-        url:
-          window.panel.config.api +
-          "/pages/" +
-          file.parent +
-          "/files/" +
-          file.filename,
-        accept: file.mime,
-        multiple: false
-      });
+      this.$store.dispatch("error", "Not yet implemented");
     },
     uploaded() {
       this.fetch();
