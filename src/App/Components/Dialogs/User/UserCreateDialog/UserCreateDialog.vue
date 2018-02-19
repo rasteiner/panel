@@ -14,7 +14,7 @@ export default {
       user: {
         email: "",
         password: "",
-        language: "en",
+        language: "en_US",
         // TODO: change to config default user role
         role: "admin"
       },
@@ -23,12 +23,14 @@ export default {
           name: "email",
           label: "Email",
           type: "email",
+          id: "new-user-email",
           required: true
         },
         {
           name: "password",
           label: "Password",
           type: "password",
+          id: "new-user-password",
           required: true
         },
         {
@@ -49,7 +51,7 @@ export default {
           this.user = {
             email: "",
             password: "",
-            language: "en",
+            language: "en_US",
             // TODO: change to config default user role
             role: "admin"
           };

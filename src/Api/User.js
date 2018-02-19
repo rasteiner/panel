@@ -108,7 +108,7 @@ export default {
     });
   },
   url(id, path) {
-    let url = id === null ? "users" : "users/" + id;
+    let url = !id ? "users" : "users/" + id;
 
     if (path) {
       url += "/" + path;
