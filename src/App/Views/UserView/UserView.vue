@@ -219,6 +219,7 @@ export default {
         .then(user => {
           this.user = user;
           this.$store.dispatch("success", "The name has been saved!");
+          this.$store.dispatch("title", this.user.name);
         })
         .catch(error => {
           this.$store.dispatch("error", error.message);
