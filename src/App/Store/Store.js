@@ -9,6 +9,8 @@ let notificationTimeout = null;
 export default new Vuex.Store({
   state: {
     // content
+    // TODO: replace with actual Site Title
+    title: "Kirby Panel",
     translation: "en_US",
 
     // user
@@ -28,6 +30,12 @@ export default new Vuex.Store({
   },
   mutations: {
     // content
+    title(state, title) {
+      // TODO: replace with actual Site Title
+      title = title + " | Kirby Panel";
+      document.title = title;
+      state.title = title;
+    },
     translation(state, translation) {
       state.translation = translation;
     },
@@ -60,6 +68,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    title(context, title) {
+      context.commit("title", title);
+    },
+
     // user
     user(context, user) {
       if (user === null) {

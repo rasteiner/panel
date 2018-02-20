@@ -1,12 +1,3 @@
-<template>
-  <kirby-text-field
-    class="kirby-url-field"
-    v-bind="$props"
-    :value="state"
-    @input="input"
-  />
-</template>
-
 <script>
 import TextField from "Ui/Forms/Fields/TextField/TextField.vue";
 

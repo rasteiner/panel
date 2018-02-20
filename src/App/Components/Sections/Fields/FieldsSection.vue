@@ -36,6 +36,7 @@ export default {
           this.isLoading = false;
         })
         .catch(error => {
+          this.$store.dispatch("error", error.message);
           this.isLoading = false;
         });
     },

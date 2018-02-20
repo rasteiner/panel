@@ -8,9 +8,8 @@
 </template>
 
 <script>
-
 export default {
-  data () {
+  data() {
     return {
       loading: false,
       user: {
@@ -20,59 +19,58 @@ export default {
     };
   },
   computed: {
-    fields () {
+    fields() {
       return [
         {
-          name: 'email',
-          label: this.$t('email'),
-          type: 'email',
-          placeholder: this.$t('email.placeholder')
+          name: "email",
+          label: this.$t("email"),
+          type: "email",
+          placeholder: this.$t("email.placeholder")
         },
         {
-          name: 'password',
-          label: this.$t('password'),
-          type: 'password',
+          name: "password",
+          label: this.$t("password"),
+          type: "password"
         }
-      ]
+      ];
     }
   },
-  created () {
-    this.$store.dispatch('isLoading', false);
+  created() {
+    this.$store.dispatch("isLoading", false);
   },
   watch: {
-    $route () {
-      this.$store.dispatch('isLoading', false);
+    $route() {
+      this.$store.dispatch("isLoading", false);
     }
   },
   methods: {
-    login () {
+    login() {
+      this.$store.dispatch("title", "Login");
+      this.$store.dispatch("isLoading", true);
 
-      this.$store.dispatch('isLoading', true);
+      this.$api.auth
+        .login(this.user)
+        .then(user => {
+          this.$store.dispatch("user", user);
+          this.$store.dispatch("success", "Welcome!");
 
-      this.$api.auth.login(this.user).then((user) => {
-        this.$store.dispatch('user', user);
-        this.$store.dispatch('success', 'Welcome!');
-
-        if (this.$store.state.afterLogin) {
-          this.$router.push(this.$store.state.afterLogin);
-          this.$store.commit('afterLogin', null);
-        } else {
-          this.$router.push('/');
-        }
-
-      }).catch((error) => {
-        this.$store.dispatch('isLoading', false);
-        this.$store.dispatch('error', 'Invalid email or password');
-      });
-
+          if (this.$store.state.afterLogin) {
+            this.$router.push(this.$store.state.afterLogin);
+            this.$store.commit("afterLogin", null);
+          } else {
+            this.$router.push("/");
+          }
+        })
+        .catch(error => {
+          this.$store.dispatch("isLoading", false);
+          this.$store.dispatch("error", "Invalid email or password");
+        });
     }
   }
-}
-
+};
 </script>
 
 <style>
-
 .kirby-login-view {
   position: fixed;
   top: 50%;
@@ -84,5 +82,4 @@ export default {
   display: block;
   margin-top: 1.5rem;
 }
-
 </style>

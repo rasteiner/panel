@@ -52,9 +52,8 @@
 </template>
 
 <script>
-
 export default {
-  data () {
+  data() {
     return {
       loading: false,
       ok: true,
@@ -68,75 +67,73 @@ export default {
         media: false
       },
       user: {
-        language: 'en',
-        role: 'admin'
+        language: "en",
+        role: "admin"
       }
     };
   },
-  created () {
+  created() {
     this.check();
   },
   computed: {
-    fields () {
+    fields() {
       return [
         {
-          name: 'email',
-          label: this.$t('email'),
-          type: 'email',
-          placeholder: this.$t('email.placeholder')
+          name: "email",
+          label: this.$t("email"),
+          type: "email",
+          placeholder: this.$t("email.placeholder")
         },
         {
-          name: 'password',
-          label: this.$t('password'),
-          type: 'password',
-          placeholder: this.$t('password') + ' …'
+          name: "password",
+          label: this.$t("password"),
+          type: "password",
+          placeholder: this.$t("password") + " …"
         },
         {
-          name: 'language',
-          label: this.$t('user.language'),
-          type: 'language'
+          name: "language",
+          label: this.$t("user.language"),
+          type: "language"
         }
-      ]
+      ];
     }
   },
   methods: {
-    check () {
-      this.$api.panel.system().then((system) => {
-
+    check() {
+      this.$api.panel.system().then(system => {
         if (system.isInstalled === true) {
-          this.$router.push('/');
+          this.$router.push("/");
         }
 
-        this.ok     = system.isOk;
+        this.ok = system.isOk;
         this.status = system.details;
 
-        this.$store.dispatch('isLoading', false);
-
+        this.$store.dispatch("title", "Installation");
+        this.$store.dispatch("isLoading", false);
       });
     },
-    install () {
+    install() {
+      this.$store.dispatch("isLoading", true);
 
-      this.$store.dispatch('isLoading', true);
-
-      this.$api.user.create(this.user).then((user) => {
-        this.$api.auth.login(this.user).then((user) => {
-          this.$store.dispatch('user', user);
-          this.$store.dispatch('success', 'Welcome!');
-          this.$router.push('/');
+      this.$api.user
+        .create(this.user)
+        .then(user => {
+          this.$api.auth.login(this.user).then(user => {
+            this.$store.dispatch("user", user);
+            this.$store.dispatch("success", "Welcome!");
+            this.$router.push("/");
+          });
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+          this.$store.dispatch("isLoading", false);
         });
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-        this.$store.dispatch('isLoading', false);
-      });
-
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-installation-view {
   position: fixed;
   top: 50%;
@@ -176,5 +173,4 @@ export default {
   font: inherit;
   color: $color-negative;
 }
-
 </style>

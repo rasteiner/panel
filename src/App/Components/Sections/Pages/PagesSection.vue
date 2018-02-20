@@ -94,7 +94,7 @@ export default {
           window.open(page.url);
           break;
         case "create":
-          this.$refs.create.open(this.create);
+          this.$refs.create.open(this.parent, this.name, this.create);
           break;
         case "url":
           this.$refs.url.open(page.id);

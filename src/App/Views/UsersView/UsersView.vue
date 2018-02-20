@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     fetch() {
+      this.$store.dispatch("title", "Users");
       this.$store.dispatch("isLoading", true);
 
       let query = {
@@ -88,10 +89,13 @@ export default {
               id: user.id,
               preview: { icon: "user" },
               text: user.name,
-              role: user.role,
+              info: user.role,
               link: "/users/" + user.id,
-              options:
-                window.panel.config.api + "/users/" + user.id + "/options",
+              options: ready => {
+                this.$api.user
+                  .options(user.id, "list")
+                  .then(options => ready(options));
+              },
               image: null
             };
 

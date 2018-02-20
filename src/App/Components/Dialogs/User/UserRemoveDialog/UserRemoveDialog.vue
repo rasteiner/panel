@@ -1,6 +1,6 @@
 <template>
   <kirby-dialog ref="dialog" headline="Delete user" state="negative" icon="trash" button="Delete" @submit="submit">
-    <kirby-txt>Do you really want to delete <strong>{{ user.id }}</strong>?</kirby-txt>
+    <kirby-txt>Do you really want to delete <strong>{{ user.email }}</strong>?</kirby-txt>
   </kirby-dialog>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       user: {
-        content: {}
+        email: null
       }
     };
   },

@@ -34,18 +34,24 @@ export default {
       this.$api.page
         .delete(this.page.id)
         .then(() => {
-          if (this.$route.path === "/pages/" + this.page.id) {
+          const payload = {
+            message: "The page has been deleted",
+            event: "page.delete"
+          };
+
+          // if in PageView, redirect
+          if (
+            this.$route.params.path &&
+            this.page.id === this.$route.params.path.replace("+", "/")
+          ) {
             if (this.page.parent) {
-              this.$router.push("/pages/" + this.page.parent);
+              payload.route = "/pages/" + this.page.parent.id;
             } else {
-              this.$router.push("/pages");
+              payload.route = "/pages";
             }
           }
 
-          this.success({
-            message: "The page has been deleted",
-            event: "page.delete"
-          });
+          this.success(payload);
         })
         .catch(error => {
           this.$store.dispatch("error", error.message);

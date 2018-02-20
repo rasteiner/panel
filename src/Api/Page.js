@@ -9,11 +9,7 @@ export default {
     return Api.post(this.url(parent, "children"), data);
   },
   url(id, path) {
-    if (id === null) {
-      return null;
-    }
-
-    let url = "pages/" + id.replace("/", "+");
+    let url = id === null ? "pages" : "pages/" + id.replace("/", "+");
 
     if (path) {
       url += "/" + path;
@@ -85,7 +81,10 @@ export default {
     return Api.delete(this.url(id));
   },
   slug(id, slug) {
-    return Api.post(this.url(id, "slug"), { slug: slug });
+    return Api.patch(this.url(id, "slug"), { slug: slug });
+  },
+  title(id, title) {
+    return Api.patch(this.url(id, "title"), { title: title });
   },
   status(id, status, position) {
     return Api.post(this.url(id, "status"), {

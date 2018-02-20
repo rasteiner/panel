@@ -23,50 +23,50 @@
 </template>
 
 <script>
-
-import slug from 'App/Helpers/slug.js';
+import slug from "App/Helpers/slug.js";
 
 export default {
-  props: ['path'],
-  data () {
+  props: ["path"],
+  data() {
     return {
       title: null,
       complete: false,
       breadcrumb: [],
       blueprints: []
-    }
+    };
   },
-  created () {
+  created() {
     this.fetch();
   },
   computed: {
-    model () {
-      return (!this.path || this.path === '/') ? 'site' : 'page';
+    model() {
+      return !this.path || this.path === "/" ? "site" : "page";
     }
   },
   methods: {
-    updateTitle (title) {
+    updateTitle(title) {
       this.title = title;
     },
     fetch() {
-
-      this.$api[this.model].blueprints(this.path).then((blueprints) => {
-
+      this.$api[this.model].blueprints(this.path).then(blueprints => {
         if (blueprints.length === 0) {
-          this.$router.push('/pages/' + this.path);
-          this.$store.dispatch('error', 'You are not allowed to add any subpages');
+          this.$router.push("/pages/" + this.path);
+          this.$store.dispatch(
+            "error",
+            "You are not allowed to add any subpages"
+          );
           return;
         }
 
-        this.blueprints = blueprints.map((blueprint) => {
+        this.blueprints = blueprints.map(blueprint => {
           return {
-            id:   blueprint.name,
-            text: blueprint.title || item.name,
-            info: blueprint.description || '',
+            id: blueprint.name,
+            text: blueprint.title || item.name,
+            info: blueprint.description || "",
             image: {
               url: this.image(blueprint.name)
             }
-          }
+          };
         });
 
         if (blueprints.length === 1) {
@@ -75,54 +75,52 @@ export default {
         }
 
         this.setup();
-
       });
-
     },
-    setup () {
-
-      if (this.model === 'site') {
+    setup() {
+      if (this.model === "site") {
         this.breadcrumb = [];
-        this.complete   = true;
+        this.complete = true;
       } else {
-        this.$api.page.get(this.path).then((page) => {
+        this.$api.page.get(this.path).then(page => {
           this.breadcrumb = this.$api.page.breadcrumb(page, true);
-          this.complete   = true;
-          this.$store.dispatch('isLoading', false);
+          this.complete = true;
+          this.$store.dispatch("title", "Create Page");
+          this.$store.dispatch("isLoading", false);
         });
       }
-
     },
-    image (blueprint) {
-      return window.panel.config.index + '/assets/blueprints/' + blueprint + '.png';
+    image(blueprint) {
+      return (
+        window.panel.config.index + "/assets/blueprints/" + blueprint + ".png"
+      );
     },
-    create (blueprint) {
+    create(blueprint) {
+      this.$api.page
+        .create(this.path, {
+          slug: slug(this.title || "untitled"),
+          template: blueprint.id,
+          content: {
+            title: this.title || ""
+          }
+        })
+        .then(page => {
+          this.$store.dispatch("success", "The page was created");
+          this.$router.push("/pages/" + page.id);
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
 
-      this.$api.page.create(this.path, {
-        slug: slug(this.title || 'untitled'),
-        template: blueprint.id,
-        content: {
-          title: this.title || ''
-        }
-      }).then((page) => {
-        this.$store.dispatch('success', 'The page was created');
-        this.$router.push('/pages/' + page.id);
-      }).catch((error) => {
-        this.$store.dispatch('error', error.message);
-
-        if (this.blueprints.length === 1) {
-          this.$router.push('/pages/' + this.path);
-        }
-      });
-
+          if (this.blueprints.length === 1) {
+            this.$router.push("/pages/" + this.path);
+          }
+        });
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-create-page-view-title:focus {
   @include focus-ring;
   background: #fff;
@@ -131,5 +129,4 @@ export default {
 .kirby-create-page-view-blueprints .kirby-card {
   cursor: pointer;
 }
-
 </style>
