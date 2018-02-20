@@ -70,23 +70,23 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "table"
-    },
     value: {
       type: Array,
-      default: []
-    },
-    label: {
-      default: "Table"
+      default: () => {
+        return [];
+      }
     },
     columns: {
       type: Array,
-      default: []
+      default: () => {
+        return [];
+      }
     },
     fields: {
       type: Array,
-      default: []
+      default: () => {
+        return [];
+      }
     }
   },
   data() {

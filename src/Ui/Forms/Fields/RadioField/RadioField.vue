@@ -13,12 +13,11 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "radio"
-    },
     options: {
       type: Array,
-      default: []
+      default: () => {
+        return [];
+      }
     }
   }
 };

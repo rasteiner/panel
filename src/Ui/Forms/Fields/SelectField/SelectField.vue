@@ -16,17 +16,8 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "select"
-    },
     value: {
       type: [String, Number]
-    },
-    label: {
-      default: "Select"
-    },
-    icon: {
-      default: "angle-down"
     },
     options: {
       type: Array,

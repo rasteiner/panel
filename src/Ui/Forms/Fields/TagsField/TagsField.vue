@@ -57,15 +57,6 @@ export default {
     draggable
   },
   props: {
-    name: {
-      default: "tags"
-    },
-    label: {
-      default: "Tags"
-    },
-    icon: {
-      default: "tag"
-    },
     separator: {
       type: String,
       default: ","
@@ -73,10 +64,6 @@ export default {
     autocomplete: {
       type: [Boolean, Object],
       default: false
-    },
-    sortable: {
-      type: Boolean,
-      default: true
     }
   },
   data() {
@@ -93,7 +80,7 @@ export default {
   },
   computed: {
     isDisabled() {
-      return this.sortable === false || this.state.length === 0;
+      return this.state.length === 0;
     }
   },
   methods: {

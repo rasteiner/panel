@@ -17,15 +17,9 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "toggle"
-    },
     value: {
       type: Boolean,
       default: false
-    },
-    label: {
-      default: "Toggle"
     },
     text: {
       type: [String, Array]
