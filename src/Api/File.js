@@ -15,7 +15,7 @@ export default {
     return Api.patch(this.url(page, filename), data);
   },
   rename(page, filename, to) {
-    return Api.post(this.url(page, filename, "rename"), {
+    return Api.patch(this.url(page, filename, "rename"), {
       name: to
     });
   },
