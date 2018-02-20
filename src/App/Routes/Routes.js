@@ -1,8 +1,5 @@
 /* Code splitting along views */
 
-const CreatePageView = () =>
-  import(/* webpackChunkName: "create-page-view" */
-  "../Views/CreatePageView/CreatePageView.vue");
 const DashboardView = () =>
   import(/* webpackChunkName: "dashboard-view" */
   "../Views/DashboardView/DashboardView.vue");
@@ -24,9 +21,6 @@ const SettingsView = () =>
 const SiteView = () =>
   import(/* webpackChunkName: "site-view" */
   "../Views/SiteView/SiteView.vue");
-const TemplateView = () =>
-  import(/* webpackChunkName: "template-view" */
-  "../Views/TemplateView/TemplateView.vue");
 const UsersView = () =>
   import(/* webpackChunkName: "users-view" */
   "../Views/UsersView/UsersView.vue");
