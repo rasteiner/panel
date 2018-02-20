@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import Dates from "../DateInput/DateInput.dates.js";
+
 export default {
   props: {
     current: {}
@@ -80,46 +82,16 @@ export default {
     startingDay() {
       return new Date(this.year, this.month, 1).getDay();
     },
-    daysInMonths() {
-      return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    },
     numberOfDays() {
-      // February in leap years
-      if (this.month === 0) {
-        if (
-          (this.year % 4 === 0 && this.year % 100 !== 0) ||
-          this.date.year % 400 === 0
-        ) {
-          return 29;
-        }
-      }
-
-      return this.daysInMonths[this.month];
+      return Dates.days(this.year, this.month + 1, "count");
     },
     numberOfWeeks() {
-      var first = new Date(this.year, this.month, 1);
-      var last = new Date(this.year, this.month, 0);
-      var used = first.getDay() + 6 + last.getDate();
-
-      return Math.ceil(used / 7) - 1;
+      return Dates.weeks(this.year, this.month);
     },
     labels() {
       return {
-        days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        months: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
-        ]
+        days: Dates.i18n.days_short,
+        months: Dates.i18n.months
       };
     },
     monthOptions() {
@@ -136,14 +108,13 @@ export default {
     },
     yearOptions() {
       var options = [];
-      var year = this.today.getFullYear();
 
-      for (var x = year - 30; x < year + 30; x++) {
+      Dates.years(this.today.getFullYear()).forEach(year => {
         options.push({
-          value: x,
-          text: x
+          value: year,
+          text: year
         });
-      }
+      });
 
       return options;
     }
@@ -156,7 +127,6 @@ export default {
 
       for (var x = start; x < end; x++) {
         var day = x - (this.startingDay - 1);
-
         if (day <= 0) {
           days.push("");
         } else if (day > this.numberOfDays) {
