@@ -91,24 +91,6 @@ export default [
     beforeEnter: auth
   },
   {
-    path: "/pages/new",
-    name: "CreateMainPage",
-    component: CreatePageView,
-    beforeEnter: auth,
-    props: route => ({
-      path: "/"
-    })
-  },
-  {
-    path: "/pages/:path+/new",
-    name: "CreatePage",
-    component: CreatePageView,
-    beforeEnter: auth,
-    props: route => ({
-      path: route.params.path
-    })
-  },
-  {
     path: "/pages/:path+/files/:filename",
     name: "File",
     component: FileView,
@@ -122,15 +104,6 @@ export default [
     path: "/pages/:path+",
     name: "Page",
     component: PageView,
-    beforeEnter: auth,
-    props: route => ({
-      path: route.params.path
-    })
-  },
-  {
-    path: "/template/:path+",
-    name: "Template",
-    component: TemplateView,
     beforeEnter: auth,
     props: route => ({
       path: route.params.path
