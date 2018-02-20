@@ -1,23 +1,18 @@
 <template>
-  <kirby-field class="kirby-date-field" v-bind="$props" @focus="show" @blur="hide">
+  <kirby-field class="kirby-date-field" v-bind="$props" @icon="calendar = !calendar">
 
-    <template v-if="display === 'calendar'">
-      <input :value="state | date('DATE_SHORT')" :readonly="true" />
-
-      <kirby-calendar-input
-        v-if="open"
-        :current="state"
-        @input="input"
-      />
-    </template>
-
-    <template v-else>
       <kirby-date-input
+        ref="date"
         :range="range"
         :value="state"
         @input="input"
       />
-    </template>
+
+      <kirby-calendar-input
+        v-show="calendar"
+        :current="state"
+        @input="setDate"
+      />
 
   </kirby-field>
 </template>
@@ -37,9 +32,6 @@ export default {
     icon: {
       default: "calendar"
     },
-    display: {
-      type: String
-    },
     range: {
       type: [Boolean, Number],
       default: 10
@@ -48,15 +40,13 @@ export default {
   data() {
     return {
       state: this.value,
-      open: false
+      calendar: false
     };
   },
   methods: {
-    show() {
-      this.open = true;
-    },
-    hide() {
-      this.open = false;
+    setDate(date) {
+      this.$refs.date.select(new Date(date));
+      this.calendar = false;
     }
   }
 };
@@ -67,13 +57,17 @@ export default {
   position: relative;
 }
 
+.kirby-date-field .kirby-input-icon {
+  cursor: pointer;
+}
+
 .kirby-date-field .kirby-date-selects {
   background: $color-white;
 }
 
 .kirby-date-field .kirby-calendar-input {
   position: absolute;
-  top: calc(100% + 14px);
+  top: 100%;
   right: -48px;
   z-index: z-index(dropdown);
 
