@@ -7,9 +7,7 @@ export default {
     value: {},
 
     // elements
-    label: {
-      type: String
-    },
+    label: String,
     icon: {
       type: [Boolean, String],
       default: false

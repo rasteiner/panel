@@ -42,9 +42,7 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    role: {
-      type: String
-    }
+    role: String
   },
   data() {
     return {

@@ -18,9 +18,7 @@ export default {
       type: Boolean,
       default: false
     },
-    text: {
-      type: String
-    }
+    text: String
   }
 };
 </script>

@@ -32,28 +32,16 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    value: {
-      type: String
-    },
+    value: String,
     type: {
       type: String,
       default: "text"
     },
-    minlength: {
-      type: Number
-    },
-    maxlength: {
-      type: Number
-    },
-    pattern: {
-      type: String
-    },
-    placeholder: {
-      type: String
-    },
-    autocomplete: {
-      type: String
-    },
+    minlength: Number,
+    maxlength: Number,
+    pattern: String,
+    placeholder: String,
+    autocomplete: String,
     spellcheck: {
       type: Boolean,
       default: false

@@ -152,16 +152,12 @@ import autosize from "./Textarea.autosize.js";
 export default {
   mixins: [Field],
   props: {
-    maxlength: {
-      type: Number
-    },
+    maxlength: Number,
     buttons: {
       type: Boolean,
       default: true
     },
-    placeholder: {
-      type: String
-    },
+    placeholder: String,
     autosize: {
       type: Boolean,
       default: true

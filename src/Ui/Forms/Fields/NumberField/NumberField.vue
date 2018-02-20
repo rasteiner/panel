@@ -18,9 +18,7 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    value: {
-      type: Number
-    },
+    value: Number,
     placeholder: {
       type: String
     },
@@ -28,9 +26,7 @@ export default {
       type: Number,
       default: 0
     },
-    max: {
-      type: Number
-    },
+    max: Number,
     step: {
       type: Number,
       default: 1

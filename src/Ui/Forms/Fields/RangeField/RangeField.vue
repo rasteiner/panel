@@ -51,13 +51,11 @@ export default {
   },
   methods: {
     format(value) {
-      // get language locale from store
-      const locale = this.$store.state.locale.id;
-      // get decimals of step
-      let decimals = this.step.toString().split(".");
-      decimals = decimals.length > 1 ? decimals[1].length : 0;
-      return new Intl.NumberFormat(locale.replace("_", "-"), {
-        minimumFractionDigits: decimals
+      const locale = this.$store.state.locale.id.replace("_", "-");
+      const parts = this.step.toString().split(".");
+      const digits = parts.length > 1 ? parts[1].length : 0;
+      return new Intl.NumberFormat(locale, {
+        minimumFractionDigits: digits
       }).format(value);
     }
   }
