@@ -83,6 +83,9 @@ export default {
   slug(id, slug) {
     return Api.patch(this.url(id, "slug"), { slug: slug });
   },
+  title(id, title) {
+    return Api.patch(this.url(id, "title"), { title: title });
+  },
   status(id, status, position) {
     return Api.post(this.url(id, "status"), {
       status: status,

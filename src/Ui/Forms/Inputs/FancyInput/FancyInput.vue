@@ -14,12 +14,11 @@
 </template>
 
 <script>
-
 export default {
   props: {
     tag: {
       type: String,
-      default: 'div'
+      default: "div"
     },
     type: {
       type: String
@@ -29,50 +28,49 @@ export default {
     },
     placeholder: {
       type: String,
-      default: 'Start typing…'
+      default: "Start typing…"
     },
     multiline: {
       type: Boolean,
       default: false
     }
   },
-  data () {
+  data() {
     return {
       val: this.value
-    }
+    };
   },
   methods: {
-    focus () {
+    focus() {
       this.$refs.input.focus();
     },
-    focusInput (event) {
-      this.$emit('focus', event);
+    focusInput(event) {
+      this.$emit("focus", event);
     },
-    blurInput (event) {
-      this.$emit('blur', event);
+    blurInput(event) {
+      this.$emit("blur", event);
     },
-    enter (e) {
-
+    text() {
+      return this.$refs.input.innerText;
+    },
+    enter(e) {
       if (this.multiline === false) {
         e.preventDefault();
       }
 
-      this.$emit('enter', e);
-
+      this.$emit("enter", e);
     },
-    remove (e) {
+    remove(e) {
       if (window.getSelection().baseOffset <= 1 && this.val.length === 0) {
         e.preventDefault();
-        this.$emit('empty');
+        this.$emit("empty");
       }
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-fancy-input {
   font: inherit;
   line-height: 1.5em;
@@ -89,20 +87,19 @@ export default {
   color: $color-light-grey;
 }
 .kirby-fancy-input[data-type="headline"] {
-  padding-left: .5rem;
-  padding-right: .5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   width: calc(100% + 1rem);
 
   [dir="ltr"] & {
-    margin-left: -.5rem;
+    margin-left: -0.5rem;
   }
   [dir="rtl"] & {
-    margin-right: -.5rem;
+    margin-right: -0.5rem;
   }
 }
 .kirby-fancy-input[data-type="headline"]:focus {
   @include focus-ring;
   background: #fff;
 }
-
 </style>

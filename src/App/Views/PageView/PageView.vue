@@ -10,12 +10,12 @@
       @next="next">
 
       <kirby-fancy-input
+        ref="pageTitle"
         type="headline"
         tag="div"
         :key="page.id + '-title'"
         :value="page.title"
         :placeholder="$t('page.title') + ' …'"
-        @input="updateTitle"
         @blur="saveTitle"
         @enter="saveTitle" />
 
@@ -137,11 +137,22 @@ export default {
           this.$store.dispatch("error", error.message);
         });
     },
-    updateTitle(title) {
-      this.page.title = title;
-    },
     saveTitle() {
-      // this.save({ title: this.page.title });
+      const title = this.$refs.pageTitle.text();
+
+      if (title === this.page.title) {
+        return true;
+      }
+
+      this.$api.page
+        .title(this.page.id, title)
+        .then(page => {
+          this.page.title = page.title;
+          this.$store.dispatch("success", "The page has been renamed");
+        })
+        .catch(error => {
+          this.$store.dispatch("error", error.message);
+        });
     },
     prev() {
       if (this.page.prev) {
