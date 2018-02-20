@@ -148,6 +148,7 @@ export default {
         .title(this.page.id, title)
         .then(page => {
           this.page.title = page.title;
+          this.$store.dispatch("title", this.page.title);
           this.$store.dispatch("success", "The page has been renamed");
         })
         .catch(error => {
