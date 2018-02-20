@@ -5,14 +5,13 @@
     <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
 
       <kirby-fancy-input
+        ref="userName"
         class="kirby-user-view-name"
         placeholder="Enter a name …"
         tag="div"
         type="headline"
-        ref="name"
         :key="user.id + '-headline'"
-        :value="name"
-        @input="updateName"
+        :value="user.name"
         @blur="saveName"
         @enter="saveName" />
 
@@ -86,7 +85,6 @@ export default {
   data() {
     return {
       tabs: [],
-      name: null,
       isLoading: true,
       user: {
         role: null,
@@ -133,8 +131,6 @@ export default {
   },
   methods: {
     save(data) {
-      this.saveName();
-
       if (data === undefined) {
         return false;
       }
@@ -193,7 +189,6 @@ export default {
         .get(this.id, { view: "panel" })
         .then(user => {
           this.user = user;
-          this.name = user.name;
           this.breadcrumb = this.$api.user.breadcrumb(user);
           this.tabs = user.blueprint.tabs;
 
@@ -203,7 +198,7 @@ export default {
             this.avatar = null;
           }
 
-          this.$store.dispatch("title", this.name);
+          this.$store.dispatch("title", this.user.name);
           this.$store.dispatch("isLoading", false);
           this.isLoading = false;
         })
@@ -212,18 +207,15 @@ export default {
           this.isLoading = false;
         });
     },
-    updateName(name) {
-      this.name = name;
-    },
     saveName() {
-      return true;
+      const name = this.$refs.userName.text();
 
-      if (this.name === this.user.name) {
+      if (name === this.user.name) {
         return true;
       }
 
       this.$api.user
-        .update(this.id, { name: this.name })
+        .changeName(this.id, name)
         .then(user => {
           this.user = user;
           this.$store.dispatch("success", "The name has been saved!");

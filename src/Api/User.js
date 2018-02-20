@@ -23,6 +23,9 @@ export default {
   changeLanguage(id, language) {
     return Api.patch(this.url(id, "language"), { language: language });
   },
+  changeName(id, name) {
+    return Api.patch(this.url(id, "name"), { name: name });
+  },
   changePassword(id, password) {
     return Api.patch(this.url(id, "password"), { password: password });
   },
