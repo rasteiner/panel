@@ -126,8 +126,8 @@ export default {
 .kirby-dialog-body .kirby-fieldset {
   padding-bottom: 0.5rem;
 }
-.kirby-dialog-body .kirby-fieldset .kirby-field-header {
-  padding-top: 0;
+.kirby-dialog-body .kirby-form {
+  margin-top: -1rem;
 }
 .kirby-dialog-footer {
   border-top: 1px solid $color-border;
