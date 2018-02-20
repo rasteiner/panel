@@ -17,15 +17,6 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "time"
-    },
-    label: {
-      default: "Time"
-    },
-    icon: {
-      default: "clock"
-    },
     mode: {
       type: Number,
       default: 12

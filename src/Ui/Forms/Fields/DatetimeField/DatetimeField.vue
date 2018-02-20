@@ -21,15 +21,6 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "datetime"
-    },
-    label: {
-      default: "Datetime"
-    },
-    icon: {
-      default: "calendar"
-    },
     date: {},
     time: {}
   },

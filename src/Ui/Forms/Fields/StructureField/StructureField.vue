@@ -59,19 +59,17 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "structure"
-    },
     value: {
       type: Array,
-      default: []
-    },
-    label: {
-      default: "Items"
+      default: () => {
+        return [];
+      }
     },
     fields: {
       type: Array,
-      default: []
+      default: () => {
+        return [];
+      }
     }
   },
   data() {

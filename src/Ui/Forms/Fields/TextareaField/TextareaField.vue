@@ -152,13 +152,6 @@ import autosize from "./Textarea.autosize.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "text"
-    },
-    label: {
-      default: "Text"
-    },
-
     maxlength: {
       type: Number
     },

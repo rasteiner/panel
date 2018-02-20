@@ -22,12 +22,6 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    name: {
-      default: "range"
-    },
-    label: {
-      default: "Range"
-    },
     min: {
       type: Number,
       default: 0

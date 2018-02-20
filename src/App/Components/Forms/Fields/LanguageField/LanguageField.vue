@@ -12,17 +12,6 @@ import Select from "Ui/Forms/Fields/SelectField/SelectField.vue";
 
 export default {
   extends: Select,
-  props: {
-    name: {
-      default: "language"
-    },
-    label: {
-      default: "Language"
-    },
-    icon: {
-      default: "globe"
-    }
-  },
   data() {
     return {
       state: this.value,
