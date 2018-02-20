@@ -50,12 +50,11 @@
 </template>
 
 <script>
-
 export default {
   props: {
     current: {}
   },
-  data () {
+  data() {
     var today = new Date();
     var date = this.current ? new Date(this.current) : today;
 
@@ -65,63 +64,65 @@ export default {
       month: date.getMonth(),
       year: date.getFullYear(),
       today: today
+    };
+  },
+  watch: {
+    current(date) {
+      this.day = date.getDate();
+      this.month = date.getMonth();
+      this.year = date.getFullYear();
     }
   },
   computed: {
-    date () {
-      return `${this.year}-${(this.month + 1).padZero()}-${this.day.padZero()}`
+    date() {
+      return `${this.year}-${(this.month + 1).padZero()}-${this.day.padZero()}`;
     },
-    startingDay () {
-      return new Date(this.year, this.month, 1).getDay()
+    startingDay() {
+      return new Date(this.year, this.month, 1).getDay();
     },
-    daysInMonths () {
-      return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    daysInMonths() {
+      return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     },
-    numberOfDays () {
+    numberOfDays() {
       // February in leap years
-      if(this.month === 0) {
-        if((this.year % 4 === 0 && this.year % 100 !== 0) || this.date.year % 400 === 0) {
+      if (this.month === 0) {
+        if (
+          (this.year % 4 === 0 && this.year % 100 !== 0) ||
+          this.date.year % 400 === 0
+        ) {
           return 29;
         }
       }
 
       return this.daysInMonths[this.month];
     },
-    numberOfWeeks () {
+    numberOfWeeks() {
       var first = new Date(this.year, this.month, 1);
-      var last  = new Date(this.year, this.month, 0);
-      var used  = first.getDay() + 6 + last.getDate();
+      var last = new Date(this.year, this.month, 0);
+      var used = first.getDay() + 6 + last.getDate();
 
-      return (Math.ceil(used / 7) - 1);
+      return Math.ceil(used / 7) - 1;
     },
-    labels () {
+    labels() {
       return {
-        days: [
-          'Mon',
-          'Tue',
-          'Wed',
-          'Thu',
-          'Fri',
-          'Sat',
-          'Sun'
-        ],
+        days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         months: [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December'
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
         ]
-      }
+      };
     },
-    monthOptions () {
+    monthOptions() {
       var options = [];
 
       this.labels.months.forEach((item, index) => {
@@ -133,11 +134,11 @@ export default {
 
       return options;
     },
-    yearOptions () {
+    yearOptions() {
       var options = [];
-      var year    = this.today.getFullYear();
+      var year = this.today.getFullYear();
 
-      for(var x = (year - 30); x < (year + 30); x++) {
+      for (var x = year - 30; x < year + 30; x++) {
         options.push({
           value: x,
           text: x
@@ -148,74 +149,71 @@ export default {
     }
   },
   methods: {
-    days (week) {
+    days(week) {
+      var days = [];
+      var start = (week - 1) * 7 + 1;
+      var end = start + 7;
 
-      var days  = [];
-      var start = ((week-1) * 7) + 1;
-      var end   = (start + 7);
-
-      for(var x = start; x < end; x++) {
-
+      for (var x = start; x < end; x++) {
         var day = x - (this.startingDay - 1);
 
-        if(day <= 0) {
-          days.push('');
-        } else if(day > this.numberOfDays) {
-          days.push('');
+        if (day <= 0) {
+          days.push("");
+        } else if (day > this.numberOfDays) {
+          days.push("");
         } else {
           days.push(day);
         }
       }
 
       return days;
-
     },
-    next () {
-      if(this.month == 11) {
-        this.year  = (this.year + 1);
+    next() {
+      if (this.month == 11) {
+        this.year = this.year + 1;
         this.month = 0;
       } else {
         this.month = this.month + 1;
       }
     },
-    isToday (day) {
-      if(this.month === this.today.getMonth() && this.year == this.today.getFullYear()) {
-        return this.today.getDate() == day
+    isToday(day) {
+      if (
+        this.month === this.today.getMonth() &&
+        this.year == this.today.getFullYear()
+      ) {
+        return this.today.getDate() == day;
       }
     },
-    prev () {
-      if(this.month == 0) {
-        this.year  = (this.year - 1);
+    prev() {
+      if (this.month == 0) {
+        this.year = this.year - 1;
         this.month = 11;
       } else {
         this.month = this.month - 1;
       }
     },
-    go (year, month) {
-      if(year === 'today') {
-        year  = this.today.getFullYear();
+    go(year, month) {
+      if (year === "today") {
+        year = this.today.getFullYear();
         month = this.today.getMonth();
       }
 
-      this.year  = year;
+      this.year = year;
       this.month = month;
-
     },
-    select (day) {
-      this.day = day
-      this.$emit('input', this.date)
+    select(day) {
+      this.day = day;
+      this.$emit("input", this.date);
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
-$cell-padding: .2rem;
+$cell-padding: 0.2rem;
 
 .kirby-calendar-input {
-  padding: .5rem;
+  padding: 0.5rem;
   background: $color-dark;
   color: $color-light;
   border-radius: $border-radius;
@@ -229,7 +227,7 @@ $cell-padding: .2rem;
   display: flex;
 
   .kirby-button {
-    padding: .5rem;
+    padding: 0.5rem;
   }
 
   .kirby-icon svg * {
@@ -243,13 +241,13 @@ $cell-padding: .2rem;
   justify-content: center;
 }
 .kirby-calendar-selects .kirby-select-input {
-  padding: .5rem;
+  padding: 0.5rem;
   font-weight: 500;
 }
 .kirby-calendar-input th {
   padding: $cell-padding;
   color: $color-light-grey;
-  font-size: .8em;
+  font-size: 0.8em;
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -280,5 +278,4 @@ $cell-padding: .2rem;
   text-align: center;
   padding: 1rem 0 0;
 }
-
 </style>
