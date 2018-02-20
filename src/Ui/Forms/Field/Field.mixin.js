@@ -31,6 +31,7 @@ export default {
       default: false
     }
   },
+  inheritAttrs: false,
   data() {
     return {
       state: this.value
