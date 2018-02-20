@@ -16,7 +16,7 @@
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content" />
-    <kirby-input v-else :error="error" :icon="$attrs.icon"  :prefix="$attrs.prefix">
+    <kirby-input v-else :error="error" :icon="$attrs.icon" :prefix="$attrs.prefix" @icon="icon">
       <slot />
     </kirby-input>
 
@@ -55,6 +55,9 @@ export default {
     window.removeEventListener("click", this.checkFocus);
   },
   methods: {
+    icon() {
+      this.$emit("icon");
+    },
     focus() {
       this.isFocused = true;
       this.$emit("focus");
