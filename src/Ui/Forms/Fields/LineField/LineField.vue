@@ -6,16 +6,13 @@
 
 
 <style lang="scss">
+.kirby-line-field {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
 
-  .kirby-line-field {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-
-    > span {
-      display: block;
-      border-bottom: 1px solid $color-border;
-    }
-
+  > span {
+    display: block;
+    border-bottom: 1px solid $color-border;
   }
-
+}
 </style>

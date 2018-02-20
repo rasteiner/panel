@@ -43,16 +43,7 @@ Vue.i18n.fallback(store.state.locale.id);
 store.dispatch("locale", store.state.locale.id);
 
 /** Date formating */
-import { DateTime } from "luxon";
-
-Vue.filter("date", function(value, output) {
-  let dt = Array.isArray(value)
-    ? DateTime.fromString(value[0], value[1])
-    : DateTime.fromString(value);
-  return dt
-    .setLocale(store.state.locale.id)
-    .toLocaleString(typeof output === "string" ? DateTime[output] : output);
-});
+import "App/Helpers/DateFilter.js";
 
 /** App Components */
 import "App/Components/Components.js";

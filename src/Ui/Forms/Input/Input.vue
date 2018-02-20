@@ -6,7 +6,7 @@
     <span class="kirby-input-content">
       <slot />
     </span>
-    <span v-if="$slots.icon || icon" @click="focus" class="kirby-input-icon">
+    <span v-if="$slots.icon || icon" @click="onIcon" class="kirby-input-icon">
       <slot name="icon">
         <kirby-icon :type="icon" />
       </slot>
@@ -31,6 +31,7 @@ export default {
       "focus",
       () => {
         this.isFocused = true;
+        this.$emit("focus");
       },
       true
     );
@@ -39,11 +40,16 @@ export default {
       "blur",
       () => {
         this.isFocused = false;
+        this.$emit("blur");
       },
       true
     );
   },
   methods: {
+    onIcon() {
+      this.focus();
+      this.$emit("icon");
+    },
     focus() {
       var input = this.$el.querySelector(
         'input:not([type="radio"]):not([type="checkbox"]):first-child, textarea:first-child, select:first-child'
