@@ -49,14 +49,6 @@ export default {
         });
       }
 
-      if (options.changeTemplate) {
-        result.push({
-          click: "template",
-          icon: "code",
-          text: "Change template"
-        });
-      }
-
       if (options.delete) {
         result.push({
           click: "remove",

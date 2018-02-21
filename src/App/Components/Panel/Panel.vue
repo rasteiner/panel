@@ -9,9 +9,6 @@
         <kirby-button @click="$refs.menu.close()" link="/pages" icon="page">
           {{ $t('site') }}
         </kirby-button>
-        <kirby-button @click="$store.dispatch('error', 'Not yet implemented')" icon="cog">
-          {{ $t('settings') }}
-        </kirby-button>
         <kirby-button @click="$refs.menu.close()" link="/users" icon="users">
           {{ $t('users') }}
         </kirby-button>

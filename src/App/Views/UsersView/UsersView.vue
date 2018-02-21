@@ -17,10 +17,6 @@
         </kirby-dropdown>
       </template>
 
-      <template slot="buttons-right">
-        <kirby-button icon="search" @click="$store.dispatch('error', 'Not yet implemented')">{{ $t('search') }}</kirby-button>
-      </template>
-
     </kirby-header>
 
     <template v-if="users.length > 0">

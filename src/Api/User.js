@@ -73,14 +73,6 @@ export default {
     return Api.get(this.url(id, "options")).then(options => {
       let result = [];
 
-      if (options.update && view === "list") {
-        result.push({
-          click: "edit",
-          icon: "edit",
-          text: "Edit"
-        });
-      }
-
       if (options.changeRole) {
         result.push({
           click: "role",

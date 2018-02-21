@@ -38,14 +38,6 @@ export default {
     return Api.get(this.url(page, filename, "options")).then(options => {
       let result = [];
 
-      if (options.update) {
-        result.push({
-          icon: "edit",
-          text: "Edit",
-          click: "edit"
-        });
-      }
-
       result.push({
         icon: "download",
         text: "Download",

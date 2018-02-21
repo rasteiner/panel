@@ -25,22 +25,16 @@
       </kirby-tag>
 
       <span slot="footer" class="kirby-tags-input-element">
-        <kirby-autocomplete v-if="autocomplete"
-          ref="input"
-          :id="_uid"
-          :map="autocomplete.map"
-          :url="autocomplete.url"
-          :ignore="state"
-          @keydown.native.left="leaveInput"
-          @keydown.native.delete="leaveInput"
-          @enter="function(value) { add(value) }"
-          @select="function(item) { add(item.value) }" />
-        <input v-else :id="_uid" ref="input"
+        <input :id="_uid" ref="input"
           @keydown.enter="add($event.target.value)"
           @keydown.tab="add($event.target.value)"
           @keydown.separator.prevent="add($event.target.value)"
           @keydown.left="leaveInput"
-          @keydown.delete="leaveInput" />
+          @keydown.delete="leaveInput" list="options" />
+        <datalist id="options">
+          <option value="design">Design</option>
+          <option value="typography">Typography</option>
+        </datalist>
       </span>
 
     </draggable>
