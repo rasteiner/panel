@@ -1,5 +1,5 @@
 <template>
-  <section class="kirby-files-section">
+  <section class="kirby-files-section" v-if="isLoading === false">
 
     <kirby-headline>
       <span>{{ headline }}</span>
@@ -8,10 +8,7 @@
       </kirby-button-group>
     </kirby-headline>
 
-    <template v-if="isLoading">
-      <kirby-skeleton type="list" />
-    </template>
-    <template v-else-if="error">
+    <template v-if="error">
       <kirby-box>
         <strong>The section could not be loaded:</strong>
         {{ error }}
