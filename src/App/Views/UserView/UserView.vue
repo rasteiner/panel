@@ -20,30 +20,26 @@
       </kirby-button>
 
       <template slot="buttons-left">
-        <kirby-dropdown>
-          <kirby-button @click="$refs.picture.toggle()" icon="image">
-            {{ $t('user.image') }}
-          </kirby-button>
-          <kirby-dropdown-content ref="picture">
-            <template v-if="avatar">
+        <template v-if="avatar">
+          <kirby-dropdown>
+            <kirby-button @click="$refs.picture.toggle()" icon="image">
+              {{ $t('user.image') }}
+            </kirby-button>
+            <kirby-dropdown-content ref="picture">
               <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
                 {{ $t('change') }}
               </kirby-dropdown-item>
               <kirby-dropdown-item icon="trash" @click="action('picture.delete')">
                 {{ $t('delete') }}
               </kirby-dropdown-item>
-            </template>
-            <template v-else>
-              <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
-                {{ $t('upload') }}
-              </kirby-dropdown-item>
-              <kirby-dropdown-item icon="import" @click="action('picture.import')">
-                {{ $t('import') }}
-              </kirby-dropdown-item>
-            </template>
-          </kirby-dropdown-content>
-        </kirby-dropdown>
-
+            </kirby-dropdown-content>
+          </kirby-dropdown>
+        </template>
+        <template v-else>
+          <kirby-button @click="$refs.upload.open()" icon="image">
+            {{ $t('user.image') }}
+          </kirby-button>
+        </template>
         <kirby-dropdown>
           <kirby-button @click="$refs.settings.toggle()" icon="cog">
             Settings
