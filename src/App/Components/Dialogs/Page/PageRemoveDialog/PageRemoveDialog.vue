@@ -20,42 +20,32 @@ export default {
   },
   methods: {
     open(id) {
-      this.$api.page
-        .get(id)
-        .then(page => {
-          this.page = page;
-          this.$refs.dialog.open();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.page.get(id).then(page => {
+        this.page = page;
+        this.$refs.dialog.open();
+      });
     },
     submit() {
-      this.$api.page
-        .delete(this.page.id)
-        .then(() => {
-          const payload = {
-            message: "The page has been deleted",
-            event: "page.delete"
-          };
+      this.$api.page.delete(this.page.id).then(() => {
+        const payload = {
+          message: "The page has been deleted",
+          event: "page.delete"
+        };
 
-          // if in PageView, redirect
-          if (
-            this.$route.params.path &&
-            this.page.id === this.$route.params.path.replace("+", "/")
-          ) {
-            if (this.page.parent) {
-              payload.route = "/pages/" + this.page.parent.id;
-            } else {
-              payload.route = "/pages";
-            }
+        // if in PageView, redirect
+        if (
+          this.$route.params.path &&
+          this.page.id === this.$route.params.path.replace("+", "/")
+        ) {
+          if (this.page.parent) {
+            payload.route = "/pages/" + this.page.parent.id;
+          } else {
+            payload.route = "/pages";
           }
+        }
 
-          this.success(payload);
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+        this.success(payload);
+      });
     }
   }
 };

@@ -109,25 +109,16 @@ export default {
         this.status = system.details;
 
         this.$store.dispatch("title", "Installation");
-        this.$store.dispatch("isLoading", false);
       });
     },
     install() {
-      this.$store.dispatch("isLoading", true);
-
-      this.$api.user
-        .create(this.user)
-        .then(user => {
-          this.$api.auth.login(this.user).then(user => {
-            this.$store.dispatch("user", user);
-            this.$store.dispatch("success", "Welcome!");
-            this.$router.push("/");
-          });
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-          this.$store.dispatch("isLoading", false);
+      this.$api.user.create(this.user).then(user => {
+        this.$api.auth.login(this.user).then(user => {
+          this.$store.dispatch("user", user);
+          this.$store.dispatch("success", "Welcome!");
+          this.$router.push("/");
         });
+      });
     }
   }
 };

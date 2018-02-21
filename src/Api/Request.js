@@ -9,14 +9,21 @@ export default {
       });
     }
 
+    this.config.onStart();
+
     return fetch(window.panel.config.api + "/" + path, options)
       .then(response => response.json())
       .then(json => {
         if (json.status && json.status !== "ok") {
           throw Error(json.message || json.status);
         }
-
+        this.config.onComplete();
+        this.config.onSuccess(json);
         return json;
+      })
+      .catch(error => {
+        this.config.onComplete();
+        this.config.onError(error);
       });
   },
   get(path, query, options) {

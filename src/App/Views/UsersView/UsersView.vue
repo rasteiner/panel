@@ -57,7 +57,6 @@ export default {
   methods: {
     fetch() {
       this.$store.dispatch("title", "Users");
-      this.$store.dispatch("isLoading", true);
 
       let query = {
         paginate: {
@@ -76,39 +75,32 @@ export default {
         ];
       }
 
-      this.$api.user
-        .list(query)
-        .then(response => {
-          this.total = response.pagination.total;
-          this.users = response.data.map(user => {
-            let item = {
-              id: user.id,
-              preview: { icon: "user" },
-              text: user.name,
-              info: user.role,
-              link: "/users/" + user.id,
-              options: ready => {
-                this.$api.user
-                  .options(user.id, "list")
-                  .then(options => ready(options));
-              },
-              image: null
+      this.$api.user.list(query).then(response => {
+        this.total = response.pagination.total;
+        this.users = response.data.map(user => {
+          let item = {
+            id: user.id,
+            preview: { icon: "user" },
+            text: user.name,
+            info: user.role,
+            link: "/users/" + user.id,
+            options: ready => {
+              this.$api.user
+                .options(user.id, "list")
+                .then(options => ready(options));
+            },
+            image: null
+          };
+
+          if (user.avatar.exists === true) {
+            item.image = {
+              url: user.avatar.url + "?v=" + user.avatar.modified
             };
+          }
 
-            if (user.avatar.exists === true) {
-              item.image = {
-                url: user.avatar.url + "?v=" + user.avatar.modified
-              };
-            }
-
-            return item;
-          });
-          this.$store.dispatch("isLoading", false);
-        })
-        .catch(error => {
-          this.$store.dispatch("isLoading", false);
-          this.$store.dispatch("error", error.message);
+          return item;
         });
+      });
     },
     paginate(pagination) {
       this.page = pagination.page;
@@ -176,21 +168,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.kirby-users-view-role-select {
-  display: inline-block !important;
-  padding: 0 !important;
-}
-.kirby-users-view-role-select > button {
-  font: inherit;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  color: $color-focus;
-
-  &:focus {
-    outline: none;
-  }
-}
-</style>

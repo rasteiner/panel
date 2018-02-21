@@ -26,15 +26,10 @@ export default {
   },
   methods: {
     open(id) {
-      this.$api.user
-        .get(id)
-        .then(user => {
-          this.user = user;
-          this.$refs.dialog.open();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.user.get(id).then(user => {
+        this.user = user;
+        this.$refs.dialog.open();
+      });
     },
     submit() {
       this.$api.user
@@ -44,16 +39,13 @@ export default {
 
           // if current panel user, switch language
           if (this.$store.state.user.id === this.user.id) {
-            this.$store.dispatch("language", this.user.language);
+            this.$store.dispatch("locale", this.user.language);
           }
 
           this.success({
             message: "The language has been changed",
             event: "user.change.language"
           });
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
         });
     }
   }

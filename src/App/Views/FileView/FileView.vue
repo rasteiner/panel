@@ -186,10 +186,8 @@ export default {
           // });
 
           this.$store.dispatch("title", this.filename);
-          this.$store.dispatch("isLoading", false);
         })
         .catch(() => {
-          this.$store.dispatch("error", "The file could not be found");
           this.$router.push("../");
         });
     },
@@ -224,15 +222,10 @@ export default {
         return true;
       }
 
-      this.$api.file
-        .rename(this.path, this.file.filename, name)
-        .then(file => {
-          this.$router.push("/pages/" + this.path + "/files/" + file.filename);
-          this.$store.dispatch("success", "The file has been renamed");
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.file.rename(this.path, this.file.filename, name).then(file => {
+        this.$router.push("/pages/" + this.path + "/files/" + file.filename);
+        this.$store.dispatch("success", "The file has been renamed");
+      });
     },
     uploaded() {
       this.fetch();
@@ -245,9 +238,6 @@ export default {
           this.file.content = file.content;
           this.$store.dispatch("success", "Saved!");
           this.$events.$emit("file.update");
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
         });
     }
   }

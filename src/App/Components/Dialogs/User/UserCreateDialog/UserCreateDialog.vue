@@ -45,25 +45,20 @@ export default {
   },
   methods: {
     create() {
-      this.$api.user
-        .create(this.user)
-        .then(user => {
-          this.user = {
-            email: "",
-            password: "",
-            language: "en_US",
-            // TODO: change to config default user role
-            role: "admin"
-          };
+      this.$api.user.create(this.user).then(user => {
+        this.user = {
+          email: "",
+          password: "",
+          language: "en_US",
+          // TODO: change to config default user role
+          role: "admin"
+        };
 
-          this.success({
-            message: "The user has been created",
-            event: "user.create"
-          });
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
+        this.success({
+          message: "The user has been created",
+          event: "user.create"
         });
+      });
     }
   }
 };

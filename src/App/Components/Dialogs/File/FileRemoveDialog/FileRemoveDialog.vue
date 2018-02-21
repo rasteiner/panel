@@ -19,29 +19,19 @@ export default {
   },
   methods: {
     open(parent, filename) {
-      this.$api.file
-        .get(parent, filename)
-        .then(file => {
-          this.parent = file.parent;
-          this.filename = file.filename;
-          this.$refs.dialog.open();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.file.get(parent, filename).then(file => {
+        this.parent = file.parent;
+        this.filename = file.filename;
+        this.$refs.dialog.open();
+      });
     },
     submit() {
-      this.$api.file
-        .delete(this.parent.id, this.filename)
-        .then(() => {
-          this.$store.dispatch("success", "The file has been deleted");
-          this.$events.$emit("file.delete");
-          this.$emit("success");
-          this.$refs.dialog.close();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.file.delete(this.parent.id, this.filename).then(() => {
+        this.$store.dispatch("success", "The file has been deleted");
+        this.$events.$emit("file.delete");
+        this.$emit("success");
+        this.$refs.dialog.close();
+      });
     }
   }
 };

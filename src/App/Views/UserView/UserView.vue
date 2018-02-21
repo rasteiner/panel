@@ -52,7 +52,7 @@
         </kirby-dropdown>
       </template>
 
-      <template v-if="isLoading === false" slot="buttons-right">
+      <template v-if="user.id" slot="buttons-right">
         <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
       </template>
 
@@ -85,7 +85,6 @@ export default {
   data() {
     return {
       tabs: [],
-      isLoading: true,
       user: {
         role: null,
         name: null,
@@ -135,31 +134,21 @@ export default {
         return false;
       }
 
-      this.$api.user
-        .update(this.id, data)
-        .then(() => {
-          this.$store.dispatch("success", "Saved!");
-          this.$events.$emit("user.update");
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.user.update(this.id, data).then(() => {
+        this.$store.dispatch("success", "Saved!");
+        this.$events.$emit("user.update");
+      });
     },
     action(action) {
       switch (action) {
         case "picture.delete":
-          this.$api.user
-            .deleteAvatar(this.id)
-            .then(() => {
-              this.$store.dispatch(
-                "success",
-                this.$t("notification.image.deleted")
-              );
-              this.avatar = null;
-            })
-            .catch(error => {
-              this.$store.dispatch("error", error.message);
-            });
+          this.$api.user.deleteAvatar(this.id).then(() => {
+            this.$store.dispatch(
+              "success",
+              this.$t("notification.image.deleted")
+            );
+            this.avatar = null;
+          });
           break;
         case "role":
           this.$refs.role.open(this.user.id);
@@ -185,27 +174,19 @@ export default {
       this.$router.push("/users/" + this.user.next.id);
     },
     fetch() {
-      this.$api.user
-        .get(this.id, { view: "panel" })
-        .then(user => {
-          this.user = user;
-          this.breadcrumb = this.$api.user.breadcrumb(user);
-          this.tabs = user.blueprint.tabs;
+      this.$api.user.get(this.id, { view: "panel" }).then(user => {
+        this.user = user;
+        this.breadcrumb = this.$api.user.breadcrumb(user);
+        this.tabs = user.blueprint.tabs;
 
-          if (user.avatar.exists) {
-            this.avatar = user.avatar.url + "?v=" + user.avatar.modified;
-          } else {
-            this.avatar = null;
-          }
+        if (user.avatar.exists) {
+          this.avatar = user.avatar.url + "?v=" + user.avatar.modified;
+        } else {
+          this.avatar = null;
+        }
 
-          this.$store.dispatch("title", this.user.name);
-          this.$store.dispatch("isLoading", false);
-          this.isLoading = false;
-        })
-        .catch(() => {
-          this.$store.dispatch("error", "The user could not be found");
-          this.isLoading = false;
-        });
+        this.$store.dispatch("title", this.user.name);
+      });
     },
     saveName() {
       const name = this.$refs.userName.text();
@@ -214,16 +195,11 @@ export default {
         return true;
       }
 
-      this.$api.user
-        .changeName(this.id, name)
-        .then(user => {
-          this.user = user;
-          this.$store.dispatch("success", "The name has been saved!");
-          this.$store.dispatch("title", this.user.name);
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.user.changeName(this.id, name).then(user => {
+        this.user = user;
+        this.$store.dispatch("success", "The name has been saved!");
+        this.$store.dispatch("title", this.user.name);
+      });
     },
     uploadedAvatar() {
       this.$store.dispatch("success", "The image has been uploaded!");

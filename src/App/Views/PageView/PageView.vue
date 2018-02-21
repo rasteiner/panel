@@ -34,13 +34,13 @@
         </kirby-dropdown>
       </template>
 
-      <template v-if="isLoading === false" slot="buttons-right">
+      <template v-if="page.id" slot="buttons-right">
         <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
       </template>
 
     </kirby-header>
 
-    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="isLoading === false" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" @submit="save" />
+    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="page.id" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" @submit="save" />
 
     <kirby-page-status-dialog ref="status" @success="fetch" />
     <kirby-page-url-dialog ref="url" />
@@ -62,7 +62,6 @@ export default {
         next: null
       },
       icon: "page",
-      isLoading: true,
       breadcrumb: [],
       tabs: []
     };
@@ -113,13 +112,9 @@ export default {
           this.page = page;
           this.tabs = page.blueprint.tabs;
           this.breadcrumb = this.$api.page.breadcrumb(page);
-
           this.$store.dispatch("title", this.page.title);
-          this.$store.dispatch("isLoading", false);
-          this.isLoading = false;
         })
         .catch(error => {
-          this.$store.dispatch("error", error.message);
           this.$router.push("/pages");
         });
     },
@@ -127,15 +122,10 @@ export default {
       // always store the latest title
       data.title = this.page.title;
 
-      this.$api.page
-        .update(this.page.id, data)
-        .then(() => {
-          this.$store.dispatch("success", "Saved!");
-          this.$events.$emit("page.update");
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.page.update(this.page.id, data).then(() => {
+        this.$store.dispatch("success", "Saved!");
+        this.$events.$emit("page.update");
+      });
     },
     saveTitle() {
       const title = this.$refs.pageTitle.text();
@@ -144,16 +134,11 @@ export default {
         return true;
       }
 
-      this.$api.page
-        .title(this.page.id, title)
-        .then(page => {
-          this.page.title = page.title;
-          this.$store.dispatch("title", this.page.title);
-          this.$store.dispatch("success", "The page has been renamed");
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.page.title(this.page.id, title).then(page => {
+        this.page.title = page.title;
+        this.$store.dispatch("title", this.page.title);
+        this.$store.dispatch("success", "The page has been renamed");
+      });
     },
     prev() {
       if (this.page.prev) {

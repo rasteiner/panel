@@ -33,28 +33,18 @@ export default {
   methods: {
     open(id) {
       this.id = id;
-      this.$api.user
-        .get(id)
-        .then(user => {
-          this.user = user;
-          this.$refs.dialog.open();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.user.get(id).then(user => {
+        this.user = user;
+        this.$refs.dialog.open();
+      });
     },
     submit() {
-      this.$api.user
-        .changeRole(this.user.id, this.user.role)
-        .then(() => {
-          this.success({
-            message: "The has been changed to: " + this.user.role,
-            event: "user.change.role"
-          });
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
+      this.$api.user.changeRole(this.user.id, this.user.role).then(() => {
+        this.success({
+          message: "The has been changed to: " + this.user.role,
+          event: "user.change.role"
         });
+      });
     }
   }
 };

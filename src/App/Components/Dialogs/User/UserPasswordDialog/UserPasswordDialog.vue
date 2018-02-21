@@ -34,15 +34,10 @@ export default {
   },
   methods: {
     open(id) {
-      this.$api.user
-        .get(id)
-        .then(user => {
-          this.user = user;
-          this.$refs.dialog.open();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.user.get(id).then(user => {
+        this.user = user;
+        this.$refs.dialog.open();
+      });
     },
     submit() {
       if (this.values.password.length === 0) {
@@ -62,9 +57,6 @@ export default {
             message: "The password has been changed",
             event: "user.change.password"
           });
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
         });
     }
   }

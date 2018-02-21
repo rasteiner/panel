@@ -97,10 +97,6 @@ export default {
   pointer-events: none;
 }
 
-.kirby-panel[data-loading] .kirby-panel-view {
-  opacity: 0.25;
-}
-
 .kirby-panel-loader {
   position: fixed;
   bottom: 3rem;

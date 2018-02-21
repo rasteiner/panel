@@ -58,18 +58,13 @@ export default {
         }
       };
 
-      this.$api
-        .post(this.parent + "/" + this.section, data)
-        .then(page => {
-          this.success({
-            route: "/pages/" + page.id,
-            message: "The page has been created",
-            event: "page.create"
-          });
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
+      this.$api.post(this.parent + "/" + this.section, data).then(page => {
+        this.success({
+          route: "/pages/" + page.id,
+          message: "The page has been created",
+          event: "page.create"
         });
+      });
     }
   }
 };

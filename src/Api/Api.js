@@ -10,6 +10,15 @@ import Site from "./Site.js";
 import User from "./User.js";
 
 export default {
+  config: {
+    onStart() {},
+    onComplete() {},
+    onSuccess(json) {},
+    onError(error) {
+      console.log(error.message);
+      throw error;
+    }
+  },
   auth: Auth,
   file: File,
   locale: Locale,

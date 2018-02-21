@@ -23,13 +23,22 @@ const router = new Router({
 
 router.addRoutes(window.panel.plugins.routes);
 
-router.beforeEach((to, from, next) => {
-  store.dispatch("isLoading", true);
-  next();
-});
-
 /** API */
 import Api from "Api/Api.js";
+
+Api.config.onStart = () => {
+  store.dispatch("isLoading", true);
+};
+
+Api.config.onComplete = () => {
+  store.dispatch("isLoading", false);
+};
+
+Api.config.onError = error => {
+  store.dispatch("error", error.message);
+  throw error;
+};
+
 Vue.prototype.$api = Api;
 
 /** Event bus */

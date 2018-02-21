@@ -53,17 +53,12 @@ export default {
   },
   methods: {
     open(id) {
-      this.$api.page
-        .get(id)
-        .then(page => {
-          this.page = page;
-          this.status = page.isVisible ? "visible" : "invisible";
-          this.position = page.num;
-          this.$refs.dialog.open();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.page.get(id).then(page => {
+        this.page = page;
+        this.status = page.isVisible ? "visible" : "invisible";
+        this.position = page.num;
+        this.$refs.dialog.open();
+      });
     },
     submit() {
       if (this.status === "draft") {
@@ -84,9 +79,6 @@ export default {
             message: message,
             event: "page.change.status"
           });
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
         });
     }
   }

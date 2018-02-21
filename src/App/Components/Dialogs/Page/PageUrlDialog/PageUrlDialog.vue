@@ -45,16 +45,11 @@ export default {
       }
     },
     open(id) {
-      this.$api.page
-        .get(id)
-        .then(page => {
-          this.page = page;
-          this.sluggify(this.page.slug);
-          this.$refs.dialog.open();
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+      this.$api.page.get(id).then(page => {
+        this.page = page;
+        this.sluggify(this.page.slug);
+        this.$refs.dialog.open();
+      });
     },
     submit() {
       if (this.slug === this.page.slug) {
@@ -68,27 +63,22 @@ export default {
         return;
       }
 
-      this.$api.page
-        .slug(this.page.id, this.slug)
-        .then(page => {
-          const payload = {
-            message: "The URL has been changed to: /" + page.id,
-            event: "page.change.slug"
-          };
+      this.$api.page.slug(this.page.id, this.slug).then(page => {
+        const payload = {
+          message: "The URL has been changed to: /" + page.id,
+          event: "page.change.slug"
+        };
 
-          // if in PageView, redirect
-          if (
-            this.$route.params.path &&
-            this.page.id === this.$route.params.path.replace("+", "/")
-          ) {
-            payload.route = "/pages/" + page.id;
-          }
+        // if in PageView, redirect
+        if (
+          this.$route.params.path &&
+          this.page.id === this.$route.params.path.replace("+", "/")
+        ) {
+          payload.route = "/pages/" + page.id;
+        }
 
-          this.success(payload);
-        })
-        .catch(error => {
-          this.$store.dispatch("error", error.message);
-        });
+        this.success(payload);
+      });
     }
   }
 };
