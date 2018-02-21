@@ -56,6 +56,7 @@ export default {
         })
         .catch(() => {
           this.form = true;
+          this.$store.dispatch("error", "Invalid email address or password");
         });
     }
   }
