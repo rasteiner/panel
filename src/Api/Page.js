@@ -79,7 +79,7 @@ export default {
     return Api.patch(this.url(id, "title"), { title: title });
   },
   status(id, status, position) {
-    return Api.post(this.url(id, "status"), {
+    return Api.patch(this.url(id, "status"), {
       status: status,
       position: position
     });

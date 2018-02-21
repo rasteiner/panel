@@ -92,7 +92,7 @@ export default {
       } else {
         return {
           icon: "toggle-off",
-          text: "Unlisted"
+          text: "Private"
         };
       }
     },

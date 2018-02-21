@@ -26,17 +26,12 @@ export default {
           required: true,
           options: [
             {
-              value: "draft",
-              text: "Draft",
-              info: "The page is only accessible for logged in editors"
-            },
-            {
-              value: "unlisted",
-              text: "Unlisted",
+              value: "invisible",
+              text: "Private",
               info: "The page is only accessible via URL"
             },
             {
-              value: "listed",
+              value: "visible",
               text: "Public",
               info: "The page is public for anyone"
             }
@@ -44,7 +39,7 @@ export default {
         }
       ];
 
-      if (this.status === "listed") {
+      if (this.status === "visible") {
         fields.push({
           name: "position",
           label: "Please select a position",
@@ -62,7 +57,7 @@ export default {
         .get(id)
         .then(page => {
           this.page = page;
-          this.status = page.isVisible ? "listed" : "unlisted";
+          this.status = page.isVisible ? "visible" : "invisible";
           this.position = page.num;
           this.$refs.dialog.open();
         })
@@ -81,7 +76,7 @@ export default {
         .then(() => {
           let message = "The page is now " + this.status;
 
-          if (this.status === "listed") {
+          if (this.status === "visible") {
             message = "The page is now at position " + this.position;
           }
 
