@@ -39,8 +39,8 @@ export default {
       let result = [];
 
       result.push({
-        icon: "download",
-        text: "Download",
+        icon: "preview",
+        text: "Open",
         click: "download"
       });
 

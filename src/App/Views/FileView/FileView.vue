@@ -16,8 +16,8 @@
       </div>
 
       <template slot="buttons-left">
-        <kirby-button icon="download" @click="action('download')">
-          Download
+        <kirby-button icon="preview" @click="action('download')">
+          Open
         </kirby-button>
         <kirby-button icon="upload" @click="$refs.upload.open()">
           Replace
