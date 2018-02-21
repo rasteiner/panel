@@ -23,7 +23,7 @@
       <kirby-collection :items="users" :pagination="pagination" @paginate="paginate" @action="action" />
     </template>
     <template v-else>
-      <kirby-box>No results :(</kirby-box>
+      <kirby-box state="empty">No users</kirby-box>
     </template>
 
     <kirby-user-create-dialog ref="create" @success="fetch" />
