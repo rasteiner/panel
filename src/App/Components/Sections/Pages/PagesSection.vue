@@ -55,7 +55,7 @@ export default {
       headline: null,
       isLoading: true,
       layout: "list",
-      pagination: {},
+      page: 1,
       link: false
     };
   },
@@ -65,7 +65,7 @@ export default {
   methods: {
     fetch() {
       this.$api
-        .section(this.parent, this.name)
+        .section(this.parent, this.name, { page: this.page })
         .then(response => {
           this.data = response.data.map(page => {
             page.options = ready => {
@@ -110,7 +110,7 @@ export default {
       }
     },
     paginate(pagination) {
-      this.pagination = Object.assign(this.pagination || {}, pagination);
+      this.page = pagination.page;
       this.fetch();
     }
   }

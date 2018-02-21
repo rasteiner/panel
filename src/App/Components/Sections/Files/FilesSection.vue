@@ -50,6 +50,7 @@ export default {
       headline: null,
       isLoading: true,
       layout: "list",
+      page: 1,
       pagination: {}
     };
   },
@@ -67,7 +68,7 @@ export default {
   methods: {
     fetch() {
       this.$api
-        .section(this.parent, this.name)
+        .section(this.parent, this.name, { page: this.page })
         .then(response => {
           this.data = response.data.map(file => {
             file.options = ready => {
@@ -123,7 +124,7 @@ export default {
       this.$store.dispatch("success", "The files have been uploaded");
     },
     paginate(pagination) {
-      this.pagination = Object.assign(this.pagination || {}, pagination);
+      this.page = pagination.page;
       this.fetch();
     }
   }
