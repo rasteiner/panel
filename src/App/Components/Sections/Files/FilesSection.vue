@@ -23,9 +23,9 @@
         @paginate="paginate"
         @action="action" />
 
-      <kirby-box v-if="data.length === 0" class="kirby-files-collection-placeholder" :data-layout="layout">
+      <kirby-box v-if="data.length === 0" state="empty" class="kirby-files-collection-placeholder" :data-layout="layout">
         <kirby-button v-if="create" icon="upload" @click="upload">Upload</kirby-button>
-        <kirby-txt v-else>No files :(</kirby-txt>
+        <kirby-txt v-else>No files</kirby-txt>
       </kirby-box>
 
       <kirby-file-remove-dialog ref="remove" @success="fetch" />

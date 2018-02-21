@@ -16,10 +16,11 @@ export default {
 
 <style lang="scss">
 .kirby-box {
-  background: rgba(0, 0, 0, 0.075);
+  background: lighten($color-border, 2%);
   border-radius: $border-radius;
   padding: 0.65rem 1rem;
   line-height: 1.5;
+  border: 1px solid $color-border;
 }
 
 .kirby-box[data-state="empty"] {

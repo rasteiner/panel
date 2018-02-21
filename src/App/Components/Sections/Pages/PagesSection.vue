@@ -25,7 +25,7 @@
         @paginate="paginate"
         @action="action" />
 
-      <kirby-box v-if="data.length === 0">
+      <kirby-box v-if="data.length === 0" state="empty">
         <kirby-button v-if="create" @click="action(null, 'create')">No entries</kirby-button>
         <kirby-txt v-else>No entries</kirby-txt>
       </kirby-box>
