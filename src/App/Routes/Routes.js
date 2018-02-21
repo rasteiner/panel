@@ -15,9 +15,6 @@ const LoginView = () =>
 const PageView = () =>
   import(/* webpackChunkName: "page-view" */
   "../Views/PageView/PageView.vue");
-const SettingsView = () =>
-  import(/* webpackChunkName: "settings-view" */
-  "../Views/SettingsView/SettingsView.vue");
 const SiteView = () =>
   import(/* webpackChunkName: "site-view" */
   "../Views/SiteView/SiteView.vue");
@@ -119,12 +116,6 @@ export default [
     props: route => ({
       id: route.params.id
     })
-  },
-  {
-    path: "/settings",
-    name: "Settings",
-    beforeEnter: auth,
-    component: SettingsView
   },
   {
     path: "*",
