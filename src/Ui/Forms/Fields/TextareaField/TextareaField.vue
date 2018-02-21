@@ -1,8 +1,5 @@
 <template>
-  <kirby-field
-    class="kirby-textarea-field"
-    v-bind="$props"
-    :data-fullscreen="fullscreen">
+  <kirby-field class="kirby-textarea-field" v-bind="$props">
 
     <template slot="options" v-if="maxlength">
       <kirby-counter
@@ -81,14 +78,6 @@
           icon="list-numbers"
         />
       </div>
-      <div class="kirby-format-buttons-group">
-        <kirby-button
-          class="kirby-format-button"
-          @click="toggle()"
-          :icon="fullscreen ? 'collapse' : 'expand'"
-        />
-      </div>
-
     </div>
 
     <kirby-dialog
@@ -170,7 +159,6 @@ export default {
   data() {
     return {
       state: this.value,
-      fullscreen: false,
       linkValue: {
         url: null,
         text: null
@@ -275,13 +263,6 @@ export default {
       // close the modal
       this.$refs.emailModal.close();
     },
-    toggle() {
-      this.fullscreen = !this.fullscreen;
-      this.$nextTick(() => {
-        this.resize();
-        this.focus();
-      });
-    },
     addShortcuts() {
       this.$events.$on("key.cmd+b", this.bold);
       this.$events.$on("key.cmd+i", this.italic);
@@ -356,31 +337,6 @@ export default {
 
 .kirby-format-button {
   padding: 0.5rem;
-}
-
-.kirby-textarea-field[data-fullscreen] {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: z-index(focusmode);
-  background: $color-white;
-  padding: 3rem;
-  overflow: auto;
-}
-.kirby-textarea-field[data-fullscreen] > .kirby-field-header {
-  display: none;
-}
-.kirby-textarea-field[data-fullscreen] > .kirby-input {
-  max-width: 40rem;
-  margin: 3rem auto;
-  border: 0;
-  box-shadow: none;
-}
-.kirby-textarea-field[data-fullscreen] > .kirby-input .kirby-format-buttons {
-  position: fixed;
-  top: 0;
 }
 
 .kirby-textarea-input {
