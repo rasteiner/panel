@@ -1,44 +1,44 @@
 <template>
-  <div v-if="!$store.state.isLoading" class="kirby-installation-view">
-    <form v-if="ok" @submit.prevent="install">
+  <div class="kirby-installation-view">
+    <form v-if="info.isOk" @submit.prevent="install">
       <kirby-fieldset :fields="fields" :values="user" />
       <kirby-button type="submit" icon="check">{{ $t("install") }}</kirby-button>
     </form>
     <div v-else>
-      <kirby-headline :margin="true">The panel cannot be installed</kirby-headline>
+      <kirby-headline>The panel cannot be installed</kirby-headline>
 
       <ul class="kirby-installation-issues">
-        <li v-if="status.php === false">
+        <li v-if="info.details.php === false">
           <kirby-icon type="cancel" />
           Make sure to use <code>PHP 7+</code>
         </li>
 
-        <li v-if="status.server === false">
+        <li v-if="info.details.server === false">
           <kirby-icon type="cancel" />
           Kirby requires <code>Apache</code> or <code>Nginx</code>
         </li>
 
-        <li v-if="status.mbstring === false">
+        <li v-if="info.details.mbstring === false">
           <kirby-icon type="cancel" />
           The <code>MB String</code> extension is required
         </li>
 
-        <li v-if="status.curl === false">
+        <li v-if="info.details.curl === false">
           <kirby-icon type="cancel" />
           The <code>CURL</code> extension is required
         </li>
 
-        <li v-if="status.accounts === false">
+        <li v-if="info.details.accounts === false">
           <kirby-icon type="cancel" />
           The <code>/site/accounts</code> folder does not exist or is not writable
         </li>
 
-        <li v-if="status.content === false">
+        <li v-if="info.details.content === false">
           <kirby-icon type="cancel" />
           The <code>/content</code> folder does not exist or is not writable
         </li>
 
-        <li v-if="status.media === false">
+        <li v-if="info.details.media === false">
           <kirby-icon type="cancel" />
           The <code>/media</code> folder does not exist or is not writable
         </li>
@@ -52,28 +52,37 @@
 </template>
 
 <script>
+import System from "Api/System.js";
+
 export default {
   data() {
     return {
-      loading: false,
-      ok: true,
-      status: {
-        php: false,
-        server: false,
-        mbstring: false,
-        curl: false,
-        accounts: false,
-        content: false,
-        media: false
+      info: {
+        isOk: false,
+        isInstalled: false,
+        details: {}
       },
       user: {
-        language: "en",
+        email: null,
+        password: null,
+        language: "en_US",
         role: "admin"
       }
     };
   },
   created() {
-    this.check();
+    this.$store.dispatch("title", "Installation");
+  },
+  beforeRouteEnter(to, from, next) {
+    System.info().then(info => {
+      if (info.isInstalled === true) {
+        next("/login");
+      } else {
+        next(vm => {
+          vm.setInfo(info);
+        });
+      }
+    });
   },
   computed: {
     fields() {
@@ -99,26 +108,26 @@ export default {
     }
   },
   methods: {
-    check() {
-      this.$api.panel.system().then(system => {
-        if (system.isInstalled === true) {
-          this.$router.push("/");
-        }
-
-        this.ok = system.isOk;
-        this.status = system.details;
-
-        this.$store.dispatch("title", "Installation");
-      });
-    },
     install() {
-      this.$api.user.create(this.user).then(user => {
+      this.$api.system.install(this.user).then(user => {
         this.$api.auth.login(this.user).then(user => {
           this.$store.dispatch("user", user);
           this.$store.dispatch("success", "Welcome!");
           this.$router.push("/");
         });
       });
+    },
+    check() {
+      this.$api.system.info().then(info => {
+        if (info.isInstalled === true) {
+          this.$router.push("/login");
+        } else {
+          this.info = info;
+        }
+      });
+    },
+    setInfo(info) {
+      this.info = info;
     }
   }
 };

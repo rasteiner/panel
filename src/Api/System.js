@@ -1,7 +1,10 @@
 import Api from "./Api.js";
 
 export default {
-  system() {
+  info() {
     return Api.get("system");
+  },
+  install(user) {
+    return Api.post("system/install", user);
   }
 };

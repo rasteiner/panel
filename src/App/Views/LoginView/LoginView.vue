@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import System from "Api/System.js";
+
 export default {
   data() {
     return {
@@ -17,6 +19,15 @@ export default {
         password: null
       }
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    System.info().then(info => {
+      if (info.isInstalled === false) {
+        next("/installation");
+      } else {
+        next();
+      }
+    });
   },
   computed: {
     fields() {

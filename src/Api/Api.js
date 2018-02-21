@@ -4,7 +4,7 @@ import Auth from "./Auth.js";
 import File from "./File.js";
 import Locale from "./Locale.js";
 import Page from "./Page.js";
-import Panel from "./Panel.js";
+import System from "./System.js";
 import Section from "./Section.js";
 import Site from "./Site.js";
 import User from "./User.js";
@@ -23,7 +23,7 @@ export default {
   file: File,
   locale: Locale,
   page: Page,
-  panel: Panel,
+  system: System,
   section: Section,
   site: Site,
   user: User,

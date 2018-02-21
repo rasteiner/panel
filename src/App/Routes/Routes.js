@@ -33,7 +33,6 @@ import store from "../Store/Store.js";
 
 /* Api */
 import Auth from "Api/Auth.js";
-import Panel from "Api/Panel.js";
 
 /* Route filters */
 export const auth = (to, from, next) => {
@@ -46,13 +45,7 @@ export const auth = (to, from, next) => {
     })
     .catch(() => {
       Auth.logout();
-
-      // store url to navigate after login
-      // store.commit('afterLogin', to.path);
-
-      // redirect to login form
       next("/login");
-      return false;
     });
 };
 
