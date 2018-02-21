@@ -183,34 +183,10 @@ $radio-label-gap: 8px;
   border-color: $color-radio-focus;
 }
 
-// /* checked */
-// .kirby-radio-input input:checked + label::before {
-//   background-color: $color-dark;
-//   border-color: $color-dark;
-// }
-
-// /* focus + active */
-// .kirby-radio-input input:focus + label::before,
-// .kirby-radio-input input:active + label::before {
-//   border-color: $color-radio-focus;
-//   box-shadow: $radio-focus-outline;
-// }
-
-// /* checked */
-// .kirby-radio-input input:checked + label::after {
-//   opacity: 1;
-//   transform: none;
-// }
-
-// /* checked + active */
-// .kirby-radio-input input:active + label::before {
-//   background-color: $color-radio-focus;
-//   border-color: $color-radio-focus;
-// }
-
 .kirby-radio-input-info {
   font-size: 0.8em;
   line-height: 1.2;
   color: $color-light-grey;
+  margin-bottom: 0.4rem;
 }
 </style>
