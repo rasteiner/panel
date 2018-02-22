@@ -35,7 +35,7 @@
     </template>
 
     <div class="kirby-files-section-error" v-if="error">
-      {{ error }}
+      {{ error.message }}
     </div>
 
   </section>
@@ -86,7 +86,7 @@ export default {
             return file;
           });
 
-          this.error = response.error;
+          this.error = response.errors[0];
           this.headline = response.headline;
           this.create = response.create;
           this.pagination = response.pagination;
