@@ -61,9 +61,9 @@ export default {
   }
 }
 .kirby-notification[data-type="success"] .kirby-icon svg * {
-  fill: $color-positive;
+  fill: $color-positive-on-dark;
 }
 .kirby-notification[data-type="error"] .kirby-icon svg * {
-  fill: $color-negative;
+  fill: $color-negative-on-dark;
 }
 </style>

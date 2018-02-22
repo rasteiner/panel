@@ -7,13 +7,13 @@
  */
 
 $layers: (
-  notification:  700,
-  dropdown:      600,
-  dialog:        500,
-  focusmode:     400,
-  navigation:    300,
-  content:       200,
-  background:    100
+  notification: 700,
+  dropdown: 600,
+  dialog: 500,
+  focusmode: 400,
+  navigation: 300,
+  content: 200,
+  background: 100
 );
 
 @function z-index($key, $add: 0) {
@@ -25,17 +25,21 @@ $layers: (
  */
 $color-black: #000;
 $color-white: #fff;
-$color-dark: darken(#282c34, 20%);
+$color-dark: #16171a;
 $color-dark-grey: #777;
 $color-light: #efefef;
 $color-light-grey: #999;
 $color-background: $color-light;
-$color-positive: #b5bd68;
-$color-focus: #81a2be;
-$color-notice: #f0c674;
-$color-negative: #cc6666;
+$color-positive: #5d800d;
+$color-positive-on-dark: #a7bd68;
+$color-focus: #4271ae;
+$color-focus-on-dark: #81a2be;
+$color-notice: #f5871f;
+$color-notice-on-dark: #de935f;
+$color-negative: #c82829;
+$color-negative-on-dark: #d16464;
 $color-border: #dedede;
-$color-backdrop: rgba($color-dark, .6);
+$color-backdrop: rgba($color-dark, 0.6);
 
 /**
  * Typography
@@ -45,8 +49,8 @@ $font-size-small: 14px;
 $font-size-medium: 16px;
 $font-size-large: 28px;
 
-$font-family-sans: 'Roboto';
-$font-family-mono: 'Roboto Mono';
+$font-family-sans: "Roboto";
+$font-family-mono: "Roboto Mono";
 
 /**
  * Misc
@@ -56,9 +60,10 @@ $border-radius: 1px;
 /**
  * Shadows
  */
-$box-shadow: 0 2px 10px rgba($color-dark, .2);
+$box-shadow: 0 2px 10px rgba($color-dark, 0.2);
 $box-shadow-focus: 0 0 0 3px rgba($color-focus, 0.25);
-$box-shadow-focus-full: 0 0 0 2px $color-focus, 0 0 0 5px rgba($color-focus, .2);
+$box-shadow-focus-full: 0 0 0 2px $color-focus,
+  0 0 0 5px rgba($color-focus, 0.2);
 
 /**
  * Breakpoints
@@ -71,7 +76,6 @@ $breakpoint-medium: 67.5em;
  * Widths
  */
 $width-menu: 12.5rem;
-
 
 /**
  * Focus Ring
