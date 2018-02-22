@@ -64,8 +64,8 @@ export default {
         fields.push({
           name: "position",
           label: "Please select a position",
-          type: "number",
-          help: "This is definitely going to change :)"
+          type: "select",
+          options: this.sortingOptions()
         });
       }
 
@@ -73,9 +73,39 @@ export default {
     }
   },
   methods: {
+    sortingOptions() {
+      let options = [];
+      let index = 0;
+
+      this.page.siblings.forEach(sibling => {
+        if (sibling.id === this.page.id || !sibling.num) {
+          return false;
+        }
+
+        index++;
+
+        options.push({
+          value: index,
+          text: index
+        });
+
+        options.push({
+          value: sibling.id,
+          text: sibling.title,
+          disabled: true
+        });
+      });
+
+      options.push({
+        value: index + 1,
+        text: index + 1
+      });
+
+      return options;
+    },
     open(id) {
       this.$api.page
-        .get(id, { select: ["id", "isVisible", "num", "errors"] })
+        .get(id, { select: ["id", "isVisible", "num", "errors", "siblings"] })
         .then(page => {
           this.page = page;
           this.status = page.isVisible ? "visible" : "invisible";
