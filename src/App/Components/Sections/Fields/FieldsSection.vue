@@ -1,6 +1,6 @@
 <template>
   <section class="kirby-fields-section">
-    <kirby-form @submit="saveForm" @change="saveField" :fields="fields" :values="values" />
+    <kirby-form @submit="saveForm" @change="saveField" @input="resetErrors" :fields="fields" :values="values" />
   </section>
 </template>
 
@@ -38,6 +38,9 @@ export default {
         .catch(error => {
           this.isLoading = false;
         });
+    },
+    resetErrors(values, field) {
+      this.fields[field].error = false;
     },
     saveField(field, value) {
       this.$api
