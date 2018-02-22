@@ -1,7 +1,7 @@
 <template>
   <section class="kirby-pages-section" v-if="isLoading === false" :data-error="error">
 
-    <kirby-headline>
+    <kirby-headline :state="error ? 'negative' : null">
       <router-link v-if="link" :to="link">{{ headline }}</router-link>
       <span v-else>{{ headline }}</span>
 
@@ -124,10 +124,6 @@ export default {
 </script>
 
 <style lang="scss">
-.kirby-pages-section[data-error] .kirby-headline {
-  color: $color-negative;
-}
-
 .kirby-pages-section-error {
   padding: 0.5rem 0;
   font-family: $font-family-mono;

@@ -1,8 +1,8 @@
 <template>
 
-  <section class="kirby-files-section" v-if="isLoading === false" :data-error="error">
+  <section class="kirby-files-section" v-if="isLoading === false">
 
-    <kirby-headline>
+    <kirby-headline :state="error ? 'negative' : null">
       <span>{{ headline }}</span>
       <kirby-button-group slot="options" v-if="create">
         <kirby-button icon="upload" @click="upload"></kirby-button>
@@ -139,9 +139,6 @@ export default {
 </script>
 
 <style lang="scss">
-.kirby-files-section[data-error] .kirby-headline {
-  color: $color-negative;
-}
 .kirby-files-section-error {
   padding: 0.5rem 0;
   font-family: $font-family-mono;

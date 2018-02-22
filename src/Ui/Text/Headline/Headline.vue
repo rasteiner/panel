@@ -2,7 +2,7 @@
 
   <kirby-bar v-if="$slots.options">
     <template slot="left">
-      <h2 class="kirby-headline" :data-margin="margin" :data-size="size">
+      <h2 class="kirby-headline" :data-margin="margin" :data-size="size" :data-state="state">
         <span><slot /></span>
       </h2>
     </template>
@@ -23,6 +23,9 @@ export default {
     size: {
       type: String
     },
+    state: {
+      type: String
+    },
     margin: {
       type: Boolean
     }
@@ -41,6 +44,9 @@ export default {
 }
 .kirby-headline[data-size="large"] {
   font-size: $font-size-large;
+}
+.kirby-headline[data-state="negative"] {
+  color: $color-negative;
 }
 .kirby-headline > span {
   display: block;
