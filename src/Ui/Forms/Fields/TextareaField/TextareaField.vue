@@ -1,11 +1,11 @@
 <template>
   <kirby-field class="kirby-textarea-field" v-bind="$props">
 
-    <template slot="options" v-if="maxlength">
+    <template slot="options" v-if="maxLength || minLength">
       <kirby-counter
         :value="state"
-        :min="minlength"
-        :max="maxlength"
+        :min="minLength"
+        :max="maxLength"
       />
     </template>
 
@@ -17,6 +17,7 @@
       spellcheck="false"
       v-model="state"
       @input="input($event.target.value)"
+      @change="$emit('change', $event.target.value)"
       @focus="removeShortcuts"
       @blur="$emit('blur')"
       @keydown.delete="remove($event)"
@@ -141,7 +142,8 @@ import autosize from "./Textarea.autosize.js";
 export default {
   mixins: [Field],
   props: {
-    maxlength: Number,
+    maxLength: Number,
+    minLength: Number,
     buttons: {
       type: Boolean,
       default: true

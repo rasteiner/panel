@@ -54,7 +54,7 @@
 
     </kirby-header>
 
-    <kirby-tabs :key="'user-' + user.id + '-tabs'" v-if="user && tabs.length" :parent="'users/' + user.id" :tabs="tabs" ref="tabs" @submit="save" />
+    <kirby-tabs :key="'user-' + user.id + '-tabs'" v-if="user && tabs.length" :parent="'users/' + user.id" :tabs="tabs" ref="tabs" />
 
     <kirby-box v-else>
       You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role}}.yml</strong>
@@ -114,10 +114,6 @@ export default {
   },
   created() {
     this.fetch();
-    this.$events.$on("key.save", this.save);
-  },
-  destroyed: function() {
-    this.$events.$off("key.save", this.save);
   },
   watch: {
     $route() {
@@ -125,16 +121,6 @@ export default {
     }
   },
   methods: {
-    save(data) {
-      if (data === undefined) {
-        return false;
-      }
-
-      this.$api.user.update(this.id, data).then(() => {
-        this.$store.dispatch("success", "Saved!");
-        this.$events.$emit("user.update");
-      });
-    },
     action(action) {
       switch (action) {
         case "picture.delete":

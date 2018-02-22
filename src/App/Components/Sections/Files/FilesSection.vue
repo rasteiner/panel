@@ -1,17 +1,18 @@
 <template>
-  <section class="kirby-files-section" v-if="isLoading === false">
+
+  <section class="kirby-files-section" v-if="isLoading === false" :data-error="error">
 
     <kirby-headline>
       <span>{{ headline }}</span>
-      <kirby-button-group slot="options" v-if="create && data.length !== 0">
+      <kirby-button-group slot="options" v-if="create">
         <kirby-button icon="upload" @click="upload"></kirby-button>
       </kirby-button-group>
     </kirby-headline>
 
-    <template v-if="error">
+    <template v-if="issue">
       <kirby-box>
         <strong>The section could not be loaded:</strong>
-        {{ error }}
+        {{ issue }}
       </kirby-box>
     </template>
     <template v-else>
@@ -33,6 +34,10 @@
 
     </template>
 
+    <div class="kirby-files-section-error" v-if="error">
+      {{ error }}
+    </div>
+
   </section>
 </template>
 
@@ -46,9 +51,10 @@ export default {
     return {
       create: null,
       data: [],
-      error: null,
+      error: false,
       headline: null,
       isLoading: true,
+      issue: false,
       layout: "list",
       page: 1,
       pagination: {}
@@ -80,6 +86,7 @@ export default {
             return file;
           });
 
+          this.error = response.error;
           this.headline = response.headline;
           this.create = response.create;
           this.pagination = response.pagination;
@@ -88,7 +95,7 @@ export default {
         })
         .catch(error => {
           this.isLoading = false;
-          this.error = error.message;
+          this.issue = error.message;
         });
     },
     action(file, action) {
@@ -130,3 +137,15 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.kirby-files-section[data-error] .kirby-headline {
+  color: $color-negative;
+}
+.kirby-files-section-error {
+  padding: 0.5rem 0;
+  font-family: $font-family-mono;
+  font-size: $font-size-small;
+  color: $color-negative;
+}
+</style>

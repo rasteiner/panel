@@ -1,10 +1,10 @@
 <template>
   <kirby-field :class="`kirby-${this.type}-field`" v-bind="$props">
-    <template slot="options" v-if="maxlength">
+    <template slot="options" v-if="minLength || maxLength">
       <kirby-counter
         :value="state"
-        :min="minlength"
-        :max="maxlength"
+        :min="minLength"
+        :max="maxLength"
       />
     </template>
     <input
@@ -12,8 +12,8 @@
       :autocomplete="autocomplete ? 'on' : 'off'"
       :id="name"
       :name="name"
-      :maxlength="maxlength"
-      :minlength="minlength"
+      :maxlength="maxLength"
+      :minlength="minLength"
       :pattern="pattern"
       :placeholder="placeholder"
       :readonly="readonly"
@@ -22,6 +22,7 @@
       :type="type"
       :value="state"
       @input="input($event.target.value)"
+      @change="change($event.target.value)"
     />
   </kirby-field>
 </template>
@@ -37,8 +38,8 @@ export default {
       type: String,
       default: "text"
     },
-    minlength: Number,
-    maxlength: Number,
+    minLength: Number,
+    maxLength: Number,
     pattern: String,
     placeholder: String,
     autocomplete: String,

@@ -1,11 +1,11 @@
 <template>
-  <div class="kirby-field" :data-readonly="readonly" :data-error="error" @click="focus">
+  <div class="kirby-field" :data-readonly="readonly" :data-error="error !== false" @click="focus">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
 
       <template slot="left">
         <slot name="label">
-          <label :for="name">{{ label }} <abbr v-if="required" title="Required">*</abbr></label>
+          <label :for="name">{{ label }}</label>
         </slot>
       </template>
 
@@ -26,13 +26,17 @@
       </slot>
     </div>
 
+    <div v-if="error" class="kirby-field-error">
+      {{ error.message }}
+    </div>
+
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    error: Boolean,
+    error: [Object, Boolean],
     help: String,
     label: String,
     name: {
@@ -103,11 +107,15 @@ export default {
   color: $color-negative;
 }
 
-.kirby-field-help {
+.kirby-field-help,
+.kirby-field-error {
   padding: 0.5rem 0;
   font-size: $font-size-small;
   font-family: $font-family-mono;
   color: $color-dark-grey;
   line-height: 1.5;
+}
+.kirby-field-error {
+  color: $color-negative;
 }
 </style>

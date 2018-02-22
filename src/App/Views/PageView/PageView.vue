@@ -40,7 +40,7 @@
 
     </kirby-header>
 
-    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="page.id" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" @submit="save" />
+    <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="page.id" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" />
 
     <kirby-page-status-dialog ref="status" @success="fetch" />
     <kirby-page-url-dialog ref="url" />
@@ -117,15 +117,6 @@ export default {
         .catch(error => {
           this.$router.push("/pages");
         });
-    },
-    save(data) {
-      // always store the latest title
-      data.title = this.page.title;
-
-      this.$api.page.update(this.page.id, data).then(() => {
-        this.$store.dispatch("success", "Saved!");
-        this.$events.$emit("page.update");
-      });
     },
     saveTitle() {
       const title = this.$refs.pageTitle.text();

@@ -1,21 +1,20 @@
 <template>
-  <section class="kirby-pages-section" v-if="isLoading === false" :data-error="error">
-
+  <section v-if="isLoading === false">
     <kirby-headline>
       <router-link v-if="link" :to="link">{{ headline }}</router-link>
       <span v-else>{{ headline }}</span>
-
-      <kirby-button-group slot="options">
-        <kirby-button v-if="create" icon="add" @click="action(null, 'create')">Add</kirby-button>
-      </kirby-button-group>
+      <template slot="options">
+        <slot name="options" />
+      </template>
     </kirby-headline>
 
-    <template v-if="issue">
+    <template v-if="error">
       <kirby-box>
         <strong>The section could not be loaded:</strong>
-        {{ issue }}
+        {{ error }}
       </kirby-box>
     </template>
+
     <template v-else>
 
       <kirby-collection
@@ -37,10 +36,6 @@
 
     </template>
 
-    <div class="kirby-pages-section-error" v-if="error">
-      {{ error }}
-    </div>
-
   </section>
 
 </template>
@@ -55,8 +50,7 @@ export default {
     return {
       create: null,
       data: [],
-      issue: false,
-      error: false,
+      error: null,
       headline: null,
       isLoading: true,
       layout: "list",
@@ -85,12 +79,11 @@ export default {
           this.headline = response.headline;
           this.layout = response.layout || "list";
           this.link = response.link;
-          this.error = response.error;
           this.isLoading = false;
         })
         .catch(error => {
           this.isLoading = false;
-          this.issue = error.message;
+          this.error = error.message;
         });
     },
     update(event) {},
@@ -122,16 +115,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.kirby-pages-section[data-error] .kirby-headline {
-  color: $color-negative;
-}
-
-.kirby-pages-section-error {
-  padding: 0.5rem 0;
-  font-family: $font-family-mono;
-  font-size: $font-size-small;
-  color: $color-negative;
-}
-</style>

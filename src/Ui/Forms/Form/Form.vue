@@ -1,48 +1,47 @@
 <template>
   <form ref="form" class="kirby-form" method="POST" @submit.prevent="$emit('submit')" autocomplete="off">
-    <kirby-fieldset :fields="fields" :values="data" @input="input" />
+    <kirby-fieldset :fields="fields" :values="data" @input="input" @change="change" />
     <input ref="submitter" type="submit">
   </form>
 </template>
 
 <script>
-
 export default {
   props: {
     fields: {
-      type: Array,
-      default () {
+      type: [Array, Object],
+      default() {
         return [];
       }
     },
     values: {
       type: Object,
-      default () {
+      default() {
         return {};
       }
     }
   },
   computed: {
     data() {
-      return this.values
+      return this.values;
     }
   },
   methods: {
-    submit () {
+    submit() {
       this.$refs.submitter.click();
     },
-    input () {
-      this.$emit('input', this.data);
+    change(name, value) {
+      this.$emit("change", name, value);
+    },
+    input() {
+      this.$emit("input", this.data);
     }
   }
-}
-
+};
 </script>
 
 <style>
-
 .kirby-form input[type="submit"] {
   display: none;
 }
-
 </style>

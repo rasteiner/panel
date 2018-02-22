@@ -3,6 +3,7 @@
     <kirby-column v-for="(column, columnIndex) in columns" :key="parent + '-column-' + columnIndex" :width="column.width">
       <template v-for="(section, sectionIndex) in column.sections">
         <component v-if="exists(section.type)"
+          class="kirby-section"
           :key="parent + '-column-' + columnIndex + '-section-' + sectionIndex"
           :is="'kirby-' + section.type + '-section'"
           :parent="parent"
@@ -33,3 +34,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.kirby-section {
+  margin-bottom: 1.5rem;
+}
+</style>

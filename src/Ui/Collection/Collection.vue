@@ -76,12 +76,7 @@ export default {
 </script>
 
 <style>
-.kirby-collection-items {
-  padding-bottom: 1.5rem;
-}
-
 .kirby-collection .kirby-pagination {
-  margin-top: -1.5rem;
   margin-bottom: -0.5rem;
 }
 </style>

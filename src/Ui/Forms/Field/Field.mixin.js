@@ -12,6 +12,7 @@ export default {
       type: [Boolean, String],
       default: false
     },
+    error: [Object, Boolean],
     help: {
       type: String,
       default: ""
@@ -46,6 +47,10 @@ export default {
     input(state) {
       this.state = state;
       this.$emit("input", this.state);
+    },
+    change(state) {
+      this.state = state;
+      this.$emit("change", this.state);
     }
   }
 };

@@ -6,8 +6,11 @@
       :min="min"
       :max="max"
       :step="step"
-      :value="state"
+      :value.number="state"
       @input="input($event.target.value)"
+      @focus="hasChanged = false"
+      @change="hasChanged = true"
+      @blur="blur"
     />
   </kirby-field>
 </template>
@@ -18,7 +21,7 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    value: Number,
+    value: [Number, String],
     placeholder: {
       type: String
     },
@@ -30,6 +33,18 @@ export default {
     step: {
       type: Number,
       default: 1
+    }
+  },
+  data() {
+    return {
+      hasChanged: false
+    };
+  },
+  methods: {
+    blur() {
+      if (this.hasChanged === true) {
+        this.$emit("change", this.state);
+      }
     }
   }
 };

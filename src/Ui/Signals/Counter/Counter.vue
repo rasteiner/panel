@@ -1,7 +1,7 @@
 <template>
 
   <div class="kirby-counter" :data-invalid="!valid">
-    <span>{{ count }}</span> / {{ max }}
+    <span>{{ count }}</span><template v-if="max"> / {{ max }}</template>
   </div>
 
 </template>

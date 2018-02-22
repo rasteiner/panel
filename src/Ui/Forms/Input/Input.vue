@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-input" :data-focus="isFocused" :data-error="error">
+  <div class="kirby-input" :data-focus="isFocused">
     <span v-if="$slots.prefix || prefix" class="kirby-input-prefix">
       <slot name="prefix">{{ prefix }}</slot>
     </span>
@@ -17,7 +17,6 @@
 <script>
 export default {
   props: {
-    error: Boolean,
     icon: [String, Boolean],
     prefix: String
   },
