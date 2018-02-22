@@ -33,8 +33,8 @@ export default {
     change(name, value) {
       this.$emit("change", name, value);
     },
-    input() {
-      this.$emit("input", this.data);
+    input(values, field) {
+      this.$emit("input", this.data, field);
     }
   }
 };

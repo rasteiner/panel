@@ -40,7 +40,7 @@ export default {
   methods: {
     input(field, value) {
       this.data[field] = value;
-      this.$emit("input", this.data);
+      this.$emit("input", this.data, field);
     },
     exists(type) {
       return Vue.options.components["kirby-" + type + "-field"];
