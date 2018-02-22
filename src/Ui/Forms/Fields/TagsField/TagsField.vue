@@ -2,7 +2,8 @@
   <kirby-field
     class="kirby-tags-field"
     v-bind="$props"
-    @click.native="focus">
+    @click.native="focus"
+    @blur="$emit('change', state);">
 
     <draggable
       :value="state"
