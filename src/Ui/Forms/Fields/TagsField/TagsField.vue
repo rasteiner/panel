@@ -1,9 +1,5 @@
 <template>
-  <kirby-field
-    class="kirby-tags-field"
-    v-bind="$props"
-    @click.native="focus"
-    @blur="change">
+  <kirby-field class="kirby-tags-field" v-bind="$props" :id="_uid" @click.native="focus" @blur="change">
 
     <draggable
       :value="state"
@@ -31,14 +27,11 @@
           @keydown.tab="add($event.target.value)"
           @keydown.separator.prevent="add($event.target.value)"
           @keydown.left="leaveInput"
-          @keydown.delete="leaveInput" list="options" />
-        <datalist id="options">
-          <option value="design">Design</option>
-          <option value="typography">Typography</option>
-        </datalist>
+          @keydown.delete="leaveInput" />
       </span>
 
     </draggable>
+
   </kirby-field>
 </template>
 

@@ -1,12 +1,12 @@
 <template>
-  <kirby-field class="kirby-toggle-field" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-toggle-field" :id="_uid" v-bind="$props" @blur="change">
     <span class="kirby-toggle-input">
       <input
         type="checkbox"
-        :id="name"
+        :id="_uid"
         @change="input($event.target.checked)"
       />
-      <label :for="name">{{ display }}</label>
+      <label :for="id">{{ display }}</label>
     </span>
   </kirby-field>
 </template>

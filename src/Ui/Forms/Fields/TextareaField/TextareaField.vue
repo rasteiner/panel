@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-textarea-field" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-textarea-field" :id="_uid" v-bind="$props" @blur="change">
 
     <template slot="options" v-if="maxLength || minLength">
       <kirby-counter
@@ -12,7 +12,7 @@
     <textarea
       class="kirby-textarea-input"
       ref="input"
-      :id="name"
+      :id="_uid"
       :placeholder="placeholder"
       spellcheck="false"
       v-model="state"

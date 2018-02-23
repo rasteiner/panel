@@ -1,3 +1,5 @@
+import uniqid from "Ui/Helpers/uniqid.js";
+
 export default {
   props: {
     name: {
