@@ -17,7 +17,7 @@
         ref="input"
         :id="_uid"
         :options="options"
-        @input="input"
+        @select="input"
       />
     </template>
 

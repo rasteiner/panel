@@ -27,9 +27,8 @@
           :id="_uid"
           :options="options"
           :separator="separator"
-          @input="add"
-          @enter="add({ text: $event, value: $event })"
-          @tab="add({ text: $event, value: $event })"
+          @select="add"
+          @input="add({ text: $event, value: $event })"
           @left="leaveInput"
         />
       </span>

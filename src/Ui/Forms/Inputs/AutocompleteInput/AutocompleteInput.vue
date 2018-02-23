@@ -55,6 +55,7 @@ export default {
     },
     fill(value) {
       this.$refs.input.value = value;
+      this.$refs.input.setSelectionRange(0, this.$refs.input.value.length);
     },
     focus() {
       this.$refs.input.focus();
@@ -77,7 +78,7 @@ export default {
 
             // value other than an autocomplete item in input
           } else {
-            this.$emit("enter", this.$refs.input.value);
+            this.$emit("input", this.$refs.input.value);
             this.close();
           }
 
@@ -138,8 +139,11 @@ export default {
         value = this.items[this.selected].value;
       }
 
+      // skip undefined values
+      if (!value) return;
+
       // make sure input events includes whole option object
-      this.$emit("input", this.options.find(x => x.value === value));
+      this.$emit("select", this.options.find(x => x.value === value));
       this.close();
     }
   }
