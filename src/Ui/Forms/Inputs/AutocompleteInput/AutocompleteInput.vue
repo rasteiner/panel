@@ -1,14 +1,17 @@
 <template>
   <kirby-dropdown class="kirby-autocomplete-input">
     <input
-      type="text"
       ref="input"
+      type="text"
       :id="id"
       v-model="query"
-      @keydown.tab.prevent="keydown"
-      @keydown.enter.prevent="keydown"
+      @keydown.tab="keydown"
+      @keydown.enter="keydown"
       @keydown.up.prevent="navigate(-1)"
-      @keydown.down.prevent="navigate(1)" />
+      @keydown.down.prevent="navigate(1)"
+      @keydown.left="$emit('left', $event)"
+      @keydown.delete="$emit('delete', $event)"
+    />
     <kirby-dropdown-content ref="items">
       <kirby-dropdown-item v-for="(item, index) in items"
         tabindex="-1"
@@ -85,6 +88,7 @@ export default {
     keydown(event) {
       if (this.items[this.selected]) {
         this.select(null);
+        event.preventDefault();
       } else {
         this.close();
       }
