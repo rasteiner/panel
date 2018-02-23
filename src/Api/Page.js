@@ -41,6 +41,14 @@ export default {
         });
       }
 
+      if (options.changeTitle) {
+        result.push({
+          click: "rename",
+          icon: "title",
+          text: "Rename this page"
+        });
+      }
+
       if (options.changeUrl) {
         result.push({
           click: "url",

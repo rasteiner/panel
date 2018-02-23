@@ -32,6 +32,7 @@
 
       <kirby-page-create-dialog ref="create" />
       <kirby-page-url-dialog    ref="url"    @success="fetch" />
+      <kirby-page-rename-dialog ref="rename" @success="fetch" />
       <kirby-page-status-dialog ref="status" @success="fetch" />
       <kirby-page-remove-dialog ref="remove" @success="fetch" />
 
@@ -109,6 +110,9 @@ export default {
           break;
         case "status":
           this.$refs.status.open(page.id);
+          break;
+        case "rename":
+          this.$refs.rename.open(page.id);
           break;
         case "remove":
           this.$refs.remove.open(page.id);

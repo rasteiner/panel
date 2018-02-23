@@ -2,71 +2,64 @@
 
   <kirby-view class="kirby-user-view">
 
-    <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
+    <div class="kirby-user-view-wrapper">
+      <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" :editable="true" @prev="prev" @next="next" @edit="action('rename')">
 
-      <kirby-fancy-input
-        ref="userName"
-        class="kirby-user-view-name"
-        placeholder="Enter a name …"
-        tag="div"
-        type="headline"
-        :key="user.id + '-headline'"
-        :value="user.name"
-        @blur="saveName"
-        @enter="saveName" />
+        {{ user.name }}
+
+        <template slot="buttons-left">
+          <template v-if="avatar">
+            <kirby-dropdown>
+              <kirby-button @click="$refs.picture.toggle()" icon="image">
+                {{ $t('user.image') }}
+              </kirby-button>
+              <kirby-dropdown-content ref="picture">
+                <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
+                  {{ $t('change') }}
+                </kirby-dropdown-item>
+                <kirby-dropdown-item icon="trash" @click="action('picture.delete')">
+                  {{ $t('delete') }}
+                </kirby-dropdown-item>
+              </kirby-dropdown-content>
+            </kirby-dropdown>
+          </template>
+          <template v-else>
+            <kirby-button @click="$refs.upload.open()" icon="image">
+              {{ $t('user.image') }}
+            </kirby-button>
+          </template>
+          <kirby-dropdown>
+            <kirby-button @click="$refs.settings.toggle()" icon="cog">
+              Settings
+            </kirby-button>
+            <kirby-dropdown-content ref="settings" :options="options" @action="action" />
+          </kirby-dropdown>
+        </template>
+
+        <template v-if="user.id" class="kirby-user-view-options" slot="buttons-right">
+          <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+        </template>
+
+      </kirby-header>
 
       <kirby-button class="kirby-user-view-image" v-if="avatar" @click="$refs.upload.open()">
         <kirby-image :cover="true" ratio="1/1" :src="avatar" />
       </kirby-button>
 
-      <template slot="buttons-left">
-        <template v-if="avatar">
-          <kirby-dropdown>
-            <kirby-button @click="$refs.picture.toggle()" icon="image">
-              {{ $t('user.image') }}
-            </kirby-button>
-            <kirby-dropdown-content ref="picture">
-              <kirby-dropdown-item icon="upload" @click="$refs.upload.open()">
-                {{ $t('change') }}
-              </kirby-dropdown-item>
-              <kirby-dropdown-item icon="trash" @click="action('picture.delete')">
-                {{ $t('delete') }}
-              </kirby-dropdown-item>
-            </kirby-dropdown-content>
-          </kirby-dropdown>
-        </template>
-        <template v-else>
-          <kirby-button @click="$refs.upload.open()" icon="image">
-            {{ $t('user.image') }}
-          </kirby-button>
-        </template>
-        <kirby-dropdown>
-          <kirby-button @click="$refs.settings.toggle()" icon="cog">
-            Settings
-          </kirby-button>
-          <kirby-dropdown-content ref="settings" :options="options" @action="action" />
-        </kirby-dropdown>
-      </template>
+      <kirby-tabs :key="'user-' + user.id + '-tabs'" v-if="user && tabs.length" :parent="'users/' + user.id" :tabs="tabs" ref="tabs" />
 
-      <template v-if="user.id" slot="buttons-right">
-        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
-      </template>
+      <kirby-box v-else>
+        You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role}}.yml</strong>
+      </kirby-box>
 
-    </kirby-header>
+      <kirby-user-role-dialog ref="role" @success="fetch" />
+      <kirby-user-rename-dialog ref="rename" @success="fetch" />
+      <kirby-user-password-dialog ref="password" />
+      <kirby-user-language-dialog ref="language" />
+      <kirby-user-remove-dialog ref="remove" />
 
-    <kirby-tabs :key="'user-' + user.id + '-tabs'" v-if="user && tabs.length" :parent="'users/' + user.id" :tabs="tabs" ref="tabs" />
-
-    <kirby-box v-else>
-      You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role}}.yml</strong>
-    </kirby-box>
-
-    <kirby-user-role-dialog ref="role" @success="fetch" />
-    <kirby-user-password-dialog ref="password" />
-    <kirby-user-language-dialog ref="language" />
-    <kirby-user-remove-dialog ref="remove" />
-
-    <kirby-upload ref="upload" :url="uploadApi" accept="image/jpeg" :multiple="false" @success="uploadedAvatar" />
-
+      <kirby-upload ref="upload" :url="uploadApi" accept="image/jpeg" :multiple="false" @success="uploadedAvatar" />
+    </div>
   </kirby-view>
 
 </template>
@@ -141,6 +134,9 @@ export default {
         case "language":
           this.$refs.language.open(this.user.id);
           break;
+        case "rename":
+          this.$refs.rename.open(this.user.id);
+          break;
         case "remove":
           this.$refs.remove.open(this.user.id);
           break;
@@ -170,19 +166,6 @@ export default {
         this.$store.dispatch("title", this.user.name);
       });
     },
-    saveName() {
-      const name = this.$refs.userName.text();
-
-      if (name === this.user.name) {
-        return true;
-      }
-
-      this.$api.user.changeName(this.id, name).then(user => {
-        this.user = user;
-        this.$store.dispatch("success", "The name has been saved!");
-        this.$store.dispatch("title", this.user.name);
-      });
-    },
     uploadedAvatar() {
       this.$store.dispatch("success", "The image has been uploaded!");
       this.fetch();
@@ -193,25 +176,17 @@ export default {
 
 <style lang="scss">
 .kirby-headline {
-  position: relative;
   padding-right: 5rem;
+}
+.kirby-user-view-wrapper {
+  position: relative;
 }
 .kirby-user-view-image {
   position: absolute;
-  top: 50%;
-  width: 3rem;
-  border-radius: 50%;
-  margin-top: -1.5rem;
-  overflow: hidden;
-  z-index: 0;
-
-  [dir="ltr"] & {
-    right: 0.6rem;
-    margin-right: -0.2rem;
-  }
-  [dir="rtl"] & {
-    left: 0.6rem;
-    margin-left: -0.2rem;
-  }
+  top: 4.5rem;
+  margin-top: -2px;
+  right: 0;
+  width: 3.65rem;
+  display: block;
 }
 </style>
