@@ -36,11 +36,7 @@
           v-else
           ref="input"
           :id="_uid"
-          @keydown.enter.prevent="add($event.target.value)"
-          @keydown.tab="add($event.target.value)"
-          @keydown.separator.prevent="add($event.target.value)"
-          @keydown.left="leaveInput"
-          @keydown.delete="leaveInput"
+          @keydown="keydown"
         />
       </span>
     </draggable>
@@ -89,6 +85,26 @@ export default {
     }
   },
   methods: {
+    keydown(event) {
+      switch (event.key) {
+        case "Enter":
+        case this.separator:
+          this.add(event.target.value);
+          event.preventDefault();
+          return;
+          break;
+        case "Tab":
+          this.add(event.target.value);
+          return;
+          break;
+        case "ArrowLeft":
+        case "Delete":
+        case "Backspace":
+          this.leaveInput(event);
+          return;
+          break;
+      }
+    },
     focus() {
       this.$refs.input.focus();
     },
