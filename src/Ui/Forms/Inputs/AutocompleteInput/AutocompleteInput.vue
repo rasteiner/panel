@@ -41,6 +41,7 @@ export default {
   },
   watch: {
     query() {
+      // on every input change search through items
       this.search(this.query);
     }
   },
@@ -56,50 +57,58 @@ export default {
       this.$refs.input.focus();
     },
     highlight() {
+      // highlight query in matching items
       const regex = new RegExp(`(${this.query})`, "i");
       this.items.forEach(item => {
         item.matched = item.text.replace(regex, "<b>$1</b>");
       });
     },
     keydown(event) {
-      if (this.items[this.selected]) {
-        this.select(null);
-        event.preventDefault();
-      } else {
-        switch (event.key) {
-          case "Enter":
-          case this.separator:
+      switch (event.key) {
+        case "Enter":
+        case "Tab":
+        case this.separator:
+          // item in dropdown is selected
+          if (this.items[this.selected]) {
+            this.select(null);
+
+            // value other than an autocomplete item in input
+          } else {
             this.$emit("enter", this.$refs.input.value);
             this.close();
+          }
+
+          // make sure to allow tab out of the input
+          if (event.key !== "Tab") {
             event.preventDefault();
-            break;
-          case "Tab":
-            this.$emit("tab", this.$refs.input.value);
-            this.close();
-            break;
-          case "ArrowUp":
-            this.navigate(-1);
-            event.preventDefault();
-            break;
-          case "ArrowDown":
-            this.navigate(1);
-            event.preventDefault();
-            break;
-          case "ArrowLeft":
-          case "Backspace":
-            this.$emit("left", event);
-            this.close();
-            break;
-        }
+          }
+          break;
+
+        case "ArrowUp":
+          this.navigate(-1);
+          event.preventDefault();
+          break;
+        case "ArrowDown":
+          this.navigate(1);
+          event.preventDefault();
+          break;
+
+        case "ArrowLeft":
+        case "Backspace":
+          this.$emit("left", event);
+          this.close();
+          break;
       }
     },
     navigate(direction) {
       this.selected = this.selected + direction;
 
+      // top of dropdown list
       if (this.selected <= -1) {
         return this.close();
       }
 
+      // bottom of dropdown list
       if (this.selected > this.items.length - 1) {
         this.selected = this.items.length - 1;
       }
@@ -111,26 +120,23 @@ export default {
         return;
       }
 
+      // Filter options by query to retrieve items (no more than this.limit)
       const regex = new RegExp(query, "ig");
 
-      this.items = this.options.filter(item => {
-        if (item.text.match(regex)) {
-          return true;
-        }
-
-        return false;
-      });
-
-      this.items = this.items.slice(0, this.limit);
+      this.items = this.options
+        .filter(item => item.text.match(regex) !== null)
+        .slice(0, this.limit);
       this.highlight();
       this.$refs.items.open();
     },
     select(value) {
+      // use currently selected item
       if (value === null && this.items[this.selected]) {
         value = this.items[this.selected].value;
       }
 
-      this.$emit("input", this.items.find(x => x.value === value));
+      // make sure input events includes whole option object
+      this.$emit("input", this.options.find(x => x.value === value));
       this.close();
     }
   }
