@@ -30,14 +30,19 @@ export default {
   },
   data() {
     return {
-      state: this.value,
+      state: new Date(this.value),
       hasChanged: false,
       calendar: false
     };
   },
+  watch: {
+    value(date) {
+      this.state = new Date(date);
+    }
+  },
   methods: {
     setDate(date) {
-      this.$refs.date.select(new Date(date));
+      this.$refs.date.select(date);
       this.calendar = false;
     }
   }

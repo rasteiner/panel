@@ -41,16 +41,10 @@ export default {
     }
 
     return {
-      open: false,
       day: date.getDate(),
       month: date.getMonth() + 1,
       year: date.getFullYear()
     };
-  },
-  mounted() {
-    document.addEventListener("click", () => {
-      this.open = false;
-    });
   },
   computed: {
     date() {
@@ -121,7 +115,6 @@ export default {
       this.day = date.getDate();
       this.month = date.getMonth() + 1;
       this.year = date.getFullYear();
-      this.open = false;
     }
   }
 };

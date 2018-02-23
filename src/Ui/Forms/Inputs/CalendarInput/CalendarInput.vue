@@ -77,7 +77,8 @@ export default {
   },
   computed: {
     date() {
-      return `${this.year}-${this.month.padZero()}-${this.day.padZero()}`;
+      let date = new Date(this.year, this.month - 1, this.day, 1, 0);
+      return date;
     },
     startingDay() {
       let day = new Date(this.year, this.month - 1, 1).getDay();

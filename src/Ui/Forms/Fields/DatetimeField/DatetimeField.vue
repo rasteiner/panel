@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     setDate(date) {
-      this.$refs.date.select(new Date(date));
+      this.$refs.date.select(date);
       this.calendar = false;
     }
   }
