@@ -30,7 +30,6 @@
 export default {
   props: {
     id: [String, Number],
-    value: {},
     options: [Array, Object],
     limit: {
       type: Number,
@@ -39,7 +38,6 @@ export default {
   },
   data() {
     return {
-      state: this.value,
       items: [],
       query: null,
       selected: -1
@@ -48,16 +46,9 @@ export default {
   watch: {
     query() {
       this.search(this.query);
-    },
-    value(state) {
-      this.state = state;
     }
   },
   methods: {
-    input(state) {
-      this.state = state;
-      this.$emit("input", this.state);
-    },
     search(query) {
       if (query === "") {
         this.items = [];
@@ -98,7 +89,7 @@ export default {
         value = this.items[this.selected].value;
       }
 
-      this.input(this.items.find(x => x.value === value));
+      this.$emit("input", this.items.find(x => x.value === value));
       this.close();
     },
     clear() {
