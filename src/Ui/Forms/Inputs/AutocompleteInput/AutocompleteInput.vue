@@ -53,6 +53,9 @@ export default {
       this.$refs.items.close();
       this.selected = -1;
     },
+    fill(value) {
+      this.$refs.input.value = value;
+    },
     focus() {
       this.$refs.input.focus();
     },
