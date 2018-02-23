@@ -24,97 +24,52 @@
 </template>
 
 <script>
-import resolve from "Ui/Helpers/resolveObjectPath.js";
-
 export default {
   props: {
-    id: "",
-    url: {
-      required: true
-    },
+    id: String,
     value: {},
-    icon: {},
-    ignore: {
-      default: () => {
-        return [];
-      }
-    },
-    map: {
-      default() {
-        return {
-          value: "value",
-          text: "text",
-          icon: false,
-          image: false,
-          items: false
-        };
-      }
-    },
+    options: [Array, Object],
     limit: {
+      type: Number,
       default: 5
-    },
-    matchValues: {
-      type: Boolean,
-      default: true
     }
   },
   data() {
     return {
-      source: [],
+      state: this.value,
       items: [],
-      val: this.value,
-      selected: -1,
-      query: null
+      query: null,
+      selected: -1
     };
   },
   watch: {
     query() {
       this.search(this.query);
+    },
+    value(state) {
+      this.state = state;
     }
   },
-  mounted() {
-    fetch(this.url)
-      .then(response => response.json())
-      .then(json => {
-        if (this.map.items) {
-          json = resolve(json, this.map.items);
-        }
-
-        json.forEach(item => {
-          let text =
-            resolve(item, this.map.text) || resolve(item, this.map.value);
-
-          this.source.push({
-            value: resolve(item, this.map.value),
-            text: text,
-            matched: text,
-            icon: resolve(item, this.map.icon),
-            image: resolve(item, this.map.image),
-            original: item
-          });
-        });
-      });
-  },
   methods: {
-    search(value) {
-      if (value === "") {
+    input(state) {
+      this.state = state;
+      this.$emit("input", this.state);
+    },
+    search(query) {
+      if (query === "") {
         this.items = [];
         this.$refs.items.close();
         return;
       }
 
-      const regex = new RegExp(value, "ig");
+      const regex = new RegExp(query, "ig");
 
-      this.items = this.source.filter(item => {
-        if (this.ignore.indexOf(item.text) !== -1) {
-          return false;
-        } else if (item.text.match(regex)) {
+      this.items = this.options.filter(item => {
+        if (item.text.match(regex) || item.value.match(regex)) {
           return true;
-        } else if (this.matchValues && item.value.match(regex)) {
-          return true;
-        } else {
-          return false;
         }
+
+        return false;
       });
 
       this.items = this.items.slice(0, this.limit);
@@ -149,10 +104,8 @@ export default {
         value = this.items[this.selected].value;
       }
 
-      this.val = value;
-      this.$emit("input", value);
+      this.input(value);
       this.$emit("select", this.items.find(item => item.value === value));
-
       this.close();
     },
     clear() {
