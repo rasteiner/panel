@@ -159,7 +159,7 @@ export default {
     },
     isToday(day) {
       if (
-        this.month === this.today.getMonth() &&
+        this.month === this.today.getMonth() + 1 &&
         this.year == this.today.getFullYear()
       ) {
         return this.today.getDate() == day;
@@ -225,6 +225,9 @@ $cell-padding: 0.2rem;
   padding: 0.5rem;
   font-weight: 400;
 }
+.kirby-calendar-selects .kirby-select-input:focus {
+  color: $color-focus-on-dark;
+}
 .kirby-calendar-input th {
   padding: $cell-padding;
   color: $color-light-grey;
@@ -249,10 +252,10 @@ $cell-padding: 0.2rem;
   color: $color-white;
 }
 .kirby-calendar-day[aria-current="date"] .kirby-button-text {
-  color: $color-notice;
+  color: $color-notice-on-dark;
 }
 .kirby-calendar-day[aria-selected="date"] .kirby-button-text {
-  background: $color-focus;
+  background: $color-focus-on-dark;
 }
 .kirby-calendar-input tfoot td {
   text-align: center;
