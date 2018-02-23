@@ -54,12 +54,14 @@ export default {
     };
   },
   created() {
-    window.addEventListener("click", this.focusInOut);
-    window.addEventListener("focusin", this.focusInOut);
+    window.addEventListener("click", this.focusIn);
+    window.addEventListener("focusin", this.focusIn);
+    window.addEventListener("focusout", this.focusOut);
   },
   destroyed() {
-    window.removeEventListener("click", this.focusInOut);
-    window.removeEventListener("focusin", this.focusInOut);
+    window.removeEventListener("click", this.focusIn);
+    window.removeEventListener("focusin", this.focusIn);
+    window.removeEventListener("focusout", this.focusOut);
   },
   methods: {
     icon() {
@@ -73,18 +75,32 @@ export default {
       this.hasFocus = false;
       this.$emit("blur");
     },
-    focusInOut(e) {
+    focusIn(e) {
+      // focussing or clicking on another element
       if (
         this.hasFocus === true &&
         this.$el.contains(e.target) === false &&
         this.$el !== e.target
       ) {
         this.blur();
+
+        // focussing or clicking on this field
       } else if (
         this.hasFocus === false &&
         (this.$el.contains(e.target) === true || this.$el === e.target)
       ) {
         this.focus();
+      }
+    },
+    focusOut(e) {
+      // focusout from current field
+      // without focussing another element within the field
+      if (
+        (this.$el.contains(e.target) === true || this.$el === e.target) &&
+        (e.relatedTarget === null ||
+          this.$el.contains(e.relatedTarget) === false)
+      ) {
+        this.blur();
       }
     }
   }
