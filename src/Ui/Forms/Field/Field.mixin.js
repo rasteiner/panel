@@ -39,20 +39,25 @@ export default {
       hasChanged: false
     };
   },
+  computed: {
+    stateValue() {
+      return this.state;
+    }
+  },
   watch: {
     value(state) {
       this.state = state;
     }
   },
   methods: {
-    input(state) {
+    input(state = null) {
       this.state = state;
       this.hasChanged = true;
-      this.$emit("input", this.state);
+      this.$emit("input", this.stateValue);
     },
     change() {
       if (this.hasChanged === true) {
-        this.$emit("change", this.state);
+        this.$emit("change", this.stateValue);
         this.hasChanged = false;
       }
     }

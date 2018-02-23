@@ -1,12 +1,12 @@
 <template>
-  <kirby-dropdown class="kirby-autocomplete">
+  <kirby-dropdown class="kirby-autocomplete-input">
     <input
       type="text"
       ref="input"
       :id="id"
       v-model="query"
-      @keydown.tab="keydown"
-      @keydown.enter="keydown"
+      @keydown.tab.prevent="keydown"
+      @keydown.enter.prevent="keydown"
       @keydown.up.prevent="navigate(-1)"
       @keydown.down.prevent="navigate(1)" />
     <kirby-dropdown-content ref="items">
@@ -26,7 +26,7 @@
 <script>
 export default {
   props: {
-    id: String,
+    id: [String, Number],
     value: {},
     options: [Array, Object],
     limit: {
@@ -85,17 +85,7 @@ export default {
     keydown(event) {
       if (this.items[this.selected]) {
         this.select(null);
-        event.preventDefault();
       } else {
-        switch (event.key) {
-          case "Enter":
-            this.$emit("enter", this.$refs.input.value);
-            break;
-          case "Tab":
-            this.$emit("tab", this.$refs.input.value);
-            break;
-        }
-
         this.close();
       }
     },
@@ -104,8 +94,7 @@ export default {
         value = this.items[this.selected].value;
       }
 
-      this.input(value);
-      this.$emit("select", this.items.find(item => item.value === value));
+      this.input(this.items.find(x => x.value === value));
       this.close();
     },
     clear() {

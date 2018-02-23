@@ -4,33 +4,22 @@
     class="kirby-user-field"
     ref="field"
     v-bind="$props"
-    :icon="button">
+    :icon="control"
+    @icon="clear"
+    @blur="change">
 
-    <template v-if="user">
-      <kirby-button class="kirby-user-field-image" v-if="user.avatar.exists">
-        <kirby-image
-          :cover="true"
-          ratio="1/1"
-          :src="user.avatar.url"
-        />
-      </kirby-button>
-
-      <span class="kirby-user-name">{{ display }}</span>
-
+    <template v-if="state">
+      <span class="user-name">{{ state.text }}</span>
     </template>
 
-    <kirby-autocomplete v-else
-      ref="input"
-      :url="api"
-      :map="{
-          items: 'data',
-          value: 'id',
-          text: 'name',
-          image: 'avatar.url'
-        }"
-      @enter="function(value) { select(value) }"
-      @select="function(item) { select(item.value) }"
-    />
+    <template v-else>
+      <kirby-autocomplete-input
+        ref="input"
+        :id="_uid"
+        :options="options"
+        @input="input"
+      />
+    </template>
 
   </kirby-field>
 
@@ -42,42 +31,37 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    role: String
+    options: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    }
   },
   data() {
     return {
-      user: null
+      state: this.user(this.value)
     };
   },
   computed: {
-    api() {
-      return window.panel.config.api + "/users";
+    control() {
+      return this.state ? "cancel" : this.icon;
     },
-    button() {
-      return this.user ? "cancel" : this.icon;
-    },
-    display() {
-      return this.user.name;
+    stateValue() {
+      return this.state ? this.state.value : null;
     }
   },
-  mounted() {
-    if (this.value) {
-      this.select(this.value);
+  watch: {
+    value(id) {
+      this.state = id ? this.user(id) : null;
     }
-    this.$el
-      .querySelector(".kirby-input-icon")
-      .addEventListener("click", this.clear, false);
   },
   methods: {
-    select(id) {
-      this.$api.user.get(id).then(user => {
-        this.user = user;
-        this.$emit("input", user.email);
-      });
+    user(id) {
+      return this.options.find(x => x.value === id);
     },
     clear() {
-      this.user = null;
-      this.$emit("input", null);
+      this.input();
       this.$nextTick(() => {
         this.$refs.input.focus();
       });
@@ -92,19 +76,13 @@ export default {
   display: flex;
 }
 
-.kirby-input-content > .kirby-user-field-image {
-  display: inline-block;
-  width: 2.8rem;
-  cursor: default;
-}
-
-.kirby-input-content > .kirby-user-name {
+.kirby-user-field .kirby-input-content > .user-name {
   display: flex;
   align-items: center;
   padding: 0.45rem;
 }
 
-.kirby-user-field .kirby-autocomplete > input {
+.kirby-user-field .kirby-autocomplete-input > input {
   border: 0;
   font: inherit;
   line-height: 1.5em;
