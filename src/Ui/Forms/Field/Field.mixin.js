@@ -53,7 +53,6 @@ export default {
       this.$emit("input", this.state);
     },
     change() {
-      console.log("hasChanged? " + (this.hasChanged ? "yep" : "nope"));
       if (this.hasChanged === true) {
         this.$emit("change", this.state);
         this.hasChanged = false;
