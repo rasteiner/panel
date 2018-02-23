@@ -29,11 +29,11 @@ export default {
       return page;
     });
   },
-  options(id) {
+  options(id, view) {
     return Api.get(this.url(id, "options")).then(options => {
       let result = [];
 
-      if (options.preview) {
+      if (options.preview && view === "list") {
         result.push({
           click: "preview",
           icon: "preview",
