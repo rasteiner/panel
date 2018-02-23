@@ -8,25 +8,22 @@
 </template>
 
 <script>
-
 export default {
-  props: ['removable', 'size'],
+  props: ["removable", "size"],
   methods: {
-    remove () {
-      if(this.removable) {
-        this.$emit('remove');
+    remove() {
+      if (this.removable) {
+        this.$emit("remove");
       }
     },
-    focus () {
+    focus() {
       this.$refs.button.focus();
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-tag {
   position: relative;
   font-family: $font-family-mono;
@@ -43,11 +40,11 @@ export default {
   outline: 0;
   background-color: $color-focus;
   border-color: $color-focus;
-  color: $color-dark;
+  color: #fff;
 }
 .kirby-tag[data-size="small"] .kirby-tag-text {
-  font-size: .8em;
-  padding: 0rem .75rem;
+  font-size: 0.8em;
+  padding: 0rem 0.75rem;
 }
 .kirby-tag-body {
   position: relative;
@@ -55,33 +52,22 @@ export default {
   align-items: stretch;
 }
 .kirby-tag-text {
-  padding: .4rem .75rem;
+  padding: 0.4rem 0.75rem;
 }
 .kirby-tag-toggle {
   position: relative;
-  color: rgba(255,255,255, .7);
+  color: rgba(255, 255, 255, 0.7);
   width: 2rem;
 
-
   [dir="ltr"] & {
-    border-left: 1px solid rgba(255,255,255, .3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
   [dir="rtl"] & {
-    border-right: 1px solid rgba(255,255,255, .3);
-  }
-}
-.kirby-tag:focus .kirby-tag-toggle {
-  color: rgba($color-dark, .7);
-
-  [dir="ltr"] & {
-    border-left: 1px solid rgba($color-dark, .3);
-  }
-  [dir="rtl"] & {
-    border-right: 1px solid rgba($color-dark, .3);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
 .kirby-tag-toggle:hover {
-  background: rgba(255,255,255, .2);
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 .kirby-tag-toggle span {
@@ -99,5 +85,4 @@ export default {
     margin-right: -1px;
   }
 }
-
 </style>
