@@ -28,6 +28,7 @@
       <div class="kirby-format-buttons-group">
         <kirby-dropdown>
           <kirby-button
+            tabindex="-1"
             class="kirby-format-button"
             @click="$refs.headlines.toggle()"
             icon="title"
@@ -39,11 +40,13 @@
           </kirby-dropdown-content>
         </kirby-dropdown>
         <kirby-button
+          tabindex="-1"
           class="kirby-format-button"
           @click="bold"
           icon="bold"
         />
         <kirby-button
+          tabindex="-1"
           class="kirby-format-button"
           @click="italic"
           icon="italic"
@@ -51,16 +54,19 @@
       </div>
       <div class="kirby-format-buttons-group">
         <kirby-button
+          tabindex="-1"
           class="kirby-format-button"
           @click="openLinkModal"
           icon="chain"
         />
         <kirby-button
+          tabindex="-1"
           class="kirby-format-button"
           @click="openEmailModal"
           icon="email"
         />
         <kirby-button
+          tabindex="-1"
           class="kirby-format-button"
           @click="wrap('`')"
           icon="code"
@@ -68,11 +74,13 @@
       </div>
       <div class="kirby-format-buttons-group">
         <kirby-button
+          tabindex="-1"
           class="kirby-format-button"
           @click="list('ul')"
           icon="list-bullet"
         />
         <kirby-button
+          tabindex="-1"
           class="kirby-format-button"
           @click="list('ol')"
           icon="list-numbers"
