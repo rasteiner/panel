@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-checkboxes-field" v-bind="$props">
+  <kirby-field class="kirby-checkboxes-field" v-bind="$props" @blur="change">
     <template v-if="hasOptions">
       <kirby-checkbox-input
         v-for="(option, index) in options"

@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-textarea-field" v-bind="$props">
+  <kirby-field class="kirby-textarea-field" v-bind="$props" @blur="change">
 
     <template slot="options" v-if="maxLength || minLength">
       <kirby-counter
@@ -17,7 +17,6 @@
       spellcheck="false"
       v-model="state"
       @input="input($event.target.value)"
-      @change="$emit('change', $event.target.value)"
       @focus="removeShortcuts"
       @blur="$emit('blur')"
       @keydown.delete="remove($event)"
@@ -161,6 +160,7 @@ export default {
   data() {
     return {
       state: this.value,
+      hasChanged: false,
       linkValue: {
         url: null,
         text: null

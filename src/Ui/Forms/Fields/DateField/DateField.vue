@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-date-field" v-bind="$props" @icon="calendar = !calendar">
+  <kirby-field class="kirby-date-field" v-bind="$props" @icon="calendar = !calendar" @blur="change">
 
       <kirby-date-input
         ref="date"
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       state: this.value,
+      hasChanged: false,
       calendar: false
     };
   },

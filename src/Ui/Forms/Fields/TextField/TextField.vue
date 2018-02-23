@@ -1,5 +1,5 @@
 <template>
-  <kirby-field :class="`kirby-${this.type}-field`" v-bind="$props">
+  <kirby-field :class="`kirby-${this.type}-field`" v-bind="$props" @blur="change">
     <template slot="options" v-if="minLength || maxLength">
       <kirby-counter
         :value="state"
@@ -22,7 +22,6 @@
       :type="type"
       :value="state"
       @input="input($event.target.value)"
-      @change="change($event.target.value)"
     />
   </kirby-field>
 </template>

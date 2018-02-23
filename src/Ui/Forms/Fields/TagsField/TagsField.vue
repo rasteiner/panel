@@ -3,7 +3,7 @@
     class="kirby-tags-field"
     v-bind="$props"
     @click.native="focus"
-    @blur="$emit('change', state);">
+    @blur="change">
 
     <draggable
       :value="state"
@@ -70,6 +70,7 @@ export default {
 
     return {
       state: tags,
+      hasChanged: false,
       selected: null
     };
   },
@@ -97,6 +98,7 @@ export default {
 
       if (this.index(tag) === -1) {
         this.state.push(tag);
+        this.input(this.state);
       }
 
       if (this.autocomplete) {
@@ -116,6 +118,7 @@ export default {
       var next = this.get("next");
 
       this.state.splice(this.index(tag), 1);
+      this.input(this.state);
 
       if (prev) {
         prev.ref.focus();

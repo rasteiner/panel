@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-toggle-field" v-bind="$props">
+  <kirby-field class="kirby-toggle-field" v-bind="$props" @blur="change">
     <span class="kirby-toggle-input">
       <input
         type="checkbox"

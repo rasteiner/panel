@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       state: this.value,
+      hasChanged: false,
       calendar: false
     };
   },
