@@ -6,18 +6,12 @@
       :icon="icon"
       :breadcrumb="breadcrumb"
       :pagination="pagination"
+      :editable="true"
+      @edit="action('rename')"
       @prev="prev"
       @next="next">
 
-      <kirby-fancy-input
-        ref="pageTitle"
-        type="headline"
-        tag="div"
-        :key="page.id + '-title'"
-        :value="page.title"
-        :placeholder="$t('page.title') + ' …'"
-        @blur="saveTitle"
-        @enter="saveTitle" />
+      {{ page.title }}
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('preview')">
@@ -43,6 +37,7 @@
     <kirby-tabs :key="'page-' + page.id + '-tabs'" v-if="page.id" :parent="$api.page.url(page.id)" :tabs="tabs" ref="tabs" />
 
     <kirby-page-status-dialog ref="status" @success="fetch" />
+    <kirby-page-rename-dialog ref="rename" @success="fetch" />
     <kirby-page-url-dialog ref="url" />
     <kirby-page-remove-dialog ref="remove" />
 
@@ -118,19 +113,6 @@ export default {
           this.$router.push("/pages");
         });
     },
-    saveTitle() {
-      const title = this.$refs.pageTitle.text();
-
-      if (title === this.page.title) {
-        return true;
-      }
-
-      this.$api.page.title(this.page.id, title).then(page => {
-        this.page.title = page.title;
-        this.$store.dispatch("title", this.page.title);
-        this.$store.dispatch("success", "The page has been renamed");
-      });
-    },
     prev() {
       if (this.page.prev) {
         this.$router.push(this.$api.page.link(this.page.prev.id));
@@ -152,6 +134,9 @@ export default {
         case "url":
           this.$refs.url.open(this.page.id);
           break;
+        case "rename":
+          this.$refs.rename.open(this.page.id);
+          break;
         case "remove":
           this.$refs.remove.open(this.page.id);
           break;
@@ -163,9 +148,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.kirby-page-view .kirby-column section:not(:last-child) {
-  margin-bottom: 1.5rem;
-}
-</style>

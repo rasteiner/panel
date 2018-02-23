@@ -16,7 +16,10 @@
       </template>
     </kirby-bar>
 
-    <kirby-headline size="large"><slot /></kirby-headline>
+    <kirby-headline size="large" :class="{'kirby-editable-headline': editable}">
+      <slot />
+      <kirby-button v-if="editable" icon="edit" @click="$emit('edit')" />
+    </kirby-headline>
     <kirby-bar>
       <kirby-button-group class="kirby-header-options-primary" slot="left">
         <slot name="buttons-left" />
@@ -29,21 +32,12 @@
 </template>
 
 <script>
-
 export default {
-  props: [
-    'icon',
-    'link',
-    'label',
-    'breadcrumb',
-    'pagination'
-  ]
-}
-
+  props: ["editable", "icon", "link", "label", "breadcrumb", "pagination"]
+};
 </script>
 
 <style lang="scss">
-
 .kirby-header {
   border-bottom: 1px solid #ddd;
   margin-bottom: 1.5rem;
@@ -64,13 +58,15 @@ export default {
 }
 
 .kirby-header-options-primary > .kirby-button .kirby-button-text,
-.kirby-header-options-primary > .kirby-dropdown > .kirby-button .kirby-button-text {
+.kirby-header-options-primary
+  > .kirby-dropdown
+  > .kirby-button
+  .kirby-button-text {
   display: none;
 
   @media screen and (min-width: $breakpoint-medium) {
     display: inline-block;
   }
-
 }
 
 .kirby-header-menu-button {
@@ -91,4 +87,17 @@ export default {
   }
 }
 
+.kirby-headline.kirby-editable-headline > span {
+  display: flex;
+}
+.kirby-headline.kirby-editable-headline > span .kirby-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  opacity: 0.2;
+  transition: opacity 0.3s;
+}
+.kirby-headline.kirby-editable-headline > span .kirby-button:hover,
+.kirby-headline.kirby-editable-headline > span .kirby-button:focus {
+  opacity: 1;
+}
 </style>

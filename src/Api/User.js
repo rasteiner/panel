@@ -73,6 +73,14 @@ export default {
     return Api.get(this.url(id, "options")).then(options => {
       let result = [];
 
+      if (options.changeName) {
+        result.push({
+          click: "rename",
+          icon: "title",
+          text: "Rename this user"
+        });
+      }
+
       if (options.changeRole) {
         result.push({
           click: "role",

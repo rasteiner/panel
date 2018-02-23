@@ -28,6 +28,7 @@
 
     <kirby-user-create-dialog ref="create" @success="fetch" />
     <kirby-user-role-dialog ref="role" @success="fetch" />
+    <kirby-user-rename-dialog ref="rename" @success="fetch" />
     <kirby-user-password-dialog ref="password" />
     <kirby-user-language-dialog ref="language" />
     <kirby-user-remove-dialog ref="remove" @success="fetch" />
@@ -113,6 +114,9 @@ export default {
           break;
         case "role":
           this.$refs.role.open(user.id);
+          break;
+        case "rename":
+          this.$refs.rename.open(user.id);
           break;
         case "password":
           this.$refs.password.open(user.id);
