@@ -68,17 +68,12 @@
             <dl>
               <template v-if="file.dimensions">
                 <dt>Dimensions</dt>
-                <dd>{{ file.dimensions.width }}&times;{{ file.dimensions.height }} / orientation: {{ file.dimensions.orientation }} / ratio: {{ file.dimensions.ratio }}</dd>
+                <dd>{{ file.dimensions.width }}&times;{{ file.dimensions.height }} Pixels</dd>
               </template>
 
-              <template v-if="file.created">
-                <dt>Uploaded</dt>
-                <dd>{{ [file.created, 'dd.MM.yyyy - HH:mm:ss'] | date('DATETIME_SHORT_WITH_SECONDS') }}</dd>
-              </template>
-
-              <template v-if="file.content.group">
-                <dt>Group</dt>
-                <dd>{{ file.content.group }}</dd>
+              <template v-if="file.dimensions">
+                <dt>Orientation</dt>
+                <dd>{{ file.dimensions.orientation }}</dd>
               </template>
 
             </dl>
@@ -166,21 +161,9 @@ export default {
           this.name = file.name;
           this.preview = this.$api.file.preview(file);
 
-          this.$api.file
-            .breadcrumb(file)
-            .then(breadcrumb => {
-              this.breadcrumb = breadcrumb;
-            })
-            .catch(() => {
-              this.$store.dispatch("error", "Error with the breadcrumbs");
-            });
-
-          // TODO: fix fields/form for FileView
-          // this.$api.file.blueprint(this.path, this.filename).then(blueprint => {
-          //    this.blueprint = blueprint;
-          // }).catch(() => {
-          //   this.$store.dispatch("error", "Error with the blueprint");
-          // });
+          this.$api.file.breadcrumb(file).then(breadcrumb => {
+            this.breadcrumb = breadcrumb;
+          });
 
           this.$store.dispatch("title", this.filename);
         })
@@ -202,10 +185,14 @@ export default {
       }
     },
     prev() {
-      this.$router.push("/pages/" + this.path + "/files/" + this.file.prev);
+      this.$router.push(
+        "/pages/" + this.path + "/files/" + this.file.prev.filename
+      );
     },
     next() {
-      this.$router.push("/pages/" + this.path + "/files/" + this.file.next);
+      this.$router.push(
+        "/pages/" + this.path + "/files/" + this.file.next.filename
+      );
     },
     updateFilename(name) {
       name = slug(name);
