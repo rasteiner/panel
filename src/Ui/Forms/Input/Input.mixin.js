@@ -16,11 +16,6 @@ export default {
       this.state = state;
     }
   },
-  watch: {
-    value(changed) {
-      this.state = changed;
-    }
-  },
   methods: {
     input(state) {
       this.state = state;
