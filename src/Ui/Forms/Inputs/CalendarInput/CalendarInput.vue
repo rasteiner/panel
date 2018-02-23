@@ -38,7 +38,7 @@
 
       <tfoot>
         <tr>
-          <td colspan="7">
+          <td class="kirby-calendar-today" colspan="7">
             <kirby-button @click="go('today')">today</kirby-button>
           </td>
         </tr>
@@ -159,7 +159,7 @@ export default {
     },
     isToday(day) {
       if (
-        this.month === this.today.getMonth() &&
+        this.month === this.today.getMonth() + 1 &&
         this.year == this.today.getFullYear()
       ) {
         return this.today.getDate() == day;
@@ -223,13 +223,16 @@ $cell-padding: 0.2rem;
 }
 .kirby-calendar-selects .kirby-select-input {
   padding: 0.5rem;
-  font-weight: 500;
+  font-weight: 400;
+}
+.kirby-calendar-selects .kirby-select-input:focus {
+  color: $color-focus-on-dark;
 }
 .kirby-calendar-input th {
   padding: $cell-padding;
   color: $color-light-grey;
   font-size: 0.8em;
-  font-weight: 500;
+  font-family: $font-family-mono;
   text-transform: uppercase;
 }
 .kirby-calendar-input td,
@@ -243,20 +246,22 @@ $cell-padding: 0.2rem;
 }
 .kirby-calendar-day .kirby-button {
   padding: $cell-padding;
-  font-family: $font-family-mono;
+  color: $color-light-grey;
 }
 .kirby-calendar-table .kirby-button:hover {
   color: $color-white;
 }
 .kirby-calendar-day[aria-current="date"] .kirby-button-text {
-  color: $color-notice;
-  font-weight: 700;
+  color: $color-notice-on-dark;
 }
 .kirby-calendar-day[aria-selected="date"] .kirby-button-text {
-  background: $color-focus;
+  background: $color-focus-on-dark;
 }
 .kirby-calendar-input tfoot td {
   text-align: center;
   padding: 1rem 0 0;
+}
+.kirby-calendar-today .kirby-button {
+  color: $color-light-grey;
 }
 </style>
