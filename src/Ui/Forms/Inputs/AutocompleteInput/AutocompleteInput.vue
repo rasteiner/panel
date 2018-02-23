@@ -59,7 +59,7 @@ export default {
       const regex = new RegExp(query, "ig");
 
       this.items = this.options.filter(item => {
-        if (item.text.match(regex) || item.value.match(regex)) {
+        if (item.text.match(regex)) {
           return true;
         }
 
