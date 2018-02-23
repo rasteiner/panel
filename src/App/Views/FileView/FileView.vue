@@ -4,16 +4,7 @@
 
     <kirby-header label="File" link="/pages" icon="page" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
 
-      <div class="kirby-file-view-title">
-        <kirby-fancy-input
-          ref="filename"
-          :key="file.id + '-title'"
-          v-model="file.name"
-          placeholder="filename"
-          tag="span"
-          @blur="updateFilename($event.target.innerText)"
-          @enter="$event.target.blur()" /><span>.{{ file.extension }}</span>
-      </div>
+      {{ file.filename }}
 
       <template slot="buttons-left">
         <kirby-button icon="preview" @click="action('download')">
