@@ -60,7 +60,7 @@ export default {
         }
       ];
 
-      if (this.status === "visible") {
+      if (this.status === "visible" && this.page.blueprint.num === "default") {
         fields.push({
           name: "position",
           label: "Please select a position",
@@ -78,7 +78,7 @@ export default {
       let index = 0;
 
       this.page.siblings.forEach(sibling => {
-        if (sibling.id === this.page.id || !sibling.num) {
+        if (sibling.id === this.page.id || sibling.num < 1) {
           return false;
         }
 
@@ -105,7 +105,9 @@ export default {
     },
     open(id) {
       this.$api.page
-        .get(id, { select: ["id", "isVisible", "num", "errors", "siblings"] })
+        .get(id, {
+          select: ["id", "isVisible", "num", "errors", "siblings", "blueprint"]
+        })
         .then(page => {
           this.page = page;
           this.status = page.isVisible ? "visible" : "invisible";
@@ -121,18 +123,19 @@ export default {
       this.$refs.form.submit();
     },
     changeStatus() {
-      if (this.status === "draft") {
-        this.$store.dispatch("error", "Drafts are not yet implemented");
-        return;
-      }
-
       this.$api.page
-        .status(this.page.id, this.status, this.position)
-        .then(() => {
-          let message = "The page is now " + this.status;
+        .status(this.page.id, this.status, this.position || 1)
+        .then(response => {
+          let message = "";
 
           if (this.status === "visible") {
-            message = "The page is now at position " + this.position;
+            if (this.page.blueprint.num === "default") {
+              message = "The page is now at position " + response.num;
+            } else {
+              message = "The page is now public";
+            }
+          } else {
+            message = "The page is now private";
           }
 
           this.success({
