@@ -19,9 +19,6 @@
         <kirby-button icon="preview" @click="action('download')">
           Open
         </kirby-button>
-        <kirby-button icon="upload" @click="$refs.upload.open()">
-          Replace
-        </kirby-button>
         <kirby-button icon="trash" @click="action('remove')">
           {{ $t('delete') }}
         </kirby-button>
@@ -197,7 +194,7 @@ export default {
           window.open(this.file.url);
           break;
         case "remove":
-          this.$refs.remove.open(this.file.parent, this.file.filename);
+          this.$refs.remove.open(this.file.parent.id, this.file.filename);
           break;
         default:
           this.$store.dispatch("error", "Not yet implemented");

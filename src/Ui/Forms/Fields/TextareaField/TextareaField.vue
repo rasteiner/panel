@@ -351,12 +351,5 @@ export default {
 }
 .kirby-textarea-input:focus {
   outline: 0;
-  max-height: none;
-}
-
-@media screen and (max-width: $breakpoint-medium) {
-  .kirby-textarea-input {
-    max-height: 2rem;
-  }
 }
 </style>

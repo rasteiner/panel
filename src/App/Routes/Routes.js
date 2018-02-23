@@ -1,8 +1,5 @@
 /* Code splitting along views */
 
-const DashboardView = () =>
-  import(/* webpackChunkName: "dashboard-view" */
-  "../Views/DashboardView/DashboardView.vue");
 const FileView = () =>
   import(/* webpackChunkName: "file-view" */
   "../Views/FileView/FileView.vue");

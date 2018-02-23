@@ -1,6 +1,7 @@
 <template>
   <kirby-dialog ref="dialog" :size="settings.size" :state="settings.state" :button="settings.button" @submit="submit">
-    <kirby-txt v-if="hasErrors">This page has errors and cannot be published</kirby-txt>
+    <kirby-txt v-if="isBlocked">The status for this page cannot be changed</kirby-txt>
+    <kirby-txt v-else-if="isIncomplete">This page has errors and cannot be published</kirby-txt>
     <kirby-form v-else ref="form" :fields="fields" :values="$data" @submit="changeStatus" />
   </kirby-dialog>
 </template>
@@ -15,13 +16,15 @@ export default {
       page: {
         id: null
       },
+      isBlocked: false,
+      isIncomplete: false,
       status: null,
       position: null
     };
   },
   computed: {
     settings() {
-      if (this.hasErrors) {
+      if (this.isIncomplete || this.isBlocked) {
         return {
           size: "small",
           state: null,
@@ -34,9 +37,6 @@ export default {
         state: "positive",
         button: "Change"
       };
-    },
-    hasErrors() {
-      return this.page.isVisible === false && this.page.errors.length > 0;
     },
     fields() {
       let fields = [
@@ -111,12 +111,15 @@ export default {
         .then(page => {
           this.page = page;
           this.status = page.isVisible ? "visible" : "invisible";
+          this.isBlocked = page.blueprint.options.changeStatus === false;
+          this.isIncomplete =
+            page.isVisible === false && this.page.errors.length > 0;
           this.position = page.num;
           this.$refs.dialog.open();
         });
     },
     submit() {
-      if (this.hasErrors === true) {
+      if (this.isIncomplete === true || this.isBlocked === true) {
         return this.$refs.dialog.close();
       }
 

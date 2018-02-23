@@ -1,7 +1,6 @@
 import Vue from "vue";
 
 /** Forms/Fields **/
-import BlocksField from "./BlocksField/BlocksField.vue";
 import CheckboxField from "./CheckboxField/CheckboxField.vue";
 import CheckboxesField from "./CheckboxesField/CheckboxesField.vue";
 import DateField from "./DateField/DateField.vue";
@@ -15,8 +14,6 @@ import PasswordField from "./PasswordField/PasswordField.vue";
 import RadioField from "./RadioField/RadioField.vue";
 import RangeField from "./RangeField/RangeField.vue";
 import SelectField from "./SelectField/SelectField.vue";
-import StructureField from "./StructureField/StructureField.vue";
-import TableField from "./TableField/TableField.vue";
 import TagsField from "./TagsField/TagsField.vue";
 import TelField from "./TelField/TelField.vue";
 import TextareaField from "./TextareaField/TextareaField.vue";
@@ -25,7 +22,6 @@ import TimeField from "./TimeField/TimeField.vue";
 import ToggleField from "./ToggleField/ToggleField.vue";
 import UrlField from "./UrlField/UrlField.vue";
 
-Vue.component("kirby-blocks-field", BlocksField);
 Vue.component("kirby-checkbox-field", CheckboxField);
 Vue.component("kirby-checkboxes-field", CheckboxesField);
 Vue.component("kirby-date-field", DateField);
@@ -39,8 +35,6 @@ Vue.component("kirby-password-field", PasswordField);
 Vue.component("kirby-radio-field", RadioField);
 Vue.component("kirby-range-field", RangeField);
 Vue.component("kirby-select-field", SelectField);
-//Vue.component('kirby-structure-field', StructureField);
-//Vue.component('kirby-table-field', TableField);
 Vue.component("kirby-tags-field", TagsField);
 Vue.component("kirby-tel-field", TelField);
 Vue.component("kirby-textarea-field", TextareaField);

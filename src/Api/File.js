@@ -44,12 +44,6 @@ export default {
         click: "download"
       });
 
-      result.push({
-        icon: "upload",
-        text: "Replace",
-        click: "replace"
-      });
-
       if (options.delete) {
         result.push({
           icon: "trash",

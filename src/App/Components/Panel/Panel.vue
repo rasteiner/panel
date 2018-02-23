@@ -3,9 +3,6 @@
 
     <kirby-menu ref="menu" v-if="$store.state.user" :open="$store.state.menu" @close="$store.commit('menu', false)">
       <section class="kirby-menu-section">
-        <kirby-button @click="$store.dispatch('error', 'Not yet implemented')" icon="dashboard">
-          {{ $t('dashboard') }}
-        </kirby-button>
         <kirby-button @click="$refs.menu.close()" link="/pages" icon="page">
           {{ $t('site') }}
         </kirby-button>
