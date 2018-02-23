@@ -93,7 +93,7 @@ export default {
       this.close();
     },
     clear() {
-      this.$refs.input.value = "";
+      this.query = null;
     },
     close() {
       this.$refs.items.close();

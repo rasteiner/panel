@@ -43,7 +43,6 @@
           @keydown.delete="leaveInput"
         />
       </span>
-
     </draggable>
 
   </kirby-field>
@@ -126,7 +125,6 @@ export default {
       }
     },
     edit(tag) {
-      console.log("edit");
       this.$refs.input.value = this.options.length > 0 ? tag.text : tag;
       this.$refs.input.select();
       this.remove(tag);
