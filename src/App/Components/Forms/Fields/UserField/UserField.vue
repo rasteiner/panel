@@ -38,33 +38,23 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      state: this.user(this.value)
-    };
-  },
   computed: {
     control() {
       return this.state ? "cancel" : this.icon;
     },
-    stateValue() {
+    stateToValue() {
       return this.state ? this.state.value : null;
     }
   },
-  watch: {
-    value(id) {
-      this.state = id ? this.user(id) : null;
-    }
-  },
   methods: {
-    user(id) {
-      return this.options.find(x => x.value === id);
-    },
     clear() {
       this.input();
       this.$nextTick(() => {
         this.$refs.input.focus();
       });
+    },
+    setValue(value) {
+      return value ? this.options.find(x => x.value === value) : null;
     }
   }
 };
