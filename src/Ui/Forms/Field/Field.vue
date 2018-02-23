@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-field" :data-readonly="readonly" :data-error="error !== false" :data-focus="hasFocus">
+  <div class="kirby-field" :data-readonly="readonly" :data-error="error !== false">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
 
@@ -16,7 +16,7 @@
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content" />
-    <kirby-input v-else :error="error" :icon="$attrs.icon" :prefix="$attrs.prefix" @icon="icon">
+    <kirby-input v-else :error="error" :icon="$attrs.icon" :prefix="$attrs.prefix" :hasFocus="hasFocus" @icon="icon">
       <slot />
     </kirby-input>
 

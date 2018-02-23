@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-input" :data-focus="isFocused">
+  <div class="kirby-input" :data-focus="hasFocus">
     <span v-if="$slots.prefix || prefix" class="kirby-input-prefix">
       <slot name="prefix">{{ prefix }}</slot>
     </span>
@@ -18,31 +18,11 @@
 export default {
   props: {
     icon: [String, Boolean],
-    prefix: String
-  },
-  data() {
-    return {
-      isFocused: false
-    };
-  },
-  mounted() {
-    this.$el.addEventListener(
-      "focus",
-      () => {
-        this.isFocused = true;
-        this.$emit("focus");
-      },
-      true
-    );
-
-    this.$el.addEventListener(
-      "blur",
-      () => {
-        this.isFocused = false;
-        this.$emit("blur");
-      },
-      true
-    );
+    prefix: String,
+    hasFocus: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     onIcon() {
