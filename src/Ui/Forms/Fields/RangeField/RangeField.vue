@@ -1,8 +1,8 @@
 <template>
-  <kirby-field class="kirby-range-field" v-bind="$props" :id="id">
+  <kirby-field class="kirby-range-field" v-bind="$props" :id="_uid">
     <input
       type="range"
-      :id="id"
+      :id="_uid"
       :name="name"
       :min="min"
       :max="max"

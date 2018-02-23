@@ -1,5 +1,5 @@
 <template>
-  <kirby-field :class="`kirby-${this.type}-field`" v-bind="$props" :id="id">
+  <kirby-field :class="`kirby-${this.type}-field`" v-bind="$props" :id="_uid">
     <template slot="options" v-if="minLength || maxLength">
       <kirby-counter
         :value="state"
@@ -10,7 +10,7 @@
     <input
       class="kirby-text-input"
       :autocomplete="autocomplete ? 'on' : 'off'"
-      :id="id"
+      :id="_uid"
       :name="name"
       :maxlength="maxLength"
       :minlength="minLength"

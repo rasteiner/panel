@@ -37,8 +37,7 @@ export default {
   inheritAttrs: false,
   data() {
     return {
-      state: this.value,
-      id: this.name + "-" + uniqid()
+      state: this.value
     };
   },
   watch: {

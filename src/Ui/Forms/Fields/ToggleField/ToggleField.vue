@@ -1,9 +1,9 @@
 <template>
-  <kirby-field class="kirby-toggle-field" v-bind="$props">
+  <kirby-field class="kirby-toggle-field" v-bind="$props" :id="_uid">
     <span class="kirby-toggle-input">
       <input
         type="checkbox"
-        :id="id"
+        :id="_uid"
         @change="input($event.target.checked)"
       />
       <label :for="id">{{ display }}</label>

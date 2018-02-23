@@ -39,7 +39,7 @@ export default {
     error: [Object, Boolean],
     help: String,
     label: String,
-    id: String,
+    id: [String, Number],
     name: {
       type: String,
       required: true

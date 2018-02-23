@@ -1,7 +1,7 @@
 export default {
   props: {
     value: {},
-    id: String,
+    id: [String, Number],
     name: {
       type: String
     }

@@ -1,7 +1,8 @@
 <template>
-  <kirby-field class="kirby-time-field" v-bind="$props">
+  <kirby-field class="kirby-time-field" v-bind="$props" :id="_uid">
     <kirby-time-input
       :mode="mode"
+      :id="_uid"
       :interval="interval"
       :now="now"
       :override="override"
