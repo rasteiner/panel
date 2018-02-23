@@ -19,6 +19,7 @@ export default {
           name: "language",
           label: "Language",
           type: "language",
+          icon: "globe",
           required: true
         }
       ]

@@ -21,11 +21,13 @@ export default {
           name: "password",
           label: "New password",
           type: "password",
+          icon: "key",
           required: true
         },
         {
           name: "passwordConfirmation",
           label: "Confirm the new password …",
+          icon: "key",
           type: "password",
           required: true
         }

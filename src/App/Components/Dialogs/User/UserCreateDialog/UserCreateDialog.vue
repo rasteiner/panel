@@ -23,6 +23,7 @@ export default {
           name: "email",
           label: "Email",
           type: "email",
+          icon: "email",
           id: "new-user-email",
           required: true
         },
@@ -30,6 +31,7 @@ export default {
           name: "password",
           label: "Password",
           type: "password",
+          icon: "key",
           id: "new-user-password",
           required: true
         },
