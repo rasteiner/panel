@@ -5,12 +5,7 @@
       type="text"
       :id="id"
       v-model="query"
-      @keydown.tab="keydown"
-      @keydown.enter="keydown"
-      @keydown.up.prevent="navigate(-1)"
-      @keydown.down.prevent="navigate(1)"
-      @keydown.left="$emit('left', $event)"
-      @keydown.delete="$emit('delete', $event)"
+      @keydown="keydown"
     />
     <kirby-dropdown-content ref="items">
       <kirby-dropdown-item v-for="(item, index) in items"
@@ -34,7 +29,8 @@ export default {
     limit: {
       type: Number,
       default: 5
-    }
+    },
+    separator: String
   },
   data() {
     return {
@@ -49,6 +45,65 @@ export default {
     }
   },
   methods: {
+    clear() {
+      this.query = null;
+    },
+    close() {
+      this.$refs.items.close();
+      this.selected = -1;
+    },
+    focus() {
+      this.$refs.input.focus();
+    },
+    highlight() {
+      const regex = new RegExp(`(${this.query})`, "i");
+      this.items.forEach(item => {
+        item.matched = item.text.replace(regex, "<b>$1</b>");
+      });
+    },
+    keydown(event) {
+      if (this.items[this.selected]) {
+        this.select(null);
+        event.preventDefault();
+      } else {
+        switch (event.key) {
+          case "Enter":
+          case this.separator:
+            this.$emit("enter", this.$refs.input.value);
+            this.close();
+            event.preventDefault();
+            break;
+          case "Tab":
+            this.$emit("tab", this.$refs.input.value);
+            this.close();
+            break;
+          case "ArrowUp":
+            this.navigate(-1);
+            event.preventDefault();
+            break;
+          case "ArrowDown":
+            this.navigate(1);
+            event.preventDefault();
+            break;
+          case "ArrowLeft":
+          case "Backspace":
+            this.$emit("left", event);
+            this.close();
+            break;
+        }
+      }
+    },
+    navigate(direction) {
+      this.selected = this.selected + direction;
+
+      if (this.selected <= -1) {
+        return this.close();
+      }
+
+      if (this.selected > this.items.length - 1) {
+        this.selected = this.items.length - 1;
+      }
+    },
     search(query) {
       if (query === "") {
         this.items = [];
@@ -70,20 +125,6 @@ export default {
       this.highlight();
       this.$refs.items.open();
     },
-    highlight() {
-      const regex = new RegExp(`(${this.query})`, "i");
-      this.items.forEach(item => {
-        item.matched = item.text.replace(regex, "<b>$1</b>");
-      });
-    },
-    keydown(event) {
-      if (this.items[this.selected]) {
-        this.select(null);
-        event.preventDefault();
-      } else {
-        this.close();
-      }
-    },
     select(value) {
       if (value === null && this.items[this.selected]) {
         value = this.items[this.selected].value;
@@ -91,27 +132,6 @@ export default {
 
       this.$emit("input", this.items.find(x => x.value === value));
       this.close();
-    },
-    clear() {
-      this.query = null;
-    },
-    close() {
-      this.$refs.items.close();
-      this.selected = -1;
-    },
-    focus() {
-      this.$refs.input.focus();
-    },
-    navigate(direction) {
-      this.selected = this.selected + direction;
-
-      if (this.selected <= -1) {
-        return this.close();
-      }
-
-      if (this.selected > this.items.length - 1) {
-        this.selected = this.items.length - 1;
-      }
     }
   }
 };

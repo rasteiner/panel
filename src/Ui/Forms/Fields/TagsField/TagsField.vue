@@ -27,9 +27,11 @@
           ref="input"
           :id="_uid"
           :options="options"
+          :separator="separator"
           @input="add"
+          @enter="add({ text: $event, value: $event })"
+          @tab="add({ text: $event, value: $event })"
           @left="leaveInput"
-          @delete="leaveInput"
         />
 
         <input
@@ -85,42 +87,6 @@ export default {
     }
   },
   methods: {
-    keydown(event) {
-      switch (event.key) {
-        case "Enter":
-        case this.separator:
-          this.add(event.target.value);
-          event.preventDefault();
-          return;
-          break;
-        case "Tab":
-          this.add(event.target.value);
-          return;
-          break;
-        case "ArrowLeft":
-        case "Delete":
-        case "Backspace":
-          this.leaveInput(event);
-          return;
-          break;
-      }
-    },
-    focus() {
-      this.$refs.input.focus();
-    },
-    select(tag) {
-      this.selected = tag;
-    },
-    index(tag) {
-      if (this.options.length > 0) {
-        return this.state.findIndex(x => x.value === tag.value);
-      }
-
-      return this.state.indexOf(tag);
-    },
-    read(tag, key = "value") {
-      return this.options.length > 0 ? tag[key] : tag;
-    },
     add(tag) {
       if (this.options.length === 0) {
         tag = tag.trim();
@@ -145,25 +111,8 @@ export default {
       this.$refs.input.select();
       this.remove(tag);
     },
-    remove(tag) {
-      var prev = this.get("prev");
-      var next = this.get("next");
-
-      this.state.splice(this.index(tag), 1);
-      this.input(this.state);
-
-      if (prev) {
-        prev.ref.focus();
-      } else if (next) {
-        this.$nextTick(() => {
-          var nextIndex = this.index(next.tag);
-          var nextResult = this.get(nextIndex);
-          this.selected = nextResult.tag;
-          nextResult.ref.focus();
-        });
-      } else {
-        this.$refs.input.focus();
-      }
+    focus() {
+      this.$refs.input.focus();
     },
     get(method) {
       switch (method) {
@@ -200,6 +149,38 @@ export default {
 
       return false;
     },
+    index(tag) {
+      if (this.options.length > 0) {
+        return this.state.findIndex(x => x.value === tag.value);
+      }
+
+      return this.state.indexOf(tag);
+    },
+    keydown(event) {
+      switch (event.key) {
+        case "Enter":
+        case this.separator:
+          this.add(event.target.value);
+          event.preventDefault();
+          break;
+        case "Tab":
+          this.add(event.target.value);
+          break;
+        case "ArrowLeft":
+        case "Backspace":
+          this.leaveInput(event);
+          break;
+      }
+    },
+    leaveInput(e) {
+      if (
+        e.target.selectionStart === 0 &&
+        e.target.selectionStart === e.target.selectionEnd
+      ) {
+        this.navigate("last");
+        e.target.blur();
+      }
+    },
     navigate(method) {
       var result = this.get(method);
 
@@ -211,14 +192,31 @@ export default {
         this.selected = null;
       }
     },
-    leaveInput(e) {
-      if (
-        e.target.selectionStart === 0 &&
-        e.target.selectionStart === e.target.selectionEnd
-      ) {
-        this.navigate("last");
-        e.target.blur();
+    read(tag, key = "value") {
+      return this.options.length > 0 ? tag[key] : tag;
+    },
+    remove(tag) {
+      var prev = this.get("prev");
+      var next = this.get("next");
+
+      this.state.splice(this.index(tag), 1);
+      this.input(this.state);
+
+      if (prev) {
+        prev.ref.focus();
+      } else if (next) {
+        this.$nextTick(() => {
+          var nextIndex = this.index(next.tag);
+          var nextResult = this.get(nextIndex);
+          this.selected = nextResult.tag;
+          nextResult.ref.focus();
+        });
+      } else {
+        this.$refs.input.focus();
       }
+    },
+    select(tag) {
+      this.selected = tag;
     },
     setValue(value) {
       var tags = value || [];
