@@ -1,6 +1,5 @@
 <template>
-
-  <kirby-field class="kirby-select-field" v-bind="$props" :id="_uid">
+  <kirby-field class="kirby-select-field" :id="_uid" v-bind="$props" @blur="change">
     <kirby-select-input
       :id="_uid"
       :name="name"
@@ -9,7 +8,6 @@
       @input="input"
     />
   </kirby-field>
-
 </template>
 
 <script>

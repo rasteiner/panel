@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-time-field" v-bind="$props" :id="_uid">
+  <kirby-field class="kirby-time-field" :id="_uid" v-bind="$props" @blur="change">
     <kirby-time-input
       :mode="mode"
       :id="_uid"

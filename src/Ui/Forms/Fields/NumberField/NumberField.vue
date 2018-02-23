@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-number-field" v-bind="$props" :id="_uid">
+  <kirby-field class="kirby-number-field" :id="_uid" v-bind="$props" @blur="change">
     <input
       type="number"
       :placeholder="placeholder"
@@ -10,9 +10,6 @@
       :step="step"
       :value.number="state"
       @input="input($event.target.value)"
-      @focus="hasChanged = false"
-      @change="hasChanged = true"
-      @blur="blur"
     />
   </kirby-field>
 </template>
@@ -35,18 +32,6 @@ export default {
     step: {
       type: Number,
       default: 1
-    }
-  },
-  data() {
-    return {
-      hasChanged: false
-    };
-  },
-  methods: {
-    blur() {
-      if (this.hasChanged === true) {
-        this.$emit("change", this.state);
-      }
     }
   }
 };

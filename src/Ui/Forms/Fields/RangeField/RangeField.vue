@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-range-field" v-bind="$props" :id="_uid">
+  <kirby-field class="kirby-range-field" :id="_uid" v-bind="$props" @blur="change">
     <input
       type="range"
       :id="_uid"

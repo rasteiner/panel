@@ -37,7 +37,8 @@ export default {
   inheritAttrs: false,
   data() {
     return {
-      state: this.value
+      state: this.value,
+      hasChanged: false
     };
   },
   watch: {
@@ -48,11 +49,14 @@ export default {
   methods: {
     input(state) {
       this.state = state;
+      this.hasChanged = true;
       this.$emit("input", this.state);
     },
-    change(state) {
-      this.state = state;
-      this.$emit("change", this.state);
+    change() {
+      if (this.hasChanged === true) {
+        this.$emit("change", this.state);
+        this.hasChanged = false;
+      }
     }
   }
 };

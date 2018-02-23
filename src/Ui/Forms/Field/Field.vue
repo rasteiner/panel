@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-field" :data-readonly="readonly" :data-error="error !== false" @click="focus">
+  <div class="kirby-field" :data-readonly="readonly" :data-error="error !== false">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
 
@@ -16,7 +16,7 @@
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content" />
-    <kirby-input v-else :error="error" :icon="$attrs.icon" :prefix="$attrs.prefix" @icon="icon">
+    <kirby-input v-else :error="error" :icon="$attrs.icon" :prefix="$attrs.prefix" :hasFocus="hasFocus" @icon="icon">
       <slot />
     </kirby-input>
 
@@ -50,30 +50,41 @@ export default {
   inheritAttrs: false,
   data() {
     return {
-      isFocused: false
+      hasFocus: false
     };
   },
   created() {
-    window.addEventListener("click", this.checkFocus);
+    window.addEventListener("click", this.focusInOut);
+    window.addEventListener("focusin", this.focusInOut);
   },
   destroyed() {
-    window.removeEventListener("click", this.checkFocus);
+    window.removeEventListener("click", this.focusInOut);
+    window.removeEventListener("focusin", this.focusInOut);
   },
   methods: {
     icon() {
       this.$emit("icon");
     },
     focus() {
-      this.isFocused = true;
+      this.hasFocus = true;
       this.$emit("focus");
     },
     blur() {
-      this.isFocused = false;
+      this.hasFocus = false;
       this.$emit("blur");
     },
-    checkFocus(e) {
-      if (this.isFocused && this.$el.contains(e.target) === false) {
+    focusInOut(e) {
+      if (
+        this.hasFocus === true &&
+        this.$el.contains(e.target) === false &&
+        this.$el !== e.target
+      ) {
         this.blur();
+      } else if (
+        this.hasFocus === false &&
+        (this.$el.contains(e.target) === true || this.$el === e.target)
+      ) {
+        this.focus();
       }
     }
   }
