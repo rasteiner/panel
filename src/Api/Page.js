@@ -9,7 +9,7 @@ export default {
     return Api.post(this.url(parent, "children"), data);
   },
   url(id, path) {
-    let url = id === null ? "pages" : "pages/" + id.replace("/", "+");
+    let url = id === null ? "pages" : "pages/" + id.replace(/\//g, "+");
 
     if (path) {
       url += "/" + path;
