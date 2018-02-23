@@ -8,8 +8,8 @@
       class="kirby-tags-input">
 
       <kirby-tag v-for="tag in state"
-        :ref="read(tag)"
-        :key="read(tag)"
+        :ref="tag.value"
+        :key="tag.value"
         @blur.native="select(null)"
         @focus.native="select(tag)"
         @keydown.native.left="navigate('prev')"
@@ -18,12 +18,11 @@
         @dblclick.native="edit(tag)"
         @remove="remove(tag)"
         :removable="true">
-          {{ read(tag, "text") }}
+          {{ tag.text }}
       </kirby-tag>
 
       <span slot="footer" class="kirby-tags-input-element">
         <kirby-autocomplete-input
-          v-if="options.length > 0"
           ref="input"
           :id="_uid"
           :options="options"
@@ -32,13 +31,6 @@
           @enter="add({ text: $event, value: $event })"
           @tab="add({ text: $event, value: $event })"
           @left="leaveInput"
-        />
-
-        <input
-          v-else
-          ref="input"
-          :id="_uid"
-          @keydown="keydown"
         />
       </span>
     </draggable>
@@ -79,64 +71,68 @@ export default {
       return this.state.length === 0;
     },
     stateToValue() {
-      if (this.options.length > 0) {
-        return this.state.map(tag => tag.value);
-      }
-
-      return this.state;
+      // only return values to API
+      return this.state.map(tag => tag.value);
     }
   },
   methods: {
     add(tag) {
-      if (this.options.length === 0) {
-        tag = tag.trim();
+      // normalize tag value and text
+      tag.value = tag.value.trim();
+      tag.text = tag.text.trim();
 
-        if (tag.length === 0) return;
-      }
+      // skip empty tag
+      if (tag.value.length === 0) return;
 
+      // only add if not already added
       if (this.index(tag) === -1) {
         this.state.push(tag);
         this.input(this.state);
       }
 
-      if (this.options.length > 0) {
-        this.$refs.input.close();
-        this.$refs.input.clear();
-      } else {
-        this.$refs.input.value = "";
-      }
+      this.$refs.input.close();
+      this.$refs.input.clear();
     },
     edit(tag) {
-      this.$refs.input.value = this.options.length > 0 ? tag.text : tag;
+      // add tag text bag to input & remove the tag
+      this.$refs.input.fill(tag.text);
       this.$refs.input.select();
       this.remove(tag);
     },
     focus() {
       this.$refs.input.focus();
     },
-    get(method) {
-      switch (method) {
+    get(position) {
+      // get tag according to position
+
+      //find the correct index
+      switch (position) {
         case "prev":
         case "next":
           if (!this.selected) return;
-          var currIndex = this.index(this.selected);
-          var nextIndex = method === "prev" ? currIndex - 1 : currIndex + 1;
+          let currIndex = this.index(this.selected);
+          var nextIndex = position === "prev" ? currIndex - 1 : currIndex + 1;
           break;
+
         case "first":
           var nextIndex = 0;
+          break;
+
         case "last":
           var nextIndex = this.state.length - 1;
           break;
+
         default:
-          var nextIndex = method;
+          var nextIndex = position;
+          break;
       }
 
-      var nextTag = this.state[nextIndex];
+      // get whole tag object
+      let nextTag = this.state[nextIndex];
 
       if (nextTag) {
-        var nextRef = this.$refs[
-          this.options.length > 0 ? nextTag.value : nextTag
-        ];
+        // get DOM $ref element
+        let nextRef = this.$refs[nextTag.value];
 
         if (nextRef && nextRef[0]) {
           return {
@@ -150,11 +146,7 @@ export default {
       return false;
     },
     index(tag) {
-      if (this.options.length > 0) {
-        return this.state.findIndex(x => x.value === tag.value);
-      }
-
-      return this.state.indexOf(tag);
+      return this.state.findIndex(item => item.value === tag.value);
     },
     keydown(event) {
       switch (event.key) {
@@ -181,24 +173,23 @@ export default {
         e.target.blur();
       }
     },
-    navigate(method) {
-      var result = this.get(method);
+    navigate(position) {
+      var result = this.get(position);
 
       if (result) {
         result.ref.focus();
         this.selected = result.tag;
-      } else if (method === "next") {
+      } else if (position === "next") {
         this.$refs.input.focus();
         this.selected = null;
       }
     },
-    read(tag, key = "value") {
-      return this.options.length > 0 ? tag[key] : tag;
-    },
     remove(tag) {
-      var prev = this.get("prev");
-      var next = this.get("next");
+      // get neighboring tags
+      let prev = this.get("prev");
+      let next = this.get("next");
 
+      // remove tag and fir input event
       this.state.splice(this.index(tag), 1);
       this.input(this.state);
 
@@ -206,8 +197,9 @@ export default {
         prev.ref.focus();
       } else if (next) {
         this.$nextTick(() => {
-          var nextIndex = this.index(next.tag);
-          var nextResult = this.get(nextIndex);
+          // TODO: check if not redundant
+          let nextIndex = this.index(next.tag);
+          let nextResult = this.get(nextIndex);
           this.selected = nextResult.tag;
           nextResult.ref.focus();
         });
@@ -221,19 +213,19 @@ export default {
     setValue(value) {
       var tags = value || [];
 
+      // coming from content file, make sure to split
       if (typeof tags === "string") {
         var tags = tags.split(this.separator).map(tag => tag.trim());
       }
 
-      if (this.options.length > 0) {
-        tags = tags.map(tag => {
-          let option = this.options.find(x => x.value === tag);
-          return {
-            text: option ? option.text : tag,
-            value: tag
-          };
-        });
-      }
+      // build text-value objects for each tag
+      tags = tags.map(tag => {
+        let option = this.options.find(x => x.value === tag);
+        return {
+          text: option ? option.text : tag,
+          value: tag
+        };
+      });
 
       return tags;
     }
