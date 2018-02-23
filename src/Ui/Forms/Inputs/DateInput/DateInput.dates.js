@@ -1,5 +1,9 @@
+// All methods are to be called with actual year, month, day numbers
+// 1 = January, 2 = February …
+
 export default {
-  i18n: {
+  labels: {
+    // TODO: get them from Locales file
     months: [
       "January",
       "February",
@@ -26,10 +30,7 @@ export default {
     days_short: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
   },
 
-  years: function(start, past, future) {
-    past = past || 10;
-    future = future || 10;
-
+  years(start, past = 10, future = 10) {
     var years = [];
 
     for (var x = start - past; x <= start + future; x++) {
@@ -38,31 +39,27 @@ export default {
 
     return years;
   },
-
-  months: function(type) {
+  months(type) {
     switch (type) {
       case "count":
         return 12;
       case "numbers":
         return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-      case "array":
-        return this.i18n.months;
+      case "labels":
+        return this.labels.months;
       case "object":
         var months = {};
 
-        this.i18n.months.forEach(function(month, index) {
+        this.labels.months.forEach((month, index) => {
           months[index + 1] = month;
         });
 
         return months;
     }
   },
-
-  days: function(year, month, type) {
+  days(year, month, type) {
     switch (type) {
       case "count":
-        var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
         // leap years
         if (month === 2) {
           if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
@@ -70,6 +67,7 @@ export default {
           }
         }
 
+        let days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         return days[month - 1];
 
       case "numbers":
@@ -83,12 +81,16 @@ export default {
         return days;
     }
   },
+  weeks(year, month) {
+    let first = new Date(year, month - 1, 1).getDay();
 
-  weeks: function(year, month) {
-    var first = new Date(year, month, 1);
-    var last = new Date(year, month, 0);
-    var used = first.getDay() + 6 + last.getDate();
+    // since we are using Sunday as last day of the week
+    if (first === 0) {
+      first = 7;
+    }
 
-    return Math.ceil(used / 7) - 1;
+    let last = new Date(year, month, 0).getDate();
+
+    return Math.ceil((last + first - 1) / 7);
   }
 };

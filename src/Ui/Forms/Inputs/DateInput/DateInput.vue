@@ -72,7 +72,7 @@ export default {
     months() {
       var options = [];
 
-      Dates.months("array").forEach((monthName, month) => {
+      Dates.months("labels").forEach((monthName, month) => {
         month = (month + 1).padZero();
         options.push({
           value: month,

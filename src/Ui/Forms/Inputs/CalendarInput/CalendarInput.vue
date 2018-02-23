@@ -6,11 +6,11 @@
       <span class="kirby-calendar-selects">
         <kirby-select-input
           :options="monthOptions"
-          v-model="month"
+          v-model.number="month"
         />
         <kirby-select-input
           :options="yearOptions"
-          v-model="year"
+          v-model.number="year"
         />
       </span>
       <kirby-button @click="next" icon="angle-right" />
@@ -63,7 +63,7 @@ export default {
     return {
       open: false,
       day: date.getDate(),
-      month: date.getMonth(),
+      month: date.getMonth() + 1,
       year: date.getFullYear(),
       today: today
     };
@@ -71,27 +71,33 @@ export default {
   watch: {
     current(date) {
       this.day = date.getDate();
-      this.month = date.getMonth();
+      this.month = date.getMonth() + 1;
       this.year = date.getFullYear();
     }
   },
   computed: {
     date() {
-      return `${this.year}-${(this.month + 1).padZero()}-${this.day.padZero()}`;
+      return `${this.year}-${this.month.padZero()}-${this.day.padZero()}`;
     },
     startingDay() {
-      return new Date(this.year, this.month, 1).getDay();
+      let day = new Date(this.year, this.month - 1, 1).getDay();
+
+      if (day === 0) {
+        return 7;
+      }
+
+      return day;
     },
     numberOfDays() {
-      return Dates.days(this.year, this.month + 1, "count");
+      return Dates.days(this.year, this.month, "count");
     },
     numberOfWeeks() {
       return Dates.weeks(this.year, this.month);
     },
     labels() {
       return {
-        days: Dates.i18n.days_short,
-        months: Dates.i18n.months
+        days: Dates.labels.days_short,
+        months: Dates.labels.months
       };
     },
     monthOptions() {
@@ -99,7 +105,7 @@ export default {
 
       this.labels.months.forEach((item, index) => {
         options.push({
-          value: index,
+          value: index + 1,
           text: item
         });
       });
@@ -139,9 +145,9 @@ export default {
       return days;
     },
     next() {
-      if (this.month == 11) {
+      if (this.month == 12) {
         this.year = this.year + 1;
-        this.month = 0;
+        this.month = 1;
       } else {
         this.month = this.month + 1;
       }
@@ -155,9 +161,9 @@ export default {
       }
     },
     prev() {
-      if (this.month == 0) {
+      if (this.month == 1) {
         this.year = this.year - 1;
-        this.month = 11;
+        this.month = 12;
       } else {
         this.month = this.month - 1;
       }
