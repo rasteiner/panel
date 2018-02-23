@@ -19,9 +19,6 @@
         <kirby-button icon="preview" @click="action('download')">
           Open
         </kirby-button>
-        <kirby-button icon="upload" @click="$refs.upload.open()">
-          Replace
-        </kirby-button>
         <kirby-button icon="trash" @click="action('remove')">
           {{ $t('delete') }}
         </kirby-button>
