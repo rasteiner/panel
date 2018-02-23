@@ -122,4 +122,8 @@ export default {
   background: $color-focus;
   color: #fff !important;
 }
+
+.kirby-autocomplete-input .kirby-dropdown-item b {
+  color: #fff !important;
+}
 </style>
