@@ -1,7 +1,8 @@
 <template>
   <div v-if="options.length" class="kirby-select-input">
     <select
-      :id="name"
+      :id="id"
+      :name="name"
       ref="select"
       :value="value"
       @change="input($event.target.value)"

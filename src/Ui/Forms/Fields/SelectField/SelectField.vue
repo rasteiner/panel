@@ -1,7 +1,9 @@
 <template>
 
-  <kirby-field class="kirby-select-field" v-bind="$props">
+  <kirby-field class="kirby-select-field" v-bind="$props" :id="id">
     <kirby-select-input
+      :id="id"
+      :name="name"
       :options="options"
       :value="state"
       @input="input"

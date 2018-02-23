@@ -1,8 +1,10 @@
 <template>
-  <kirby-field class="kirby-number-field" v-bind="$props">
+  <kirby-field class="kirby-number-field" v-bind="$props" :id="id">
     <input
       type="number"
       :placeholder="placeholder"
+      :id="id"
+      :name="name"
       :min="min"
       :max="max"
       :step="step"

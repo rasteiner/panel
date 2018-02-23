@@ -2,6 +2,7 @@
   <kirby-field
     class="kirby-tags-field"
     v-bind="$props"
+    :id="id"
     @click.native="focus"
     @blur="$emit('change', state);">
 
@@ -26,7 +27,7 @@
       </kirby-tag>
 
       <span slot="footer" class="kirby-tags-input-element">
-        <input :id="_uid" ref="input"
+        <input :id="id" ref="input"
           @keydown.enter="add($event.target.value)"
           @keydown.tab="add($event.target.value)"
           @keydown.separator.prevent="add($event.target.value)"

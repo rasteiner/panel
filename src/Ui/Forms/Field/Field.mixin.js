@@ -1,3 +1,5 @@
+import uniqid from "Ui/Helpers/uniqid.js";
+
 export default {
   props: {
     name: {
@@ -35,7 +37,8 @@ export default {
   inheritAttrs: false,
   data() {
     return {
-      state: this.value
+      state: this.value,
+      id: this.name + "-" + uniqid()
     };
   },
   watch: {

@@ -3,10 +3,10 @@
     <span class="kirby-toggle-input">
       <input
         type="checkbox"
-        :id="name"
+        :id="id"
         @change="input($event.target.checked)"
       />
-      <label :for="name">{{ display }}</label>
+      <label :for="id">{{ display }}</label>
     </span>
   </kirby-field>
 </template>

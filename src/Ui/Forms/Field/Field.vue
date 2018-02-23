@@ -5,7 +5,7 @@
 
       <template slot="left">
         <slot name="label">
-          <label :for="name">{{ label }}</label>
+          <label :for="id">{{ label }}</label>
         </slot>
       </template>
 
@@ -39,6 +39,7 @@ export default {
     error: [Object, Boolean],
     help: String,
     label: String,
+    id: String,
     name: {
       type: String,
       required: true
