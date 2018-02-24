@@ -100,9 +100,7 @@ export default {
   display: flex;
   align-items: baseline;
 
-  &[data-tabbed] {
-    @include focus-ring;
-  }
+  @include highlight-tabbed;
 }
 .kirby-list-collection-text em {
   font-style: normal;

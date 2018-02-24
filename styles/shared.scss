@@ -85,3 +85,11 @@ $width-menu: 12.5rem;
   box-shadow: $box-shadow-focus-full;
   border-radius: $border-radius;
 }
+
+@mixin highlight-tabbed {
+  outline: none;
+
+  &[data-tabbed] {
+    @include focus-ring;
+  }
+}

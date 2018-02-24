@@ -54,9 +54,7 @@ export default {
     color: $color-dark;
   }
 
-  &[data-tabbed] {
-    @include focus-ring;
-  }
+  @include highlight-tabbed;
 
   * {
     vertical-align: middle;

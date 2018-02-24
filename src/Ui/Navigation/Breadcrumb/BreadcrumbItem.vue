@@ -55,9 +55,7 @@ export default {
     }
   }
 
-  &[data-tabbed] {
-    @include focus-ring;
-  }
+  @include highlight-tabbed;
 }
 .kirby-breadcrumb-item:last-child a::after,
 .kirby-breadcrumb-item:last-child span::after {
