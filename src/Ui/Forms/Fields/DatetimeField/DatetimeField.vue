@@ -51,13 +51,6 @@ export default {
       // split hours and minutes
       let time = parts[0].split(":");
 
-      // convert hour to 24h format
-      if (parts[1] === "pm" && time[0] < 12) {
-        time[0] = parseInt(time[0]) + 12;
-      } else if (parts[1] === "am" && time[0] === 12) {
-        time[0] = 0;
-      }
-
       return time;
     },
     setDate(date) {

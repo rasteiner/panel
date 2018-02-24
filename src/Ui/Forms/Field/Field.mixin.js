@@ -45,13 +45,13 @@ export default {
     }
   },
   watch: {
-    value(state) {
-      this.state = this.toState(state);
+    value(value) {
+      this.state = this.toState(value);
     }
   },
   methods: {
-    input(state) {
-      this.state = state;
+    input(value) {
+      this.state = value;
       this.hasChanged = true;
       this.$emit("input", this.toValue);
     },

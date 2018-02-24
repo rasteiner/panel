@@ -1,11 +1,9 @@
 <template>
   <kirby-field class="kirby-time-field" :id="_uid" v-bind="$props" @blur="change">
     <kirby-time-input
-      :mode="mode"
       :id="_uid"
-      :interval="interval"
-      :now="now"
-      :override="override"
+      :hours="hours"
+      :step="step"
       :value="state"
       @input="input"
     />
@@ -18,21 +16,27 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    mode: {
+    hours: {
       type: Number,
       default: 12
     },
-    interval: {
+    step: {
       type: Number,
       default: 5
-    },
-    now: {
-      type: Boolean,
-      default: false
     },
     override: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    toState(value) {
+      if (!value || this.override === true) {
+        return new Date();
+      }
+
+      let time = value.split(":");
+      return new Date(2000, 0, 1, time[0], time[1]);
     }
   }
 };
