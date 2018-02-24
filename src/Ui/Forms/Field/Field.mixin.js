@@ -35,26 +35,34 @@ export default {
   inheritAttrs: false,
   data() {
     return {
-      state: this.value,
+      state: this.toState(this.value),
       hasChanged: false
     };
   },
+  computed: {
+    toValue() {
+      return this.state;
+    }
+  },
   watch: {
     value(state) {
-      this.state = state;
+      this.state = this.toState(state);
     }
   },
   methods: {
     input(state) {
       this.state = state;
       this.hasChanged = true;
-      this.$emit("input", this.state);
+      this.$emit("input", this.toValue);
     },
     change() {
       if (this.hasChanged === true) {
-        this.$emit("change", this.state);
+        this.$emit("change", this.toValue);
         this.hasChanged = false;
       }
+    },
+    toState(value) {
+      return value;
     }
   }
 };
