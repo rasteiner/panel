@@ -99,6 +99,10 @@ export default {
   margin-right: 3rem;
   display: flex;
   align-items: baseline;
+
+  &[data-tabbed] {
+    @include focus-ring;
+  }
 }
 .kirby-list-collection-text em {
   font-style: normal;
