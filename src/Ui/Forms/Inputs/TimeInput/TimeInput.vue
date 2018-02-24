@@ -45,27 +45,16 @@ export default {
     }
   },
   data() {
-    var time = {
-      hour: 0,
-      minute: 0
-    };
+    let time = new Date();
 
-    if (this.now) {
-      const now = new Date();
-      time = {
-        hour: now.getHours(),
-        minute: now.getMinutes()
-      };
-    }
-
-    if (this.value && !this.override) {
+    if (this.value && this.override === false) {
       time = this.value;
     }
 
     return {
-      hour: this.getHour(parseInt(time.hour)),
-      minute: time.minute,
-      period: this.getPeriod(parseInt(time.hour))
+      hour: this.getHour(time.getHours()),
+      minute: time.getMinutes(),
+      period: this.getPeriod(time.getHours())
     };
   },
   mounted() {
