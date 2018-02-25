@@ -35,33 +35,33 @@ export default {
   inheritAttrs: false,
   data() {
     return {
-      state: this.setValue(this.value),
+      state: this.toState(this.value),
       hasChanged: false
     };
   },
   computed: {
-    stateToValue() {
+    toValue() {
       return this.state;
     }
   },
   watch: {
-    value(state) {
-      this.state = this.setValue(state);
+    value(value) {
+      this.state = this.toState(value);
     }
   },
   methods: {
-    input(state = null) {
-      this.state = state;
+    input(value) {
+      this.state = value;
       this.hasChanged = true;
-      this.$emit("input", this.stateToValue);
+      this.$emit("input", this.toValue);
     },
     change() {
       if (this.hasChanged === true) {
-        this.$emit("change", this.stateToValue);
+        this.$emit("change", this.toValue);
         this.hasChanged = false;
       }
     },
-    setValue(value) {
+    toState(value) {
       return value;
     }
   }

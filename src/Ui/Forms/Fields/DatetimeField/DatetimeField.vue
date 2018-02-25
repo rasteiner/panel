@@ -1,16 +1,16 @@
 <template>
-  <kirby-field class="kirby-datetime-field" v-bind="$props" @icon="calendar = !calendar">
+  <kirby-field class="kirby-datetime-field" v-bind="$props" @blur="change" @icon="calendar = !calendar">
     <kirby-date-input
       ref="date"
       v-bind="date"
-      :value="value ? value.date : null"
-      @input="$emit('input', datetime)"
+      :value="state"
+      @input="updateDate"
     />
     <kirby-time-input
       ref="time"
       v-bind="time"
-      :value="value ? value.time : null"
-      @input="$emit('input', datetime)"
+      :value="state"
+      @input="updateTime"
     />
 
     <kirby-calendar-input
@@ -27,52 +27,50 @@ import Field from "Ui/Forms/Field/Field.mixin.js";
 export default {
   mixins: [Field],
   props: {
-    date: {},
-    time: {}
+    date: Object,
+    time: Object
   },
   data() {
     return {
-      state: this.value,
+      state: this.toState(this.value),
       hasChanged: false,
       calendar: false
     };
   },
-  computed: {
-    datetime() {
-      const date = this.$refs.date.date;
-      let time = this.$refs.time.time;
-      const mode = time.split(" ");
-
-      // am/pm mode
-      if (mode.length > 1) {
-        time = mode[0];
-      }
-
-      // split hours and minutes
-      time = time.split(":");
-
-      // convert hour to 24h format
-      if (mode.length > 1) {
-        if (mode[1] === "pm" && time[0] < 12) {
-          time[0] = parseInt(time[0]) + 12;
-        } else if (mode[1] === "am" && time[0] === 12) {
-          time[0] = 0;
-        }
-      }
-
-      return new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        time[0],
-        time[1]
-      );
-    }
-  },
   methods: {
+    convertTime(string) {
+      const parts = string.split(" ");
+      const military = parts.length === 1;
+
+      // military time mode
+      if (military) {
+        return string.split(":");
+      }
+
+      // am/pm time mode
+      // split hours and minutes
+      let time = parts[0].split(":");
+
+      return time;
+    },
     setDate(date) {
       this.$refs.date.select(date);
       this.calendar = false;
+    },
+    updateDate(date) {
+      this.state.setDate(date.getDate());
+      this.state.setMonth(date.getMonth());
+      this.state.setFullYear(date.getFullYear());
+      this.input(this.state);
+    },
+    updateTime(time) {
+      time = this.convertTime(time);
+      this.state.setHours(time[0]);
+      this.state.setMinutes(time[1]);
+      this.input(this.state);
+    },
+    toState(value) {
+      return value ? new Date(value) : new Date();
     }
   }
 };

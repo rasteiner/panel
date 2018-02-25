@@ -70,10 +70,6 @@ export default {
   },
   watch: {
     current(date) {
-      if (date.getDate === undefined) {
-        return false;
-      }
-
       this.day = date.getDate();
       this.month = date.getMonth() + 1;
       this.year = date.getFullYear();
@@ -176,7 +172,7 @@ export default {
     go(year, month) {
       if (year === "today") {
         year = this.today.getFullYear();
-        month = this.today.getMonth();
+        month = this.today.getMonth() + 1;
       }
 
       this.year = year;

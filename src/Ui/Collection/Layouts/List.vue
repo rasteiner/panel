@@ -99,6 +99,8 @@ export default {
   margin-right: 3rem;
   display: flex;
   align-items: baseline;
+
+  @include highlight-tabbed;
 }
 .kirby-list-collection-text em {
   font-style: normal;
