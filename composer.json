@@ -23,7 +23,7 @@
     }
   ],
   "require": {
-    "getkirby/cms": "*"
+    "getkirby/cms": "dev-develop"
   },
   "minimum-stability": "dev",
   "archive": {
