@@ -56,12 +56,10 @@ export default {
   created() {
     window.addEventListener("click", this.focusIn);
     window.addEventListener("focusin", this.focusIn);
-    window.addEventListener("focusout", this.focusOut);
   },
   destroyed() {
     window.removeEventListener("click", this.focusIn);
     window.removeEventListener("focusin", this.focusIn);
-    window.removeEventListener("focusout", this.focusOut);
   },
   methods: {
     icon() {
@@ -90,17 +88,6 @@ export default {
         (this.$el.contains(e.target) === true || this.$el === e.target)
       ) {
         this.focus();
-      }
-    },
-    focusOut(e) {
-      // focusout from current field
-      // without focussing another element within the field
-      if (
-        (this.$el.contains(e.target) === true || this.$el === e.target) &&
-        (e.relatedTarget === null ||
-          this.$el.contains(e.relatedTarget) === false)
-      ) {
-        this.blur();
       }
     }
   }
