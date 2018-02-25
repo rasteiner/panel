@@ -8,8 +8,8 @@
       class="kirby-tags-input">
 
       <kirby-tag v-for="tag in state"
-        :ref="tag"
-        :key="tag"
+        :ref="tag.value"
+        :key="tag.value"
         @blur.native="select(null)"
         @focus.native="select(tag)"
         @keydown.native.left="navigate('prev')"
@@ -18,18 +18,22 @@
         @dblclick.native="edit(tag)"
         @remove="remove(tag)"
         :removable="true">
-          {{ tag }}
+          {{ tag.text }}
       </kirby-tag>
 
       <span slot="footer" class="kirby-tags-input-element">
-        <input :id="_uid" ref="input"
-          @keydown.enter="add($event.target.value)"
-          @keydown.tab="add($event.target.value)"
-          @keydown.separator.prevent="add($event.target.value)"
-          @keydown.left="leaveInput"
-          @keydown.delete="leaveInput" />
+        <kirby-autocomplete-input
+          ref="input"
+          :id="_uid"
+          :options="options"
+          :trigger="separator"
+          :accept="accept"
+          @select="addTag"
+          @input="addString"
+          @arrowleft="leaveInput"
+          @backspace="leaveInput"
+        />
       </span>
-
     </draggable>
 
   </kirby-field>
@@ -45,24 +49,24 @@ export default {
     draggable
   },
   props: {
+    options: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    },
     separator: {
       type: String,
       default: ","
     },
-    autocomplete: {
-      type: [Boolean, Object],
-      default: false
+    accept: {
+      type: String,
+      default: "all"
     }
   },
   data() {
-    var tags = this.value || [];
-
-    if (typeof tags === "string") {
-      var tags = tags.split(this.separator).map(tag => tag.trim());
-    }
-
     return {
-      state: tags,
+      state: this.value,
       hasChanged: false,
       selected: null
     };
@@ -73,99 +77,69 @@ export default {
     }
   },
   methods: {
-    focus() {
-      this.$refs.input.focus();
-    },
-    select(tag) {
-      this.selected = tag;
-    },
-    index(tag) {
-      return this.state.indexOf(tag);
-    },
-    add(tag) {
-      var tag = tag.trim();
+    addString(string) {
+      string = string.trim();
+      if (string.length === 0) return;
 
-      if (tag.length === 0) {
-        return;
-      }
-
+      this.addTag({ text: string, value: string });
+    },
+    addTag(tag) {
       if (this.index(tag) === -1) {
         this.state.push(tag);
         this.input(this.state);
       }
 
-      if (this.autocomplete) {
-        this.$refs.input.close();
-        this.$refs.input.clear();
-      } else {
-        this.$refs.input.value = "";
-      }
+      this.$refs.input.close();
+      this.$refs.input.clear();
     },
     edit(tag) {
-      this.$refs.input.value = tag;
+      this.$refs.input.fill(tag.text);
       this.$refs.input.select();
       this.remove(tag);
     },
-    remove(tag) {
-      var prev = this.get("prev");
-      var next = this.get("next");
-
-      this.state.splice(this.index(tag), 1);
-      this.input(this.state);
-
-      if (prev) {
-        prev.ref.focus();
-      } else if (next) {
-        this.$nextTick(() => {
-          var nextIndex = this.state.indexOf(next.tag);
-          var nextResult = this.get(nextIndex);
-          this.selected = nextResult.tag;
-          nextResult.ref.focus();
-        });
-      } else {
-        this.$refs.input.focus();
-      }
+    focus() {
+      this.$refs.input.focus();
     },
-    get(method) {
-      switch (method) {
+    get(position) {
+      switch (position) {
         case "prev":
         case "next":
           if (!this.selected) return;
-          var currIndex = this.index(this.selected);
-          var nextIndex = method === "prev" ? currIndex - 1 : currIndex + 1;
+          let currIndex = this.index(this.selected);
+          var nextIndex = position === "prev" ? currIndex - 1 : currIndex + 1;
           break;
+
         case "first":
           var nextIndex = 0;
+          break;
+
         case "last":
           var nextIndex = this.state.length - 1;
           break;
+
         default:
-          var nextIndex = method;
+          var nextIndex = position;
+          break;
       }
 
-      var nextTag = this.state[nextIndex];
-      var nextRef = this.$refs[nextTag];
+      let nextTag = this.state[nextIndex];
 
-      if (nextRef && nextRef[0]) {
-        return {
-          ref: nextRef[0],
-          tag: nextTag,
-          index: nextIndex
-        };
-      } else {
-        return false;
+      if (nextTag) {
+        let nextRef = this.$refs[nextTag.value];
+
+        if (nextRef && nextRef[0]) {
+          return {
+            ref: nextRef[0],
+            tag: nextTag,
+            index: nextIndex
+          };
+        }
       }
+
+      return false;
     },
-    navigate(method) {
-      var result = this.get(method);
-
-      if (result) {
-        result.ref.focus();
-        this.selected = result.tag;
-      } else if (method === "next") {
-        this.$refs.input.focus();
-        this.selected = null;
-      }
+    index(tag) {
+      return this.state.findIndex(item => item.value === tag.value);
     },
     leaveInput(e) {
       if (
@@ -175,6 +149,42 @@ export default {
         this.navigate("last");
         e.target.blur();
       }
+    },
+    navigate(position) {
+      var result = this.get(position);
+      if (result) {
+        result.ref.focus();
+        this.selected = result.tag;
+      } else if (position === "next") {
+        this.$refs.input.focus();
+        this.selected = null;
+      }
+    },
+    remove(tag) {
+      // get neighboring tags
+      let prev = this.get("prev");
+      let next = this.get("next");
+
+      // remove tag and fir input event
+      this.state.splice(this.index(tag), 1);
+      this.input(this.state);
+
+      if (prev) {
+        prev.ref.focus();
+      } else if (next) {
+        this.$nextTick(() => {
+          // TODO: check if not redundant
+          let nextIndex = this.index(next.tag);
+          let nextResult = this.get(nextIndex);
+          this.selected = nextResult.tag;
+          nextResult.ref.focus();
+        });
+      } else {
+        this.$refs.input.focus();
+      }
+    },
+    select(tag) {
+      this.selected = tag;
     }
   }
 };

@@ -1,0 +1,16 @@
+<kirby-autocomplete-input
+  ref="autocomplete"
+  :options="[
+    {value: 'nico', text: 'Nico'},
+    {value: 'bastian', text: 'Bastian'},
+    {value: 'nils', text: 'Nils'},
+    {value: 'sonja', text: 'Sonja'}
+  ]"
+  :limit="5" icon="globe"
+  @select="function(value) {
+    $refs.autocomplete.clear();
+    $refs.console.innerHTML = 'Text: ' + value.text + ' / Value: ' + value.value;
+  }">
+</kirby-autocomplete-input>
+
+<div ref="console"></div>
