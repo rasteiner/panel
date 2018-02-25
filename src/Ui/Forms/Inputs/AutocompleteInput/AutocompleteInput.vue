@@ -30,7 +30,11 @@ export default {
       type: Number,
       default: 5
     },
-    separator: String
+    trigger: String,
+    accept: {
+      type: String,
+      default: "all"
+    }
   },
   data() {
     return {
@@ -71,15 +75,17 @@ export default {
       switch (event.key) {
         case "Enter":
         case "Tab":
-        case this.separator:
+        case this.trigger:
           // item in dropdown is selected
           if (this.items[this.selected]) {
             this.select(null);
 
             // value other than an autocomplete item in input
-          } else {
+          } else if (this.accept !== "options") {
             this.$emit("input", this.$refs.input.value);
             this.close();
+          } else {
+            this.$store.dispatch("error", "Tag has to be from the options");
           }
 
           // make sure to allow tab out of the input
@@ -98,8 +104,15 @@ export default {
           break;
 
         case "ArrowLeft":
+          this.$emit("arrowleft", event);
+          this.close();
+          break;
         case "Backspace":
-          this.$emit("left", event);
+          this.$emit("backspace", event);
+          this.close();
+          break;
+        case "Delete":
+          this.$emit("delete", event);
           this.close();
           break;
       }

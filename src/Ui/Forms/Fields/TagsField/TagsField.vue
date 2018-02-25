@@ -26,10 +26,12 @@
           ref="input"
           :id="_uid"
           :options="options"
-          :separator="separator"
-          @select="add"
-          @input="add({ text: $event, value: $event })"
-          @left="leaveInput"
+          :trigger="separator"
+          :accept="accept"
+          @select="addTag"
+          @input="addString"
+          @arrowleft="leaveInput"
+          @backspace="leaveInput"
         />
       </span>
     </draggable>
@@ -56,11 +58,15 @@ export default {
     separator: {
       type: String,
       default: ","
+    },
+    accept: {
+      type: String,
+      default: "all"
     }
   },
   data() {
     return {
-      state: this.setValue(this.value),
+      state: this.value,
       hasChanged: false,
       selected: null
     };
@@ -68,22 +74,16 @@ export default {
   computed: {
     isDisabled() {
       return this.state.length === 0;
-    },
-    stateToValue() {
-      // only return values to API
-      return this.state.map(tag => tag.value);
     }
   },
   methods: {
-    add(tag) {
-      // normalize tag value and text
-      tag.value = tag.value.trim();
-      tag.text = tag.text.trim();
+    addString(string) {
+      string = string.trim();
+      if (string.length === 0) return;
 
-      // skip empty tag
-      if (tag.value.length === 0) return;
-
-      // only add if not already added
+      this.addTag({ text: string, value: string });
+    },
+    addTag(tag) {
       if (this.index(tag) === -1) {
         this.state.push(tag);
         this.input(this.state);
@@ -93,7 +93,6 @@ export default {
       this.$refs.input.clear();
     },
     edit(tag) {
-      // add tag text bag to input & remove the tag
       this.$refs.input.fill(tag.text);
       this.$refs.input.select();
       this.remove(tag);
@@ -102,9 +101,6 @@ export default {
       this.$refs.input.focus();
     },
     get(position) {
-      // get tag according to position
-
-      //find the correct index
       switch (position) {
         case "prev":
         case "next":
@@ -126,11 +122,9 @@ export default {
           break;
       }
 
-      // get whole tag object
       let nextTag = this.state[nextIndex];
 
       if (nextTag) {
-        // get DOM $ref element
         let nextRef = this.$refs[nextTag.value];
 
         if (nextRef && nextRef[0]) {
@@ -147,22 +141,6 @@ export default {
     index(tag) {
       return this.state.findIndex(item => item.value === tag.value);
     },
-    keydown(event) {
-      switch (event.key) {
-        case "Enter":
-        case this.separator:
-          this.add(event.target.value);
-          event.preventDefault();
-          break;
-        case "Tab":
-          this.add(event.target.value);
-          break;
-        case "ArrowLeft":
-        case "Backspace":
-          this.leaveInput(event);
-          break;
-      }
-    },
     leaveInput(e) {
       if (
         e.target.selectionStart === 0 &&
@@ -174,7 +152,6 @@ export default {
     },
     navigate(position) {
       var result = this.get(position);
-
       if (result) {
         result.ref.focus();
         this.selected = result.tag;
@@ -208,25 +185,6 @@ export default {
     },
     select(tag) {
       this.selected = tag;
-    },
-    setValue(value) {
-      var tags = value || [];
-
-      // coming from content file, make sure to split
-      if (typeof tags === "string") {
-        var tags = tags.split(this.separator).map(tag => tag.trim());
-      }
-
-      // build text-value objects for each tag
-      tags = tags.map(tag => {
-        let option = this.options.find(x => x.value === tag);
-        return {
-          text: option ? option.text : tag,
-          value: tag
-        };
-      });
-
-      return tags;
     }
   }
 };
