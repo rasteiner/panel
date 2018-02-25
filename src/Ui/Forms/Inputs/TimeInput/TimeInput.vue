@@ -4,19 +4,11 @@
       ref="hour"
       :options="times.hours(hours)"
       v-model.number="hour"
-      class="hour"
     />
     <kirby-select-input
       ref="minute"
       :options="times.minutes(step)"
       v-model.number="minute"
-    />
-    <kirby-select-input
-      v-if="seconds"
-      ref="second"
-      :options="times.minutes(step)"
-      v-model.number="second"
-      class="second"
     />
     <kirby-select-input
       v-if="hours === 12"
@@ -44,27 +36,23 @@ export default {
     step: {
       type: Number,
       default: 5
-    },
-    seconds: Boolean
+    }
   },
   data() {
     return {
       hour: Times.hour(this.value.getHours(), this.hours),
       minute: this.value.getMinutes(),
-      second: this.value.getSeconds(),
       period: this.value.getHours() >= 12 ? "pm" : "am"
     };
   },
   mounted() {
     this.minute = Times.minute(this.minute, this.step);
-    this.second = Times.minute(this.second, this.step);
   },
   computed: {
     time() {
       return Times.asDate({
         hour: this.hour,
         minute: this.minute,
-        second: this.second,
         period: this.period,
         military: this.hours === 24
       });
@@ -101,21 +89,9 @@ export default {
   flex-grow: 1;
 }
 
-.kirby-time-inputs .hour:after {
+.kirby-time-inputs .kirby-select-input:first-child:after {
   content: ":";
-  padding: 0 0.1rem;
-}
-
-.kirby-time-inputs .second:before {
-  content: ":";
-  padding: 0 0.1rem;
-
-  [dir="ltr"] & {
-    margin-right: -0.2rem;
-  }
-  [dir="rtl"] & {
-    margin-left: -0.2rem;
-  }
+  padding: 0 0.2rem;
 }
 
 .kirby-time-field-switch {

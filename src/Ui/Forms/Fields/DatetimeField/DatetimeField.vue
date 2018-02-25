@@ -51,7 +51,6 @@ export default {
     updateTime(date) {
       this.state.setHours(date.getHours());
       this.state.setMinutes(date.getSeconds());
-      this.state.setSeconds(date.getSeconds());
       this.input(this.state);
     },
     toState(value) {
@@ -74,10 +73,10 @@ export default {
 
 .kirby-datetime-field .kirby-time-inputs {
   [dir="ltr"] & {
-    padding-left: 0.5rem;
+    padding-left: 1rem;
   }
   [dir="rtl"] & {
-    padding-right: 0.5rem;
+    padding-right: 1rem;
   }
 }
 

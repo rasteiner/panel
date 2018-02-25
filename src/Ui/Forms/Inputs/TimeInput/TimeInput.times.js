@@ -8,7 +8,6 @@ export default {
     return {
       hour: time[0],
       minute: time[1],
-      second: time.length > 2 ? time[2] : 0,
       period: military ? null : parts[1],
       military: military
     };
@@ -26,8 +25,7 @@ export default {
       0,
       1,
       this.military ? time.hour : this.convert12hTo24h(time.hour, time.period),
-      time.minute,
-      time.second
+      time.minute
     );
   },
   convert12hTo24h(hour, period) {

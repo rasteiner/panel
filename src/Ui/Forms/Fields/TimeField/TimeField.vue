@@ -4,7 +4,6 @@
       :id="_uid"
       :hours="hours"
       :step="step"
-      :seconds="seconds"
       :value="state"
       @input="input"
     />
@@ -25,8 +24,7 @@ export default {
     step: {
       type: Number,
       default: 5
-    },
-    seconds: Boolean
+    }
   },
   methods: {
     toState(value) {
