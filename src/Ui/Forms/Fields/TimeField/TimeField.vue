@@ -4,6 +4,7 @@
       :id="_uid"
       :hours="hours"
       :step="step"
+      :seconds="seconds"
       :value="state"
       @input="input"
     />
@@ -12,31 +13,24 @@
 
 <script>
 import Field from "Ui/Forms/Field/Field.mixin.js";
+import Times from "Ui/Forms/Inputs/TimeInput/TimeInput.times.js";
 
 export default {
   mixins: [Field],
   props: {
     hours: {
       type: Number,
-      default: 12
+      default: 24
     },
     step: {
       type: Number,
       default: 5
     },
-    override: {
-      type: Boolean,
-      default: false
-    }
+    seconds: Boolean
   },
   methods: {
     toState(value) {
-      if (!value || this.override === true) {
-        return new Date();
-      }
-
-      let time = value.split(":");
-      return new Date(2000, 0, 1, time[0], time[1]);
+      return value instanceof Date ? value : Times.toDate(value);
     }
   }
 };

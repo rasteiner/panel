@@ -1,4 +1,35 @@
 export default {
+  fromString(string) {
+    const parts = string.split(" ");
+    const military = parts.length === 1;
+
+    let time = (military ? string : parts[0]).split(":");
+
+    return {
+      hour: time[0],
+      minute: time[1],
+      second: time.length > 2 ? time[2] : 0,
+      period: military ? null : parts[1],
+      military: military
+    };
+  },
+  toDate(string) {
+    if (!string) {
+      return new Date();
+    }
+
+    return this.asDate(this.fromString(string));
+  },
+  asDate(time) {
+    return new Date(
+      2000,
+      0,
+      1,
+      this.military ? time.hour : this.convert12hTo24h(time.hour, time.period),
+      time.minute,
+      time.second
+    );
+  },
   convert12hTo24h(hour, period) {
     if (period === "pm" && hour < 12) {
       return parseInt(hour) + 12;

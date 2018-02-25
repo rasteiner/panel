@@ -38,21 +38,6 @@ export default {
     };
   },
   methods: {
-    convertTime(string) {
-      const parts = string.split(" ");
-      const military = parts.length === 1;
-
-      // military time mode
-      if (military) {
-        return string.split(":");
-      }
-
-      // am/pm time mode
-      // split hours and minutes
-      let time = parts[0].split(":");
-
-      return time;
-    },
     setDate(date) {
       this.$refs.date.select(date);
       this.calendar = false;
@@ -63,10 +48,10 @@ export default {
       this.state.setFullYear(date.getFullYear());
       this.input(this.state);
     },
-    updateTime(time) {
-      time = this.convertTime(time);
-      this.state.setHours(time[0]);
-      this.state.setMinutes(time[1]);
+    updateTime(date) {
+      this.state.setHours(date.getHours());
+      this.state.setMinutes(date.getSeconds());
+      this.state.setSeconds(date.getSeconds());
       this.input(this.state);
     },
     toState(value) {
@@ -89,10 +74,10 @@ export default {
 
 .kirby-datetime-field .kirby-time-inputs {
   [dir="ltr"] & {
-    padding-left: 1rem;
+    padding-left: 0.5rem;
   }
   [dir="rtl"] & {
-    padding-right: 1rem;
+    padding-right: 0.5rem;
   }
 }
 
