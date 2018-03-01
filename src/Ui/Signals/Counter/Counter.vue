@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     count() {
-      return this.value ? this.value.length : 0;
+      return this.value ? this.value.trim().length : 0;
     },
     valid() {
       if (this.min && this.count < this.min) {
