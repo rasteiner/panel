@@ -5,8 +5,8 @@
         v-if="image && image.url"
         :src="image.url"
         :ratio="image.ratio || '3/2'"
-        back="black"
-        :cover="true">
+        :back="image.back || 'black'"
+        :cover="image.cover || true">
       </kirby-image>
       <kirby-icon v-else class="kirby-preview" :style="{ backgroundColor: preview.color }" :type="preview.icon || 'document'" />
       <div class="kirby-card-content">
