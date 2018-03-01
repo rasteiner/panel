@@ -15,7 +15,7 @@ export default {
       }
     },
     values: {
-      type: Object,
+      type: [Object, Array],
       default() {
         return {};
       }
