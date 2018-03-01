@@ -1,6 +1,6 @@
 <template>
   <kirby-field class="kirby-checkboxes-field" v-bind="$props" @blur="change">
-    <template v-if="hasOptions">
+    <div v-if="hasOptions" class="kirby-checkboxes-grid">
       <kirby-checkbox-input
         v-for="(option, index) in options"
         :key="index"
@@ -8,7 +8,7 @@
         :text="option.text"
         @input="input($event, index)"
       />
-    </template>
+    </div>
     <template v-else>
       <kirby-box state="empty">
         No options available
@@ -60,5 +60,10 @@ export default {
 <style lang="scss">
 .kirby-checkboxes-field .kirby-input-content {
   padding: 0.45rem 0.65rem;
+}
+.kirby-checkboxes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-column-gap: 1.5rem;
 }
 </style>
