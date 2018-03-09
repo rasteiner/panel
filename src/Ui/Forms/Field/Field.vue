@@ -18,6 +18,7 @@
     <slot v-if="$slots.content" name="content" />
     <kirby-input v-else :error="error" :icon="$attrs.icon" :prefix="$attrs.prefix" :hasFocus="hasFocus" @icon="icon">
       <slot />
+      <slot v-if="$slots.icon" slot="icon" name="icon" />
     </kirby-input>
 
     <div v-if="$slots.help || help" class="kirby-field-help">

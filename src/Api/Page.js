@@ -52,7 +52,7 @@ export default {
       if (options.changeUrl) {
         result.push({
           click: "url",
-          icon: "chain",
+          icon: "url",
           text: "Change URL"
         });
       }
