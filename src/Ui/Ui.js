@@ -1,17 +1,16 @@
 /* Helpers */
-import './Helpers/padZero.js';
+import "./Helpers/padZero.js";
 
 /* Directives */
-import './Directives/Tab.js';
+import "./Directives/Tab.js";
 
 /* Components */
-import './Buttons/Buttons.js';
-import './Collection/Collection.js';
-import './Dialog/Dialog.js';
-import './Forms/Forms.js';
-import './Images/Images.js';
-import './Layout/Layout.js';
-import './Navigation/Navigation.js';
-import './Signals/Signals.js';
-import './Table/Table.js';
-import './Text/Text.js';
+import "./Buttons/Buttons.js";
+import "./Collection/Collection.js";
+import "./Dialog/Dialog.js";
+import "./Forms/Forms.js";
+import "./Images/Images.js";
+import "./Layout/Layout.js";
+import "./Navigation/Navigation.js";
+import "./Signals/Signals.js";
+import "./Text/Text.js";
