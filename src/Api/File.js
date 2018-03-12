@@ -2,8 +2,8 @@ import Api from "./Api.js";
 import Page from "./Page.js";
 
 export default {
-  get(page, filename) {
-    return Api.get(this.url(page, filename)).then(file => {
+  get(page, filename, query) {
+    return Api.get(this.url(page, filename), query).then(file => {
       if (Array.isArray(file.content) === true) {
         file.content = {};
       }

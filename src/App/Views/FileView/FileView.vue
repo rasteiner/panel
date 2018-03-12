@@ -15,13 +15,13 @@
         </kirby-button>
       </template>
 
-      <template slot="buttons-right">
-        <kirby-translations />
+      <template v-if="file.id" slot="buttons-right">
+        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
       </template>
 
     </kirby-header>
 
-    <kirby-grid gutter="large">
+    <kirby-grid class="kirby-file-viewer" gutter="large">
 
       <kirby-column width="1/4">
         <kirby-headline><span>Preview</span></kirby-headline>
@@ -74,11 +74,9 @@
 
       </kirby-column>
 
-      <kirby-column width="1/1">
-        <kirby-form :fields="fields" :values="file.content" @submit="save" />
-      </kirby-column>
-
     </kirby-grid>
+
+    <kirby-tabs :key="'file-' + file.id + '-tabs'" v-if="file.id" :parent="$api.file.url(file.parent.id, file.filename)" :tabs="tabs" ref="tabs" />
 
     <kirby-file-remove-dialog ref="remove" @success="$router.push('/pages/' + path)" />
     <kirby-upload ref="upload" :url="uploadApi" :accept="file.mime" :multiple="false" @success="uploaded" />
@@ -97,6 +95,8 @@ export default {
       name: "",
       preview: {},
       file: {
+        id: null,
+        parent: null,
         filename: "",
         url: "",
         prev: null,
@@ -104,16 +104,12 @@ export default {
         mime: null,
         content: {}
       },
-      blueprint: {},
+      tabs: [],
       breadcrumb: []
     };
   },
   created() {
     this.fetch();
-    this.$events.$on("key.save", this.save);
-  },
-  destroyed: function() {
-    this.$events.$off("key.save", this.save);
   },
   watch: {
     $route() {
@@ -137,19 +133,17 @@ export default {
         next: this.file.next ? true : false,
         nextLabel: "Next File"
       };
-    },
-    fields() {
-      return this.blueprint.fields || [];
     }
   },
   methods: {
     fetch() {
       this.$api.file
-        .get(this.path, this.filename)
+        .get(this.path, this.filename, { view: "panel" })
         .then(file => {
           this.file = file;
           this.file.url = file.url + "?v=" + file.modified;
           this.name = file.name;
+          this.tabs = file.blueprint.tabs;
           this.preview = this.$api.file.preview(file);
 
           this.$api.file.breadcrumb(file).then(breadcrumb => {
@@ -205,15 +199,6 @@ export default {
     uploaded() {
       this.fetch();
       this.$store.dispatch("success", "The file has been replaced");
-    },
-    save() {
-      this.$api.file
-        .update(this.path, this.file.filename, this.file.content)
-        .then(file => {
-          this.file.content = file.content;
-          this.$store.dispatch("success", "Saved!");
-          this.$events.$emit("file.update");
-        });
     }
   }
 };
@@ -284,5 +269,9 @@ export default {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.kirby-file-viewer {
+  margin-bottom: 3rem;
 }
 </style>
