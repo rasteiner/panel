@@ -3,9 +3,7 @@
     <template slot="options">
       <kirby-button icon="add" @click="add">Add</kirby-button>
     </template>
-
     <template slot="content">
-
       <kirby-box v-if="items.length === 0">
         <kirby-button @click="add">Click to add the first item …</kirby-button>
       </kirby-box>
@@ -28,7 +26,6 @@
           </div>
         </li>
       </draggable>
-
       <kirby-dialog ref="remove" button="Delete" state="negative" @submit="remove">
         <kirby-txt>Do you really want to delete this item?</kirby-txt>
       </kirby-dialog>
@@ -177,7 +174,6 @@ export default {
     display: block;
   }
 }
-
 .kirby-structure-content {
   font-size: $font-size-small;
   white-space: nowrap;
