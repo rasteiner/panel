@@ -74,11 +74,7 @@ export default {
       this.$emit("change", this.items);
     },
     toggle(index) {
-      if (this.active === index) {
-        this.active = null;
-      } else {
-        this.active = index;
-      }
+      this.active = this.active === index ? null : index;
     },
     confirmRemove(index) {
       this.active = index;
