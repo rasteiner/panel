@@ -126,6 +126,9 @@ export default {
 .kirby-structure-item.sortable-ghost .kirby-structure-form {
   display: none;
 }
+.kirby-structure-item[data-active] {
+  margin-bottom: 0;
+}
 .kirby-structure-item[data-active] .kirby-structure-item-text {
   color: $color-focus;
 }
@@ -200,10 +203,9 @@ export default {
 .kirby-structure-form {
   position: relative;
   background: #ebebeb;
-  border: 1px solid $color-border;
-  border-top: 0;
+  border-left: 1px solid $color-border;
+  border-right: 1px solid $color-border;
   padding: 1rem 2.5rem 3rem;
-  margin-bottom: 3rem;
   box-shadow: rgba($color-dark, 0.05) 0 5px 10px inset;
 
   &::before {
@@ -216,5 +218,8 @@ export default {
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
   }
+}
+.kirby-structure-item:last-child .kirby-structure-form {
+  border-bottom: 1px solid $color-border;
 }
 </style>
