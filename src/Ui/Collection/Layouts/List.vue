@@ -1,5 +1,5 @@
 <template>
-  <ul class="kirby-list-collection">
+  <draggable class="kirby-list-collection" :options="{disabled: true}">
     <li v-for="(item, index) in items" :key="item.id" @click.native="$emit('click', item)">
       <router-link class="kirby-list-collection-image" :to="item.link" tabindex="-1">
         <kirby-image v-if="item.image && item.image.url" :src="item.image.url" :cover="true" />
@@ -21,11 +21,15 @@
         </kirby-dropdown>
       </div>
     </li>
-  </ul>
+  </draggable>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 export default {
+  components: {
+    draggable
+  },
   props: ["items"],
   methods: {
     preview(item) {
@@ -51,6 +55,13 @@ export default {
   border-radius: $border-radius;
   margin-bottom: 2px;
   height: 2.5rem;
+}
+.kirby-list-collection .sortable-ghost {
+  background: $color-inset;
+  box-shadow: $box-shadow-inset, $color-border 0 0 0 1px inset;
+}
+.kirby-list-collection .sortable-ghost * {
+  display: none;
 }
 .kirby-list-collection-image {
   position: absolute;
