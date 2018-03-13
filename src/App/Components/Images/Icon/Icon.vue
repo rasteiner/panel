@@ -1,5 +1,5 @@
 <template>
-  <ui-icon :alt="alt" :source="source" />
+  <ui-icon ref="icon" :alt="alt" :source="source" />
 </template>
 
 <script>

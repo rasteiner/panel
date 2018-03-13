@@ -55,6 +55,9 @@ export default {
       this.hasChanged = true;
       this.$emit("input", this.toValue);
     },
+    setFocus() {
+      this.$el.querySelectorAll("input, textarea, select")[0].focus();
+    },
     change() {
       if (this.hasChanged === true) {
         this.$emit("change", this.toValue);

@@ -1,5 +1,5 @@
 <template>
-  <kirby-field :class="`kirby-${this.type}-field`" :id="_uid" v-bind="$props" @blur="change">
+  <kirby-field ref="field" :class="`kirby-${this.type}-field`" :id="_uid" v-bind="$props" @blur="change">
 
     <template slot="options" v-if="minLength || maxLength">
       <kirby-counter
@@ -23,6 +23,7 @@
       :spellcheck="spellcheck"
       :type="type"
       :value="state"
+      @focus="$refs.field.focus()"
       @input="input($event.target.value)"
     />
 

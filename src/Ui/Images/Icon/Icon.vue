@@ -22,7 +22,7 @@ export default {
     this.fetch();
   },
   watch: {
-    type() {
+    source() {
       this.fetch();
     }
   },

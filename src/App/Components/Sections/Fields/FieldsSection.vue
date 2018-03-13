@@ -50,7 +50,7 @@ export default {
           this.values = response.values;
 
           if (this.fields[field].error === false) {
-            this.$store.dispatch("success", "Saved!");
+            // this.$store.dispatch("success", "Saved!");
           }
         });
     },
