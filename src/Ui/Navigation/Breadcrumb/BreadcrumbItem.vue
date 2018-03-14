@@ -24,7 +24,7 @@ export default {
   white-space: nowrap;
   font-family: $font-family-mono;
   font-size: 14px;
-  color: $color-dark-grey;
+  color: currentColor;
 
   [dir="ltr"] & {
     float: left;
@@ -42,10 +42,12 @@ export default {
   display: block;
   text-decoration: none;
   transition: color 0.3s;
+  opacity: 0.75;
 
   &::after {
     position: absolute;
     content: "/";
+    opacity: 0.5;
 
     [dir="ltr"] & {
       right: -1rem;
@@ -63,6 +65,6 @@ export default {
 }
 
 .kirby-breadcrumb-item a:hover {
-  color: $color-dark;
+  opacity: 1;
 }
 </style>

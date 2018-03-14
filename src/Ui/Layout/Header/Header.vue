@@ -7,7 +7,7 @@
           <kirby-breadcrumb-item class="kirby-header-menu-button">
             <kirby-button @click="$store.commit('menu', true)" icon="menu"></kirby-button>
           </kirby-breadcrumb-item>
-          <kirby-breadcrumb-item :link="link" :title="label"><kirby-icon :type="icon" :alt="label" /></kirby-breadcrumb-item>
+          <kirby-breadcrumb-item class="kirby-header-view-button" :link="link" :title="label"><kirby-icon :type="icon" :alt="label" /></kirby-breadcrumb-item>
           <kirby-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" :link="item.link">{{ item.label }}</kirby-breadcrumb-item>
         </kirby-breadcrumb>
       </template>
@@ -69,8 +69,13 @@ export default {
   }
 }
 
-.kirby-header-menu-button {
+.kirby-breadcrumb-item.kirby-header-menu-button {
   position: relative;
+}
+.kirby-breadcrumb-item.kirby-header-view-button a,
+.kirby-breadcrumb-item.kirby-header-menu-button {
+  color: $color-dark;
+  opacity: 1;
 }
 
 .kirby-header-menu-button span::after {
