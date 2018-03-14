@@ -36,7 +36,7 @@ export default {
       if (options.preview && view === "list") {
         result.push({
           click: "preview",
-          icon: "preview",
+          icon: "open",
           text: "Open preview"
         });
       }

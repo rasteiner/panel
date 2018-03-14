@@ -7,7 +7,7 @@
       {{ file.filename }}
 
       <template slot="buttons-left">
-        <kirby-button icon="preview" @click="action('download')">
+        <kirby-button icon="open" @click="action('download')">
           Open
         </kirby-button>
         <kirby-button icon="trash" @click="action('remove')">

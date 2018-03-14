@@ -45,13 +45,12 @@ export default {
   line-height: inherit;
   border: 0;
   cursor: pointer;
-  color: $color-dark-grey;
+  color: currentColor;
   transition: color 0.3s;
 
   &:focus,
   &:hover {
     outline: none;
-    color: $color-dark;
   }
 
   @include highlight-tabbed;
@@ -62,7 +61,7 @@ export default {
 
   .kirby-icon {
     position: relative;
-    color: $color-dark;
+    color: currentColor;
   }
 
   .kirby-icon ~ .kirby-button-text {
@@ -136,6 +135,13 @@ export default {
     margin-right: 0;
     margin-left: 0.25rem;
   }
+}
+
+.kirby-button-text {
+  opacity: 0.75;
+}
+.kirby-button:hover .kirby-button-text {
+  opacity: 1;
 }
 
 .kirby-button-text span,

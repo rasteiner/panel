@@ -80,6 +80,6 @@ export default {
 }
 
 .kirby-icon svg * {
-  fill: $color-dark;
+  fill: currentColor;
 }
 </style>

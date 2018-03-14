@@ -21,7 +21,6 @@ export default {
   padding: 0.65rem 1rem;
   line-height: 1.5;
   border: 1px solid $color-border;
-  box-shadow: $box-shadow-inset;
 }
 
 .kirby-box[data-state="empty"] {

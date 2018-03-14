@@ -14,7 +14,7 @@
       {{ page.title }}
 
       <template slot="buttons-left">
-        <kirby-button icon="preview" @click="action('preview')">
+        <kirby-button icon="open" @click="action('preview')">
           {{ $t('page.preview') }}
         </kirby-button>
         <kirby-button :icon="status.icon" @click="action('status')">

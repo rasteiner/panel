@@ -3,8 +3,8 @@
     <kirby-header :label="$t('page.list')" link="/pages" icon="page">
       {{ site.title }}
       <template slot="buttons-left">
-        <kirby-button icon="preview" @click="preview">
-          Preview
+        <kirby-button icon="open" @click="preview">
+          Open
         </kirby-button>
       </template>
 

@@ -39,7 +39,7 @@ export default {
       let result = [];
 
       result.push({
-        icon: "preview",
+        icon: "open",
         text: "Open",
         click: "download"
       });
