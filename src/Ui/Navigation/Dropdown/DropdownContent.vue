@@ -90,7 +90,7 @@ export default {
   top: 100%;
   padding: 0.5rem 0;
   background: $color-dark;
-  color: $color-light;
+  color: $color-white;
   z-index: z-index(dropdown);
   box-shadow: $box-shadow;
   border-radius: $border-radius;

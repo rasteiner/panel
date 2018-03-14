@@ -7,20 +7,17 @@
 </template>
 
 <script>
-
 export default {
-  props: ['open'],
+  props: ["open"],
   methods: {
-    close () {
-      this.$emit('close');
+    close() {
+      this.$emit("close");
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-
 .kirby-menu {
   position: fixed;
   content: "";
@@ -28,7 +25,8 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba($color-white, .5);
+  color: $color-white;
+  background: rgba($color-white, 0.5);
   z-index: 1;
   transform: translateX(-100%);
 }
@@ -75,8 +73,7 @@ export default {
 .kirby-menu-container .kirby-button {
   display: block;
   width: 100%;
-  padding: .25rem 1.5rem;
-  color: $color-light-grey;
+  padding: 0.25rem 1.5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -107,6 +104,4 @@ export default {
   right: 0;
   padding-bottom: 1.5rem;
 }
-
 </style>
-

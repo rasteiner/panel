@@ -25,7 +25,6 @@ export default {
 .kirby-dropdown-item {
   white-space: nowrap;
   line-height: 1;
-  color: lighten($color-light-grey, 10%);
   display: flex;
   width: 100%;
   align-items: center;
