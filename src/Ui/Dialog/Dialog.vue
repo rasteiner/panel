@@ -121,7 +121,8 @@ export default {
 .kirby-dialog-body {
   padding: 1.5rem;
   max-height: calc(100vh - 9rem);
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .kirby-dialog-body .kirby-fieldset {
   padding-bottom: 0.5rem;
