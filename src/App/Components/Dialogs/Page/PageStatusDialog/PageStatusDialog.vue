@@ -128,14 +128,19 @@ export default {
         .then(response => {
           let message = "";
 
-          if (this.status === "listed") {
-            if (this.page.blueprint.num === "default") {
-              message = "The page is now at position " + response.num;
-            } else {
-              message = "The page is now public";
-            }
-          } else {
-            message = "The page is now unlisted";
+          switch (this.status) {
+            case "listed":
+              if (this.page.blueprint.num === "default") {
+                message = "The page is now at position " + response.num;
+              } else {
+                message = "The page is now public";
+              }
+              break;
+            case "unlisted":
+              message = "The page is now unlisted";
+              break;
+            case "draft":
+              message = "The page is now in draft mode";
           }
 
           this.success({
