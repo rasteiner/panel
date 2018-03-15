@@ -70,6 +70,7 @@ export default {
 .kirby-select-input {
   position: relative;
   cursor: pointer;
+  overflow: hidden;
 }
 .kirby-select-input select {
   position: absolute;
