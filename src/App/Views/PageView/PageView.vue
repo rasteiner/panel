@@ -17,8 +17,8 @@
         <kirby-button icon="open" @click="action('preview')">
           {{ $t('page.preview') }}
         </kirby-button>
-        <kirby-button :icon="status.icon" @click="action('status')">
-          {{ status.text }}
+        <kirby-button v-if="status" :icon="status.icon" @click="action('status')">
+          {{ status.label }}
         </kirby-button>
         <kirby-dropdown>
           <kirby-button @click="$refs.settings.toggle()" icon="cog">
@@ -54,7 +54,8 @@ export default {
         title: "",
         id: null,
         prev: null,
-        next: null
+        next: null,
+        status: null
       },
       icon: "page",
       breadcrumb: [],
@@ -78,17 +79,9 @@ export default {
       };
     },
     status() {
-      if (this.page.isVisible) {
-        return {
-          icon: "toggle-on",
-          text: "Public"
-        };
-      } else {
-        return {
-          icon: "toggle-off",
-          text: "Private"
-        };
-      }
+      return this.page.status !== null
+        ? this.$api.page.states()[this.page.status]
+        : null;
     },
     pagination() {
       return {

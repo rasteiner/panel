@@ -14,7 +14,7 @@ export default {
     return fetch(window.panel.config.api + "/" + path, options)
       .then(response => response.json())
       .then(json => {
-        if (json.status && json.status !== "ok") {
+        if (json.status && json.status === "error") {
           throw Error(json.message || json.status);
         }
         this.config.onComplete();

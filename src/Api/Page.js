@@ -92,6 +92,26 @@ export default {
       position: position
     });
   },
+  states() {
+    return {
+      draft: {
+        icon: "draft",
+        label: "Draft",
+        description:
+          "The page is in draft-mode and only visible for logged in editors"
+      },
+      unlisted: {
+        icon: "toggle-off",
+        label: "Unlisted",
+        description: "The page is only accessible via URL"
+      },
+      listed: {
+        icon: "toggle-on",
+        label: "Public",
+        description: "The page is public for anyone"
+      }
+    };
+  },
   breadcrumb(page, self = true) {
     var breadcrumb = page.parents.map(parent => ({
       label: parent.slug,

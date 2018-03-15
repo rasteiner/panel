@@ -39,28 +39,25 @@ export default {
       };
     },
     fields() {
+      const states = this.$api.page.states();
+
       let fields = [
         {
           name: "status",
           label: "Select a new status",
           type: "radio",
           required: true,
-          options: [
-            {
-              value: "invisible",
-              text: "Private",
-              info: "The page is only accessible via URL"
-            },
-            {
-              value: "visible",
-              text: "Public",
-              info: "The page is public for anyone"
-            }
-          ]
+          options: Object.keys(states).map(key => {
+            return {
+              value: key,
+              text: states[key].label,
+              info: states[key].description
+            };
+          })
         }
       ];
 
-      if (this.status === "visible" && this.page.blueprint.num === "default") {
+      if (this.status === "listed" && this.page.blueprint.num === "default") {
         fields.push({
           name: "position",
           label: "Please select a position",
@@ -106,11 +103,11 @@ export default {
     open(id) {
       this.$api.page
         .get(id, {
-          select: ["id", "isVisible", "num", "errors", "siblings", "blueprint"]
+          select: ["id", "status", "num", "errors", "siblings", "blueprint"]
         })
         .then(page => {
           this.page = page;
-          this.status = page.isVisible ? "visible" : "invisible";
+          this.status = page.status;
           this.isBlocked = page.blueprint.options.changeStatus === false;
           this.isIncomplete =
             page.isVisible === false && this.page.errors.length > 0;
@@ -131,14 +128,14 @@ export default {
         .then(response => {
           let message = "";
 
-          if (this.status === "visible") {
+          if (this.status === "listed") {
             if (this.page.blueprint.num === "default") {
               message = "The page is now at position " + response.num;
             } else {
               message = "The page is now public";
             }
           } else {
-            message = "The page is now private";
+            message = "The page is now unlisted";
           }
 
           this.success({
