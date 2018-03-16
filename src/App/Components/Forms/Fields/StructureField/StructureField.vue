@@ -106,18 +106,11 @@ export default {
   margin-bottom: 2px;
 }
 .kirby-structure-item.sortable-ghost {
-  background: #ebebeb;
-  box-shadow: $color-border 0 0 0 1px inset,
-    rgba($color-dark, 0.05) 0 5px 10px inset;
+  background: $color-inset;
+  box-shadow: $color-border 0 0 0 1px inset, $box-shadow-inset;
 }
-.kirby-structure-item.sortable-ghost .kirby-structure-item-text,
-.kirby-structure-item.sortable-ghost .kirby-structure-item-options,
-.kirby-structure-item.sortable-ghost .kirby-structure-item-handle {
-  background: none;
-  opacity: 0.25;
-}
-.kirby-structure-item.sortable-ghost .kirby-structure-form {
-  display: none;
+.kirby-structure-item.sortable-ghost * {
+  visibility: hidden;
 }
 .kirby-structure-item[data-active] {
   margin-bottom: 0;
@@ -194,11 +187,11 @@ export default {
 }
 .kirby-structure-form {
   position: relative;
-  background: #ebebeb;
+  background: $color-inset;
   border-left: 1px solid $color-border;
   border-right: 1px solid $color-border;
   padding: 1rem 2.5rem 3rem;
-  box-shadow: rgba($color-dark, 0.05) 0 5px 10px inset;
+  box-shadow: $box-shadow-inset;
 
   &::before {
     position: absolute;

@@ -21,60 +21,57 @@
 
     </kirby-header>
 
-    <kirby-grid class="kirby-file-viewer" gutter="large">
+    <kirby-box class="kirby-file-viewer">
+      <kirby-grid gutter="medium">
 
-      <kirby-column width="1/4">
-        <kirby-headline><span>Preview</span></kirby-headline>
+        <kirby-column width="1/4">
+          <a :href="file.url" target="_blank">
+            <kirby-image v-if="preview.image" :src="preview.image" back="black" ratio="1/1" />
+            <kirby-icon class="kirby-file-view-preview" v-else :style="{ backgroundColor: preview.color }" :type="preview.icon || 'document'" />
+          </a>
+        </kirby-column>
+        <kirby-column width="3/4">
+          <kirby-grid gutter="medium" class="kirby-file-view-details">
 
-        <a :href="file.url" target="_blank">
-          <kirby-image v-if="preview.image" :src="preview.image" back="black" ratio="1/1" />
-          <kirby-icon class="kirby-file-view-preview" v-else :style="{ backgroundColor: preview.color }" :type="preview.icon || 'document'" />
-        </a>
-      </kirby-column>
-      <kirby-column width="3/4">
+            <kirby-column width="1/2">
+              <dl>
+                <template v-if="file.mime">
+                  <dt>Type</dt>
+                  <dd>{{ file.mime }}</dd>
+                </template>
 
-        <kirby-headline><span>Details</span></kirby-headline>
+                <dt>URL</dt>
+                <dd><a :href="file.url" target="__blank">/{{ file.id }}</a></dd>
 
-        <kirby-grid gutter="large" class="kirby-file-view-details">
+                <template v-if="file.niceSize">
+                  <dt>Size</dt>
+                  <dd>{{ file.niceSize }}</dd>
+                </template>
 
-          <kirby-column width="1/2">
-            <dl>
-              <template v-if="file.mime">
-                <dt>Type</dt>
-                <dd>{{ file.mime }}</dd>
-              </template>
+              </dl>
+            </kirby-column>
 
-              <dt>URL</dt>
-              <dd><a :href="file.url" target="__blank">/{{ file.id }}</a></dd>
+            <kirby-column width="1/2">
+              <dl>
+                <template v-if="file.dimensions">
+                  <dt>Dimensions</dt>
+                  <dd>{{ file.dimensions.width }}&times;{{ file.dimensions.height }} Pixels</dd>
+                </template>
 
-              <template v-if="file.niceSize">
-                <dt>Size</dt>
-                <dd>{{ file.niceSize }}</dd>
-              </template>
+                <template v-if="file.dimensions">
+                  <dt>Orientation</dt>
+                  <dd>{{ file.dimensions.orientation }}</dd>
+                </template>
 
-            </dl>
-          </kirby-column>
+              </dl>
+            </kirby-column>
 
-          <kirby-column width="1/2">
-            <dl>
-              <template v-if="file.dimensions">
-                <dt>Dimensions</dt>
-                <dd>{{ file.dimensions.width }}&times;{{ file.dimensions.height }} Pixels</dd>
-              </template>
+          </kirby-grid>
 
-              <template v-if="file.dimensions">
-                <dt>Orientation</dt>
-                <dd>{{ file.dimensions.orientation }}</dd>
-              </template>
+        </kirby-column>
 
-            </dl>
-          </kirby-column>
-
-        </kirby-grid>
-
-      </kirby-column>
-
-    </kirby-grid>
+      </kirby-grid>
+    </kirby-box>
 
     <kirby-tabs :key="'file-' + file.id + '-tabs'" v-if="file.id" :parent="$api.file.url(file.parent.id, file.filename)" :tabs="tabs" ref="tabs" />
 
@@ -242,10 +239,6 @@ export default {
   fill: rgba($color-white, 0.5);
 }
 
-.kirby-file-view-section {
-  margin-bottom: 3rem;
-}
-
 .kirby-file-view dl {
   line-height: 1.5em;
   margin-top: -0.4rem;
@@ -271,7 +264,9 @@ export default {
   text-overflow: ellipsis;
 }
 
-.kirby-file-viewer {
-  margin-bottom: 3rem;
+.kirby-box.kirby-file-viewer {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: $box-shadow-inset;
 }
 </style>
