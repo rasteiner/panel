@@ -13,6 +13,10 @@ export default {
       default: false
     },
     error: [Object, Boolean],
+    prefix: {
+      type: String,
+      default: ""
+    },
     help: {
       type: String,
       default: ""
