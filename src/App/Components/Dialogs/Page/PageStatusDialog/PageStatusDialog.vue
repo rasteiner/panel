@@ -110,7 +110,7 @@ export default {
           this.status = page.status;
           this.isBlocked = page.blueprint.options.changeStatus === false;
           this.isIncomplete =
-            page.isVisible === false && this.page.errors.length > 0;
+            page.status === "draft" && this.page.errors.length > 0;
           this.position = page.num;
           this.$refs.dialog.open();
         });
