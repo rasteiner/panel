@@ -37,7 +37,7 @@ export default {
         result.push({
           click: "preview",
           icon: "open",
-          text: "Open preview"
+          text: "Open"
         });
       }
 
@@ -54,6 +54,14 @@ export default {
           click: "url",
           icon: "url",
           text: "Change URL"
+        });
+      }
+
+      if (options.changeStatus) {
+        result.push({
+          click: "status",
+          icon: "preview",
+          text: "Publishing settings …"
         });
       }
 

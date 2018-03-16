@@ -67,6 +67,7 @@ export default {
   },
   created() {
     this.fetch();
+    this.$events.$on("page.changeStatus", this.fetch);
   },
   methods: {
     fetch() {

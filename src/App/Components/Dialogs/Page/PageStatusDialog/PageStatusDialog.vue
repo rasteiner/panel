@@ -145,7 +145,7 @@ export default {
 
           this.success({
             message: message,
-            event: "page.change.status"
+            event: "page.changeStatus"
           });
         });
     }
