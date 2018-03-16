@@ -41,7 +41,7 @@ export default {
       this.$api.page.title(this.page.id, this.page.title).then(page => {
         this.success({
           message: "The page has been renamed",
-          event: "page.title"
+          event: "page.changeTitle"
         });
       });
     }

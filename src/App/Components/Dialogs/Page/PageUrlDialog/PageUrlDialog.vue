@@ -66,7 +66,7 @@ export default {
       this.$api.page.slug(this.page.id, this.slug).then(page => {
         const payload = {
           message: "The URL has been changed to: /" + page.id,
-          event: "page.change.slug"
+          event: "page.changeSlug"
         };
 
         // if in PageView, redirect
