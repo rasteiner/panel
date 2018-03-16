@@ -44,6 +44,7 @@ export default {
     minLength: Number,
     maxLength: Number,
     pattern: String,
+    prefix: String,
     placeholder: String,
     autocomplete: String,
     spellcheck: {

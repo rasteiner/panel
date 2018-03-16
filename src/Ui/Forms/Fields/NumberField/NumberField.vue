@@ -21,9 +21,8 @@ export default {
   mixins: [Field],
   props: {
     value: [Number, String],
-    placeholder: {
-      type: String
-    },
+    prefix: String,
+    placeholder: String,
     min: {
       type: Number,
       default: 0

@@ -34,9 +34,9 @@
             icon="title"
           />
           <kirby-dropdown-content ref="headlines">
-            <kirby-dropdown-item @click="prefix('#')" icon="title">Headline 1</kirby-dropdown-item>
-            <kirby-dropdown-item @click="prefix('##')" icon="title">Headline 2</kirby-dropdown-item>
-            <kirby-dropdown-item @click="prefix('###')" icon="title">Headline 3</kirby-dropdown-item>
+            <kirby-dropdown-item @click="prepend('#')" icon="title">Headline 1</kirby-dropdown-item>
+            <kirby-dropdown-item @click="prepend('##')" icon="title">Headline 2</kirby-dropdown-item>
+            <kirby-dropdown-item @click="prepend('###')" icon="title">Headline 3</kirby-dropdown-item>
           </kirby-dropdown-content>
         </kirby-dropdown>
         <kirby-button
@@ -185,8 +185,8 @@ export default {
     });
   },
   methods: {
-    prefix(prefix) {
-      const tag = prefix + " " + this.selection();
+    prepend(prepend) {
+      const tag = prepend + " " + this.selection();
 
       this.insert(tag);
     },
@@ -195,13 +195,13 @@ export default {
       const selection = this.selection();
 
       selection.split("\n").forEach((line, index) => {
-        let prefix = "-";
+        let prepend = "-";
 
         if (type === "ol") {
-          prefix = index + 1 + ".";
+          prepend = index + 1 + ".";
         }
 
-        html += prefix + " " + line + "\n";
+        html += prepend + " " + line + "\n";
       });
 
       this.insert(html);
