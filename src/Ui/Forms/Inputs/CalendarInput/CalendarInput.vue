@@ -27,8 +27,8 @@
       <tbody>
         <tr v-for="week in numberOfWeeks" :key="'week_' + week">
           <td
-            v-for="day in days(week)"
-            :key="'day_' + day"
+            v-for="(day, dayIndex) in days(week)"
+            :key="'day_' + dayIndex"
             :aria-current="isToday(day) ? 'date' : false"
             class="kirby-calendar-day">
             <kirby-button @click="select(day)">{{ day }}</kirby-button>
