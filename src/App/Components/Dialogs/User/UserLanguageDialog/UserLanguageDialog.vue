@@ -45,7 +45,7 @@ export default {
 
           this.success({
             message: "The language has been changed",
-            event: "user.change.language"
+            event: "user.changeLanguage"
           });
         });
     }

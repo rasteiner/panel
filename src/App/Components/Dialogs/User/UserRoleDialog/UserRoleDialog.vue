@@ -42,7 +42,7 @@ export default {
       this.$api.user.changeRole(this.user.id, this.user.role).then(() => {
         this.success({
           message: "The has been changed to: " + this.user.role,
-          event: "user.change.role"
+          event: "user.changeRole"
         });
       });
     }

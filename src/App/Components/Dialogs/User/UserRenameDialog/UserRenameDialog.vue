@@ -40,7 +40,7 @@ export default {
       this.$api.user.changeName(this.user.id, this.user.name).then(user => {
         this.success({
           message: "The username has been changed",
-          event: "user.name"
+          event: "user.changeName"
         });
       });
     }

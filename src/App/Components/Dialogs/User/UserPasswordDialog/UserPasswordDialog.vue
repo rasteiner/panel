@@ -57,7 +57,7 @@ export default {
         .then(() => {
           this.success({
             message: "The password has been changed",
-            event: "user.change.password"
+            event: "user.changePassword"
           });
         });
     }
