@@ -11,6 +11,7 @@ export default {
   mixins: [DialogMixin],
   data() {
     return {
+      roles: [],
       user: {
         id: null,
         role: "visitor"
@@ -25,7 +26,12 @@ export default {
           label: "Select a new role",
           type: "radio",
           required: true,
-          options: this.$api.user.roles()
+          options: this.roles.map(role => {
+            return {
+              value: role.name,
+              text: role.title
+            };
+          })
         }
       ];
     }
@@ -33,9 +39,13 @@ export default {
   methods: {
     open(id) {
       this.id = id;
+
       this.$api.user.get(id).then(user => {
-        this.user = user;
-        this.$refs.dialog.open();
+        this.$api.role.list().then(roles => {
+          this.roles = roles.data;
+          this.user = user;
+          this.$refs.dialog.open();
+        });
       });
     },
     submit() {

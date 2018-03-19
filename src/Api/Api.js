@@ -4,6 +4,7 @@ import Auth from "./Auth.js";
 import File from "./File.js";
 import Locale from "./Locale.js";
 import Page from "./Page.js";
+import Role from "./Role.js";
 import System from "./System.js";
 import Section from "./Section.js";
 import Site from "./Site.js";
@@ -23,6 +24,7 @@ export default {
   file: File,
   locale: Locale,
   page: Page,
+  role: Role,
   system: System,
   section: Section,
   site: Site,
