@@ -26,12 +26,7 @@ export default {
           label: "Select a new role",
           type: "radio",
           required: true,
-          options: this.roles.map(role => {
-            return {
-              value: role.name,
-              text: role.title
-            };
-          })
+          options: this.roles
         }
       ];
     }
@@ -41,8 +36,8 @@ export default {
       this.id = id;
 
       this.$api.user.get(id).then(user => {
-        this.$api.role.list().then(roles => {
-          this.roles = roles.data;
+        this.$api.role.options().then(roles => {
+          this.roles = roles;
           this.user = user;
           this.$refs.dialog.open();
         });

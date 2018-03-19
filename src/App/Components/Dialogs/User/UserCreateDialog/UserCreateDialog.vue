@@ -18,7 +18,12 @@ export default {
         // TODO: change to config default user role
         role: "admin"
       },
-      fields: [
+      roles: []
+    };
+  },
+  computed: {
+    fields() {
+      return [
         {
           name: "email",
           label: "Email",
@@ -40,12 +45,18 @@ export default {
           label: "Role",
           type: "radio",
           required: true,
-          options: this.$api.user.roles()
+          options: this.roles
         }
-      ]
-    };
+      ];
+    }
   },
   methods: {
+    open() {
+      this.$api.role.options().then(roles => {
+        this.roles = roles;
+        this.$refs.dialog.open();
+      });
+    },
     create() {
       this.$api.user.create(this.user).then(user => {
         this.user = {

@@ -50,25 +50,6 @@ export default {
       }
     ];
   },
-  roles() {
-    return [
-      {
-        value: "admin",
-        text: "Admin",
-        info: "All rights granted."
-      },
-      {
-        value: "editor",
-        text: "Editor",
-        info: "User can edit but not adjust settings or manage users themself."
-      },
-      {
-        value: "visitor",
-        text: "Visitor",
-        info: "No rights (ideal for frontend users)."
-      }
-    ];
-  },
   options(id, view) {
     return Api.get(this.url(id, "options")).then(options => {
       let result = [];
