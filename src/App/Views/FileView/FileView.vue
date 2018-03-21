@@ -10,7 +10,7 @@
         <kirby-button icon="open" @click="action('download')">
           Open
         </kirby-button>
-        <kirby-button icon="trash" @click="action('remove')">
+        <kirby-button :disabled="permissions.delete === false" icon="trash" @click="action('remove')">
           {{ $t('delete') }}
         </kirby-button>
       </template>
@@ -101,6 +101,10 @@ export default {
         mime: null,
         content: {}
       },
+      permissions: {
+        changeName: false,
+        delete: false
+      },
       tabs: [],
       breadcrumb: []
     };
@@ -141,6 +145,7 @@ export default {
           this.file.url = file.url + "?v=" + file.modified;
           this.name = file.name;
           this.tabs = file.blueprint.tabs;
+          this.permissions = file.blueprint.options;
           this.preview = this.$api.file.preview(file);
 
           this.$api.file.breadcrumb(file).then(breadcrumb => {

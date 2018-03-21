@@ -44,13 +44,12 @@ export default {
         click: "download"
       });
 
-      if (options.delete) {
-        result.push({
-          icon: "trash",
-          text: "Delete",
-          click: "remove"
-        });
-      }
+      result.push({
+        icon: "trash",
+        text: "Delete",
+        click: "remove",
+        disabled: !options.delete
+      });
 
       return result;
     });
