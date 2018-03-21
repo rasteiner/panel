@@ -7,7 +7,7 @@
       <kirby-box v-if="items.length === 0">
         <kirby-button @click="add">Click to add the first item …</kirby-button>
       </kirby-box>
-      <draggable v-else v-model="items" :data-disabled="disabled" @input="input" :options="{disabled: disabled, handle: '.kirby-structure-item-handle'}" element="ul" class="kirby-structure" @choose="active = null" @end="change">
+      <draggable v-else v-model="items" :data-disabled="disabled" @input="input" :options="{disabled: disabled, forceFallback: true, handle: '.kirby-structure-item-handle'}" element="ul" class="kirby-structure" @choose="active = null" @end="change">
         <li class="kirby-structure-item" v-for="(item, index) in items" :data-active="isActive(index)">
           <div class="kirby-structure-item-wrapper">
             <kirby-button v-if="!disabled" class="kirby-structure-item-handle" icon="sort" />
