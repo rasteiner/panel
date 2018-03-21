@@ -49,7 +49,7 @@ export default {
       total: 0,
       users: [],
       roles: [],
-      permissions: this.$store.state.user.options
+      permissions: this.$store.state.user.permissions.user
     };
   },
   created() {

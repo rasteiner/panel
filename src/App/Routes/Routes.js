@@ -33,12 +33,17 @@ export const auth = (to, from, next) => {
   // check if user is logged in
   Auth.user()
     .then(user => {
+      if (user.permissions.access.panel === false) {
+        throw new Error("You are not allowed to login to the panel");
+      }
+
       // store logged-in user
       store.dispatch("user", user);
       next();
     })
     .catch(() => {
       Auth.logout();
+      store.dispatch("user", null);
       next("/login");
     });
 };
