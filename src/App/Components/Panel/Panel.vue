@@ -3,10 +3,10 @@
 
     <kirby-menu ref="menu" v-if="$store.state.user" :open="$store.state.menu" @close="$store.commit('menu', false)">
       <section class="kirby-menu-section">
-        <kirby-button @click="$refs.menu.close()" link="/pages" icon="page">
+        <kirby-button v-if="access.site" @click="$refs.menu.close()" link="/pages" icon="page">
           {{ $t('site') }}
         </kirby-button>
-        <kirby-button @click="$refs.menu.close()" link="/users" icon="users">
+        <kirby-button v-if="access.users" @click="$refs.menu.close()" link="/users" icon="users">
           {{ $t('users') }}
         </kirby-button>
       </section>
@@ -24,7 +24,7 @@
         <kirby-button @click="preview" icon="preview">
           Open site
         </kirby-button>
-        <kirby-button @click="$refs.menu.close()" :link="currentUser" icon="account">
+        <kirby-button v-if="access.users" @click="$refs.menu.close()" :link="currentUser" icon="account">
           {{ $t('account') }}
         </kirby-button>
         <kirby-button @click="logout" icon="logout">
@@ -61,6 +61,9 @@ export default {
     },
     pluginButtons() {
       return window.panel.plugins.menuButtons;
+    },
+    access() {
+      return this.$store.state.user.permissions.access;
     }
   },
   methods: {

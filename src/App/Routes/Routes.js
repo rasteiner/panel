@@ -37,13 +37,18 @@ export const auth = (to, from, next) => {
         throw new Error("You are not allowed to login to the panel");
       }
 
+      if (to.meta.access && user.permissions.access[to.meta.access] !== true) {
+        throw new Error("You don't have access to this part of the panel");
+      }
+
       // store logged-in user
       store.dispatch("user", user);
       next();
     })
-    .catch(() => {
+    .catch(e => {
       Auth.logout();
       store.dispatch("user", null);
+      store.dispatch("error", e.message);
       next("/login");
     });
 };
@@ -73,12 +78,18 @@ export default [
   {
     path: "/pages",
     name: "Site",
+    meta: {
+      access: "site"
+    },
     component: SiteView,
     beforeEnter: auth
   },
   {
     path: "/pages/:path+/files/:filename",
     name: "File",
+    meta: {
+      access: "site"
+    },
     component: FileView,
     beforeEnter: auth,
     props: route => ({
@@ -89,6 +100,9 @@ export default [
   {
     path: "/pages/:path+",
     name: "Page",
+    meta: {
+      access: "site"
+    },
     component: PageView,
     beforeEnter: auth,
     props: route => ({
@@ -98,6 +112,9 @@ export default [
   {
     path: "/users/role/:role",
     name: "UsersByRole",
+    meta: {
+      access: "users"
+    },
     component: UsersView,
     beforeEnter: auth,
     props: route => ({
@@ -107,12 +124,18 @@ export default [
   {
     path: "/users",
     name: "Users",
+    meta: {
+      access: "users"
+    },
     beforeEnter: auth,
     component: UsersView
   },
   {
     path: "/users/:id",
     name: "User",
+    meta: {
+      access: "users"
+    },
     component: UserView,
     beforeEnter: auth,
     props: route => ({
