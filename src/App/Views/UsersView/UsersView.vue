@@ -7,12 +7,12 @@
       {{ $t('users') }}
 
       <template slot="buttons-left">
-        <kirby-button icon="add" @click="$refs.create.open()">{{ $t('user.add') }}</kirby-button>
+        <kirby-button icon="add" :disabled="permissions.create === false" @click="$refs.create.open()">{{ $t('user.add') }}</kirby-button>
         <kirby-dropdown>
-          <kirby-button icon="funnel" @click="$refs.roles.toggle()">Role: {{ role ? role : 'all' }}</kirby-button>
+          <kirby-button icon="funnel" @click="$refs.roles.toggle()">Role: {{ role ? role.text : 'All' }}</kirby-button>
           <kirby-dropdown-content ref="roles">
-            <kirby-dropdown-item @click="filter(false)" icon="bolt">all</kirby-dropdown-item>
-            <kirby-dropdown-item v-for="role in roles" :key="role.value" @click="filter(role.value)" icon="bolt">{{ role.text }}</kirby-dropdown-item>
+            <kirby-dropdown-item @click="filter(false)" icon="bolt">All</kirby-dropdown-item>
+            <kirby-dropdown-item v-for="role in roles" :key="role.value" @click="filter(role)" icon="bolt">{{ role.text }}</kirby-dropdown-item>
           </kirby-dropdown-content>
         </kirby-dropdown>
       </template>
@@ -45,13 +45,14 @@ export default {
       limit: 20,
       total: 0,
       users: [],
-      roles: []
+      roles: [],
+      permissions: this.$store.state.user.options
     };
   },
   created() {
-    this.fetch();
     this.$api.role.options().then(roles => {
       this.roles = roles;
+      this.fetch();
     });
   },
   watch: {
@@ -75,7 +76,7 @@ export default {
           {
             field: "role",
             operator: "==",
-            value: this.role
+            value: this.role.value
           }
         ];
       }
@@ -137,7 +138,7 @@ export default {
       if (role === false) {
         this.$router.push("/users");
       } else {
-        this.$router.push("/users/role/" + role);
+        this.$router.push("/users/role/" + role.value);
       }
 
       this.$refs.roles.close();
@@ -154,8 +155,8 @@ export default {
       if (this.role) {
         return [
           {
-            link: "/users/role/" + this.role,
-            label: "role:" + this.role
+            link: "/users/role/" + this.role.value,
+            label: "role:" + this.role.value
           }
         ];
       }
@@ -163,7 +164,17 @@ export default {
       return [];
     },
     role() {
-      return this.$route.params.role;
+      let currentRole = null;
+
+      if (this.$route.params.role) {
+        this.roles.forEach(role => {
+          if (role.value === this.$route.params.role) {
+            currentRole = role;
+          }
+        });
+      }
+
+      return currentRole;
     }
   }
 };
