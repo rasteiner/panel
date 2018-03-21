@@ -8,6 +8,9 @@
 
       <template slot="buttons-left">
         <kirby-button icon="add" :disabled="permissions.create === false" @click="$refs.create.open()">{{ $t('user.add') }}</kirby-button>
+      </template>
+
+      <template slot="buttons-right">
         <kirby-dropdown>
           <kirby-button icon="funnel" @click="$refs.roles.toggle()">Role: {{ role ? role.text : 'All' }}</kirby-button>
           <kirby-dropdown-content ref="roles">
