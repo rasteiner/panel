@@ -1,5 +1,5 @@
 <template>
-  <kirby-field :label="label" :name="name" :help="help" :error="error">
+  <kirby-field :label="label" :disabled="disabled" :name="name" :help="help" :error="error">
     <template slot="options">
       <kirby-button icon="add" @click="add">Add</kirby-button>
     </template>
@@ -7,26 +7,26 @@
       <kirby-box v-if="items.length === 0">
         <kirby-button @click="add">Click to add the first item …</kirby-button>
       </kirby-box>
-      <draggable v-else v-model="items" @input="input" :options="{handle: '.kirby-structure-item-handle'}" element="ul" class="kirby-structure" @choose="active = null" @end="change">
-        <li class="kirby-structure-item" v-for="(item, index) in items" :data-active="isActive(index)">
+      <draggable v-else v-model="items" @input="input" :options="{disabled: disabled, handle: '.kirby-structure-item-handle'}" element="ul" class="kirby-structure" @choose="active = null" @end="change">
+        <li class="kirby-structure-item" :data-disabled="disabled" v-for="(item, index) in items" :data-active="isActive(index)">
           <div class="kirby-structure-item-wrapper">
-            <kirby-button class="kirby-structure-item-handle" icon="sort" />
+            <kirby-button v-if="!disabled" class="kirby-structure-item-handle" icon="sort" />
             <div class="kirby-structure-item-content">
               <p class="kirby-structure-item-text" :title="field.label" v-for="field in fields" @click="jump(index, field.name)">
                 {{ item[field.name] }}
               </p>
             </div>
-            <nav class="kirby-structure-item-options">
+            <nav v-if="!disabled" class="kirby-structure-item-options">
               <kirby-button @click="toggle(index)" class="kirby-structure-option" :icon="isActive(index) ? 'angle-up' : 'angle-down'" />
               <kirby-button @click="confirmRemove(index)" class="kirby-structure-option" icon="trash" />
             </nav>
           </div>
-          <div class="kirby-structure-form" v-show="isActive(index)">
+          <div class="kirby-structure-form" v-if="!disabled" v-show="isActive(index)">
             <kirby-fieldset class="kirby-structure-fieldset" ref="form" :fields="fields" :values="item" @change="change"></kirby-fieldset>
           </div>
         </li>
       </draggable>
-      <kirby-dialog ref="remove" button="Delete" state="negative" @submit="remove">
+      <kirby-dialog v-if="!disabled" ref="remove" button="Delete" state="negative" @submit="remove">
         <kirby-txt>Do you really want to delete this item?</kirby-txt>
       </kirby-dialog>
     </template>
@@ -41,6 +41,7 @@ export default {
     draggable
   },
   props: {
+    disabled: Boolean,
     fields: Object,
     label: String,
     name: String,
@@ -113,6 +114,14 @@ export default {
 .kirby-structure-item.sortable-ghost * {
   visibility: hidden;
 }
+.kirby-structure-item[data-disabled] {
+  border: 1px solid $color-border;
+  box-shadow: $box-shadow-inset;
+}
+.kirby-structure-item[data-disabled] .kirby-structure-item-text {
+  background: none;
+}
+
 .kirby-structure-item[data-active] {
   margin-bottom: 0;
 }
@@ -149,7 +158,7 @@ export default {
   padding: 0.6rem 0.75rem;
   font-size: $font-size-small;
   line-height: 1.5em;
-  background: #fff;
+  background: $color-white;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
