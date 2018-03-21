@@ -62,6 +62,7 @@ export default {
 <style lang="scss">
 .kirby-card {
   position: relative;
+  min-width: 0;
 }
 .kirby-card a {
   display: block;
@@ -130,7 +131,7 @@ export default {
   }
 }
 .kirby-card-options-button {
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem 0.6rem;
   line-height: 1.5em;
   background: #fff;
 }

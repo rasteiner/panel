@@ -7,17 +7,17 @@
 </template>
 
 <script>
-
 export default {
-  props: ['width']
-}
-
+  props: ["width"]
+};
 </script>
 
 <style lang="scss">
+.kirby-column {
+  min-width: 0;
+}
 
 @media screen and (min-width: $breakpoint-medium) {
-
   .kirby-column[data-width="1/1"] {
     grid-column-start: span 12;
   }
@@ -51,7 +51,5 @@ export default {
   .kirby-column[data-width="3/4"] {
     grid-column-start: span 9;
   }
-
 }
-
 </style>

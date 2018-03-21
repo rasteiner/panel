@@ -73,7 +73,10 @@ export default {
     }
   }
 }
-
+.kirby-button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
 .kirby-button[disabled] {
   pointer-events: none;
   opacity: 0.5;

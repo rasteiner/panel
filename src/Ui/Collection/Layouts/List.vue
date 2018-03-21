@@ -142,4 +142,13 @@ export default {
   width: 3rem;
   height: 2.5rem;
 }
+.kirby-list-collection-toggle::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1rem;
+  content: "";
+  left: -1rem;
+  background: -webkit-linear-gradient(left, rgba(#fff, 0), rgba(#fff, 1));
+}
 </style>
