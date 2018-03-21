@@ -1,6 +1,7 @@
 <template>
   <section class="kirby-fields-section">
-    <kirby-form @submit="saveForm" @change="saveField" @input="resetErrors" :fields="fields" :values="values" />
+    <kirby-box state="empty" v-if="issue">{{ issue.message }}</kirby-box>
+    <kirby-form v-else @submit="saveForm" @change="saveField" @input="resetErrors" :fields="fields" :values="values" />
   </section>
 </template>
 
@@ -15,7 +16,8 @@ export default {
       errors: [],
       fields: [],
       isLoading: true,
-      values: {}
+      values: {},
+      issue: null
     };
   },
   created: function() {
@@ -36,6 +38,7 @@ export default {
           this.isLoading = false;
         })
         .catch(error => {
+          this.issue = error;
           this.isLoading = false;
         });
     },
