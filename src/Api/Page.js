@@ -33,45 +33,42 @@ export default {
     return Api.get(this.url(id, "options")).then(options => {
       let result = [];
 
-      if (options.preview && view === "list") {
+      if (view === "list") {
         result.push({
           click: "preview",
           icon: "open",
-          text: "Open"
+          text: "Open",
+          disabled: !options.preview
         });
       }
 
-      if (options.changeTitle) {
-        result.push({
-          click: "rename",
-          icon: "title",
-          text: "Rename this page"
-        });
-      }
+      result.push({
+        click: "rename",
+        icon: "title",
+        text: "Rename this page",
+        disabled: !options.changeTitle
+      });
 
-      if (options.changeUrl) {
-        result.push({
-          click: "url",
-          icon: "url",
-          text: "Change URL"
-        });
-      }
+      result.push({
+        click: "url",
+        icon: "url",
+        text: "Change URL",
+        disabled: !options.changeSlug
+      });
 
-      if (options.changeStatus) {
-        result.push({
-          click: "status",
-          icon: "preview",
-          text: "Publishing settings …"
-        });
-      }
+      result.push({
+        click: "status",
+        icon: "preview",
+        text: "Publishing settings …",
+        disabled: !options.changeStatus
+      });
 
-      if (options.delete) {
-        result.push({
-          click: "remove",
-          icon: "trash",
-          text: "Delete this page"
-        });
-      }
+      result.push({
+        click: "remove",
+        icon: "trash",
+        text: "Delete this page",
+        disabled: !options.delete
+      });
 
       return result;
     });

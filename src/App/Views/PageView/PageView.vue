@@ -6,7 +6,7 @@
       :icon="icon"
       :breadcrumb="breadcrumb"
       :pagination="pagination"
-      :editable="true"
+      :editable="permissions.changeTitle"
       @edit="action('rename')"
       @prev="prev"
       @next="next">
@@ -17,7 +17,7 @@
         <kirby-button icon="open" @click="action('preview')">
           {{ $t('page.preview') }}
         </kirby-button>
-        <kirby-button v-if="status" :icon="status.icon" @click="action('status')">
+        <kirby-button v-if="status" :disabled="permissions.changeStatus === false" :icon="status.icon" @click="action('status')">
           {{ status.label }}
         </kirby-button>
         <kirby-dropdown>
@@ -56,6 +56,10 @@ export default {
         prev: null,
         next: null,
         status: null
+      },
+      permissions: {
+        changeTitle: false,
+        changeStatus: false
       },
       icon: "page",
       breadcrumb: [],
@@ -98,6 +102,7 @@ export default {
         .get(this.path, { view: "panel" })
         .then(page => {
           this.page = page;
+          this.permissions = page.blueprint.options;
           this.tabs = page.blueprint.tabs;
           this.breadcrumb = this.$api.page.breadcrumb(page);
           this.$store.dispatch("title", this.page.title);
