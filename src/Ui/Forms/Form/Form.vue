@@ -1,6 +1,8 @@
 <template>
   <form ref="form" class="kirby-form" method="POST" @submit.prevent="$emit('submit')" autocomplete="off">
-    <kirby-fieldset :fields="fields" :values="data" @input="input" @change="change" />
+    <slot>
+      <kirby-fieldset :fields="fields" :values="data" @input="input" @change="change" />
+    </slot>
     <input ref="submitter" type="submit">
   </form>
 </template>

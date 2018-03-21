@@ -1,6 +1,10 @@
 <template>
   <kirby-dialog ref="dialog" size="medium" state="positive" button="Change" @submit="$refs.form.submit()">
-    <kirby-form ref="form" :fields="fields" :values="{slug: slug}" @input="sluggify($event.slug)" @submit="submit" />
+    <kirby-form ref="form" @submit="submit">
+      <kirby-text-field v-bind="field" :value="slug" @input="sluggify($event)">
+        <kirby-button slot="options" @click="sluggify(page.title)" icon="wand">Create from title</kirby-button>
+      </kirby-text-field>
+    </kirby-form>
   </kirby-dialog>
 </template>
 
@@ -16,22 +20,21 @@ export default {
       url: null,
       page: {
         id: null,
-        parent: null
+        parent: null,
+        title: null
       }
     };
   },
   computed: {
-    fields() {
-      return [
-        {
-          name: "slug",
-          label: "URL appendix",
-          type: "text",
-          required: true,
-          icon: "chain",
-          help: "/" + this.url
-        }
-      ];
+    field() {
+      return {
+        name: "slug",
+        label: "URL appendix",
+        type: "text",
+        required: true,
+        icon: "chain",
+        help: "/" + this.url
+      };
     }
   },
   methods: {
@@ -72,9 +75,9 @@ export default {
         // if in PageView, redirect
         if (
           this.$route.params.path &&
-          this.page.id === this.$route.params.path.replace("+", "/")
+          this.page.id === this.$route.params.path.replace(/\+/g, "/")
         ) {
-          payload.route = "/pages/" + page.id;
+          payload.route = this.$api.page.link(page.id);
         }
 
         this.success(payload);

@@ -1,13 +1,15 @@
 <template>
   <kirby-field ref="field" :class="`kirby-${this.type}-field`" :id="_uid" v-bind="$props" @blur="change">
 
-    <template slot="options" v-if="minLength || maxLength">
-      <kirby-counter
-        :disabled="disabled"
-        :value="state"
-        :min="minLength"
-        :max="maxLength"
-      />
+    <template slot="options">
+      <slot name="options">
+        <kirby-counter v-if="minLength || maxLength"
+          :disabled="disabled"
+          :value="state"
+          :min="minLength"
+          :max="maxLength"
+        />
+      </slot>
     </template>
 
     <input
