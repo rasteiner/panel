@@ -3,6 +3,7 @@
     <span class="kirby-toggle-input">
       <input
         type="checkbox"
+        :disabled="disabled"
         :id="_uid"
         @change="input($event.target.checked)"
       />

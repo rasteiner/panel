@@ -12,6 +12,7 @@
           :name="_uid"
           :id="_uid + '_' + option.value"
           :value="option.value"
+          :disabled="disabled"
           :checked="state === option.value"
           @change="input($event.target.value)"
         />
@@ -41,6 +42,7 @@ import Input from "Ui/Forms/Input/Input.mixin.js";
 export default {
   mixins: [Input],
   props: {
+    disabled: Boolean,
     options: {
       type: Array,
       default: []

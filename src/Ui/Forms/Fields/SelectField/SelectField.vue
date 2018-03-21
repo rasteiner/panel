@@ -3,6 +3,7 @@
     <kirby-select-input
       :id="_uid"
       :name="name"
+      :disabled="disabled"
       :options="options"
       :value="state"
       @input="input"

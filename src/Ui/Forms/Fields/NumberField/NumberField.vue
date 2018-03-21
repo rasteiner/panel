@@ -3,6 +3,7 @@
     <input
       type="number"
       :placeholder="placeholder"
+      :disabled="disabled"
       :id="_uid"
       :name="name"
       :min="min"

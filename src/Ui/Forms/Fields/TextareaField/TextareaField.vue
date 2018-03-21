@@ -3,6 +3,7 @@
 
     <template slot="options" v-if="maxLength || minLength">
       <kirby-counter
+        :disabled="disabled"
         :value="state"
         :min="minLength"
         :max="maxLength"
@@ -14,6 +15,7 @@
       ref="input"
       :id="_uid"
       :placeholder="placeholder"
+      :disabled="disabled"
       spellcheck="false"
       v-model="state"
       @input="input($event.target.value)"
@@ -24,7 +26,7 @@
       @submit="$emit('submit', $event)">
     </textarea>
 
-    <div v-if="buttons" class="kirby-format-buttons">
+    <div v-if="buttons && !disabled" class="kirby-format-buttons">
       <div class="kirby-format-buttons-group">
         <kirby-dropdown>
           <kirby-button

@@ -104,6 +104,7 @@ export default {
 .kirby-structure-item {
   position: relative;
   margin-bottom: 2px;
+  box-shadow: $box-shadow-card;
 }
 .kirby-structure-item.sortable-ghost {
   background: $color-inset;

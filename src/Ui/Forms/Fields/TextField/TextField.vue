@@ -3,6 +3,7 @@
 
     <template slot="options" v-if="minLength || maxLength">
       <kirby-counter
+        :disabled="disabled"
         :value="state"
         :min="minLength"
         :max="maxLength"
@@ -18,7 +19,7 @@
       :minlength="minLength"
       :pattern="pattern"
       :placeholder="placeholder"
-      :readonly="readonly"
+      :disabled="disabled"
       :required="required"
       :spellcheck="spellcheck"
       :type="type"

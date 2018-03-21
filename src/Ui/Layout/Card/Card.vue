@@ -68,6 +68,7 @@ export default {
   height: 100%;
   background: $color-white;
   border-radius: $border-radius;
+  box-shadow: $box-shadow-card;
 }
 .kirby-card a:focus {
   outline: 0;

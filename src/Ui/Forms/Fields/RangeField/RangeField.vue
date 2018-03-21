@@ -7,6 +7,7 @@
       :min="min"
       :max="max"
       :step="step"
+      :disabled="disabled"
       :required="required"
       :style="`--min: ${min}; --max: ${max}; --val: ${position}`"
       :value="state"

@@ -55,6 +55,7 @@ export default {
   border-radius: $border-radius;
   margin-bottom: 2px;
   height: 2.5rem;
+  box-shadow: $box-shadow-card;
 }
 .kirby-list-collection .sortable-ghost {
   background: $color-inset;

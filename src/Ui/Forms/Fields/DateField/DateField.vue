@@ -5,12 +5,14 @@
         ref="date"
         :range="range"
         :value="state"
+        :disabled="disabled"
         @input="input"
       />
 
       <kirby-calendar-input
         v-show="calendar"
         :current="state"
+        :disabled="disabled"
         @input="setDate"
       />
 
@@ -56,10 +58,6 @@ export default {
 
 .kirby-date-field .kirby-input-icon {
   cursor: pointer;
-}
-
-.kirby-date-field .kirby-date-selects {
-  background: $color-white;
 }
 
 .kirby-date-field .kirby-calendar-input {

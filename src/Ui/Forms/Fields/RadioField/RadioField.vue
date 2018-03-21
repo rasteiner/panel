@@ -3,6 +3,7 @@
     <kirby-radio-input
       :options="options"
       :value="state"
+      :disabled="disabled"
       @input="input" />
   </kirby-field>
 </template>

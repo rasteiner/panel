@@ -4,6 +4,7 @@
       <kirby-checkbox-input
         v-for="(option, index) in options"
         :key="index"
+        :disabled="disabled"
         :value="state.indexOf(option.value) !== -1"
         :text="option.text"
         @input="input($event, index)"

@@ -1,6 +1,6 @@
 <template>
 
-  <div class="kirby-counter" :data-invalid="!valid">
+  <div v-if="!disabled" class="kirby-counter" :data-invalid="!valid">
     <span>{{ count }}</span><template v-if="max"> / {{ max }}</template>
   </div>
 
@@ -10,6 +10,7 @@
 export default {
   props: {
     value: {},
+    disabled: Boolean,
     min: Number,
     max: Number
   },

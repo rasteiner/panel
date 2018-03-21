@@ -2,6 +2,7 @@
   <kirby-field class="kirby-checkbox-field" v-bind="$props" @blur="change">
     <kirby-checkbox-input
       :text="text"
+      :disabled="disabled"
       :value="state"
       @input="input"
     />

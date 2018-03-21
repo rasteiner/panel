@@ -4,18 +4,21 @@
       ref="date"
       v-bind="date"
       :value="state"
+      :disabled="disabled"
       @input="updateDate"
     />
     <kirby-time-input
       ref="time"
       v-bind="time"
       :value="state"
+      :disabled="disabled"
       @input="updateTime"
     />
 
     <kirby-calendar-input
         v-show="calendar"
         :current="state"
+        :disabled="disabled"
         @input="setDate"
       />
   </kirby-field>
@@ -68,7 +71,6 @@ export default {
 .kirby-datetime-field .kirby-date-inputs,
 .kirby-datetime-field .kirby-time-inputs {
   display: inline-flex;
-  background: $color-white;
 }
 
 .kirby-datetime-field .kirby-time-inputs {

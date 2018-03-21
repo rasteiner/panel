@@ -3,11 +3,13 @@
     <kirby-select-input
       ref="hour"
       :options="times.hours(hours)"
+      :disabled="disabled"
       v-model.number="hour"
     />
     <kirby-select-input
       ref="minute"
       :options="times.minutes(step)"
+      :disabled="disabled"
       v-model.number="minute"
     />
     <kirby-select-input
@@ -29,6 +31,7 @@ import Times from "./TimeInput.times.js";
 export default {
   props: {
     value: {},
+    disabled: Boolean,
     hours: {
       type: Number,
       default: 24

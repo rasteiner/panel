@@ -4,7 +4,7 @@
     <draggable
       :value="state"
       @input="input"
-      :options="{disabled: isDisabled}"
+      :options="{disabled: draggable}"
       class="kirby-tags-input">
 
       <kirby-tag v-for="tag in state"
@@ -72,8 +72,8 @@ export default {
     };
   },
   computed: {
-    isDisabled() {
-      return this.state.length === 0;
+    draggable() {
+      return this.state && this.state.length > 0;
     }
   },
   methods: {

@@ -1,12 +1,12 @@
 <template>
-  <div class="kirby-input" :data-focus="hasFocus">
+  <div class="kirby-input" :data-disabled="disabled" :data-focus="hasFocus">
     <span v-if="$slots.prefix || prefix" class="kirby-input-prefix">
       <slot name="prefix">{{ prefix }}</slot>
     </span>
     <span class="kirby-input-content">
       <slot />
     </span>
-    <span v-if="$slots.icon || icon" @click="onIcon" class="kirby-input-icon">
+    <span v-if="($slots.icon || icon) && !disabled" @click="onIcon" class="kirby-input-icon">
       <slot name="icon">
         <kirby-icon :type="icon" />
       </slot>
@@ -19,6 +19,7 @@ export default {
   props: {
     icon: [String, Boolean],
     prefix: String,
+    disabled: Boolean,
     hasFocus: {
       type: Boolean,
       default: false
@@ -47,8 +48,12 @@ export default {
   display: flex;
   align-items: stretch;
   background: $color-white;
-  border: 2px solid $color-border;
+  border: 1px solid $color-border;
   border-radius: $border-radius;
+  box-shadow: $box-shadow-inset;
+}
+.kirby-input[data-disabled] {
+  background: none;
 }
 .kirby-input[data-focus] {
   border-color: $color-focus;

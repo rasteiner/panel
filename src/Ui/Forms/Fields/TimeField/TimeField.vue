@@ -3,6 +3,7 @@
     <kirby-time-input
       :id="_uid"
       :hours="hours"
+      :disabled="disabled"
       :step="step"
       :value="state"
       @input="input"

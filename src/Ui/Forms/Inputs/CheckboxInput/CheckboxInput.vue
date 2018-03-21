@@ -5,6 +5,7 @@
       :id="name || _uid"
       type="checkbox"
       :checked="state"
+      :disabled="disabled"
       @change="input($event.target.checked)"
     />
     <label :for="name || _uid">
@@ -25,6 +26,7 @@ import Input from "Ui/Forms/Input/Input.mixin.js";
 export default {
   mixins: [Input],
   props: {
+    disabled: Boolean,
     value: {
       type: Boolean,
       default: false

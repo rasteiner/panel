@@ -76,7 +76,7 @@ export default {
 
 .kirby-button[disabled] {
   pointer-events: none;
-  opacity: 0.25;
+  opacity: 0.5;
 }
 
 .kirby-button[data-state="positive"] {

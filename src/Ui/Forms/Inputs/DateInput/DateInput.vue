@@ -3,20 +3,24 @@
     <kirby-select-input
       ref="day"
       :options="days"
+      :disabled="disabled"
       v-model.number="day"
     />
     <kirby-select-input
       :options="months"
+      :disabled="disabled"
       v-model.number="month"
     />
 
     <kirby-select-input
       v-if="range !== false"
       :options="years"
+      :disabled="disabled"
       v-model.number="year"
     />
     <kirby-text-input
       v-else
+      :disabled="disabled"
       v-model.number="year"
     />
   </div>
@@ -28,6 +32,7 @@ import Dates from "./DateInput.dates.js";
 export default {
   props: {
     value: {},
+    disabled: Boolean,
     range: {
       type: [Boolean, Number],
       default: 10

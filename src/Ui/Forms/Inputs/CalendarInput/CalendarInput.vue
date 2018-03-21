@@ -6,10 +6,12 @@
       <span class="kirby-calendar-selects">
         <kirby-select-input
           :options="monthOptions"
+          :disabled="disabled"
           v-model.number="month"
         />
         <kirby-select-input
           :options="yearOptions"
+          :disabled="disabled"
           v-model.number="year"
         />
       </span>
@@ -54,7 +56,8 @@ import Dates from "../DateInput/DateInput.dates.js";
 
 export default {
   props: {
-    current: {}
+    current: {},
+    disabled: Boolean
   },
   data() {
     var today = new Date();

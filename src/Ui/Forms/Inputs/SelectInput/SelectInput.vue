@@ -3,6 +3,7 @@
     <select
       :id="id"
       :name="name"
+      :disabled="disabled"
       ref="select"
       :value="value"
       @change="input($event.target.value)"
@@ -20,7 +21,7 @@
 
     </select>
 
-    <label :for="_uid">{{ label }}</label>
+    <label :for="_uid" :data-disabled="disabled">{{ label }}</label>
   </div>
 </template>
 
@@ -30,6 +31,7 @@ import Input from "Ui/Forms/Input/Input.mixin.js";
 export default {
   mixins: [Input],
   props: {
+    disabled: Boolean,
     options: {
       type: Array,
       default: []
@@ -86,6 +88,9 @@ export default {
 }
 .kirby-select-input label {
   cursor: pointer;
+}
+.kirby-select-input label[data-disabled] {
+  opacity: 0.8;
 }
 .kirby-select-input select:focus + label {
   color: $color-focus;

@@ -1,5 +1,5 @@
 <template>
-  <div class="kirby-field" :data-readonly="readonly" :data-error="error !== false">
+  <div class="kirby-field" :data-disabled="disabled" :data-error="error !== false">
 
     <kirby-bar v-if="$slots.label || $slots.options || label" class="kirby-field-header">
 
@@ -10,24 +10,24 @@
       </template>
 
       <template slot="right">
-        <slot name="options" />
+        <slot v-if="!disabled" name="options" />
       </template>
 
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content" />
-    <kirby-input v-else :error="error" :icon="$attrs.icon" :prefix="$attrs.prefix" :hasFocus="hasFocus" @icon="icon">
+    <kirby-input v-else :error="error" :disabled="disabled" :icon="$attrs.icon" :prefix="$attrs.prefix" :hasFocus="hasFocus" @icon="icon">
       <slot />
-      <slot v-if="$slots.icon" slot="icon" name="icon" />
+      <slot v-if="$slots.icon && !disabled" slot="icon" name="icon" />
     </kirby-input>
 
-    <div v-if="$slots.help || help" class="kirby-field-help">
+    <div v-if="($slots.help || help) && !disabled" class="kirby-field-help">
       <slot name="help">
         <p>{{ help }}</p>
       </slot>
     </div>
 
-    <div v-if="error" class="kirby-field-error">
+    <div v-if="error && !disabled" class="kirby-field-error">
       {{ error.message }}
     </div>
 
@@ -45,7 +45,7 @@ export default {
       type: String,
       required: true
     },
-    readonly: Boolean,
+    disabled: Boolean,
     required: Boolean
   },
   inheritAttrs: false,
@@ -109,12 +109,13 @@ export default {
   padding: 0 0.25rem;
 }
 
-.kirby-field[data-readonly] {
+.kirby-field[data-disabled] {
   cursor: default;
   pointer-events: none;
 }
-.kirby-field[data-readonly] .kirby-input {
-  background: $color-background;
+.kirby-field[data-disabled] .kirby-field-header label {
+  color: $color-light-grey !important;
+  font-weight: 400;
 }
 .kirby-field[data-error] .kirby-field-header label {
   color: $color-negative;
