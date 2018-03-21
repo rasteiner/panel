@@ -41,8 +41,9 @@ export default {
   breadcrumb(user) {
     return [
       {
-        link: "/users/role/" + user.role,
-        label: Vue.i18n.translate("user.role").toLowerCase() + ":" + user.role
+        link: "/users/role/" + user.role.name,
+        label:
+          Vue.i18n.translate("user.role").toLowerCase() + ":" + user.role.name
       },
       {
         link: "/users/" + user.id,

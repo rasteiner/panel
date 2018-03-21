@@ -44,11 +44,15 @@ export default {
       page: 1,
       limit: 20,
       total: 0,
-      users: []
+      users: [],
+      roles: []
     };
   },
   created() {
     this.fetch();
+    this.$api.role.options().then(roles => {
+      this.roles = roles;
+    });
   },
   watch: {
     $route() {
@@ -83,7 +87,7 @@ export default {
             id: user.id,
             preview: { icon: "user" },
             text: user.name,
-            info: user.role,
+            info: user.role.title,
             link: "/users/" + user.id,
             options: ready => {
               this.$api.user
@@ -160,14 +164,6 @@ export default {
     },
     role() {
       return this.$route.params.role;
-    },
-    roles() {
-      // TODO: get actual roles from API
-      return [
-        { value: "admin", text: "admin" },
-        { value: "editor", text: "editor" },
-        { value: "visitor", text: "visitor" }
-      ];
     }
   }
 };
