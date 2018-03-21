@@ -3,7 +3,7 @@
   <kirby-view class="kirby-user-view">
 
     <div class="kirby-user-view-wrapper">
-      <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" :editable="true" @prev="prev" @next="next" @edit="action('rename')">
+      <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" :editable="permissions.changeName" @prev="prev" @next="next" @edit="action('rename')">
 
         {{ user.name }}
 
@@ -85,6 +85,9 @@ export default {
         prev: null,
         next: null
       },
+      permissions: {
+        changeName: false
+      },
       avatar: null,
       breadcrumb: null
     };
@@ -160,6 +163,7 @@ export default {
         this.user = user;
         this.breadcrumb = this.$api.user.breadcrumb(user);
         this.tabs = user.blueprint.tabs;
+        this.permissions = user.blueprint.options;
 
         if (user.avatar.exists) {
           this.avatar = user.avatar.url + "?v=" + user.avatar.modified;

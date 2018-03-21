@@ -55,45 +55,40 @@ export default {
     return Api.get(this.url(id, "options")).then(options => {
       let result = [];
 
-      if (options.changeName) {
-        result.push({
-          click: "rename",
-          icon: "title",
-          text: "Rename this user"
-        });
-      }
+      result.push({
+        click: "rename",
+        icon: "title",
+        text: "Rename this user",
+        disabled: !options.changeName
+      });
 
-      if (options.changeRole) {
-        result.push({
-          click: "role",
-          icon: "bolt",
-          text: "Change role"
-        });
-      }
+      result.push({
+        click: "role",
+        icon: "bolt",
+        text: "Change role",
+        disabled: !options.changeRole
+      });
 
-      if (options.changePassword) {
-        result.push({
-          click: "password",
-          icon: "key",
-          text: "Change password"
-        });
-      }
+      result.push({
+        click: "password",
+        icon: "key",
+        text: "Change password",
+        disabled: !options.changePassword
+      });
 
-      if (options.changeLanguage) {
-        result.push({
-          click: "language",
-          icon: "globe",
-          text: "Change language"
-        });
-      }
+      result.push({
+        click: "language",
+        icon: "globe",
+        text: "Change language",
+        disabled: !options.changeLanguage
+      });
 
-      if (options.delete) {
-        result.push({
-          click: "remove",
-          icon: "trash",
-          text: "Delete this user"
-        });
-      }
+      result.push({
+        click: "remove",
+        icon: "trash",
+        text: "Delete this user",
+        disabled: !options.delete
+      });
 
       return result;
     });
