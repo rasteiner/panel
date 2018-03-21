@@ -7,8 +7,8 @@
       <kirby-box v-if="items.length === 0">
         <kirby-button @click="add">Click to add the first item …</kirby-button>
       </kirby-box>
-      <draggable v-else v-model="items" @input="input" :options="{disabled: disabled, handle: '.kirby-structure-item-handle'}" element="ul" class="kirby-structure" @choose="active = null" @end="change">
-        <li class="kirby-structure-item" :data-disabled="disabled" v-for="(item, index) in items" :data-active="isActive(index)">
+      <draggable v-else v-model="items" :data-disabled="disabled" @input="input" :options="{disabled: disabled, handle: '.kirby-structure-item-handle'}" element="ul" class="kirby-structure" @choose="active = null" @end="change">
+        <li class="kirby-structure-item" v-for="(item, index) in items" :data-active="isActive(index)">
           <div class="kirby-structure-item-wrapper">
             <kirby-button v-if="!disabled" class="kirby-structure-item-handle" icon="sort" />
             <div class="kirby-structure-item-content">
@@ -102,10 +102,28 @@ export default {
 .kirby-structure {
   list-style: none;
 }
+.kirby-structure[data-disabled] {
+  box-shadow: $box-shadow-inset;
+  border: 1px solid $color-border;
+}
+.kirby-structure[data-disabled] .kirby-structure-item {
+  box-shadow: none;
+  border-bottom: 1px dashed $color-border;
+}
+.kirby-structure[data-disabled] .kirby-structure-item:last-child {
+  border-bottom: none;
+}
+.kirby-structure[data-disabled] .kirby-structure-item-text {
+  background: none;
+}
+
 .kirby-structure-item {
   position: relative;
   margin-bottom: 2px;
   box-shadow: $box-shadow-card;
+}
+.kirby-structure-item:last-child {
+  margin-bottom: 0;
 }
 .kirby-structure-item.sortable-ghost {
   background: $color-inset;
@@ -113,13 +131,6 @@ export default {
 }
 .kirby-structure-item.sortable-ghost * {
   visibility: hidden;
-}
-.kirby-structure-item[data-disabled] {
-  border: 1px solid $color-border;
-  box-shadow: $box-shadow-inset;
-}
-.kirby-structure-item[data-disabled] .kirby-structure-item-text {
-  background: none;
 }
 
 .kirby-structure-item[data-active] {
