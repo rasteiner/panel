@@ -69,7 +69,13 @@ $radio-height: 16px;
 $radio-offset-y: 6px;
 $radio-label-gap: 8px;
 
+.kirby-radio-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-column-gap: 1.5rem;
+}
 .kirby-radio-input {
+  min-width: 0;
   position: relative;
   display: block;
 
@@ -107,8 +113,6 @@ $radio-label-gap: 8px;
 
 .kirby-radio-input label {
   display: block;
-  // font-size: $font-size-small;
-  // font-family: $font-family-mono;
   line-height: 28px;
   min-height: 28px;
   cursor: pointer;

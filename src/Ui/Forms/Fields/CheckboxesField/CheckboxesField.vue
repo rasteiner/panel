@@ -67,4 +67,7 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   grid-column-gap: 1.5rem;
 }
+.kirby-checkboxes-grid > * {
+  min-width: 0;
+}
 </style>
