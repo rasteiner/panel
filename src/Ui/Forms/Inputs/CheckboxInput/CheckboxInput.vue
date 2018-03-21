@@ -1,6 +1,6 @@
 <template>
 
-  <div class="kirby-checkbox-input">
+  <div class="kirby-checkbox-input" :data-disabled="disabled">
     <input
       :id="name || _uid"
       type="checkbox"
@@ -83,9 +83,6 @@ $checkbox-label-gap: 10px;
 
 .kirby-checkbox-input input  {
   width: $checkbox-width + $checkbox-label-gap;
-
-  /* remove default browser styling to make checkbox
-     resizeable */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -117,8 +114,6 @@ $checkbox-label-gap: 10px;
 
 .kirby-checkbox-input label {
   display: block;
-  //font-size: $font-size-small;
-  //font-family: $font-family-mono;
   line-height: 28px;
   min-height: 28px;
   cursor: pointer;

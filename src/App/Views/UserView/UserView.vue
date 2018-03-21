@@ -48,10 +48,8 @@
 
       <kirby-tabs :key="'user-' + user.id + '-tabs'" v-if="user && tabs.length" :parent="'users/' + user.id" :tabs="tabs" ref="tabs" />
 
-      <kirby-box v-else>
-        <kirby-txt>
-          You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role.name}}.yml</strong>
-        </kirby-txt>
+      <kirby-box state="empty" v-else>
+        You can define additional sections and form fields for this user role in <strong>/site/blueprints/users/{{user.role.name}}.yml</strong>
       </kirby-box>
 
       <kirby-user-role-dialog ref="role" @success="fetch" />
