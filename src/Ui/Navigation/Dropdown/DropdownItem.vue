@@ -4,6 +4,7 @@
     :icon="icon"
     :upload="upload"
     :image="image"
+    :disabled="disabled"
     @click="click">
     <slot />
   </kirby-button>
@@ -11,7 +12,7 @@
 
 <script>
 export default {
-  props: ["icon", "link", "image", "upload"],
+  props: ["disabled", "icon", "image", "link", "upload"],
   methods: {
     click() {
       this.$parent.close();

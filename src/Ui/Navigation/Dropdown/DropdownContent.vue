@@ -3,8 +3,7 @@
     <template v-if="items">
       <kirby-dropdown-item v-for="(option, index) in items"
         :key="index"
-        :icon="option.icon"
-        :upload="option.upload"
+        v-bind="option"
         @click="$emit('action', option.click)">
           {{ option.text }}
       </kirby-dropdown-item>
