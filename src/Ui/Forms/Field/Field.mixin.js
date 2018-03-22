@@ -51,9 +51,11 @@ export default {
   },
   methods: {
     input(value) {
-      this.state = value;
-      this.hasChanged = true;
-      this.$emit("input", this.toValue);
+      if (this.disabled === false) {
+        this.state = value;
+        this.hasChanged = true;
+        this.$emit("input", this.toValue);
+      }
     },
     setFocus() {
       this.$el.querySelectorAll("input, textarea, select")[0].focus();
