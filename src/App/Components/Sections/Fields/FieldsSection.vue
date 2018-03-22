@@ -34,7 +34,11 @@ export default {
         .then(response => {
           this.errors = response.errors;
           this.fields = response.fields;
-          this.values = response.values;
+          this.values = Object.assign(
+            {},
+            response.values,
+            this.getCache() || {}
+          );
           this.isLoading = false;
         })
         .catch(error => {
@@ -45,9 +49,33 @@ export default {
     resetErrors(values, field) {
       this.fields[field].error = false;
     },
+    id() {
+      return this.parent + "/" + this.name;
+    },
+    hasCache() {
+      return this.getCache() !== null;
+    },
+    getCache() {
+      let values = localStorage.getItem(this.id());
+      return values && JSON.parse(values);
+    },
+    setCache(values) {
+      localStorage.setItem(this.id(), JSON.stringify(values));
+    },
+    setCacheField(field, value) {
+      let values = this.getCache() || {};
+      values[field] = value;
+      this.setCache(values);
+    },
+    removeCache() {
+      localeStorage.removeItem(this.id());
+    },
     saveField(field, value) {
+      this.setCacheField(field, value);
+      return;
+
       this.$api
-        .patch(this.parent + "/" + this.name + "/" + field, { value: value })
+        .patch(this.id() + "/" + field, { value: value })
         .then(response => {
           this.fields = response.fields;
           this.values = response.values;
@@ -58,16 +86,17 @@ export default {
         });
     },
     saveForm() {
-      this.$api
-        .patch(this.parent + "/" + this.name, this.values)
-        .then(response => {
-          this.fields = response.fields;
-          this.values = response.values;
+      this.setCache(this.values);
 
-          if (Object.keys(response.errors).length === 0) {
-            this.$store.dispatch("success", "Saved!");
-          }
-        });
+      return;
+      this.$api.patch(this.id(), this.values).then(response => {
+        this.fields = response.fields;
+        this.values = response.values;
+
+        if (Object.keys(response.errors).length === 0) {
+          this.$store.dispatch("success", "Saved!");
+        }
+      });
     }
   }
 };
