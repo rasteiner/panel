@@ -16,7 +16,7 @@
     </kirby-bar>
 
     <slot v-if="$slots.content" name="content" />
-    <kirby-input v-else :error="error" :disabled="disabled" :icon="$attrs.icon" :prefix="$attrs.prefix" :hasFocus="hasFocus" @icon="icon">
+    <kirby-input v-else :error="error" :disabled="disabled" :icon="$attrs.icon" :prefix="$attrs.prefix" :postfix="$attrs.postfix" :hasFocus="hasFocus" @icon="icon">
       <slot />
       <slot v-if="$slots.icon && !disabled" slot="icon" name="icon" />
     </kirby-input>

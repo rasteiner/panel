@@ -24,6 +24,11 @@ Vue.component("kirby-page-remove-dialog", () =>
   "./Page/PageRemoveDialog/PageRemoveDialog.vue")
 );
 
+Vue.component("kirby-file-rename-dialog", () =>
+  import(/* webpackChunkName: "file-rename-dialog" */
+  "./File/FileRenameDialog/FileRenameDialog.vue")
+);
+
 Vue.component("kirby-file-remove-dialog", () =>
   import(/* webpackChunkName: "file-remove-dialog" */
   "./File/FileRemoveDialog/FileRemoveDialog.vue")

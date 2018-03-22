@@ -45,6 +45,12 @@ export default {
       });
 
       result.push({
+        icon: "title",
+        text: "Rename",
+        click: "rename"
+      });
+
+      result.push({
         icon: "trash",
         text: "Delete",
         click: "remove",

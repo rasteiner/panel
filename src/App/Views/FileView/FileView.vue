@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-file-view">
 
-    <kirby-header label="File" link="/pages" icon="page" :breadcrumb="breadcrumb" :pagination="pagination" @prev="prev" @next="next">
+    <kirby-header label="File" link="/pages" icon="page" :breadcrumb="breadcrumb" :pagination="pagination" :editable="permissions.changeName" @edit="action('rename')" @prev="prev" @next="next">
 
       {{ file.filename }}
 
@@ -75,6 +75,7 @@
 
     <kirby-tabs :key="'file-' + file.id + '-tabs'" v-if="file.id" :parent="$api.file.url(file.parent.id, file.filename)" :tabs="tabs" ref="tabs" />
 
+    <kirby-file-rename-dialog ref="rename" />
     <kirby-file-remove-dialog ref="remove" @success="$router.push('/pages/' + path)" />
     <kirby-upload ref="upload" :url="uploadApi" :accept="file.mime" :multiple="false" @success="uploaded" />
 
@@ -162,6 +163,9 @@ export default {
       switch (action) {
         case "download":
           window.open(this.file.url);
+          break;
+        case "rename":
+          this.$refs.rename.open(this.file.parent.id, this.file.filename);
           break;
         case "remove":
           this.$refs.remove.open(this.file.parent.id, this.file.filename);

@@ -30,6 +30,8 @@
       @input="input($event.target.value)"
     />
 
+    <template v-if="postfix" slot="icon">{{ postfix }}</template>
+
   </kirby-field>
 </template>
 
@@ -48,6 +50,7 @@ export default {
     maxLength: Number,
     pattern: String,
     prefix: String,
+    postfix: String,
     placeholder: String,
     autocomplete: String,
     spellcheck: {

@@ -29,6 +29,7 @@
         <kirby-txt v-else>No files</kirby-txt>
       </kirby-box>
 
+      <kirby-file-rename-dialog ref="rename" @success="fetch" />
       <kirby-file-remove-dialog ref="remove" @success="fetch" />
       <kirby-upload ref="upload" @success="uploaded" />
 
@@ -105,6 +106,9 @@ export default {
           break;
         case "download":
           window.open(file.url);
+          break;
+        case "rename":
+          this.$refs.rename.open(file.parent, file.filename);
           break;
         case "replace":
           this.replace(file);
