@@ -94,7 +94,6 @@ export default {
 
       this.$refs.input.close();
       this.$refs.input.clear();
-      this.change();
     },
     edit(tag) {
       this.$refs.input.fill(tag.text);
@@ -187,8 +186,6 @@ export default {
       } else {
         this.$refs.input.focus();
       }
-
-      this.change();
     },
     select(tag) {
       this.selected = tag;
