@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-radio-field" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-radio-field" v-bind="$props">
     <template v-if="hasOptions">
       <kirby-radio-input
         :options="options"

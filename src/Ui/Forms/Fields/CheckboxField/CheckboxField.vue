@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-checkbox-field" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-checkbox-field" v-bind="$props">
     <kirby-checkbox-input
       :text="text"
       :disabled="disabled"

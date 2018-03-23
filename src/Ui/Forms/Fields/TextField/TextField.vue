@@ -1,5 +1,5 @@
 <template>
-  <kirby-field ref="field" :class="`kirby-${this.type}-field`" :id="_uid" v-bind="$props" @blur="change">
+  <kirby-field ref="field" :class="`kirby-${this.type}-field`" :id="_uid" v-bind="$props">
 
     <template slot="options">
       <slot name="options">

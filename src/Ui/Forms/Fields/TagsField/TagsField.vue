@@ -4,7 +4,6 @@
     <draggable
       :value="state"
       @input="input"
-      @change="change"
       :options="{disabled: !draggable, forceFallback: true}"
       class="kirby-tags-input">
 
@@ -89,7 +88,6 @@ export default {
       if (this.index(tag) === -1) {
         this.state.push(tag);
         this.input(this.state);
-        this.change();
       }
 
       this.$refs.input.close();
@@ -171,7 +169,6 @@ export default {
       // remove tag and fire input event
       this.state.splice(this.index(tag), 1);
       this.input(this.state);
-      this.change();
 
       if (prev) {
         prev.ref.focus();

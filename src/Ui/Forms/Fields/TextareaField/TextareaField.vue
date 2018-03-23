@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-textarea-field" :id="_uid" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-textarea-field" :id="_uid" v-bind="$props">
 
     <template slot="options" v-if="counter">
       <kirby-counter

@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-date-field" v-bind="$props" @icon="calendar = !calendar" @blur="change">
+  <kirby-field class="kirby-date-field" v-bind="$props" @icon="calendar = !calendar">
 
       <kirby-date-input
         ref="date"

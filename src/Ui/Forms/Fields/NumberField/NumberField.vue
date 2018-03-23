@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-number-field" :id="_uid" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-number-field" :id="_uid" v-bind="$props">
     <input
       type="number"
       :placeholder="placeholder"

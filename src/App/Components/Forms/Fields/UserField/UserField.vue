@@ -5,8 +5,7 @@
     ref="field"
     v-bind="$props"
     :icon="control"
-    @icon="clear"
-    @blur="change">
+    @icon="clear">
 
     <template v-if="state">
       <span class="user-name">{{ state.text }}</span>
