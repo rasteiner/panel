@@ -185,6 +185,14 @@ export default {
       }
     };
   },
+  watch: {
+    value(value) {
+      this.state = value;
+      this.$nextTick(() => {
+        this.resize();
+      });
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       autosize(this.$refs.input);

@@ -24,9 +24,7 @@
       <kirby-button-group class="kirby-header-options-primary" slot="left">
         <slot name="buttons-left" />
       </kirby-button-group>
-      <kirby-button-group class="kirby-header-options-secondary" slot="right">
-        <slot name="buttons-right" />
-      </kirby-button-group>
+      <slot slot="right" class="kirby-header-options-secondary" name="buttons-right" />
     </kirby-bar>
   </header>
 </template>

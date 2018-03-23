@@ -55,6 +55,11 @@ export default {
       active: null
     };
   },
+  watch: {
+    value(value) {
+      this.items = value;
+    }
+  },
   methods: {
     add() {
       let data = {};
@@ -72,6 +77,7 @@ export default {
       this.$emit("input", this.items);
     },
     change() {
+      this.input();
       this.$emit("change", this.items);
     },
     toggle(index) {

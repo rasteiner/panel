@@ -12,6 +12,7 @@ export default new Vuex.Store({
     // TODO: replace with actual Site Title
     title: "Kirby Panel",
     translation: "en_US",
+    changes: {},
 
     // user
     user: null,
@@ -65,6 +66,10 @@ export default new Vuex.Store({
     // navigation
     afterLogin(state, url) {
       state.afterLogin = url;
+    },
+
+    changes(state, payload) {
+      state.changes[payload.key] = payload.value;
     }
   },
   actions: {
@@ -114,6 +119,18 @@ export default new Vuex.Store({
     },
     isLoading(context, loading) {
       context.commit("isLoading", loading);
+    },
+    changes(context, payload) {
+      context.commit("changes", payload);
+    }
+  },
+  getters: {
+    hasChanged(state) {
+      return id => {
+        console.log(id);
+
+        return state.changes[id] === true;
+      };
     }
   }
 });

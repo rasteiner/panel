@@ -34,10 +34,11 @@
             </kirby-button>
             <kirby-dropdown-content ref="settings" :options="options" @action="action" />
           </kirby-dropdown>
+          <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
         </template>
 
         <template v-if="user.id" class="kirby-user-view-options" slot="buttons-right">
-          <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+          <kirby-form-buttons :id="'users/' + user.id" />
         </template>
 
       </kirby-header>
