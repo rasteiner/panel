@@ -26,18 +26,16 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Icon from "Ui/Forms/Field/Mixins/Icon.js";
+import Options from "Ui/Forms/Field/Mixins/Options.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
 
 export default {
-  mixins: [Field],
-  props: {
-    options: {
-      type: Array,
-      default: () => {
-        return [];
-      }
-    }
-  },
+  mixins: [Field, Label, Help, Icon, Options, Required, Value],
   computed: {
     control() {
       return this.state ? "cancel" : this.icon;

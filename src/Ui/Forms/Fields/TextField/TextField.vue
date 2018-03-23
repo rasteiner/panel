@@ -30,16 +30,21 @@
       @input="input($event.target.value)"
     />
 
-    <template v-if="postfix" slot="icon">{{ postfix }}</template>
-
   </kirby-field>
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Icon from "Ui/Forms/Field/Mixins/Icon.js";
+import Placeholder from "Ui/Forms/Field/Mixins/Placeholder.js";
+import Prefix from "Ui/Forms/Field/Mixins/Prefix.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
 
 export default {
-  mixins: [Field],
+  mixins: [Field, Label, Help, Icon, Placeholder, Prefix, Required, Value],
   props: {
     value: String,
     type: {
@@ -49,9 +54,6 @@ export default {
     minLength: Number,
     maxLength: Number,
     pattern: String,
-    prefix: String,
-    postfix: String,
-    placeholder: String,
     autocomplete: String,
     spellcheck: {
       type: Boolean,

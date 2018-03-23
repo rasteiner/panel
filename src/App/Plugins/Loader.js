@@ -15,7 +15,7 @@ Object.keys(window.panel.plugins.components).forEach(name => {
 });
 
 // Fields
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
 
 Object.keys(window.panel.plugins.fields).forEach(name => {
   let options = window.panel.plugins.fields[name];

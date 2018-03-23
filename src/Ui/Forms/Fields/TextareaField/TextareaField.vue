@@ -145,11 +145,17 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Placeholder from "Ui/Forms/Field/Mixins/Placeholder.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
+
 import autosize from "./Textarea.autosize.js";
 
 export default {
-  mixins: [Field],
+  mixins: [Field, Label, Help, Placeholder, Required, Value],
   props: {
     maxLength: Number,
     minLength: Number,
@@ -157,7 +163,6 @@ export default {
       type: Boolean,
       default: true
     },
-    placeholder: String,
     autosize: {
       type: Boolean,
       default: true
