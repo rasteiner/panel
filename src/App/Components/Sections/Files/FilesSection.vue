@@ -5,7 +5,7 @@
     <kirby-headline :state="error ? 'negative' : null">
       <span>{{ headline }}</span>
       <kirby-button-group slot="options" v-if="create">
-        <kirby-button icon="upload" @click="upload"></kirby-button>
+        <kirby-button icon="upload" @click="upload" />
       </kirby-button-group>
     </kirby-headline>
 
@@ -15,24 +15,25 @@
         {{ issue }}
       </kirby-box>
     </template>
+
     <template v-else>
+      <kirby-dropzone :disabled="create === false" @drop="drop">
+        <kirby-collection
+          :layout="layout"
+          :items="data"
+          :pagination="pagination"
+          @paginate="paginate"
+          @action="action" />
 
-      <kirby-collection
-        :layout="layout"
-        :items="data"
-        :pagination="pagination"
-        @paginate="paginate"
-        @action="action" />
-
-      <kirby-box v-if="data.length === 0" state="empty" class="kirby-files-collection-placeholder" :data-layout="layout">
-        <kirby-button v-if="create" icon="upload" @click="upload">Upload</kirby-button>
-        <kirby-txt v-else>No files</kirby-txt>
-      </kirby-box>
+        <kirby-box v-if="data.length === 0" state="empty" class="kirby-files-collection-placeholder" :data-layout="layout">
+          <kirby-button v-if="create" icon="upload" @click="upload">Upload</kirby-button>
+          <kirby-txt v-else>No files</kirby-txt>
+        </kirby-box>
+      </kirby-dropzone>
 
       <kirby-file-rename-dialog ref="rename" @success="fetch" />
       <kirby-file-remove-dialog ref="remove" @success="fetch" />
       <kirby-upload ref="upload" @success="uploaded" />
-
     </template>
 
     <div class="kirby-files-section-error" v-if="error">
@@ -71,6 +72,14 @@ export default {
   destroyed() {
     this.$events.$off("file.create", this.fetch);
     this.$events.$off("file.delete", this.fetch);
+  },
+  computed: {
+    uploadParams() {
+      return {
+        url: window.panel.config.api + "/" + this.parent + "/" + this.name,
+        accept: this.create.mime
+      };
+    }
   },
   methods: {
     fetch() {
@@ -120,11 +129,11 @@ export default {
           this.$store.dispatch("error", "Not yet implemented");
       }
     },
+    drop(files) {
+      this.$refs.upload.drop(files, this.uploadParams);
+    },
     upload() {
-      this.$refs.upload.open({
-        url: window.panel.config.api + "/" + this.parent + "/" + this.name,
-        accept: this.create.mime
-      });
+      this.$refs.upload.open(this.uploadParams);
     },
     replace(file) {
       this.$store.dispatch("error", "Not yet implemented");

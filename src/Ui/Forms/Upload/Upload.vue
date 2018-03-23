@@ -35,8 +35,7 @@
 </template>
 
 <script>
-
-import uploadFile from 'Ui/Helpers/uploadFile.js';
+import uploadFile from "Ui/Helpers/uploadFile.js";
 
 export default {
   props: {
@@ -45,7 +44,7 @@ export default {
     },
     accept: {
       type: String,
-      default: '*'
+      default: "*"
     },
     attributes: {
       type: Object
@@ -58,34 +57,40 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
       options: this.$props,
       completed: {},
       errors: [],
       files: [],
-      total: 0,
+      total: 0
     };
   },
   methods: {
     open(params) {
-      this.options = Object.assign({}, this.$props, params);
+      this.params(params);
 
       // TODO: try removing this hack
       setTimeout(() => {
         this.$refs.input.click();
       }, 1);
     },
-    select (e) {
+    params(params) {
+      this.options = Object.assign({}, this.$props, params);
+    },
+    select(e) {
       this.upload(e.target.files);
     },
-    upload (files) {
-
+    drop(files, params) {
+      this.params(params);
+      this.upload(files);
+    },
+    upload(files) {
       this.$refs.dialog.open();
 
-      this.files     = [...files];
+      this.files = [...files];
       this.completed = {};
-      this.errors    = [];
+      this.errors = [];
       this.hasErrors = false;
 
       if (this.options.max) {
@@ -93,8 +98,7 @@ export default {
       }
 
       this.total = this.files.length;
-      this.files.forEach((file) => {
-
+      this.files.forEach(file => {
         uploadFile(file, {
           url: this.options.url,
           attributes: this.options.attributes,
@@ -105,22 +109,18 @@ export default {
             this.complete(file);
           },
           error: (xhr, file, response) => {
-            this.errors.push({file: file, message: response.message});
+            this.errors.push({ file: file, message: response.message });
             this.complete(file, response.message);
           }
         });
-
       });
-
     },
-    complete (file) {
-
+    complete(file) {
       this.completed[file.name] = true;
 
       if (Object.keys(this.completed).length == this.total) {
-
         // remove the selected file
-        this.$refs.input.value = '';
+        this.$refs.input.value = "";
 
         if (this.errors.length > 0) {
           this.$forceUpdate();
@@ -129,52 +129,48 @@ export default {
 
         setTimeout(() => {
           this.$refs.dialog.close();
-          this.$emit('success');
+          this.$emit("success");
         }, 250);
-
       }
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
+.kirby-upload input {
+  position: absolute;
+  top: 0;
+  left: -3000px;
+}
 
-  .kirby-upload input {
-    position: absolute;
-    top: 0;
-    left: -3000px;
-  }
+.kirby-upload .kirby-headline > span {
+  padding-top: 0;
+}
 
-  .kirby-upload .kirby-headline > span {
-    padding-top: 0;
-  }
+.kirby-upload-list,
+.kirby-upload-error-list {
+  font-family: $font-family-mono;
+  line-height: 1.5em;
+  font-size: $font-size-small;
+}
+.kirby-upload-list-filename {
+  color: $color-dark-grey;
+}
 
-  .kirby-upload-list,
-  .kirby-upload-error-list {
-    font-family: $font-family-mono;
-    line-height: 1.5em;
-    font-size: $font-size-small;
-  }
-  .kirby-upload-list-filename {
-    color: $color-dark-grey;
-  }
-
-  .kirby-upload-error-list li {
-    padding: .75rem;
-    background: $color-white;
-    border-radius: $border-radius;
-  }
-  .kirby-upload-error-list li:not(:last-child) {
-    margin-bottom: 2px;
-  }
-  .kirby-upload-error-filename {
-    margin-bottom: .75rem;
-    color: $color-negative;
-  }
-  .kirby-upload-error-message {
-    color: $color-dark-grey;
-  }
-
+.kirby-upload-error-list li {
+  padding: 0.75rem;
+  background: $color-white;
+  border-radius: $border-radius;
+}
+.kirby-upload-error-list li:not(:last-child) {
+  margin-bottom: 2px;
+}
+.kirby-upload-error-filename {
+  margin-bottom: 0.75rem;
+  color: $color-negative;
+}
+.kirby-upload-error-message {
+  color: $color-dark-grey;
+}
 </style>
