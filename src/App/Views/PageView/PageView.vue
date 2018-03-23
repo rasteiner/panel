@@ -26,10 +26,12 @@
           </kirby-button>
           <kirby-dropdown-content ref="settings" :options="options" @action="action" />
         </kirby-dropdown>
+        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+
       </template>
 
       <template v-if="page.id" slot="buttons-right">
-        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+        <kirby-form-buttons :id="$api.page.url(page.id)" />
       </template>
 
     </kirby-header>
@@ -146,3 +148,25 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.kirby-publish-bar {
+  display: flex;
+  align-items: center;
+  border-radius: $border-radius;
+  margin-top: calc(-1.5rem - 1px);
+  margin-bottom: 3rem;
+  padding: 0.25rem 0;
+  border-top: 3px solid $color-dark;
+  border-bottom: 1px solid $color-border;
+}
+
+.kirby-publish-bar-text {
+  padding: 0.7rem 0;
+  margin-right: 1rem;
+}
+
+.kirby-publish-bar .kirby-button {
+  padding: 0.5rem;
+}
+</style>

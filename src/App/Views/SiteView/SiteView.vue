@@ -6,10 +6,11 @@
         <kirby-button icon="open" @click="preview">
           Open
         </kirby-button>
+        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
       </template>
 
       <template v-if="site.url" slot="buttons-right">
-        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+          <kirby-form-buttons id="site" />
       </template>
 
     </kirby-header>

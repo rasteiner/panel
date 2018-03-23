@@ -13,10 +13,11 @@
         <kirby-button :disabled="permissions.delete === false" icon="trash" @click="action('remove')">
           {{ $t('delete') }}
         </kirby-button>
+        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
       </template>
 
       <template v-if="file.id" slot="buttons-right">
-        <kirby-tabs-dropdown v-if="tabs.length > 1" :tabs="tabs" @open="$refs.tabs.open($event)" />
+        <kirby-form-buttons :id="$api.file.url(file.parent.id, file.filename)" />
       </template>
 
     </kirby-header>

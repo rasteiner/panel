@@ -1,7 +1,7 @@
 <template>
   <section class="kirby-fields-section">
     <kirby-box state="empty" v-if="issue">{{ issue.message }}</kirby-box>
-    <kirby-form v-else @submit="saveForm" @change="saveField" @input="resetErrors" :fields="fields" :values="values" />
+    <kirby-form v-else @submit="saveForm" @input="input" :fields="fields" :values="values" />
   </section>
 </template>
 
@@ -16,29 +16,51 @@ export default {
       errors: [],
       fields: [],
       isLoading: true,
+      stored: {},
       values: {},
       issue: null
     };
   },
   created: function() {
     this.fetch();
+
     this.$events.$on("key.save", this.saveForm);
+    this.$events.$on("form.reset", this.resetAndFetch);
+    this.$events.$on("form.save", this.saveForm);
+
+    if (this.$cache.exists(this.id())) {
+      this.$store.dispatch("changes", { key: this.parent, value: true });
+      this.$events.$emit("form.changed");
+    } else {
+      this.$store.dispatch("changes", { key: this.parent, value: false });
+      this.$events.$emit("form.unchanged");
+    }
   },
   destroyed: function() {
     this.$events.$off("key.save", this.saveForm);
+    this.$events.$off("form.reset", this.resetAndFetch);
+    this.$events.$off("form.save", this.saveForm);
   },
   methods: {
+    input(values, field) {
+      this.$store.dispatch("changes", { key: this.parent, value: true });
+      this.$events.$emit("form.changed");
+      this.$cache.set(this.id(), values);
+      this.resetErrors(values, field);
+    },
     fetch() {
       this.$api
         .section(this.parent, this.name)
         .then(response => {
           this.errors = response.errors;
           this.fields = response.fields;
+          this.stored = response.values;
           this.values = Object.assign(
             {},
             response.values,
-            this.getCache() || {}
+            this.$cache.get(this.id()) || {}
           );
+
           this.isLoading = false;
         })
         .catch(error => {
@@ -46,55 +68,34 @@ export default {
           this.isLoading = false;
         });
     },
+    reset() {
+      this.$cache.remove(this.id());
+      this.$store.dispatch("changes", {
+        key: this.parent,
+        value: false
+      });
+      this.$events.$emit("form.unchanged");
+    },
+    resetAndFetch() {
+      this.reset();
+      this.fetch();
+    },
     resetErrors(values, field) {
       this.fields[field].error = false;
     },
     id() {
       return this.parent + "/" + this.name;
     },
-    hasCache() {
-      return this.getCache() !== null;
-    },
-    getCache() {
-      let values = localStorage.getItem(this.id());
-      return values && JSON.parse(values);
-    },
-    setCache(values) {
-      localStorage.setItem(this.id(), JSON.stringify(values));
-    },
-    setCacheField(field, value) {
-      let values = this.getCache() || {};
-      values[field] = value;
-      this.setCache(values);
-    },
-    removeCache() {
-      localeStorage.removeItem(this.id());
-    },
-    saveField(field, value) {
-      this.setCacheField(field, value);
-      return;
-
-      this.$api
-        .patch(this.id() + "/" + field, { value: value })
-        .then(response => {
-          this.fields = response.fields;
-          this.values = response.values;
-
-          if (this.fields[field].error === false) {
-            // this.$store.dispatch("success", "Saved!");
-          }
-        });
-    },
     saveForm() {
-      this.setCache(this.values);
-
-      return;
       this.$api.patch(this.id(), this.values).then(response => {
         this.fields = response.fields;
         this.values = response.values;
 
         if (Object.keys(response.errors).length === 0) {
           this.$store.dispatch("success", "Saved!");
+          this.reset();
+        } else {
+          this.$store.dispatch("error", "Please fix all errors");
         }
       });
     }
