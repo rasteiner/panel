@@ -21,7 +21,7 @@
       </section>
 
       <section class="kirby-menu-section kirby-menu-section-bottom">
-        <kirby-button @click="preview" icon="preview">
+        <kirby-button @click="preview" icon="open">
           Open site
         </kirby-button>
         <kirby-button v-if="access.users" @click="$refs.menu.close()" :link="currentUser" icon="account">
