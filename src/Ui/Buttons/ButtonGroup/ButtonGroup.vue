@@ -15,4 +15,8 @@
 .kirby-button-group > .kirby-button {
   padding: 1rem;
 }
+.kirby-button-group .kirby-dropdown-content {
+  top: calc(100% + 1rem);
+  margin: 0 1rem;
+}
 </style>

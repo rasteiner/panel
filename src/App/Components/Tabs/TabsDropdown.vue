@@ -1,7 +1,7 @@
 <template>
   <kirby-dropdown class="kirby-tabs-dropdown">
     <kirby-button class="kirby-tabs-dropdown-toggle" @click="$refs.tabs.toggle()" :key="tab.name + '-toggle'" :icon="tab.icon">{{ tab.label }}</kirby-button>
-    <kirby-dropdown-content ref="tabs" align="right">
+    <kirby-dropdown-content ref="tabs">
       <kirby-dropdown-item v-for="tab in tabs" :key="tab.name + '-dropdown-item'" @click="open(tab.name)" :icon="tab.icon">{{ tab.label }}</kirby-dropdown-item>
     </kirby-dropdown-content>
   </kirby-dropdown>
