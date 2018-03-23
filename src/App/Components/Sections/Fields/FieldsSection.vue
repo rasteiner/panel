@@ -27,14 +27,6 @@ export default {
     this.$events.$on("key.save", this.saveForm);
     this.$events.$on("form.reset", this.resetAndFetch);
     this.$events.$on("form.save", this.saveForm);
-
-    if (this.$cache.exists(this.id())) {
-      this.$store.dispatch("changes", { key: this.parent, value: true });
-      this.$events.$emit("form.changed");
-    } else {
-      this.$store.dispatch("changes", { key: this.parent, value: false });
-      this.$events.$emit("form.unchanged");
-    }
   },
   destroyed: function() {
     this.$events.$off("key.save", this.saveForm);
@@ -60,6 +52,14 @@ export default {
             response.values,
             this.$cache.get(this.id()) || {}
           );
+
+          if (this.$cache.exists(this.id())) {
+            this.$store.dispatch("changes", { key: this.parent, value: true });
+            this.$events.$emit("form.changed");
+          } else {
+            this.$store.dispatch("changes", { key: this.parent, value: false });
+            this.$events.$emit("form.unchanged");
+          }
 
           this.isLoading = false;
         })
