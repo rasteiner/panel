@@ -1,7 +1,7 @@
 <template>
   <kirby-field class="kirby-textarea-field" :id="_uid" v-bind="$props" @blur="change">
 
-    <template slot="options" v-if="maxLength || minLength">
+    <template slot="options" v-if="counter">
       <kirby-counter
         :disabled="disabled"
         :value="state"
@@ -146,6 +146,7 @@
 
 <script>
 import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Counter from "Ui/Forms/Field/Mixins/Counter.js";
 import Label from "Ui/Forms/Field/Mixins/Label.js";
 import Help from "Ui/Forms/Field/Mixins/Help.js";
 import Placeholder from "Ui/Forms/Field/Mixins/Placeholder.js";
@@ -155,10 +156,8 @@ import Value from "Ui/Forms/Field/Mixins/Value.js";
 import autosize from "./Textarea.autosize.js";
 
 export default {
-  mixins: [Field, Label, Help, Placeholder, Required, Value],
+  mixins: [Field, Counter, Label, Help, Placeholder, Required, Value],
   props: {
-    maxLength: Number,
-    minLength: Number,
     buttons: {
       type: Boolean,
       default: true

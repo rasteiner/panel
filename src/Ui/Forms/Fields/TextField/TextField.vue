@@ -3,7 +3,7 @@
 
     <template slot="options">
       <slot name="options">
-        <kirby-counter v-if="minLength || maxLength"
+        <kirby-counter v-if="counter"
           :disabled="disabled"
           :value="state"
           :min="minLength"
@@ -35,6 +35,7 @@
 
 <script>
 import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Counter from "Ui/Forms/Field/Mixins/Counter.js";
 import Label from "Ui/Forms/Field/Mixins/Label.js";
 import Help from "Ui/Forms/Field/Mixins/Help.js";
 import Icon from "Ui/Forms/Field/Mixins/Icon.js";
@@ -44,15 +45,23 @@ import Required from "Ui/Forms/Field/Mixins/Required.js";
 import Value from "Ui/Forms/Field/Mixins/Value.js";
 
 export default {
-  mixins: [Field, Label, Help, Icon, Placeholder, Prefix, Required, Value],
+  mixins: [
+    Field,
+    Counter,
+    Label,
+    Help,
+    Icon,
+    Placeholder,
+    Prefix,
+    Required,
+    Value
+  ],
   props: {
     value: String,
     type: {
       type: String,
       default: "text"
     },
-    minLength: Number,
-    maxLength: Number,
     pattern: String,
     autocomplete: String,
     spellcheck: {
