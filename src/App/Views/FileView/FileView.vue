@@ -26,7 +26,7 @@
 
         <kirby-column width="1/4">
           <a :href="file.url" target="_blank">
-            <kirby-image v-if="preview.image" :src="preview.image" back="black" ratio="1/1" />
+            <kirby-image v-if="preview.image" :src="preview.image" back="pattern" ratio="1/1" />
             <kirby-icon class="kirby-file-view-preview" v-else :style="{ backgroundColor: preview.color }" :type="preview.icon || 'document'" />
           </a>
         </kirby-column>
