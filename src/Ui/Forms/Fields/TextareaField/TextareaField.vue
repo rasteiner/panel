@@ -162,10 +162,6 @@ export default {
       type: Boolean,
       default: true
     },
-    autosize: {
-      type: Boolean,
-      default: true
-    },
     multiline: {
       type: Boolean,
       default: true
