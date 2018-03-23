@@ -2,7 +2,7 @@
   <draggable class="kirby-list-collection" :options="{disabled: true}">
     <li v-for="(item, index) in items" :key="item.id" @click.native="$emit('click', item)">
       <router-link class="kirby-list-collection-image" :to="item.link" tabindex="-1">
-        <kirby-image v-if="item.image && item.image.url" :src="item.image.url" :cover="true" />
+        <kirby-image v-if="item.image && item.image.url" :src="item.image.url" :back="item.image.back || 'black'" :cover="true" />
         <kirby-icon v-else :type="preview(item)" :style="background(item)" />
       </router-link>
       <router-link class="kirby-list-collection-text" v-tab :to="item.link"><em>{{ item.text }}</em> <small v-if="item.info">{{ item.info }}</small></router-link>
@@ -77,7 +77,6 @@ export default {
   width: 2.5rem;
   height: 2.5rem;
   object-fit: contain;
-  background: $color-dark;
 }
 .kirby-list-collection-image .kirby-icon {
   position: absolute;
