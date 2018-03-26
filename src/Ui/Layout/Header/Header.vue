@@ -1,6 +1,6 @@
 <template>
   <header class="kirby-header">
-    <kirby-headline size="large" @click.native="$emit('edit')" :class="{'kirby-editable-headline': editable}">
+    <kirby-headline size="large" @dblclick.native="$emit('edit')">
       <slot />
     </kirby-headline>
     <kirby-bar>
@@ -12,33 +12,12 @@
   </header>
 </template>
 
-<script>
-export default {
-  props: ["editable", "icon", "link", "label", "breadcrumb", "pagination"]
-};
-</script>
-
 <style lang="scss">
 .kirby-header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $color-border;
   margin-bottom: 1.5rem;
   padding-top: 4vh;
 }
-
-.kirby-header .kirby-header-breadcrumb-bar {
-  margin-bottom: 1.5rem;
-  margin-top: -1rem;
-}
-
-.kirby-header .kirby-pagination {
-  [dir="ltr"] & {
-    margin-right: -1rem;
-  }
-  [dir="rtl"] & {
-    margin-left: -1rem;
-  }
-}
-
 .kirby-header .kirby-headline {
   max-width: 35rem;
 }
