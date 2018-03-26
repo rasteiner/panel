@@ -109,6 +109,7 @@ html {
   flex-grow: 1;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 3rem;
 }
 
 .kirby-panel[data-loading] {
