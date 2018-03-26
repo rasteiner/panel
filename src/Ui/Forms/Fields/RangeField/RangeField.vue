@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-range-field" :id="_uid" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-range-field" :id="_uid" v-bind="$props">
     <input
       type="range"
       :id="_uid"
@@ -18,10 +18,15 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Step from "Ui/Forms/Field/Mixins/Step.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
 
 export default {
-  mixins: [Field],
+  mixins: [Field, Label, Help, Required, Step, Value],
   props: {
     min: {
       type: Number,
@@ -30,10 +35,6 @@ export default {
     max: {
       type: Number,
       default: 100
-    },
-    step: {
-      type: Number,
-      default: 1
     },
     prepend: String,
     append: String

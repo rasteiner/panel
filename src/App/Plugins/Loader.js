@@ -15,7 +15,7 @@ Object.keys(window.panel.plugins.components).forEach(name => {
 });
 
 // Fields
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import * as Mixins from "../../Ui/Forms/Field/Mixins";
 
 Object.keys(window.panel.plugins.fields).forEach(name => {
   let options = window.panel.plugins.fields[name];
@@ -29,12 +29,15 @@ Object.keys(window.panel.plugins.fields).forEach(name => {
   }
 
   // make sure mixin key exists
-  if (!options.mixin) {
+  if (!options.mixins) {
     options.mixins = [];
   }
 
-  // inject Field mixin
-  options.mixins.push(Field);
+  // convert prop mixins & inject Field mixin
+  options.mixins = options.mixins.map(mixin => {
+    return typeof mixin === "string" ? Mixins[mixin] : mixin;
+  });
+  options.mixins.unshift(Mixins.Field);
 
   window.panel.registerComponent(name, options);
 });

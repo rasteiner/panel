@@ -7,7 +7,7 @@
       <kirby-box v-if="items.length === 0">
         <kirby-button @click="add">Click to add the first item …</kirby-button>
       </kirby-box>
-      <draggable v-else v-model="items" :data-disabled="disabled" @input="input" :options="{disabled: disabled, forceFallback: true, handle: '.kirby-structure-item-handle'}" element="ul" class="kirby-structure" @choose="active = null" @end="change">
+      <draggable v-else v-model="items" :data-disabled="disabled" @input="input" :options="{disabled: disabled, forceFallback: true, handle: '.kirby-structure-item-handle'}" element="ul" class="kirby-structure" @choose="active = null" @end="input">
         <li class="kirby-structure-item" v-for="(item, index) in items" :data-active="isActive(index)">
           <div class="kirby-structure-item-wrapper">
             <kirby-button v-if="!disabled" class="kirby-structure-item-handle" icon="sort" />
@@ -22,7 +22,7 @@
             </nav>
           </div>
           <div class="kirby-structure-form" v-if="!disabled" v-show="isActive(index)">
-            <kirby-fieldset class="kirby-structure-fieldset" ref="form" :fields="fields" :values="item" @change="change"></kirby-fieldset>
+            <kirby-fieldset class="kirby-structure-fieldset" ref="form" :fields="fields" :values="item" @input="input"></kirby-fieldset>
           </div>
         </li>
       </draggable>
@@ -71,14 +71,10 @@ export default {
 
       this.items.push(data);
       this.active = this.items.length - 1;
-      this.change();
+      this.input();
     },
     input() {
       this.$emit("input", this.items);
-    },
-    change() {
-      this.input();
-      this.$emit("change", this.items);
     },
     toggle(index) {
       this.active = this.active === index ? null : index;
@@ -91,7 +87,7 @@ export default {
       this.items.splice(this.active, 1);
       this.active = null;
       this.$refs.remove.close();
-      this.change();
+      this.input();
     },
     jump(index, field) {
       this.active = index;
