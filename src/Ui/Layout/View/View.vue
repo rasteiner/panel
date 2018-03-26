@@ -8,7 +8,7 @@
 .kirby-view {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  margin: 0 auto 3rem;
+  margin: 0 auto;
   max-width: 120rem;
 
   @media screen and (min-width: $breakpoint-small) {

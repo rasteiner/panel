@@ -37,15 +37,25 @@ export default {
 </script>
 
 <style lang="scss">
-.kirby-button {
-  position: relative;
-  background: none;
-  font-size: $font-size-small;
-  font-family: $font-family-sans;
+button {
   line-height: inherit;
   border: 0;
-  cursor: pointer;
   color: currentColor;
+  background: none;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+button[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.kirby-button {
+  position: relative;
+  font-size: $font-size-small;
+  font-family: $font-family-sans;
   transition: color 0.3s;
 
   &:focus,
@@ -72,14 +82,6 @@ export default {
       padding-right: 0.5rem;
     }
   }
-}
-.kirby-button::-moz-focus-inner {
-  padding: 0;
-  border: 0;
-}
-.kirby-button[disabled] {
-  pointer-events: none;
-  opacity: 0.5;
 }
 
 .kirby-button[data-state="positive"] {

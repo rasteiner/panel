@@ -48,7 +48,8 @@ $color-inset: #ebebeb;
 $font-size-tiny: 12px;
 $font-size-small: 14px;
 $font-size-medium: 16px;
-$font-size-large: 28px;
+$font-size-large: 24px;
+$font-size-huge: 28px;
 
 $font-family-sans: "Roboto";
 $font-family-mono: "Roboto Mono";
@@ -73,7 +74,7 @@ $box-shadow-focus-full: $color-focus 0 0 0 2px,
  */
 $breakpoint-small: 30em;
 $breakpoint-menu: 45em;
-$breakpoint-medium: 67.5em;
+$breakpoint-medium: 65em;
 $breakpoint-large: 90em;
 $breakpoint-huge: 120em;
 

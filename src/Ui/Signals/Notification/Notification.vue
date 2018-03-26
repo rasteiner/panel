@@ -38,5 +38,6 @@ export default {
 <style lang="scss">
 .kirby-notification {
   font-weight: 500;
+  white-space: nowrap;
 }
 </style>

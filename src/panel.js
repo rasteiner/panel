@@ -26,12 +26,22 @@ router.addRoutes(window.panel.plugins.routes);
 /** API */
 import Api from "Api/Api.js";
 
+let loadingInterval = null;
+
 Api.config.onStart = () => {
-  store.dispatch("isLoading", true);
+  if (Api.running === 0) {
+    clearInterval(loadingInterval);
+    loadingInterval = setTimeout(() => {
+      store.dispatch("isLoading", true);
+    }, 200);
+  }
 };
 
 Api.config.onComplete = () => {
-  store.dispatch("isLoading", false);
+  if (Api.running === 0) {
+    store.dispatch("isLoading", false);
+    clearInterval(loadingInterval);
+  }
 };
 
 Api.config.onError = error => {

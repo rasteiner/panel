@@ -1,4 +1,5 @@
 export default {
+  running: 0,
   request(path, options) {
     if (localStorage.getItem("auth")) {
       const headers = new Headers();
@@ -10,6 +11,7 @@ export default {
     }
 
     this.config.onStart();
+    this.running++;
 
     return fetch(window.panel.config.api + "/" + path, options)
       .then(response => response.json())
@@ -17,6 +19,7 @@ export default {
         if (json.status && json.status === "error") {
           throw Error(json.message || json.status);
         }
+        this.running--;
         this.config.onComplete();
         this.config.onSuccess(json);
         return json;

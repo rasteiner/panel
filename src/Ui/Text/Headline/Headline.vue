@@ -44,6 +44,11 @@ export default {
 }
 .kirby-headline[data-size="large"] {
   font-size: $font-size-large;
+  line-height: 1.15em;
+
+  @media screen and (min-width: $breakpoint-medium) {
+    font-size: $font-size-huge;
+  }
 }
 .kirby-headline[data-state="negative"] {
   color: $color-negative;

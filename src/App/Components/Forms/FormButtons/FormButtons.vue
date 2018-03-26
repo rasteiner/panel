@@ -1,8 +1,8 @@
 <template>
-  <kirby-button-group v-if="hasChanges">
+  <nav class="kirby-form-buttons" v-if="hasChanges">
     <kirby-button class="kirby-form-button" icon="undo" @click="$events.$emit('form.reset')" state="negative">Revert</kirby-button>
     <kirby-button class="kirby-form-button" icon="check" @click="$events.$emit('form.save')" state="positive">Save</kirby-button>
-  </kirby-button-group>
+  </nav>
 </template>
 
 <script>
@@ -29,7 +29,11 @@ export default {
 </script>
 
 <style lang="scss">
+.kirby-form-buttons {
+  display: flex;
+}
 .kirby-form-button {
   font-weight: 500;
+  white-space: nowrap;
 }
 </style>
