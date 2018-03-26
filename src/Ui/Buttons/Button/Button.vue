@@ -42,6 +42,7 @@ button {
   border: 0;
   color: currentColor;
   background: none;
+  cursor: pointer;
 }
 button::-moz-focus-inner {
   padding: 0;
