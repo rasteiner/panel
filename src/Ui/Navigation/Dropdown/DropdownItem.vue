@@ -5,20 +5,15 @@
     :upload="upload"
     :image="image"
     :disabled="disabled"
-    @click="click">
+    @click.native="$parent.close"
+    @click="$emit('click')">
     <slot />
   </kirby-button>
 </template>
 
 <script>
 export default {
-  props: ["disabled", "icon", "image", "link", "upload"],
-  methods: {
-    click() {
-      this.$parent.close();
-      this.$emit("click");
-    }
-  }
+  props: ["disabled", "icon", "image", "link", "upload"]
 };
 </script>
 
@@ -38,17 +33,8 @@ export default {
   }
 }
 
-.kirby-dropdown-item:hover,
-.kirby-dropdown-item:focus {
-  color: #fff;
-}
-
 .kirby-dropdown-item .kirby-icon {
   width: 2rem;
   text-align: center;
-}
-
-.kirby-dropdown-item .kirby-icon svg * {
-  fill: #fff;
 }
 </style>

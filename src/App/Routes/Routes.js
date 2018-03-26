@@ -28,6 +28,19 @@ import store from "../Store/Store.js";
 /* Api */
 import Auth from "Api/Auth.js";
 
+const views = {
+  site: {
+    label: "Site",
+    link: "/",
+    icon: "page"
+  },
+  users: {
+    label: "Users",
+    link: "/users",
+    icon: "users"
+  }
+};
+
 /* Route filters */
 export const auth = (to, from, next) => {
   // check if user is logged in
@@ -37,11 +50,12 @@ export const auth = (to, from, next) => {
         throw new Error("You are not allowed to login to the panel");
       }
 
-      if (to.meta.access && user.permissions.access[to.meta.access] !== true) {
+      if (to.meta.view && user.permissions.access[to.meta.view] !== true) {
         throw new Error("You don't have access to this part of the panel");
       }
 
       // store logged-in user
+      store.commit("view", views[to.meta.view]);
       store.dispatch("user", user);
       next();
     })
@@ -79,7 +93,7 @@ export default [
     path: "/pages",
     name: "Site",
     meta: {
-      access: "site"
+      view: "site"
     },
     component: SiteView,
     beforeEnter: auth
@@ -88,7 +102,7 @@ export default [
     path: "/pages/:path+/files/:filename",
     name: "File",
     meta: {
-      access: "site"
+      view: "site"
     },
     component: FileView,
     beforeEnter: auth,
@@ -101,7 +115,7 @@ export default [
     path: "/pages/:path+",
     name: "Page",
     meta: {
-      access: "site"
+      view: "site"
     },
     component: PageView,
     beforeEnter: auth,
@@ -113,7 +127,7 @@ export default [
     path: "/users/role/:role",
     name: "UsersByRole",
     meta: {
-      access: "users"
+      view: "users"
     },
     component: UsersView,
     beforeEnter: auth,
@@ -125,7 +139,7 @@ export default [
     path: "/users",
     name: "Users",
     meta: {
-      access: "users"
+      view: "users"
     },
     beforeEnter: auth,
     component: UsersView
@@ -134,7 +148,7 @@ export default [
     path: "/users/:id",
     name: "User",
     meta: {
-      access: "users"
+      view: "users"
     },
     component: UserView,
     beforeEnter: auth,

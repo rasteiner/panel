@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     input(values, field) {
-      this.$store.dispatch("changes", { key: this.parent, value: true });
+      this.$store.dispatch("changes", { key: this.$route.path, value: true });
       this.$events.$emit("form.changed");
       this.$cache.set(this.id(), values);
       this.resetErrors(values, field);
@@ -54,10 +54,16 @@ export default {
           );
 
           if (this.$cache.exists(this.id())) {
-            this.$store.dispatch("changes", { key: this.parent, value: true });
+            this.$store.dispatch("changes", {
+              key: this.$route.path,
+              value: true
+            });
             this.$events.$emit("form.changed");
           } else {
-            this.$store.dispatch("changes", { key: this.parent, value: false });
+            this.$store.dispatch("changes", {
+              key: this.$route.path,
+              value: false
+            });
             this.$events.$emit("form.unchanged");
           }
 
@@ -71,7 +77,7 @@ export default {
     reset() {
       this.$cache.remove(this.id());
       this.$store.dispatch("changes", {
-        key: this.parent,
+        key: this.$route.path,
         value: false
       });
       this.$events.$emit("form.unchanged");
@@ -84,20 +90,22 @@ export default {
       this.fields[field].error = false;
     },
     id() {
-      return this.parent + "/" + this.name;
+      return this.$route.path;
     },
     saveForm() {
-      this.$api.patch(this.id(), this.values).then(response => {
-        this.fields = response.fields;
-        this.values = response.values;
+      this.$api
+        .patch(this.parent + "/" + this.name, this.values)
+        .then(response => {
+          this.fields = response.fields;
+          this.values = response.values;
 
-        if (Object.keys(response.errors).length === 0) {
-          this.$store.dispatch("success", "Saved!");
-          this.reset();
-        } else {
-          this.$store.dispatch("error", "Please fix all errors");
-        }
-      });
+          if (Object.keys(response.errors).length === 0) {
+            this.$store.dispatch("success", "Saved!");
+            this.reset();
+          } else {
+            this.$store.dispatch("error", "Please fix all errors");
+          }
+        });
     }
   }
 };

@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-file-view">
 
-    <kirby-header label="File" link="/pages" icon="page" :breadcrumb="breadcrumb" :pagination="pagination" :editable="permissions.changeName" @edit="action('rename')" @prev="prev" @next="next">
+    <kirby-header :editable="permissions.changeName" @edit="action('rename')">
 
       {{ file.filename }}
 
@@ -17,7 +17,10 @@
       </template>
 
       <template v-if="file.id" slot="buttons-right">
-        <kirby-form-buttons :id="$api.file.url(file.parent.id, file.filename)" />
+        <kirby-button-group>
+          <kirby-button :disabled="!prev" :link="prev" icon="angle-left" />
+          <kirby-button :disabled="!next" :link="next" icon="angle-right" />
+        </kirby-button-group>
       </template>
 
     </kirby-header>
@@ -136,6 +139,16 @@ export default {
         next: this.file.next ? true : false,
         nextLabel: "Next File"
       };
+    },
+    prev() {
+      return this.file.prev
+        ? this.$api.file.link(this.file.parent.id, this.file.prev.filename)
+        : null;
+    },
+    next() {
+      return this.file.next
+        ? this.$api.file.link(this.file.parent.id, this.file.next.filename)
+        : null;
     }
   },
   methods: {
@@ -151,7 +164,7 @@ export default {
           this.preview = this.$api.file.preview(file);
 
           this.$api.file.breadcrumb(file).then(breadcrumb => {
-            this.breadcrumb = breadcrumb;
+            this.$store.commit("breadcrumb", breadcrumb);
           });
 
           this.$store.dispatch("title", this.filename);
@@ -175,16 +188,6 @@ export default {
           this.$store.dispatch("error", "Not yet implemented");
           break;
       }
-    },
-    prev() {
-      this.$router.push(
-        "/pages/" + this.path + "/files/" + this.file.prev.filename
-      );
-    },
-    next() {
-      this.$router.push(
-        "/pages/" + this.path + "/files/" + this.file.next.filename
-      );
     },
     updateFilename(name) {
       name = slug(name);
@@ -254,7 +257,6 @@ export default {
   margin-top: -0.4rem;
 }
 .kirby-file-view dt {
-  font-family: $font-family-mono;
   font-size: $font-size-small;
   color: $color-dark-grey;
 }

@@ -128,7 +128,6 @@ export default {
 .kirby-field-error {
   padding: 0.5rem 0;
   font-size: $font-size-small;
-  font-family: $font-family-mono;
   color: $color-dark-grey;
   line-height: 1.5;
 }

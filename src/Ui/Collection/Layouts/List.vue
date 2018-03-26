@@ -102,7 +102,6 @@ export default {
   line-height: 1;
   height: 2.5rem;
   margin-left: 2.5rem;
-  font-family: $font-family-mono;
   font-size: $font-size-small;
   white-space: nowrap;
   overflow: hidden;

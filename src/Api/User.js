@@ -42,12 +42,11 @@ export default {
     return [
       {
         link: "/users/role/" + user.role.name,
-        label:
-          Vue.i18n.translate("user.role").toLowerCase() + ":" + user.role.name
+        label: Vue.i18n.translate("user.role") + ": " + user.role.title
       },
       {
         link: "/users/" + user.id,
-        label: user.email
+        label: user.name
       }
     ];
   },
@@ -101,5 +100,8 @@ export default {
     }
 
     return url;
+  },
+  link(id, path) {
+    return "/" + this.url(id, path);
   }
 };

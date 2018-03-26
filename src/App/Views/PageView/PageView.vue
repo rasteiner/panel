@@ -2,14 +2,7 @@
 
   <kirby-view class="kirby-page-view">
 
-    <kirby-header :label="$t('page.list')" link="/pages"
-      :icon="icon"
-      :breadcrumb="breadcrumb"
-      :pagination="pagination"
-      :editable="permissions.changeTitle"
-      @edit="action('rename')"
-      @prev="prev"
-      @next="next">
+    <kirby-header :editable="permissions.changeTitle" @edit="action('rename')">
 
       {{ page.title }}
 
@@ -31,7 +24,10 @@
       </template>
 
       <template v-if="page.id" slot="buttons-right">
-        <kirby-form-buttons :id="$api.page.url(page.id)" />
+        <kirby-button-group>
+          <kirby-button :disabled="!prev" :link="prev" icon="angle-left" />
+          <kirby-button :disabled="!next" :link="next" icon="angle-right" />
+        </kirby-button-group>
       </template>
 
     </kirby-header>
@@ -64,7 +60,6 @@ export default {
         changeStatus: false
       },
       icon: "page",
-      breadcrumb: [],
       tabs: []
     };
   },
@@ -84,18 +79,16 @@ export default {
         });
       };
     },
+    prev() {
+      return this.page.prev ? this.$api.page.link(this.page.prev.id) : null;
+    },
+    next() {
+      return this.page.next ? this.$api.page.link(this.page.next.id) : null;
+    },
     status() {
       return this.page.status !== null
         ? this.$api.page.states()[this.page.status]
         : null;
-    },
-    pagination() {
-      return {
-        prev: this.page.prev ? true : false,
-        prevLabel: "Previous page",
-        next: this.page.next ? true : false,
-        nextLabel: "Next page"
-      };
     }
   },
   methods: {
@@ -106,22 +99,12 @@ export default {
           this.page = page;
           this.permissions = page.blueprint.options;
           this.tabs = page.blueprint.tabs;
-          this.breadcrumb = this.$api.page.breadcrumb(page);
+          this.$store.commit("breadcrumb", this.$api.page.breadcrumb(page));
           this.$store.dispatch("title", this.page.title);
         })
         .catch(error => {
           this.$router.push("/pages");
         });
-    },
-    prev() {
-      if (this.page.prev) {
-        this.$router.push(this.$api.page.link(this.page.prev.id));
-      }
-    },
-    next() {
-      if (this.page.next) {
-        this.$router.push(this.$api.page.link(this.page.next.id));
-      }
     },
     action(action) {
       switch (action) {

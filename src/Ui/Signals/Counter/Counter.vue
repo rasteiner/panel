@@ -36,7 +36,6 @@ export default {
 <style lang="scss">
 .kirby-counter {
   font-size: $font-size-small;
-  font-family: $font-family-mono;
   color: $color-dark-grey;
 }
 .kirby-counter[data-invalid] > span {

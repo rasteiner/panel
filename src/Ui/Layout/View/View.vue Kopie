@@ -1,0 +1,38 @@
+<template>
+  <div class="kirby-view">
+    <slot />
+  </div>
+</template>
+
+<style lang="scss">
+
+.kirby-view {
+  padding: 2rem 1.5rem;
+  margin: 0 auto 3rem;
+}
+
+@media screen and (min-width: $breakpoint-small) {
+  .kirby-view {
+    padding: 2rem 3rem;
+  }
+}
+
+@media screen and (min-width: $breakpoint-medium) {
+  .kirby-view {
+    padding: 2rem 6rem;
+  }
+}
+
+@media screen and (min-width: $breakpoint-large) {
+  .kirby-view {
+    padding: 2rem 9rem;
+  }
+}
+
+@media screen and (min-width: $breakpoint-huge) {
+  .kirby-view {
+    padding: 2rem 12rem;
+  }
+}
+
+</style>

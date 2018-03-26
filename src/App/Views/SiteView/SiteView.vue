@@ -1,6 +1,6 @@
 <template>
   <kirby-view key="site-view" class="kirby-site-view">
-    <kirby-header :label="$t('page.list')" link="/pages" icon="page">
+    <kirby-header>
       {{ site.title }}
       <template slot="buttons-left">
         <kirby-button icon="open" @click="preview">
@@ -39,6 +39,7 @@ export default {
       this.$api.site.get({ view: "panel" }).then(site => {
         this.site = site;
         this.tabs = site.blueprint.tabs;
+        this.$store.commit("breadcrumb", []);
         this.$store.dispatch("title", "Site");
       });
     },

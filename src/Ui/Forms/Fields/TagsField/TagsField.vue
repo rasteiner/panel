@@ -198,7 +198,7 @@ export default {
 .kirby-tags-field .kirby-input-content {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   cursor: text;
 
   [dir="ltr"] & {
@@ -224,16 +224,15 @@ export default {
 .kirby-tags-input-element input {
   display: inline-block;
   min-width: 4rem;
-  padding: 0.4rem;
+  padding: 0 0.4rem;
+  height: 30px;
   flex-grow: 1;
   font: inherit;
   border: 0;
   outline: 0;
-  line-height: 1;
+  line-height: 30px;
   outline: 0;
   margin-bottom: 4px;
-  border-radius: 3px;
-  background: transparent;
 
   [dir="ltr"] & {
     margin-right: 4px;

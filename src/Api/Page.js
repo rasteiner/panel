@@ -119,13 +119,13 @@ export default {
   },
   breadcrumb(page, self = true) {
     var breadcrumb = page.parents.map(parent => ({
-      label: parent.slug,
+      label: parent.title,
       link: this.link(parent.id)
     }));
 
     if (self === true) {
       breadcrumb.push({
-        label: page.slug,
+        label: page.title,
         link: this.link(page.id)
       });
     }

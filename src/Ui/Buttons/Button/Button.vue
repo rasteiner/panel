@@ -41,7 +41,7 @@ export default {
   position: relative;
   background: none;
   font-size: $font-size-small;
-  font-family: $font-family-mono;
+  font-family: $font-family-sans;
   line-height: inherit;
   border: 0;
   cursor: pointer;
@@ -66,10 +66,10 @@ export default {
 
   .kirby-icon ~ .kirby-button-text {
     [dir="ltr"] & {
-      padding-left: 0.25rem;
+      padding-left: 0.5rem;
     }
     [dir="rtl"] & {
-      padding-right: 0.25rem;
+      padding-right: 0.5rem;
     }
   }
 }
@@ -84,26 +84,10 @@ export default {
 
 .kirby-button[data-state="positive"] {
   color: $color-positive;
-
-  &:hover {
-    color: $color-dark;
-  }
-
-  .kirby-icon svg * {
-    fill: $color-positive;
-  }
 }
 
 .kirby-button[data-state="negative"] {
   color: $color-negative;
-
-  &:hover {
-    color: $color-dark;
-  }
-
-  .kirby-icon svg * {
-    fill: $color-negative;
-  }
 }
 
 .kirby-button[data-has-image] {

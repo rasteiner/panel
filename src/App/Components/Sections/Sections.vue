@@ -1,5 +1,5 @@
 <template>
-  <kirby-grid class="kirby-sections" gutter="large">
+  <kirby-grid class="kirby-sections" gutter="fluid">
     <kirby-column v-for="(column, columnIndex) in columns" :key="parent + '-column-' + columnIndex" :width="column.width">
       <template v-for="(section, sectionIndex) in column.sections">
         <component v-if="exists(section.type)"

@@ -1,12 +1,10 @@
 <template>
   <header class="kirby-header">
 
+    <!--
     <kirby-bar class="kirby-header-breadcrumb-bar">
       <template slot="left">
         <kirby-breadcrumb>
-          <kirby-breadcrumb-item class="kirby-header-menu-button">
-            <kirby-button @click="$store.commit('menu', true)" icon="menu"></kirby-button>
-          </kirby-breadcrumb-item>
           <kirby-breadcrumb-item class="kirby-header-view-button" :link="link" :title="label"><kirby-icon :type="icon" :alt="label" /></kirby-breadcrumb-item>
           <kirby-breadcrumb-item v-for="(item, index) in breadcrumb" :key="index" :link="item.link">{{ item.label }}</kirby-breadcrumb-item>
         </kirby-breadcrumb>
@@ -15,6 +13,7 @@
         <kirby-prev-next v-if="pagination" v-bind="pagination" @prev="$emit('prev')" @next="$emit('next')" />
       </template>
     </kirby-bar>
+  -->
 
     <kirby-headline size="large" :class="{'kirby-editable-headline': editable}">
       <slot />
@@ -39,6 +38,7 @@ export default {
 .kirby-header {
   border-bottom: 1px solid #ddd;
   margin-bottom: 1.5rem;
+  padding-top: 4vh;
 }
 
 .kirby-header .kirby-header-breadcrumb-bar {
@@ -55,17 +55,17 @@ export default {
   }
 }
 
-.kirby-header-options-primary > .kirby-button .kirby-button-text,
+/* .kirby-header-options-primary > .kirby-button .kirby-button-text,
 .kirby-header-options-primary
   > .kirby-dropdown
   > .kirby-button
   .kirby-button-text {
   display: none;
 
-  @media screen and (min-width: $breakpoint-medium) {
+  @media screen and (min-width: $breakpoint-small) {
     display: inline-block;
   }
-}
+} */
 
 .kirby-breadcrumb-item.kirby-header-menu-button {
   position: relative;

@@ -26,9 +26,8 @@ export default {
 <style lang="scss">
 .kirby-tag {
   position: relative;
-  font-family: $font-family-mono;
   font-size: $font-size-small;
-  line-height: inherit;
+  line-height: 1;
   border: 0;
   cursor: pointer;
   color: inherit;
@@ -52,7 +51,7 @@ export default {
   align-items: stretch;
 }
 .kirby-tag-text {
-  padding: 0.4rem 0.75rem;
+  padding: 0.5rem 0.75rem;
 }
 .kirby-tag-toggle {
   position: relative;
@@ -77,6 +76,7 @@ export default {
   transform: translate(-50%, -50%);
   font-size: 1.1em;
   color: inherit;
+  margin-top: -1px;
 
   [dir="ltr"] & {
     margin-left: -1px;

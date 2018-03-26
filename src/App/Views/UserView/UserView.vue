@@ -3,7 +3,7 @@
   <kirby-view class="kirby-user-view">
 
     <div class="kirby-user-view-wrapper">
-      <kirby-header icon="users" label="User List" link="/users" :breadcrumb="breadcrumb" :pagination="pagination" :editable="permissions.changeName" @prev="prev" @next="next" @edit="action('rename')">
+      <kirby-header :editable="permissions.changeName" @edit="action('rename')">
 
         {{ user.name }}
 
@@ -38,7 +38,10 @@
         </template>
 
         <template v-if="user.id" class="kirby-user-view-options" slot="buttons-right">
-          <kirby-form-buttons :id="'users/' + user.id" />
+          <kirby-button-group>
+            <kirby-button :disabled="!prev" :link="prev" icon="angle-left" />
+            <kirby-button :disabled="!next" :link="next" icon="angle-right" />
+          </kirby-button-group>
         </template>
 
       </kirby-header>
@@ -99,16 +102,14 @@ export default {
         });
       };
     },
+    prev() {
+      return this.user.prev ? this.$api.user.link(this.user.prev.id) : null;
+    },
+    next() {
+      return this.user.next ? this.$api.user.link(this.user.next.id) : null;
+    },
     uploadApi() {
       return window.panel.config.api + "/users/" + this.user.id + "/avatar";
-    },
-    pagination() {
-      return {
-        prevLabel: this.$t("user.previous"),
-        prev: this.user.prev ? true : false,
-        next: this.user.next ? true : false,
-        nextLabel: this.$t("user.next")
-      };
     }
   },
   created() {
@@ -151,16 +152,9 @@ export default {
           break;
       }
     },
-    prev() {
-      this.$router.push("/users/" + this.user.prev.id);
-    },
-    next() {
-      this.$router.push("/users/" + this.user.next.id);
-    },
     fetch() {
       this.$api.user.get(this.id, { view: "panel" }).then(user => {
         this.user = user;
-        this.breadcrumb = this.$api.user.breadcrumb(user);
         this.tabs = user.blueprint.tabs;
         this.permissions = user.blueprint.options;
 
@@ -170,6 +164,7 @@ export default {
           this.avatar = null;
         }
 
+        this.$store.commit("breadcrumb", this.$api.user.breadcrumb(user));
         this.$store.dispatch("title", this.user.name);
       });
     },

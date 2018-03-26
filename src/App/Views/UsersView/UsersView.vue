@@ -2,7 +2,7 @@
 
   <kirby-view class="kirby-users-view">
 
-    <kirby-header icon="users" link="/users" :breadcrumb="breadcrumb">
+    <kirby-header>
 
       {{ $t('users') }}
 
@@ -111,6 +111,17 @@ export default {
 
           return item;
         });
+
+        if (this.role) {
+          this.$store.commit("breadcrumb", [
+            {
+              link: "/users/role/" + this.role.value,
+              label: "Role: " + this.role.text
+            }
+          ]);
+        } else {
+          this.$store.commit("breadcrumb", []);
+        }
       });
     },
     paginate(pagination) {
@@ -155,18 +166,6 @@ export default {
         page: this.page,
         limit: this.limit
       };
-    },
-    breadcrumb() {
-      if (this.role) {
-        return [
-          {
-            link: "/users/role/" + this.role.value,
-            label: "role:" + this.role.value
-          }
-        ];
-      }
-
-      return [];
     },
     role() {
       let currentRole = null;

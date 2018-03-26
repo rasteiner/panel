@@ -24,7 +24,6 @@ export default {
 }
 
 .kirby-box[data-state="empty"] {
-  font-family: $font-family-mono;
   font-size: $font-size-small;
 }
 

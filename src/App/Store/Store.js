@@ -15,7 +15,9 @@ export default new Vuex.Store({
     changes: {},
 
     // user
-    user: null,
+    user: {
+      id: null
+    },
     locale: {
       id: "en_US",
       direction: "ltr"
@@ -27,7 +29,9 @@ export default new Vuex.Store({
     isLoading: false,
 
     // navigation
-    afterLogin: null
+    afterLogin: null,
+    breadcrumb: [],
+    view: null
   },
   mutations: {
     // content
@@ -66,6 +70,12 @@ export default new Vuex.Store({
     // navigation
     afterLogin(state, url) {
       state.afterLogin = url;
+    },
+    breadcrumb(state, breadcrumb) {
+      state.breadcrumb = breadcrumb;
+    },
+    view(state, view) {
+      state.view = view;
     },
 
     changes(state, payload) {

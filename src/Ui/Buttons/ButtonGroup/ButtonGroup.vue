@@ -8,12 +8,12 @@
 <style lang="scss">
 .kirby-button-group {
   font-size: 0;
-  margin-left: -1rem;
-  margin-right: -1rem;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
 }
 .kirby-button-group > .kirby-dropdown > .kirby-button,
 .kirby-button-group > .kirby-button {
-  padding: 1rem;
+  padding: 1rem 0.75rem;
 }
 .kirby-button-group .kirby-dropdown-content {
   top: calc(100% + 1rem);
