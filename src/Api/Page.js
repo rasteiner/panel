@@ -59,7 +59,7 @@ export default {
       result.push({
         click: "status",
         icon: "preview",
-        text: "Publishing settings …",
+        text: "Change status",
         disabled: !options.changeStatus
       });
 

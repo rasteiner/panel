@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-select-field" :id="_uid" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-select-field" :id="_uid" v-bind="$props">
     <kirby-select-input
       :id="_uid"
       :name="name"
@@ -12,19 +12,19 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Icon from "Ui/Forms/Field/Mixins/Icon.js";
+import Options from "Ui/Forms/Field/Mixins/Options.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
 
 export default {
-  mixins: [Field],
+  mixins: [Field, Label, Help, Icon, Options, Required, Value],
   props: {
     value: {
       type: [String, Number]
-    },
-    options: {
-      type: Array,
-      default: () => {
-        return [];
-      }
     }
   }
 };

@@ -1,38 +1,7 @@
 export default {
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    value: {},
-
-    // elements
-    label: String,
-    icon: {
-      type: [Boolean, String],
-      default: false
-    },
-    error: [Object, Boolean],
-    help: {
-      type: String,
-      default: ""
-    },
-
-    // states
-    required: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    autofocus: {
-      type: Boolean,
-      default: false
-    }
+    value: {}
   },
-  inheritAttrs: false,
   data() {
     return {
       state: this.toState(this.value),
@@ -56,9 +25,6 @@ export default {
         this.hasChanged = true;
         this.$emit("input", this.toValue);
       }
-    },
-    setFocus() {
-      this.$el.querySelectorAll("input, textarea, select")[0].focus();
     },
     change() {
       if (this.hasChanged === true) {

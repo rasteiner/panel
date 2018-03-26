@@ -9,8 +9,8 @@
               <kirby-icon type="angle-down"></kirby-icon>
             </kirby-button>
             <kirby-dropdown-content ref="menu">
-              <kirby-dropdown-item link="/" icon="page">Site</kirby-dropdown-item>
-              <kirby-dropdown-item link="/users" icon="users">Users</kirby-dropdown-item>
+              <kirby-dropdown-item :disabled="!access.site" link="/" icon="page">Site</kirby-dropdown-item>
+              <kirby-dropdown-item :disabled="!access.users" link="/users" icon="users">Users</kirby-dropdown-item>
               <kirby-dropdown-item :link="currentUser" icon="account">Your account</kirby-dropdown-item>
               <kirby-dropdown-item link="/logout" icon="logout">Logout</kirby-dropdown-item>
             </kirby-dropdown-content>
@@ -25,12 +25,12 @@
 
             <kirby-dropdown-content ref="crumb">
               <kirby-dropdown-item :icon="view.icon" :link="view.link">{{ view.label }}</kirby-dropdown-item>
-              <kirby-dropdown-item v-for="crumb in $store.state.breadcrumb" :icon="view.icon" :link="crumb.link">{{ crumb.label }}</kirby-dropdown-item>
+              <kirby-dropdown-item v-for="(crumb, index) in $store.state.breadcrumb" :key="'crumb-' + index + '-dropdown'" :icon="view.icon" :link="crumb.link">{{ crumb.label }}</kirby-dropdown-item>
             </kirby-dropdown-content>
           </kirby-dropdown>
 
           <nav class="kirby-topbar-crumbs">
-            <router-link v-for="crumb in $store.state.breadcrumb" :key="crumb.link" :to="crumb.link">{{ crumb.label }}</router-link>
+            <router-link v-for="(crumb, index) in $store.state.breadcrumb" :key="'crumb-' + index" :to="crumb.link">{{ crumb.label }}</router-link>
           </nav>
 
           <div class="kirby-topbar-signals">

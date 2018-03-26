@@ -4,7 +4,6 @@
     <draggable
       :value="state"
       @input="input"
-      @change="change"
       :options="{disabled: !draggable, forceFallback: true}"
       class="kirby-tags-input">
 
@@ -41,21 +40,22 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Icon from "Ui/Forms/Field/Mixins/Icon.js";
+import Options from "Ui/Forms/Field/Mixins/Options.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
+
 import draggable from "vuedraggable";
 
 export default {
-  mixins: [Field],
+  mixins: [Field, Label, Help, Icon, Options, Required, Value],
   components: {
     draggable
   },
   props: {
-    options: {
-      type: Array,
-      default: () => {
-        return [];
-      }
-    },
     separator: {
       type: String,
       default: ","
@@ -88,7 +88,6 @@ export default {
       if (this.index(tag) === -1) {
         this.state.push(tag);
         this.input(this.state);
-        this.change();
       }
 
       this.$refs.input.close();
@@ -170,7 +169,6 @@ export default {
       // remove tag and fire input event
       this.state.splice(this.index(tag), 1);
       this.input(this.state);
-      this.change();
 
       if (prev) {
         prev.ref.focus();

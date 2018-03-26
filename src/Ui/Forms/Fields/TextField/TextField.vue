@@ -1,9 +1,9 @@
 <template>
-  <kirby-field ref="field" :class="`kirby-${this.type}-field`" :id="_uid" v-bind="$props" @blur="change">
+  <kirby-field ref="field" :class="`kirby-${this.type}-field`" :id="_uid" v-bind="$props">
 
     <template slot="options">
       <slot name="options">
-        <kirby-counter v-if="minLength || maxLength"
+        <kirby-counter v-if="counter"
           :disabled="disabled"
           :value="state"
           :min="minLength"
@@ -30,28 +30,39 @@
       @input="input($event.target.value)"
     />
 
-    <template v-if="postfix" slot="icon">{{ postfix }}</template>
-
   </kirby-field>
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Counter from "Ui/Forms/Field/Mixins/Counter.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Icon from "Ui/Forms/Field/Mixins/Icon.js";
+import Placeholder from "Ui/Forms/Field/Mixins/Placeholder.js";
+import Prefix from "Ui/Forms/Field/Mixins/Prefix.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
 
 export default {
-  mixins: [Field],
+  mixins: [
+    Field,
+    Counter,
+    Label,
+    Help,
+    Icon,
+    Placeholder,
+    Prefix,
+    Required,
+    Value
+  ],
   props: {
     value: String,
     type: {
       type: String,
       default: "text"
     },
-    minLength: Number,
-    maxLength: Number,
     pattern: String,
-    prefix: String,
-    postfix: String,
-    placeholder: String,
     autocomplete: String,
     spellcheck: {
       type: Boolean,

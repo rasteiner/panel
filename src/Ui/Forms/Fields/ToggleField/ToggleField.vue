@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-toggle-field" :id="_uid" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-toggle-field" :id="_uid" v-bind="$props">
     <span class="kirby-toggle-input">
       <input
         type="checkbox"
@@ -13,17 +13,19 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Text from "Ui/Forms/Field/Mixins/Text.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
 
 export default {
-  mixins: [Field],
+  mixins: [Field, Label, Help, Required, Text, Value],
   props: {
     value: {
       type: Boolean,
       default: false
-    },
-    text: {
-      type: [String, Array]
     }
   },
   computed: {

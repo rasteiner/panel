@@ -16,7 +16,10 @@ export default new Vuex.Store({
 
     // user
     user: {
-      id: null
+      id: null,
+      permissions: {
+        access: {}
+      }
     },
     locale: {
       id: "en_US",

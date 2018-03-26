@@ -5,10 +5,10 @@
 </template>
 
 <script>
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+
 export default {
-  props: {
-    label: String
-  }
+  mixins: [Label]
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <kirby-field class="kirby-checkboxes-field" v-bind="$props" @blur="change">
+  <kirby-field class="kirby-checkboxes-field" v-bind="$props">
     <div v-if="hasOptions" class="kirby-checkboxes-grid">
       <kirby-checkbox-input
         v-for="(option, index) in options"
@@ -19,27 +19,21 @@
 </template>
 
 <script>
-import Field from "Ui/Forms/Field/Field.mixin.js";
+import Field from "Ui/Forms/Field/Mixins/Field.js";
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Help from "Ui/Forms/Field/Mixins/Help.js";
+import Options from "Ui/Forms/Field/Mixins/Options.js";
+import Required from "Ui/Forms/Field/Mixins/Required.js";
+import Value from "Ui/Forms/Field/Mixins/Value.js";
 
 export default {
-  mixins: [Field],
+  mixins: [Field, Label, Help, Options, Required, Value],
   props: {
     value: {
       type: Array,
       default: () => {
         return [];
       }
-    },
-    options: {
-      type: Array,
-      default: () => {
-        return [];
-      }
-    }
-  },
-  computed: {
-    hasOptions() {
-      return this.options && this.options.length > 0;
     }
   },
   methods: {

@@ -6,10 +6,10 @@
 </template>
 
 <script>
+import Label from "Ui/Forms/Field/Mixins/Label.js";
+import Text from "Ui/Forms/Field/Mixins/Text.js";
+
 export default {
-  props: {
-    label: String,
-    text: String
-  }
+  mixins: [Label, Text]
 };
 </script>
