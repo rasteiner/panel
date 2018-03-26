@@ -110,8 +110,7 @@ export default {
         changeName: false,
         delete: false
       },
-      tabs: [],
-      breadcrumb: []
+      tabs: []
     };
   },
   created() {

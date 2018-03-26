@@ -90,8 +90,7 @@ export default {
       permissions: {
         changeName: false
       },
-      avatar: null,
-      breadcrumb: null
+      avatar: null
     };
   },
   computed: {

@@ -1,7 +1,7 @@
 <template>
   <div class="kirby-panel" :data-loading="$store.state.isLoading" :data-menu="$store.state.menu">
 
-    <header class="kirby-topbar">
+    <header class="kirby-topbar" v-if="$store.state.user">
       <kirby-view>
         <div class="kirby-topbar-wrapper">
           <kirby-dropdown class="kirby-topbar-menu">
@@ -195,7 +195,7 @@ $topbar-text: $color-white;
 
   &::before {
     content: "/";
-    padding: 0 0.25rem;
+    padding: 0 0.5rem;
     opacity: 0.25;
   }
   &:hover {

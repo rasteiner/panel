@@ -78,6 +78,13 @@ export default [
     component: LoginView
   },
   {
+    path: "/logout",
+    redirect: to => {
+      store.dispatch("user", null);
+      return "/login";
+    }
+  },
+  {
     path: "/installation",
     component: InstallationView,
     beforeEnter: (to, from, next) => {

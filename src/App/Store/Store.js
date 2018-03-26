@@ -15,12 +15,7 @@ export default new Vuex.Store({
     changes: {},
 
     // user
-    user: {
-      id: null,
-      permissions: {
-        access: {}
-      }
-    },
+    user: null,
     locale: {
       id: "en_US",
       direction: "ltr"
