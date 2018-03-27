@@ -10,6 +10,9 @@
         <kirby-button icon="open" @click="action('download')">
           Open
         </kirby-button>
+        <kirby-button :disabled="permissions.changeName === false" icon="title" @click="action('rename')">
+          Rename
+        </kirby-button>
         <kirby-button :disabled="permissions.delete === false" icon="trash" @click="action('remove')">
           {{ $t('delete') }}
         </kirby-button>
