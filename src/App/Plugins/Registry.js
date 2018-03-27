@@ -2,7 +2,7 @@ window.panel.plugins = {
   components: {},
   fields: {},
   views: {},
-  menuButtons: {},
+  menuItems: {},
   routes: []
 };
 
@@ -26,6 +26,6 @@ window.panel.view = (name, options) => {
   window.panel.plugin("view", name, options);
 };
 
-window.panel.menuButton = (name, options = {}) => {
-  window.panel.plugin("menuButton", name, options);
+window.panel.menuItem = (name, options = {}) => {
+  window.panel.plugin("menuItem", name, options);
 };

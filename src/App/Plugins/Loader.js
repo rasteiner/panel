@@ -78,20 +78,20 @@ Object.keys(window.panel.plugins.views).forEach(name => {
 });
 
 // Menu Buttons
-Object.keys(window.panel.plugins.menuButtons).forEach(name => {
+Object.keys(window.panel.plugins.menuItems).forEach(name => {
   // Link fallback
-  if (!window.panel.plugins.menuButtons[name].link) {
-    window.panel.plugins.menuButtons[name].link = "/plugin/" + name;
+  if (!window.panel.plugins.menuItems[name].link) {
+    window.panel.plugins.menuItems[name].link = "/plugin/" + name;
   }
 
   // Label fallback
-  if (!window.panel.plugins.menuButtons[name].label) {
-    window.panel.plugins.menuButtons[name].label =
+  if (!window.panel.plugins.menuItems[name].label) {
+    window.panel.plugins.menuItems[name].label =
       name.charAt(0).toUpperCase() + name.slice(1);
   }
 
   // Icon fallback
-  if (!window.panel.plugins.menuButtons[name].icon) {
-    window.panel.plugins.menuButtons[name].icon = "page";
+  if (!window.panel.plugins.menuItems[name].icon) {
+    window.panel.plugins.menuItems[name].icon = "page";
   }
 });

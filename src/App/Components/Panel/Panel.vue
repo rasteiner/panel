@@ -6,11 +6,20 @@
         <div class="kirby-topbar-wrapper">
           <kirby-dropdown class="kirby-topbar-menu">
             <kirby-button class="kirby-topbar-button kirby-topbar-menu-button" @click="$refs.menu.toggle()" icon="bars">
-              <kirby-icon type="angle-down"></kirby-icon>
+              <kirby-icon type="angle-down" />
             </kirby-button>
             <kirby-dropdown-content ref="menu">
               <kirby-dropdown-item :disabled="!access.site" link="/" icon="page">Site</kirby-dropdown-item>
               <kirby-dropdown-item :disabled="!access.users" link="/users" icon="users">Users</kirby-dropdown-item>
+
+              <kirby-dropdown-item
+                v-for="item in pluginMenu"
+                :key="item.link"
+                :link="button.link"
+                :icon="button.icon">
+                {{ button.label }}
+              </kirby-dropdown-item>
+
               <kirby-dropdown-item :link="currentUser" icon="account">Your account</kirby-dropdown-item>
               <kirby-dropdown-item link="/logout" icon="logout">Logout</kirby-dropdown-item>
             </kirby-dropdown-content>
@@ -20,7 +29,7 @@
 
           <kirby-dropdown class="kirby-topbar-breadcrumb-menu" v-if="$store.state.breadcrumb.length > 1">
             <kirby-button @click="$refs.crumb.toggle()" class="kirby-topbar-button">
-              … <kirby-icon type="angle-down"></kirby-icon>
+              … <kirby-icon type="angle-down" />
             </kirby-button>
 
             <kirby-dropdown-content ref="crumb">
@@ -63,8 +72,8 @@ export default {
     currentUser() {
       return "/users/" + this.$store.state.user.id;
     },
-    pluginButtons() {
-      return window.panel.plugins.menuButtons;
+    pluginMenu() {
+      return window.panel.plugins.menuItems;
     },
     access() {
       return this.$store.state.user.permissions.access;
