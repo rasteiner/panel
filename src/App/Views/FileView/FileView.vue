@@ -39,6 +39,9 @@
 
             <kirby-column width="1/2">
               <dl>
+                <dt>Template</dt>
+                <dd>{{ file.template }}</dd>
+
                 <template v-if="file.mime">
                   <dt>Type</dt>
                   <dd>{{ file.mime }}</dd>
@@ -47,16 +50,16 @@
                 <dt>URL</dt>
                 <dd><a :href="file.url" target="__blank">/{{ file.id }}</a></dd>
 
-                <template v-if="file.niceSize">
-                  <dt>Size</dt>
-                  <dd>{{ file.niceSize }}</dd>
-                </template>
-
               </dl>
             </kirby-column>
 
             <kirby-column width="1/2">
               <dl>
+                <template v-if="file.niceSize">
+                  <dt>Size</dt>
+                  <dd>{{ file.niceSize }}</dd>
+                </template>
+
                 <template v-if="file.dimensions">
                   <dt>Dimensions</dt>
                   <dd>{{ file.dimensions.width }}&times;{{ file.dimensions.height }} Pixels</dd>
