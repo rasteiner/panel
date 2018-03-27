@@ -1,5 +1,5 @@
 <template>
-  <draggable class="kirby-list-collection" :options="{disabled: true}">
+  <draggable class="kirby-list-collection" :list="list" @end="$emit('sort', list)" :options="{disabled: !sortable, forceFallback: true}">
     <li v-for="(item, index) in items" :key="item.id" @click.native="$emit('click', item)">
       <router-link class="kirby-list-collection-image" :to="item.link" tabindex="-1">
         <kirby-image v-if="item.image && item.image.url" :src="item.image.url" :back="item.image.back || 'black'" :cover="true" />
@@ -30,7 +30,15 @@ export default {
   components: {
     draggable
   },
-  props: ["items"],
+  props: {
+    items: [Array, Object],
+    sortable: Boolean
+  },
+  data() {
+    return {
+      list: this.items
+    };
+  },
   methods: {
     preview(item) {
       if (item.preview && item.preview.icon) {

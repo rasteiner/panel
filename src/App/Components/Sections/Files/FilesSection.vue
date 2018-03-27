@@ -21,6 +21,8 @@
         :layout="layout"
         :items="data"
         :pagination="pagination"
+        :sortable="sortable"
+        @sort="sort"
         @paginate="paginate"
         @action="action" />
 
@@ -91,12 +93,28 @@ export default {
           this.headline = response.headline;
           this.create = response.create;
           this.pagination = response.pagination;
+          this.sortable = response.sortable;
           this.layout = response.layout || "list";
           this.isLoading = false;
         })
         .catch(error => {
           this.isLoading = false;
           this.issue = error.message;
+        });
+    },
+    sort(items) {
+      if (this.sortable === false) {
+        return false;
+      }
+
+      items = items.map(item => {
+        return item.id;
+      });
+
+      this.$api
+        .patch(this.parent + "/" + this.name + "/sort", { items })
+        .then(response => {
+          console.log(response);
         });
     },
     action(file, action) {

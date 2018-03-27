@@ -6,7 +6,9 @@
         class="kirby-collection-items"
         :is="'kirby-' + layout + '-collection'"
         :items="items"
+        :sortable="sortable"
         :pagination="paginationOptions"
+        @sort="$emit('sort', $event)"
         @paginate="paginate"
         @action="action"
         @click="click" />
@@ -35,6 +37,7 @@ export default {
       type: String,
       default: "list"
     },
+    sortable: Boolean,
     items: {
       type: Array,
       default: () => {

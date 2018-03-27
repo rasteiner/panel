@@ -1,5 +1,5 @@
 <template>
-  <draggable element="kirby-cards" :options="{disabled: true}">
+  <draggable element="kirby-cards" :list="cards" @end="$emit('sort', cards)" :options="{disabled: !sortable, forceFallback: true}">
     <kirby-card v-for="item in items" :key="item.id" v-bind="item"
       menu-label="Options"
       @action="$emit('action', item, $event)"
@@ -10,7 +10,15 @@
 <script>
 import draggable from "vuedraggable";
 export default {
-  props: ["items"],
+  props: {
+    items: [Array, Object],
+    sortable: Boolean
+  },
+  data() {
+    return {
+      cards: this.items
+    };
+  },
   components: {
     draggable
   }
