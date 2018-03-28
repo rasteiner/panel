@@ -1,5 +1,5 @@
 <template>
-  <draggable class="kirby-list-collection" :list="list" @end="$emit('sort', list)" :options="{disabled: !sortable, forceFallback: true}">
+  <draggable class="kirby-list-collection" :list="list" @change="$emit('change', $event)" @move="move" @end="end" :options="{disabled: !sortable, forceFallback: true, group: group}">
     <li v-for="(item, index) in items" :key="item.id" @click.native="$emit('click', item)">
       <router-link class="kirby-list-collection-image" :to="item.link" tabindex="-1">
         <kirby-image v-if="item.image && item.image.url" :src="item.image.url" :back="item.image.back || 'black'" :cover="true" />
@@ -32,12 +32,18 @@ export default {
   },
   props: {
     items: [Array, Object],
+    group: String,
     sortable: Boolean
   },
   data() {
     return {
       list: this.items
     };
+  },
+  watch: {
+    items(items) {
+      this.list = items;
+    }
   },
   methods: {
     preview(item) {
@@ -47,17 +53,34 @@ export default {
         return "file";
       }
     },
+    move(e) {
+      console.log(e);
+    },
     background(item) {
       if (item.preview && item.preview.color) {
         return { backgroundColor: item.preview.color };
       }
+    },
+    drag() {
+      console.log("drag");
+    },
+    end() {
+      this.$emit("sort", this.list);
     }
   }
 };
 </script>
 
 <style lang="scss">
-.kirby-list-collection li {
+.kirby-list-collection {
+  min-height: 2.5rem;
+}
+.kirby-list-collection:empty {
+  background: $color-inset;
+  border: 1px dashed $color-border;
+}
+.kirby-list-collection li,
+.kirby-list-collection .kirby-card {
   position: relative;
   background: $color-white;
   border-radius: $border-radius;

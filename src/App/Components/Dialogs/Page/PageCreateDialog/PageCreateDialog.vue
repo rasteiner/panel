@@ -42,11 +42,11 @@ export default {
     }
   },
   methods: {
-    open(parent, section, options) {
+    open(parent, section, templates) {
       this.parent = parent;
       this.section = section;
-      this.templates = options.template;
-      this.page.template = options.template[0].value;
+      this.templates = templates;
+      this.page.template = templates[0].value;
       this.$refs.dialog.open();
     },
     submit() {

@@ -93,7 +93,7 @@ export default {
           this.headline = response.headline;
           this.create = response.create;
           this.pagination = response.pagination;
-          this.sortable = response.sortable;
+          this.sortable = response.sortable === true && this.data.length > 1;
           this.layout = response.layout || "list";
           this.isLoading = false;
         })
@@ -114,7 +114,11 @@ export default {
       this.$api
         .patch(this.parent + "/" + this.name + "/sort", { items })
         .then(response => {
-          console.log(response);
+          this.$store.dispatch("success", "Sorted!");
+        })
+        .catch(response => {
+          this.fetch();
+          this.$store.dispatch("error", response.message);
         });
     },
     action(file, action) {

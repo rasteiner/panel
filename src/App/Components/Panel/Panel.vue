@@ -44,7 +44,7 @@
 
           <div class="kirby-topbar-signals">
             <kirby-loader v-if="$store.state.isLoading" class="kirby-panel-loader" />
-            <kirby-notification v-else-if="$store.state.notification" v-bind="$store.state.notification" />
+            <kirby-notification v-if="$store.state.notification" v-bind="$store.state.notification" />
             <kirby-form-buttons v-else />
           </div>
         </div>
@@ -151,6 +151,7 @@ $topbar-text: $color-white;
 }
 
 .kirby-topbar-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   margin-left: -0.75rem;
@@ -250,5 +251,11 @@ $topbar-text: $color-white;
 .kirby-topbar .kirby-dropdown-content {
   color: $color-dark;
   background: $color-white;
+}
+
+.kirby-topbar .kirby-notification {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>

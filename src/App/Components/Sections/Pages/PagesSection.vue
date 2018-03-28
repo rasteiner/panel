@@ -6,7 +6,7 @@
       <span v-else>{{ headline }}</span>
 
       <kirby-button-group slot="options">
-        <kirby-button v-if="create" icon="add" @click="action(null, 'create')">Add</kirby-button>
+        <kirby-button v-if="add" icon="add" @click="action(null, 'create')">Add</kirby-button>
       </kirby-button-group>
     </kirby-headline>
 
@@ -22,13 +22,16 @@
         :layout="layout"
         :items="data"
         :pagination="pagination"
+        :sortable="true"
+        :group="group"
+        @change="sort"
         @paginate="paginate"
-        @action="action" />
-
-      <kirby-box v-if="data.length === 0" state="empty">
-        <kirby-button v-if="create" @click="action(null, 'create')">No entries</kirby-button>
-        <kirby-txt v-else>No entries</kirby-txt>
-      </kirby-box>
+        @action="action">
+        <kirby-box state="empty">
+          <kirby-button v-if="add" @click="action(null, 'create')">No entries</kirby-button>
+          <kirby-txt v-else>No entries</kirby-txt>
+        </kirby-box>
+      </kirby-collection>
 
       <kirby-page-create-dialog ref="create" />
       <kirby-page-url-dialog    ref="url"    @success="fetch" />
@@ -54,13 +57,16 @@ export default {
   },
   data() {
     return {
-      create: null,
+      add: false,
+      blueprints: [],
       data: [],
       issue: false,
       error: false,
+      group: null,
       headline: null,
       isLoading: true,
       layout: "list",
+      status: null,
       page: 1,
       link: false
     };
@@ -84,9 +90,13 @@ export default {
             return page;
           });
 
-          this.create = response.create;
+          this.add = response.add;
+          this.blueprints = response.blueprints;
           this.pagination = response.pagination;
+          this.status = response.status;
+          this.group = response.group;
           this.headline = response.headline;
+          this.sortable = response.sortable;
           this.layout = response.layout || "list";
           this.link = response.link;
           this.error = response.errors[0];
@@ -97,14 +107,52 @@ export default {
           this.issue = error.message;
         });
     },
-    update(event) {},
+    sort(event) {
+      let type = null;
+
+      if (event.added) {
+        type = "added";
+      }
+
+      if (event.moved) {
+        type = "moved";
+      }
+
+      if (type) {
+        const element = event[type].element;
+        const position = event[type].newIndex + 1;
+
+        this.$api
+          .patch(this.parent + "/" + this.name + "/sort", {
+            page: element.id,
+            status: this.status,
+            position: position
+          })
+          .then(response => {
+            this.$store.dispatch("success", "Sorted!");
+          })
+          .catch(response => {
+            this.$store.dispatch("error", response.message);
+            this.$events.$emit("page.changeStatus");
+          });
+      }
+    },
     action(page, action) {
       switch (action) {
         case "preview":
           window.open(page.url);
           break;
         case "create":
-          this.$refs.create.open(this.parent, this.name, this.create);
+          this.$refs.create.open(
+            this.parent,
+            this.name,
+            this.blueprints.map(blueprint => {
+              return {
+                value: blueprint.name,
+                text: blueprint.title
+              };
+            })
+          );
           break;
         case "url":
           this.$refs.url.open(page.id);

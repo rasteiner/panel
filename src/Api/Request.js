@@ -25,6 +25,7 @@ export default {
         return json;
       })
       .catch(error => {
+        this.running--;
         this.config.onComplete();
         this.config.onError(error);
       });
